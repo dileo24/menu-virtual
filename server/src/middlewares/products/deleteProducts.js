@@ -2,7 +2,7 @@ const { Producto, Op } = require("../../db");
 
 const deleteProduct = async (req, res, next) => {
   try {
-    const id = req.body.id;
+    const id = req.params.id;
     const producto = await Producto.findOne({ where: { id } });
     if (!producto) {
       throw new Error(`No existe el producto con el ID: ${id}`);

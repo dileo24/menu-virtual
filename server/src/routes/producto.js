@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const allProducts = require("../middlewares/products/allProducts");
-const findProductByID = require("../middlewares/products/findProductByID")
+const findProductByID = require("../middlewares/products/findProductByID");
 const createProduct = require("../middlewares/products/createProducts");
 const updateProduct = require("../middlewares/products/updateProducts");
 const deleteProduct = require("../middlewares/products/deleteProducts");
@@ -24,7 +24,7 @@ router.put("/:id", updateProduct, async (req, res) => {
   return res.json(req.body.resultado);
 });
 
-router.delete("/", deleteProduct, async (req, res) => {
+router.delete("/:id", deleteProduct, async (req, res) => {
   return res.json(req.body.resultado);
 });
 
