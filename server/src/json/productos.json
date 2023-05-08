@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Bife a la plancha con papas",
+    "descripcion": "Descripcion del producto",
+    "precio": "2500"
+  },
+  {
+    "nombre": "Papas Bravas (para 2)",
+    "descripcion": "Descripcion del producto",
+    "precio": "1500"
+  },
+  {
+    "nombre": "Lomito Completo Premium",
+    "descripcion": "Descripcion del producto",
+    "precio": "2000"
+  },
+  {
+    "nombre": "Pizza Fugazzeta (8 porciones)",
+    "descripcion": "Descripcion del producto",
+    "precio": "1500"
+  },
+  {
+    "nombre": "Fajitas de Ternera (para 4)",
+    "descripcion": "Descripcion del producto",
+    "precio": "5300"
+  },
+  {
+    "nombre": "Hamburguesa Americana Doble",
+    "descripcion": "Descripcion del producto",
+    "precio": "1800"
+  }
+]
