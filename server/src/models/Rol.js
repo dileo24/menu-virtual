@@ -3,18 +3,24 @@ const { DataTypes } = require("sequelize");
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("Rol", {
-    //id se crea automatico
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      unique: true,
-      autoIncrement: true,
+  sequelize.define(
+    "Rol",
+    {
+      //id se crea automatico
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        unique: true,
+        autoIncrement: true,
+      },
+      rol: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
     },
-    rol: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-  });
+    {
+      timestamps: false,
+    }
+  );
 };

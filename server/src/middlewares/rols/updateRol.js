@@ -15,11 +15,11 @@ const updateRol = async (req, res, next) => {
       );
       req.body.resultado = {
         status: "200",
-        respuesta: `El Rol ${rol} se ah actualizado exitosamente`,
+        respuesta: `El Rol ${rol} se ha actualizado exitosamente`,
       };
       next();
     } else {
-      throw new Error(`Usuario con el ${id} no se ah encontrado`);
+      throw new Error(`Usuario con el ${id} no se ha encontrado`);
     }
   } catch (err) {
     console.log("error en updateUser");

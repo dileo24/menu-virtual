@@ -18,7 +18,7 @@ const createProduct = async (req, res, next) => {
     });
     req.body.resultado = {
       status: "200",
-      respuesta: `el Producto ${nombre} se ah creado exitosamente`,
+      respuesta: `el Producto ${nombre} se ha creado exitosamente`,
     };
 
     next();

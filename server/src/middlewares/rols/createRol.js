@@ -15,7 +15,7 @@ const createRol = async (req, res, next) => {
     });
     req.body.resultado = {
       status: "200",
-      respuesta: `el Rol ${rol} se ah creado exitosamente`,
+      respuesta: `el Rol ${rol} se ha creado exitosamente`,
     };
     next();
   } catch (err) {

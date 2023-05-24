@@ -2,8 +2,8 @@ const { Usuario, Rol, Empresa, Op } = require("../../db");
 
 const createUser = async (req, res, next) => {
   try {
-    let { nombre, apellido, email } = req.body;
-    let { rolID, empresaID } = req.body;
+    let { nombre, apellido, email, clave } = req.body;
+    let { rolID } = req.body;
     //control de Primera letra en Mayusculas y las demas en Minuscula
     nombre = nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
     apellido = apellido[0].toUpperCase() + apellido.slice(1).toLowerCase();
@@ -11,7 +11,6 @@ const createUser = async (req, res, next) => {
     const elRol = await Rol.findOne({
       where: { id: rolID },
     });
-    const laEmpresa = await Empresa.findByPk(empresaID);
 
     if (typeof nombre !== "string" || nombre === undefined) {
       throw new Error(
@@ -30,7 +29,8 @@ const createUser = async (req, res, next) => {
     if (
       typeof nombre === "string" &&
       typeof apellido === "string" &&
-      typeof email === "string"
+      typeof email === "string" &&
+      typeof clave === "string"
     ) {
       let newUser = await Usuario.findOne({
         where: { email },
@@ -40,14 +40,12 @@ const createUser = async (req, res, next) => {
           nombre,
           apellido,
           email,
-          clave: nombre + apellido,
+          clave,
         });
       }
       await newUser.setRol(elRol);
-      await laEmpresa.addUsuario(newUser);
       req.body.resultado = {
-        status: "200",
-        respuesta: `el Usuario ${nombre} ${apellido} con email: ${email} y con el rol ${elRol.rol} se ah creado exitosamente!, asociado a la Empresa: ${laEmpresa.nombre}`,
+        respuesta: `el Usuario ${nombre} ${apellido} con email: ${email} y con el rol ${elRol.rol} se ha creado exitosamente!`,
       };
       next();
     } else {

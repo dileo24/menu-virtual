@@ -17,11 +17,11 @@ const updateProduct = async (req, res, next) => {
       );
       req.body.resultado = {
         status: "200",
-        respuesta: `El producto ${nombre} se ah actualizado exitosamente`,
+        respuesta: `El producto ${nombre} se ha actualizado exitosamente`,
       };
       next();
     } else {
-      throw new Error(`producto con el ${id} no se ah encontrado`);
+      throw new Error(`producto con el ${id} no se ha encontrado`);
     }
   } catch (err) {
     console.log("error en updateProduct");

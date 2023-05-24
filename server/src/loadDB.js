@@ -1,5 +1,13 @@
 const producto = require("./json/productos.json");
-const { Producto } = require("./db.js");
+const roles = require("./json/roles.json");
+const usuario = require("./json/usuarios.json");
+const { Producto, Rol, Usuario } = require("./db.js");
+
+async function fnRols() {
+  for (const r of roles) {
+    await Rol.create(r);
+  }
+}
 
 async function fnProducto() {
   for (const p of producto) {
@@ -13,4 +21,5 @@ async function fnProducto() {
 
 module.exports = {
   fnProducto,
+  fnRols,
 };
