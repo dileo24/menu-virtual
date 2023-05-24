@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Producto",
     {
-      //id se crea automatico
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

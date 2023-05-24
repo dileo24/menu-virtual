@@ -1,4 +1,4 @@
-const { Producto, Subcategoria, Deposito, Op } = require("../../db");
+const { Producto } = require("../../db");
 
 const updateProduct = async (req, res, next) => {
   try {

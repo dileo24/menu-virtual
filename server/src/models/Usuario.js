@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
   sequelize.define(
     "Usuario",
     {
-      //id se crea automatico
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -43,14 +42,14 @@ module.exports = (sequelize) => {
         },
       },
       imagen: {
-        type: DataTypes.TEXT, //puse .text para que cuando se ponga una imagen me permita mas caracteres para poner un link largo
+        type: DataTypes.TEXT,
         allowNull: true,
         defaultValue: "https://www.softzone.es/app/uploads/2018/04/guest.png",
       },
       bloqueo: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
-        defaultValue: false, //El default es por si no le pasan algo por body, setea ese valor por defecto
+        defaultValue: false,
       },
     },
     {

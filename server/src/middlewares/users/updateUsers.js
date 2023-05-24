@@ -1,4 +1,4 @@
-const { Usuario, Rol, Op } = require("../../db");
+const { Usuario, Rol } = require("../../db");
 
 const updateUser = async (req, res, next) => {
   try {

@@ -1,4 +1,4 @@
-const { Usuario, Op } = require("../../db");
+const { Usuario } = require("../../db");
 
 const deleteUser = async (req, res, next) => {
   try {

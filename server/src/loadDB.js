@@ -1,7 +1,6 @@
 const producto = require("./json/productos.json");
 const roles = require("./json/roles.json");
-const usuario = require("./json/usuarios.json");
-const { Producto, Rol, Usuario } = require("./db.js");
+const { Producto, Rol } = require("./db.js");
 
 async function fnRols() {
   for (const r of roles) {
@@ -11,7 +10,7 @@ async function fnRols() {
 
 async function fnProducto() {
   for (const p of producto) {
-    const newProduct = await Producto.create({
+    await Producto.create({
       nombre: p.nombre,
       descripcion: p.descripcion,
       precio: p.precio,

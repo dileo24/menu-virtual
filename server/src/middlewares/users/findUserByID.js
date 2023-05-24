@@ -1,4 +1,4 @@
-const { Usuario, Op } = require("../../db");
+const { Usuario } = require("../../db");
 
 const findUserByID = async (req, res, next) => {
   try {

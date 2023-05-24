@@ -16,7 +16,6 @@ router.get("/:id", findProductByID, async (req, res) => {
 });
 
 router.post("/", createProduct, async (req, res) => {
-  /* console.log("holis"); */
   return res.status(200).send(req.body.resultado);
 });
 
