@@ -19,7 +19,7 @@ import { mostrarAlerta, ningunInputVacio } from "./funciones.js";
     const parametrosURL = new URLSearchParams(window.location.search);
     const idplatillo = parseInt(parametrosURL.get("id"));
     const platillo = await obtenerplatillo(idplatillo);
-    const platilloResult = platillo.resultado;
+    const platilloResult = platillo;
     mostrarPlatillo(platilloResult);
     formulario.addEventListener("submit", validarPlatillo);
   });

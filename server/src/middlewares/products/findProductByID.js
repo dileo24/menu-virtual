@@ -3,10 +3,7 @@ const { Producto } = require("../../db");
 const findProductByID = async (req, res, next) => {
   try {
     const id = req.params.id;
-    req.body.productById = {
-      status: 200,
-      resultado: await Producto.findOne({ where: { id } }),
-    };
+    req.body.productById = await Producto.findOne({ where: { id } });
     next();
   } catch (err) {
     console.log("error en findProductByID");
