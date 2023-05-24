@@ -1,9 +1,11 @@
 const { Usuario, Rol } = require("../../db");
+const { encrypt } = require("../../helpers/handleCrypt");
 
 const createUser = async (req, res, next) => {
   try {
     let { nombre, apellido, email, clave } = req.body;
     let { rolID } = req.body;
+    const claveHash = await encrypt(clave);
 
     nombre = nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
     apellido = apellido[0].toUpperCase() + apellido.slice(1).toLowerCase();
@@ -40,7 +42,7 @@ const createUser = async (req, res, next) => {
           nombre,
           apellido,
           email,
-          clave,
+          clave: claveHash,
         });
       }
       await newUser.setRol(elRol);

@@ -34,12 +34,12 @@ module.exports = (sequelize) => {
       clave: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
+        /* validate: {
           len: {
             args: [5, 20],
             msg: "La Clave debe ser entre 5 a 20 caracteres",
           },
-        },
+        }, */
       },
       imagen: {
         type: DataTypes.TEXT,
