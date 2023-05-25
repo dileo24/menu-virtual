@@ -5,10 +5,12 @@ const createUser = require("../middlewares/users/createUser");
 const updateUsers = require("../middlewares/users/updateUsers");
 const deleteUser = require("../middlewares/users/deleteUser");
 const findUserByID = require("../middlewares/users/findUserByID");
+const checkAuth = require("../middlewares/auth/auth");
+const checkRoleAuth = require("../middlewares/auth/roleAuth");
 
 const router = Router();
 
-router.get("/", allUsers, async (req, res) => {
+router.get("/", checkAuth, checkRoleAuth([2]), allUsers, async (req, res) => {
   return res.json(req.body.allUsers);
 });
 router.post("/login", login, async (req, res) => {
