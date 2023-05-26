@@ -9,17 +9,13 @@ export default function Aside() {
     var url = window.location.href;
     var urlSplit = url.split("/");
     var ultimoAtributo = urlSplit[urlSplit.length - 1];
-
     // Obtener los botones
     const platillos = document.querySelector(".platillos");
     const nuevoPlatillo = document.querySelector(".nuevoPlatillo");
-
     // Condición según el último atributo del url
-    if (ultimoAtributo === "editarPlatillo") {
-      return;
-    } else if (ultimoAtributo === "nuevoPlatillo") {
+    if (ultimoAtributo === "nuevoPlatillo") {
       nuevoPlatillo.classList.add("bg-teal-700");
-    } else {
+    } else if (ultimoAtributo === "") {
       platillos.classList.add("bg-teal-700");
     }
   }, []);
