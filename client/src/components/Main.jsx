@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  nuevoProducto,
-  mostrarAlerta,
-  ningunInputVacio,
-  editarProducto,
-} from "../helpers";
+// import {
+//   nuevoProducto,
+//   mostrarAlerta,
+//   ningunInputVacio,
+//   editarProducto,
+// } from "../helpers";
 
 export default function Main({
   nombre,
@@ -13,6 +13,7 @@ export default function Main({
   setDescripcion,
   precio,
   setPrecio,
+  onSubmit,
 }) {
   const [titulo, setTitulo] = useState("");
 
@@ -125,7 +126,7 @@ export default function Main({
                     ? "Crear Producto"
                     : "Guardar cambios"
                 }
-                // onClick={handleSubmit}
+                onClick={onSubmit}
               />
             </form>
           </div>

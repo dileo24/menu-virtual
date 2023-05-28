@@ -60,6 +60,7 @@ export default function EditarProductos() {
       mostrarAlerta("Producto editado con éxito", "exito");
     } else {
       mostrarAlerta("Error: Hay algún campo vacío", "error");
+      console.log(producto);
     }
   }
 
@@ -76,6 +77,7 @@ export default function EditarProductos() {
           setPrecio={setPrecio}
           id={id}
           setId={setId}
+          onSubmit={validarProducto}
         />
       </div>
     </div>
