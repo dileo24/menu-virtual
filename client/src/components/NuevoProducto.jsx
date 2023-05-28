@@ -4,6 +4,7 @@ import Main from "./Main";
 import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../helpers";
 
 export default function NuevoProducto() {
+  const titulo = "Nuevo Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -42,6 +43,7 @@ export default function NuevoProducto() {
           precio={precio}
           setPrecio={setPrecio}
           onSubmit={validarProducto}
+          titulo={titulo}
         />
       </div>
     </div>
