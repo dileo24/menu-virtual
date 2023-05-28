@@ -1,4 +1,4 @@
-const { Usuario, Op } = require("../../db");
+const { Usuario } = require("../../db");
 
 const deleteUser = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ const deleteUser = async (req, res, next) => {
     await Usuario.destroy({ where: { id: usuario.id } });
     req.body.eliminado = {
       status: 200,
-      resultado: `el Rol: ${usuario.nombre}, con ID: ${usuario.id} ah sido eliminado`,
+      resultado: `el usuario: ${usuario.nombre}, con ID: ${usuario.id} ah sido eliminado`,
     };
     next();
   } catch (err) {

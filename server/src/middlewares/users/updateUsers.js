@@ -1,4 +1,4 @@
-const { Usuario, Rol, Op } = require("../../db");
+const { Usuario, Rol } = require("../../db");
 
 const updateUser = async (req, res, next) => {
   try {
@@ -22,7 +22,7 @@ const updateUser = async (req, res, next) => {
       }
       req.body.resultado = {
         status: "200",
-        respuesta: `el Usuario se ah actualizado exitosamente por el ${
+        respuesta: `el Usuario se ha actualizado exitosamente por el ${
           nombre ? `nombre: ${nombre} ` : ""
         }${apellido ? `apellido: ${apellido} ` : ""}${
           email ? `email: ${email} ` : ""
@@ -30,7 +30,7 @@ const updateUser = async (req, res, next) => {
       };
       next();
     } else {
-      throw new Error(`Usuario con el ID: ${id} no se ah encontrado`);
+      throw new Error(`Usuario con el ID: ${id} no se ha encontrado`);
     }
   } catch (err) {
     console.log("error en updateUser");

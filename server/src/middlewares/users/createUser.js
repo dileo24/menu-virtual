@@ -1,17 +1,18 @@
-const { Usuario, Rol, Empresa, Op } = require("../../db");
+const { Usuario, Rol } = require("../../db");
+const { encrypt } = require("../../helpers/handleCrypt");
 
 const createUser = async (req, res, next) => {
   try {
-    let { nombre, apellido, email } = req.body;
-    let { rolID, empresaID } = req.body;
-    //control de Primera letra en Mayusculas y las demas en Minuscula
+    let { nombre, apellido, email, clave } = req.body;
+    let { rolID } = req.body;
+    const claveHash = await encrypt(clave);
+
     nombre = nombre[0].toUpperCase() + nombre.slice(1).toLowerCase();
     apellido = apellido[0].toUpperCase() + apellido.slice(1).toLowerCase();
     email = email.toLowerCase();
     const elRol = await Rol.findOne({
       where: { id: rolID },
     });
-    const laEmpresa = await Empresa.findByPk(empresaID);
 
     if (typeof nombre !== "string" || nombre === undefined) {
       throw new Error(
@@ -30,7 +31,8 @@ const createUser = async (req, res, next) => {
     if (
       typeof nombre === "string" &&
       typeof apellido === "string" &&
-      typeof email === "string"
+      typeof email === "string" &&
+      typeof clave === "string"
     ) {
       let newUser = await Usuario.findOne({
         where: { email },
@@ -40,14 +42,12 @@ const createUser = async (req, res, next) => {
           nombre,
           apellido,
           email,
-          clave: nombre + apellido,
+          clave: claveHash,
         });
       }
       await newUser.setRol(elRol);
-      await laEmpresa.addUsuario(newUser);
       req.body.resultado = {
-        status: "200",
-        respuesta: `el Usuario ${nombre} ${apellido} con email: ${email} y con el rol ${elRol.rol} se ah creado exitosamente!, asociado a la Empresa: ${laEmpresa.nombre}`,
+        respuesta: `el Usuario ${nombre} ${apellido} con email: ${email} y con el rol ${elRol.rol} se ha creado exitosamente!`,
       };
       next();
     } else {
@@ -61,24 +61,3 @@ const createUser = async (req, res, next) => {
 };
 
 module.exports = createUser;
-
-// if (
-//   typeof nombre === "string" &&
-//   typeof apellido === "string" &&
-//   typeof email === "string" &&
-//   typeof clave === "string"
-// ) {
-//   const newUser = await Usuario.create({
-//     where: { email },
-//     defaults: {
-//       nombre,
-//       apellido,
-//       email,
-//       clave,
-//     },
-//   });
-//   // console.log("Usuario", newUser)
-//   // console.log("ROL",elRol);
-//   // console.log("EMPRESA",laEmpresa);
-//   await newUser.setRols(elRol);
-//   await newUser.setEmpresa(laEmpresa);

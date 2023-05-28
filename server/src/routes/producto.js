@@ -4,6 +4,7 @@ const findProductByID = require("../middlewares/products/findProductByID");
 const createProduct = require("../middlewares/products/createProducts");
 const updateProduct = require("../middlewares/products/updateProducts");
 const deleteProduct = require("../middlewares/products/deleteProducts");
+const jwt = require("jsonwebtoken");
 
 const router = Router();
 
@@ -16,7 +17,6 @@ router.get("/:id", findProductByID, async (req, res) => {
 });
 
 router.post("/", createProduct, async (req, res) => {
-  /* console.log("holis"); */
   return res.status(200).send(req.body.resultado);
 });
 
