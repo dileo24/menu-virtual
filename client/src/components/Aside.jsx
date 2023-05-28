@@ -1,8 +1,25 @@
-import React from "react";
+import React /* useState  */ from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { cleanUserActual } from "../redux/actions";
+/* import ModalLogin from "./ModalLogin"; */
 
 export default function Aside() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const userActual = useSelector((state) => state.userActual);
+
+  const cerrarSesion = () => {
+    let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
+    if (res === true) {
+      dispatch(cleanUserActual(userActual.data.id));
+    }
+    navigate("/");
+  };
+
+  console.log(userActual);
+
   // Cambiar background de los botones, dependiendo la página que se esté mostrando
   useEffect(() => {
     // Obtener el último atributo de la URL
@@ -25,6 +42,11 @@ export default function Aside() {
       <h1 className="uppercase text-white tracking-wide text-2xl font-bold mt-2">
         Menú Virtual
       </h1>
+      {userActual?.data?.nombre && (
+        <h1 className="uppercase text-white tracking-wide text-2xl font-bold mt-2">
+          Bienvenido {userActual.data.nombre}
+        </h1>
+      )}
       <p className="mt-10 text-white">Administra tus productos</p>
       <nav className="mt-8">
         <Link
@@ -39,6 +61,19 @@ export default function Aside() {
         >
           Nuevo producto
         </Link>
+
+        <Link
+          to="/login"
+          className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+        >
+          Iniciar Sesión
+        </Link>
+        <button
+          onClick={cerrarSesion}
+          className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+        >
+          Cerrar sesión
+        </button>
       </nav>
     </aside>
   );

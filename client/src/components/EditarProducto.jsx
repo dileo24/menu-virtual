@@ -9,7 +9,6 @@ import {
 } from "../helpers";
 
 export default function EditarProductos() {
-  const titulo = "Editar Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -71,7 +70,6 @@ export default function EditarProductos() {
           id={id}
           setId={setId}
           onSubmit={validarProducto}
-          titulo={titulo}
         />
       </div>
     </div>
