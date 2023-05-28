@@ -15,10 +15,10 @@ export default function Productos() {
     setProductos(productosData);
   }
 
-  function handleEliminarProducto(id) {
+  async function handleEliminarProducto(id) {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
     if (confirmarBorrado) {
-      eliminarProducto(id);
+      await eliminarProducto(id);
       mostrarProductos();
     }
   }

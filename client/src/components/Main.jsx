@@ -1,10 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import {
-//   nuevoProducto,
-//   mostrarAlerta,
-//   ningunInputVacio,
-//   editarProducto,
-// } from "../helpers";
 
 export default function Main({
   nombre,
@@ -31,29 +25,6 @@ export default function Main({
       setTitulo(tituloElement.textContent);
     }
   }, []);
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const titulo = document.querySelector(".titulo");
-  //   const nombreValue = document.querySelector("#nombre").value;
-  //   const descripcionValue = document.querySelector("#descripcion").value;
-  //   const precioValue = document.querySelector("#precio").value;
-  //   const producto = {
-  //     nombre: nombreValue,
-  //     descripcion: descripcionValue,
-  //     precio: precioValue,
-  //   };
-  //   if (!ningunInputVacio(producto)) {
-  //     return mostrarAlerta("Error: Hay algún campo vacío", "error");
-  //   }
-  //   if (titulo.textContent === "Nuevo Producto") {
-  //     nuevoProducto(producto);
-  //     mostrarAlerta("Producto agregado con éxito", "exito");
-  //   } else {
-  //     editarProducto(producto);
-  //     mostrarAlerta("Producto actualizado con éxito", "exito");
-  //   }
-  // }
 
   return (
     <main className="md:w-3/5  xl:w-4/5 px-5 py-10 bg-gray-200">
