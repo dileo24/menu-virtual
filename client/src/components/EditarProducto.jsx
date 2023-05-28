@@ -26,14 +26,6 @@ export default function EditarProductos() {
       .catch((error) => {
         console.log(error);
       });
-
-    // Agregar el evento de submit al formulario
-    const formulario = document.querySelector("#formulario");
-    formulario.addEventListener("submit", validarProducto);
-
-    return () => {
-      formulario.removeEventListener("submit", validarProducto);
-    };
   }, []);
 
   // Mostrar los datos del producto en el formulario
