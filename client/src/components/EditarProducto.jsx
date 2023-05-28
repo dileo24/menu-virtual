@@ -9,6 +9,7 @@ import {
 } from "../helpers";
 
 export default function EditarProductos() {
+  const titulo = "Editar Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -26,14 +27,6 @@ export default function EditarProductos() {
       .catch((error) => {
         console.log(error);
       });
-
-    // Agregar el evento de submit al formulario
-    const formulario = document.querySelector("#formulario");
-    formulario.addEventListener("submit", validarProducto);
-
-    return () => {
-      formulario.removeEventListener("submit", validarProducto);
-    };
   }, []);
 
   // Mostrar los datos del producto en el formulario
@@ -78,6 +71,7 @@ export default function EditarProductos() {
           id={id}
           setId={setId}
           onSubmit={validarProducto}
+          titulo={titulo}
         />
       </div>
     </div>
