@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
-import { obtenerplatillos, eliminarplatillo } from "../helpers";
+import { obtenerProductos, eliminarProducto } from "../helpers";
 import { Link } from "react-router-dom";
 
-export default function Platillos() {
-  const [platillos, setPlatillos] = useState([]);
+export default function Productos() {
+  const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    mostrarPlatillos();
+    mostrarProductos();
   }, []);
 
-  async function mostrarPlatillos() {
-    const platillosData = await obtenerplatillos();
-    setPlatillos(platillosData);
+  async function mostrarProductos() {
+    const productosData = await obtenerProductos();
+    setProductos(productosData);
   }
 
-  function handleEliminarPlatillo(id) {
+  function handleEliminarProducto(id) {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
     if (confirmarBorrado) {
-      eliminarplatillo(id);
-      mostrarPlatillos();
+      eliminarProducto(id);
+      mostrarProductos();
     }
   }
 
   return (
-    <div id="platillos" className="min-h-100 bg-gray-200">
+    <div id="productos" className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
         <Aside />
         <main className="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200">
@@ -37,7 +37,7 @@ export default function Platillos() {
                   <thead className="bg-gray-100">
                     <tr>
                       <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                        Platillo
+                        Productos
                       </th>
                       <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                         Descripción
@@ -51,7 +51,7 @@ export default function Platillos() {
                     </tr>
                   </thead>
                   <tbody className="bg-white">
-                    {platillos.map(({ nombre, descripcion, precio, id }) => (
+                    {productos.map(({ nombre, descripcion, precio, id }) => (
                       <tr key={id}>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                           <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
@@ -66,13 +66,13 @@ export default function Platillos() {
                         </td>
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                           <Link
-                            to={`/editarPlatillo?id=${id}`}
+                            to={`/editarProducto?id=${id}`}
                             className="text-teal-600 hover:text-teal-900 mr-5"
                           >
                             Editar
                           </Link>
                           <button
-                            onClick={() => handleEliminarPlatillo(id)}
+                            onClick={() => handleEliminarProducto(id)}
                             className="text-red-600 hover:text-red-900 eliminar"
                           >
                             Eliminar

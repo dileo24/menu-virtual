@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  nuevoPlatillo,
+  nuevoProducto,
   mostrarAlerta,
   ningunInputVacio,
-  editarPlatillo,
+  editarProducto,
 } from "../helpers";
 
 export default function Main({
@@ -22,37 +22,37 @@ export default function Main({
     const ultimoAtributo = urlSplit[urlSplit.length - 1];
     const tituloElement = document.querySelector(".titulo");
     if (tituloElement) {
-      if (ultimoAtributo === "nuevoPlatillo") {
-        tituloElement.textContent = "Nuevo Platillo";
+      if (ultimoAtributo === "nuevoProducto") {
+        tituloElement.textContent = "Nuevo Producto";
       } else {
-        tituloElement.textContent = "Editar Platillo";
+        tituloElement.textContent = "Editar Producto";
       }
       setTitulo(tituloElement.textContent);
     }
   }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const titulo = document.querySelector(".titulo");
-    const nombreValue = document.querySelector("#nombre").value;
-    const descripcionValue = document.querySelector("#descripcion").value;
-    const precioValue = document.querySelector("#precio").value;
-    const platillo = {
-      nombre: nombreValue,
-      descripcion: descripcionValue,
-      precio: precioValue,
-    };
-    if (!ningunInputVacio(platillo)) {
-      return mostrarAlerta("Error: Hay algún campo vacío", "error");
-    }
-    if (titulo.textContent === "Nuevo Platillo") {
-      nuevoPlatillo(platillo);
-      mostrarAlerta("Platillo agregado con éxito", "exito");
-    } else {
-      editarPlatillo(platillo);
-      mostrarAlerta("Platillo actualizado con éxito", "exito");
-    }
-  }
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const titulo = document.querySelector(".titulo");
+  //   const nombreValue = document.querySelector("#nombre").value;
+  //   const descripcionValue = document.querySelector("#descripcion").value;
+  //   const precioValue = document.querySelector("#precio").value;
+  //   const producto = {
+  //     nombre: nombreValue,
+  //     descripcion: descripcionValue,
+  //     precio: precioValue,
+  //   };
+  //   if (!ningunInputVacio(producto)) {
+  //     return mostrarAlerta("Error: Hay algún campo vacío", "error");
+  //   }
+  //   if (titulo.textContent === "Nuevo Producto") {
+  //     nuevoProducto(producto);
+  //     mostrarAlerta("Producto agregado con éxito", "exito");
+  //   } else {
+  //     editarProducto(producto);
+  //     mostrarAlerta("Producto actualizado con éxito", "exito");
+  //   }
+  // }
 
   return (
     <main className="md:w-3/5  xl:w-4/5 px-5 py-10 bg-gray-200">
@@ -73,7 +73,7 @@ export default function Main({
                   id="nombre"
                   name="nombre"
                   type="text"
-                  placeholder="Nombre del platillo"
+                  placeholder="Nombre del producto"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                 />
@@ -91,7 +91,7 @@ export default function Main({
                   id="descripcion"
                   name="descripcion"
                   type="text"
-                  placeholder="Descripción del platillo"
+                  placeholder="Descripción del producto"
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
@@ -109,21 +109,23 @@ export default function Main({
                   id="precio"
                   name="precio"
                   type="text"
-                  placeholder="Precio del platillo"
+                  placeholder="Precio del producto"
                   value={precio}
                   onChange={(e) => setPrecio(e.target.value)}
                 />
               </div>
 
+              <input type="hidden" name="id" id="id" value="" />
+
               <input
                 type="submit"
                 className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer"
                 value={
-                  titulo === "Nuevo Platillo"
-                    ? "Crear Platillo"
+                  titulo === "Nuevo Producto"
+                    ? "Crear Producto"
                     : "Guardar cambios"
                 }
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
               />
             </form>
           </div>

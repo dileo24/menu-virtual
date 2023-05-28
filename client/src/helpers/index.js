@@ -2,12 +2,12 @@
 
 const url = "http://localhost:3001/productos";
 
-// CREACION el nuevo platillo en la BDD cuando se crea un nuevo platillo:
-export const nuevoPlatillo = (platillo) => {
+// CREACION el nuevo producto en la BDD cuando se crea un nuevo producto:
+export const nuevoProducto = (producto) => {
   try {
     fetch(url, {
       method: "POST",
-      body: JSON.stringify(platillo),
+      body: JSON.stringify(producto),
       headers: {
         "Content-Type": "application/json",
       },
@@ -17,22 +17,22 @@ export const nuevoPlatillo = (platillo) => {
   }
 };
 
-// LISTADO todos los platillos de la API
-export const obtenerplatillos = async () => {
+// LISTADO todos los productos de la API
+export const obtenerProductos = async () => {
   try {
     const resultado = await fetch(url);
-    const platillos = await resultado.json();
-    return platillos;
+    const productos = await resultado.json();
+    return productos;
   } catch (error) {
     console.log(error);
   }
 };
 
-// ELIMINACION un platillo
+// ELIMINACION un producto
 
-export const eliminarplatillo = async (idplatillo) => {
+export const eliminarProducto = async (idProducto) => {
   try {
-    await fetch(`${url}/${idplatillo}`, {
+    await fetch(`${url}/${idProducto}`, {
       method: "DELETE",
     });
   } catch (error) {
@@ -40,23 +40,23 @@ export const eliminarplatillo = async (idplatillo) => {
   }
 };
 
-// Obtener un platillo por su ID
-export const obtenerplatillo = async (id) => {
+// Obtener un producto por su ID
+export const obtenerProducto = async (id) => {
   try {
     const resultado = await fetch(`${url}/${id}`);
-    const platillo = await resultado.json();
-    return platillo;
+    const producto = await resultado.json();
+    return producto;
   } catch (error) {
     console.log(error);
   }
 };
 
-// Actualizar el platillo editado
-export const editarPlatillo = async (platillo) => {
+// Actualizar el producto editado
+export const editarProducto = async (producto) => {
   try {
-    await fetch(`${url}/${platillo.id}`, {
+    await fetch(`${url}/${producto.id}`, {
       method: "PUT",
-      body: JSON.stringify(platillo),
+      body: JSON.stringify(producto),
       headers: {
         "Content-Type": "application/json",
       },

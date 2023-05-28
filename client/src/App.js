@@ -1,15 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Platillos from "./components/Platillos";
-import NuevoPlatillo from "./components/NuevoPlatillo";
-import EditarPlatillo from "./components/EditarPlatillo";
+import Productos from "./components/Productos";
+import NuevoProducto from "./components/NuevoProducto";
+import EditarProducto from "./components/EditarProducto";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Platillos />} />
-        <Route exact path="/nuevoPlatillo" element={<NuevoPlatillo />} />
-        <Route exact path="/editarPlatillo" element={<EditarPlatillo />} />
+        <Route exact path="/" element={<Productos />} />
+        <Route exact path="/nuevoProducto" element={<NuevoProducto />} />
+        <Route exact path="/editarProducto" element={<EditarProducto />} />
       </Routes>
     </div>
   );
