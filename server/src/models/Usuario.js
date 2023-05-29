@@ -41,11 +41,11 @@ module.exports = (sequelize) => {
           },
         }, */
       },
-      imagen: {
+      /* imagen: {
         type: DataTypes.TEXT,
         allowNull: true,
         defaultValue: "https://www.softzone.es/app/uploads/2018/04/guest.png",
-      },
+      }, */
       bloqueo: {
         type: DataTypes.BOOLEAN,
         allowNull: true,

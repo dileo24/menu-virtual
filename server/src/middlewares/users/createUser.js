@@ -1,4 +1,5 @@
 const { Usuario, Rol } = require("../../db");
+const { tokenSign } = require("../../helpers/generateToken");
 const { encrypt } = require("../../helpers/handleCrypt");
 
 const createUser = async (req, res, next) => {
@@ -46,8 +47,17 @@ const createUser = async (req, res, next) => {
         });
       }
       await newUser.setRol(elRol);
+
+      const tokenSession = await tokenSign(newUser);
+
       req.body.resultado = {
-        respuesta: `el Usuario ${nombre} ${apellido} con email: ${email} y con el rol ${elRol.rol} se ha creado exitosamente!`,
+        data: {
+          nombre: newUser.nombre,
+          apellido: newUser.apellido,
+          email: newUser.email,
+          rol: elRol.id,
+        },
+        tokenSession,
       };
       next();
     } else {
