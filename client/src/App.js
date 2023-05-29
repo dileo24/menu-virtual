@@ -6,6 +6,7 @@ import ModalLogin from "./components/ModalLogin";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ModalRegister from "./components/ModalRegister";
+import Usuarios from "./components/Usuarios";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
@@ -17,20 +18,19 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
-          <>
-            <Route exact path="/nuevoProducto" element={<NuevoProducto />} />
-            <Route exact path="/editarProducto" element={<EditarProducto />} />
-          </>
-        ) : (
-          //hacer una página para cuando no se tiene permiso de ingresar
-          ""
-        )}
+          (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
+            <>
+              <Route path="/nuevoProducto" element={<NuevoProducto />} />
+              <Route path="/editarProducto" element={<EditarProducto />} />
+            </>
+          )}
         {userActual && userActual.data.RolId === 1 && (
-          <Route exact path="/register" element={<ModalRegister />} />
+          <>
+            <Route path="/register" element={<ModalRegister />} />
+            <Route path="/Usuarios" element={<Usuarios />} />
+          </>
         )}
-        <Route exact path="/login" element={<ModalLogin />} />
-
+        <Route path="/login" element={<ModalLogin />} />
       </Routes>
     </div>
   );

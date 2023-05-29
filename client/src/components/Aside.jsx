@@ -64,12 +64,21 @@ export default function Aside() {
             </Link>
           )}
         {userActual && userActual.data.RolId === 1 && (
-          <Link
-            to="/register"
-            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-          >
-            Crear cuenta para empleado
-          </Link>
+          <>
+            {" "}
+            <Link
+              to="/register"
+              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Crear cuenta para empleado
+            </Link>
+            <Link
+              to="/usuarios"
+              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Administrar usuarios
+            </Link>
+          </>
         )}
         {!userActual ? (
           <Link

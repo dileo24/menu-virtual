@@ -3,6 +3,7 @@ import { GET_USER_ACTUAL, CLEAN_USER_ACTUAL, GET_USUARIOS } from "./actions.js";
 const initialState = {
   userActual: null,
   usuarios: [],
+  carrito: [],
 };
 
 function rootReducer(state = initialState, action) {
