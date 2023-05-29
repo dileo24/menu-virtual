@@ -10,9 +10,14 @@ const checkRoleAuth = require("../middlewares/auth/roleAuth");
 
 const router = Router();
 
-router.get("/", checkAuth, checkRoleAuth([2]), allUsers, async (req, res) => {
-  return res.json(req.body.allUsers);
-});
+router.get(
+  "/",
+  /*  checkAuth, */
+  /* checkRoleAuth([2]), */ allUsers,
+  async (req, res) => {
+    return res.json(req.body.allUsers);
+  }
+);
 router.post("/login", login, async (req, res) => {
   return res.json(req.body);
 });
@@ -20,6 +25,7 @@ router.post("/login", login, async (req, res) => {
 router.post("/register", createUser, async (req, res) => {
   return res.status(200).send(req.body.resultado);
 });
+
 router.get("/:id", findUserByID, async (req, res) => {
   return res.json(req.body.findUserByID);
 });
