@@ -18,8 +18,6 @@ export default function Aside() {
     navigate("/");
   };
 
-  console.log(userActual);
-
   // Cambiar background de los botones, dependiendo la página que se esté mostrando
   useEffect(() => {
     // Obtener el último atributo de la URL

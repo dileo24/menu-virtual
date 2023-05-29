@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import Aside from "./Aside";
 import Main from "./Main";
 import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../helpers";
+import { useSelector } from "react-redux";
 
 export default function NuevoProducto() {
   const titulo = "Nuevo Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
+  const token = useSelector((state) => state.userActual.tokenSession);
 
   function validarProducto(e) {
     e.preventDefault();
@@ -21,8 +23,7 @@ export default function NuevoProducto() {
     if (!ningunInputVacio(producto)) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
-
-    nuevoProducto(producto);
+    nuevoProducto(producto, token);
     mostrarAlerta("Producto agregado con éxito", "exito");
 
     // Reiniciar los campos del formulario
