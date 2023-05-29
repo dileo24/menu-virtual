@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ModalRegister({ onClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.userActual.tokenSession);
 
   const [input, setInput] = useState({
     nombre: "",
     apellido: "",
     email: "",
     clave: "",
-    rolID: "3",
+    rolID: "2",
   });
 
   const handlerChange = (e) => {
@@ -21,14 +22,18 @@ export default function ModalRegister({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(input);
     dispatch(
-      register({
+      register(
+        input,
+        token /* {
         email: input.email,
         clave: input.clave,
         nombre: input.nombre,
         apellido: input.apellido,
-        rolID: "3",
-      })
+        rolID: "2",
+      } */
+      )
     );
 
     navigate("/");
@@ -84,10 +89,12 @@ export default function ModalRegister({ onClose }) {
               />
             </label>
             <div className="modal-footer">
-              <button type="submit">Registrarse</button>
-              <button type="button" onClick={onClose}>
-                Cancelar
-              </button>
+              <button type="submit">Crear cuenta para empleado</button>
+              <Link to="/">
+                <button type="button" onClick={onClose}>
+                  Cancelar
+                </button>
+              </Link>
             </div>
           </form>
         </div>

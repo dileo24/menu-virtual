@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getUserActual } from "../redux/actions";
 import { useDispatch } from "react-redux";
 
@@ -54,9 +54,11 @@ export default function ModalLogin({ onClose }) {
             </label>
             <div className="modal-footer">
               <button type="submit">Iniciar Sesión</button>
-              <button type="button" onClick={onClose}>
-                Cancelar
-              </button>
+              <Link to="/">
+                <button type="button" onClick={onClose}>
+                  Cancelar
+                </button>
+              </Link>
             </div>
           </form>
         </div>

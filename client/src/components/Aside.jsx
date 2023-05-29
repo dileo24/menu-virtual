@@ -55,28 +55,28 @@ export default function Aside() {
         </Link>
         {userActual &&
           (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
-            <Link
-              to="/nuevoProducto"
-              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-            >
-              Nuevo producto
-            </Link>
+            <>
+              <Link
+                to="/nuevoProducto"
+                className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+              >
+                Nuevo producto
+              </Link>
+              <Link
+                to="/register"
+                className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+              >
+                Crear cuenta para empleado
+              </Link>
+            </>
           )}
         {!userActual ? (
-          <>
-            <Link
-              to="/login"
-              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-            >
-              Iniciar Sesión
-            </Link>
-            <Link
-              to="/register"
-              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-            >
-              Registrarse
-            </Link>
-          </>
+          <Link
+            to="/login"
+            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+          >
+            Iniciar Sesión
+          </Link>
         ) : (
           <button
             onClick={cerrarSesion}

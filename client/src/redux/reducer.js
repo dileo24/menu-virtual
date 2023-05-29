@@ -1,7 +1,8 @@
-import { GET_USER_ACTUAL, CLEAN_USER_ACTUAL } from "./actions.js";
+import { GET_USER_ACTUAL, CLEAN_USER_ACTUAL, GET_USUARIOS } from "./actions.js";
 
 const initialState = {
   userActual: null,
+  usuarios: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -17,6 +18,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userActual: null,
+      };
+
+    case GET_USUARIOS:
+      return {
+        ...state,
+        usuarios: [...action.payload],
       };
 
     default:

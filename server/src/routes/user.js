@@ -22,9 +22,15 @@ router.post("/login", login, async (req, res) => {
   return res.json(req.body);
 });
 
-router.post("/register", createUser, async (req, res) => {
-  return res.status(200).send(req.body.resultado);
-});
+router.post(
+  "/register",
+  checkAuth,
+  checkRoleAuth([1]),
+  createUser,
+  async (req, res) => {
+    return res.status(200).send(req.body.resultado);
+  }
+);
 
 router.get("/:id", findUserByID, async (req, res) => {
   return res.json(req.body.findUserByID);
