@@ -45,7 +45,7 @@ export default function Aside() {
           Bienvenido {userActual.data.nombre}
         </h1>
       )}
-      <p className="mt-10 text-white">Administra tus productos</p>
+      {/* <p className="mt-10 text-white">Administra tus productos</p> */}
       <nav className="mt-8">
         <Link
           to="/"
@@ -53,25 +53,30 @@ export default function Aside() {
         >
           Menú
         </Link>
-        <Link
-          to="/nuevoProducto"
-          className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-        >
-          Nuevo producto
-        </Link>
-
-        <Link
-          to="/login"
-          className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-        >
-          Iniciar Sesión
-        </Link>
-        <button
-          onClick={cerrarSesion}
-          className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-        >
-          Cerrar sesión
-        </button>
+        {userActual &&
+          (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
+            <Link
+              to="/nuevoProducto"
+              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Nuevo producto
+            </Link>
+          )}
+        {!userActual ? (
+          <Link
+            to="/login"
+            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+          >
+            Iniciar Sesión
+          </Link>
+        ) : (
+          <button
+            onClick={cerrarSesion}
+            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+          >
+            Cerrar sesión
+          </button>
+        )}
       </nav>
     </aside>
   );
