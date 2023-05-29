@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { cleanUserActual } from "../redux/actions";
-/* import ModalLogin from "./ModalLogin"; */
 
 export default function Aside() {
   const navigate = useNavigate();
@@ -13,6 +12,7 @@ export default function Aside() {
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
     if (res === true) {
+      /*  localStorage.clear(); */
       dispatch(cleanUserActual(userActual.data.id));
     }
     navigate("/");
@@ -63,12 +63,20 @@ export default function Aside() {
             </Link>
           )}
         {!userActual ? (
-          <Link
-            to="/login"
-            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-          >
-            Iniciar Sesión
-          </Link>
+          <>
+            <Link
+              to="/login"
+              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Iniciar Sesión
+            </Link>
+            <Link
+              to="/register"
+              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Registrarse
+            </Link>
+          </>
         ) : (
           <button
             onClick={cerrarSesion}

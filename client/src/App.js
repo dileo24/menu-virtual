@@ -5,6 +5,7 @@ import EditarProducto from "./components/EditarProducto";
 import ModalLogin from "./components/ModalLogin";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import ModalRegister from "./components/ModalRegister";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
@@ -23,6 +24,7 @@ function App() {
           ""
         )}
         <Route exact path="/login" element={<ModalLogin />} />
+        <Route exact path="/register" element={<ModalRegister />} />
         <Route exact path="/editarProducto" element={<EditarProducto />} />
       </Routes>
     </div>
