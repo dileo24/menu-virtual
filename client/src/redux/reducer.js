@@ -1,7 +1,7 @@
 import { GET_USER_ACTUAL, CLEAN_USER_ACTUAL } from "./actions.js";
 
 const initialState = {
-  userActual: [],
+  userActual: null,
 };
 
 function rootReducer(state = initialState, action) {
@@ -11,10 +11,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         userActual: action.payload,
       };
+
     case CLEAN_USER_ACTUAL:
+      localStorage.removeItem("userActual");
       return {
         ...state,
-        userActual: [],
+        userActual: null,
       };
 
     default:
@@ -22,6 +24,11 @@ function rootReducer(state = initialState, action) {
         ...state,
       };
   }
+}
+
+const storedUserActual = localStorage.getItem("userActual");
+if (storedUserActual) {
+  initialState.userActual = JSON.parse(storedUserActual);
 }
 
 export default rootReducer;
