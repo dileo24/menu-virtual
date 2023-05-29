@@ -54,22 +54,23 @@ export default function Aside() {
           Menú
         </Link>
         {userActual &&
+          // 1 superAdmin / 2 admin
           (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
-            <>
-              <Link
-                to="/nuevoProducto"
-                className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-              >
-                Nuevo producto
-              </Link>
-              <Link
-                to="/register"
-                className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-              >
-                Crear cuenta para empleado
-              </Link>
-            </>
+            <Link
+              to="/nuevoProducto"
+              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Nuevo producto
+            </Link>
           )}
+        {userActual && userActual.data.RolId === 1 && (
+          <Link
+            to="/register"
+            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+          >
+            Crear cuenta para empleado
+          </Link>
+        )}
         {!userActual ? (
           <Link
             to="/login"

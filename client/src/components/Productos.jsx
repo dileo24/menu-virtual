@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
+import { useSelector } from "react-redux";
 import { obtenerProductos, eliminarProducto } from "../helpers";
 import { Link } from "react-router-dom";
 
 export default function Productos() {
+  const userActual = useSelector((state) => state.userActual);
+
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
@@ -64,19 +67,28 @@ export default function Productos() {
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
                           <p className="text-gray-600">{precio}</p>
                         </td>
+                        {/* condicion para la columna de 'acciones' */}
                         <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                          <Link
-                            to={`/editarProducto?id=${id}`}
-                            className="text-teal-600 hover:text-teal-900 mr-5"
-                          >
-                            Editar
-                          </Link>
-                          <button
-                            onClick={() => handleEliminarProducto(id)}
-                            className="text-red-600 hover:text-red-900 eliminar"
-                          >
-                            Eliminar
-                          </button>
+                          {userActual ? (
+                            <>
+                              <Link
+                                to={`/editarProducto?id=${id}`}
+                                className="text-teal-600 hover:text-teal-900 mr-5"
+                              >
+                                Editar
+                              </Link>
+                              <button
+                                onClick={() => handleEliminarProducto(id)}
+                                className="text-red-600 hover:text-red-900 eliminar"
+                              >
+                                Eliminar
+                              </button>
+                            </>
+                          ) : (
+                            <button className="text-red-600 hover:text-red-900 eliminar">
+                              Agregar al carrito
+                            </button>
+                          )}
                         </td>
                       </tr>
                     ))}
