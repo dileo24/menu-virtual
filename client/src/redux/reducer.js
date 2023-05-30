@@ -5,16 +5,26 @@ import {
   AGREGAR_CARRITO,
   LIMPIAR_CARRITO,
   ELIMINAR_ITEM_CARRITO,
+  GET_PRODUCTOS,
 } from "./actions.js";
 
 const initialState = {
   userActual: null,
   usuarios: [],
+  productos: [],
   carrito: [],
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    /****************** PRODUCTOS ******************/
+    case GET_PRODUCTOS:
+      return {
+        ...state,
+        productos: [...action.payload],
+      };
+
+    /****************** LOGIN ******************/
     case GET_USER_ACTUAL:
       return {
         ...state,

@@ -1,24 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import { obtenerProductos, eliminarProducto } from "../helpers";
+import { eliminarProducto } from "../helpers";
 import { Link } from "react-router-dom";
-import { agregarCarrito, eliminarItemCarrito } from "../redux/actions";
+import {
+  agregarCarrito,
+  eliminarItemCarrito,
+  getProductos,
+} from "../redux/actions";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
+  const productosState = useSelector((state) => state.productos);
 
-  const [productos, setProductos] = useState([]);
+  /*  const [productos, setProductos] = useState([]); */
 
   useEffect(() => {
-    mostrarProductos();
-  }, []);
+    /*  mostrarProductos(); */
+    dispatch(getProductos());
+  }, [dispatch]);
 
-  async function mostrarProductos() {
+  /* async function mostrarProductos() {
     const productosData = await obtenerProductos();
     setProductos(productosData);
-  }
+  } */
 
   const handleCarrito = ({ nombre, descripcion, precio, id }) => {
     dispatch(
@@ -38,7 +44,7 @@ export default function Productos() {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
     if (confirmarBorrado) {
       await eliminarProducto(id);
-      mostrarProductos();
+      /*  mostrarProductos(); */
     }
   }
 
@@ -70,63 +76,65 @@ export default function Productos() {
                     </tr>
                   </thead>
                   <tbody className="bg-white">
-                    {productos &&
-                      productos.map(({ nombre, descripcion, precio, id }) => (
-                        <tr key={id}>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
-                              {nombre}
-                            </p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-gray-700">{descripcion}</p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
-                            <p className="text-gray-600">{precio}</p>
-                          </td>
-                          {/* condicion para la columna de 'acciones' */}
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                            {userActual ? (
-                              <>
-                                <Link
-                                  to={`/editarProducto?id=${id}`}
-                                  className="text-teal-600 hover:text-teal-900 mr-5"
-                                >
-                                  Editar
-                                </Link>
-                                <button
-                                  onClick={() => handleEliminarProducto(id)}
-                                  className="text-red-600 hover:text-red-900 eliminar"
-                                >
-                                  Eliminar
-                                </button>
-                              </>
-                            ) : (
-                              <>
-                                <button
-                                  className="text-red-600 hover:text-red-900 eliminar"
-                                  onClick={() =>
-                                    handleCarrito({
-                                      nombre,
-                                      descripcion,
-                                      precio,
-                                      id,
-                                    })
-                                  }
-                                >
-                                  +
-                                </button>
-                                <button
-                                  className="text-red-600 hover:text-red-900 eliminar"
-                                  onClick={() => handleEliminarItem(id)}
-                                >
-                                  -
-                                </button>
-                              </>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                    {productosState &&
+                      productosState.map(
+                        ({ nombre, descripcion, precio, id }) => (
+                          <tr key={id}>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                              <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
+                                {nombre}
+                              </p>
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                              <p className="text-gray-700">{descripcion}</p>
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
+                              <p className="text-gray-600">{precio}</p>
+                            </td>
+                            {/* condicion para la columna de 'acciones' */}
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              {userActual ? (
+                                <>
+                                  <Link
+                                    to={`/editarProducto?id=${id}`}
+                                    className="text-teal-600 hover:text-teal-900 mr-5"
+                                  >
+                                    Editar
+                                  </Link>
+                                  <button
+                                    onClick={() => handleEliminarProducto(id)}
+                                    className="text-red-600 hover:text-red-900 eliminar"
+                                  >
+                                    Eliminar
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <button
+                                    className="text-red-600 hover:text-red-900 eliminar"
+                                    onClick={() =>
+                                      handleCarrito({
+                                        nombre,
+                                        descripcion,
+                                        precio,
+                                        id,
+                                      })
+                                    }
+                                  >
+                                    +
+                                  </button>
+                                  <button
+                                    className="text-red-600 hover:text-red-900 eliminar"
+                                    onClick={() => handleEliminarItem(id)}
+                                  >
+                                    -
+                                  </button>
+                                </>
+                              )}
+                            </td>
+                          </tr>
+                        )
+                      )}
                   </tbody>
                 </table>
               </div>

@@ -2,10 +2,23 @@ import axios from "axios";
 export const GET_USER_ACTUAL = "GET_USER_ACTUAL";
 export const CLEAN_USER_ACTUAL = "CLEAN_USER_ACTUAL";
 export const GET_USUARIOS = "GET_USUARIOS";
+export const GET_PRODUCTOS = "GET_PRODUCTOS";
 export const AGREGAR_CARRITO = "AGREGAR_CARRITO";
 export const LIMPIAR_CARRITO = "LIMPIAR_CARRITO";
 export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
 
+/****************** PRODUCTOS ******************/
+export const getProductos = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/productos");
+    return dispatch({
+      type: GET_PRODUCTOS,
+      payload: response.data,
+    });
+  };
+};
+
+/****************** LOGIN ******************/
 export const getUserActual = (userData) => {
   return async function (dispatch) {
     const storedUserActual = localStorage.getItem("userActual");
@@ -54,7 +67,7 @@ export const register = (userData, token) => {
   };
 };
 
-export function cleanUserActual(id) {
+export function cleanUserActual() {
   return {
     type: CLEAN_USER_ACTUAL,
   };
