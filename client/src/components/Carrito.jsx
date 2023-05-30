@@ -1,9 +1,15 @@
 import React from "react";
 import Aside from "./Aside";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { eliminarItemCarrito } from "../redux/actions";
 
 export default function Carrito() {
   const carrito = useSelector((state) => state.carrito);
+  const dispatch = useDispatch();
+
+  const handleEliminarItem = (id) => {
+    dispatch(eliminarItemCarrito(id));
+  };
 
   return (
     <div className="min-h-100 bg-gray-200">
@@ -14,11 +20,16 @@ export default function Carrito() {
         </h2>
 
         {carrito &&
-          carrito.map((prod) => (
-            <div key={prod.id}>
+          carrito.map((prod, id) => (
+            <div key={id} style={{ border: "1px solid red" }}>
               <p>{prod.nombre}</p>
               <p>{prod.precio}</p>
-              <button>Eliminar item</button>
+              <button
+                onClick={() => handleEliminarItem(prod.id)}
+                style={{ border: "1px solid red" }}
+              >
+                Eliminar item
+              </button>
             </div>
           ))}
       </div>

@@ -81,13 +81,16 @@ export const eliminarItemCarrito = (id) => {
     const storedCart = localStorage.getItem("carrito");
     let carrito = storedCart ? JSON.parse(storedCart) : [];
 
-    const nuevoCarrito = carrito.filter((producto) => producto.id !== id);
+    const indiceProducto = carrito.findIndex((producto) => producto.id === id);
+    if (indiceProducto !== -1) {
+      carrito.splice(indiceProducto, 1);
+    }
 
-    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
-    console.log(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
     dispatch({
       type: ELIMINAR_ITEM_CARRITO,
-      payload: nuevoCarrito,
+      payload: carrito,
     });
   };
 };
