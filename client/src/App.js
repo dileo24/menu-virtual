@@ -7,6 +7,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import ModalRegister from "./components/ModalRegister";
 import Usuarios from "./components/Usuarios";
+import Carrito from "./components/Carrito";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
@@ -18,12 +19,14 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
-            <>
-              <Route path="/nuevoProducto" element={<NuevoProducto />} />
-              <Route path="/editarProducto" element={<EditarProducto />} />
-            </>
-          )}
+        (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+          <>
+            <Route path="/nuevoProducto" element={<NuevoProducto />} />
+            <Route path="/editarProducto" element={<EditarProducto />} />
+          </>
+        ) : (
+          <Route path="/carrito" element={<Carrito />} />
+        )}
         {userActual && userActual.data.RolId === 1 && (
           <>
             <Route path="/register" element={<ModalRegister />} />

@@ -2,6 +2,9 @@ import axios from "axios";
 export const GET_USER_ACTUAL = "GET_USER_ACTUAL";
 export const CLEAN_USER_ACTUAL = "CLEAN_USER_ACTUAL";
 export const GET_USUARIOS = "GET_USUARIOS";
+export const AGREGAR_CARRITO = "AGREGAR_CARRITO";
+export const LIMPIAR_CARRITO = "LIMPIAR_CARRITO";
+export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
 
 export const getUserActual = (userData) => {
   return async function (dispatch) {
@@ -56,3 +59,45 @@ export function cleanUserActual(id) {
     type: CLEAN_USER_ACTUAL,
   };
 }
+
+/****************** CARRITO ******************/
+export const agregarCarrito = (producto) => {
+  return (dispatch) => {
+    const storedCart = localStorage.getItem("carrito");
+    let carrito = storedCart ? JSON.parse(storedCart) : [];
+    carrito.push(producto);
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    console.log(carrito);
+    dispatch({
+      type: AGREGAR_CARRITO,
+      payload: carrito,
+    });
+  };
+};
+
+export const eliminarItemCarrito = (id) => {
+  return (dispatch) => {
+    const storedCart = localStorage.getItem("carrito");
+    let carrito = storedCart ? JSON.parse(storedCart) : [];
+
+    const nuevoCarrito = carrito.filter((producto) => producto.id !== id);
+
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
+    console.log(nuevoCarrito);
+    dispatch({
+      type: ELIMINAR_ITEM_CARRITO,
+      payload: nuevoCarrito,
+    });
+  };
+};
+
+export const limpiarCarrito = () => {
+  return (dispatch) => {
+    localStorage.removeItem("carrito");
+
+    dispatch({
+      type: LIMPIAR_CARRITO,
+    });
+  };
+};

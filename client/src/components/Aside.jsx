@@ -8,6 +8,7 @@ export default function Aside() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
+  const carrito = useSelector((state) => state.carrito);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
@@ -34,7 +35,6 @@ export default function Aside() {
       productos.classList.add("bg-teal-700");
     }
   }, []);
-
   return (
     <aside className="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
       <h1 className="uppercase text-white tracking-wide text-2xl font-bold mt-2">
@@ -54,15 +54,26 @@ export default function Aside() {
           Menú
         </Link>
         {userActual &&
-          // 1 superAdmin / 2 admin
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
+        // 1 superAdmin / 2 admin
+        (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+          <Link
+            to="/nuevoProducto"
+            className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+          >
+            Nuevo producto
+          </Link>
+        ) : (
+          <>
+            {" "}
             <Link
-              to="/nuevoProducto"
+              to="/carrito"
               className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
             >
-              Nuevo producto
+              Carrito de Compras
             </Link>
-          )}
+            <p>{carrito.length}</p>
+          </>
+        )}
         {userActual && userActual.data.RolId === 1 && (
           <>
             {" "}

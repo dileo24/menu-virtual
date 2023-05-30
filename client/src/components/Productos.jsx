@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { obtenerProductos, eliminarProducto } from "../helpers";
 import { Link } from "react-router-dom";
+import { agregarCarrito, eliminarItemCarrito } from "../redux/actions";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
+  const dispatch = useDispatch();
 
   const [productos, setProductos] = useState([]);
 
@@ -17,6 +19,20 @@ export default function Productos() {
     const productosData = await obtenerProductos();
     setProductos(productosData);
   }
+
+  const handleCarrito = ({ nombre, descripcion, precio, id }) => {
+    dispatch(
+      agregarCarrito({
+        nombre,
+        descripcion,
+        precio,
+        id,
+      })
+    );
+  };
+  const handleEliminarItem = (id) => {
+    dispatch(eliminarItemCarrito(id));
+  };
 
   async function handleEliminarProducto(id) {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
@@ -85,9 +101,27 @@ export default function Productos() {
                               </button>
                             </>
                           ) : (
-                            <button className="text-red-600 hover:text-red-900 eliminar">
-                              Agregar al carrito
-                            </button>
+                            <>
+                              <button
+                                className="text-red-600 hover:text-red-900 eliminar"
+                                onClick={() =>
+                                  handleCarrito({
+                                    nombre,
+                                    descripcion,
+                                    precio,
+                                    id,
+                                  })
+                                }
+                              >
+                                +
+                              </button>
+                              <button
+                                className="text-red-600 hover:text-red-900 eliminar"
+                                onClick={() => handleEliminarItem(id)}
+                              >
+                                -
+                              </button>
+                            </>
                           )}
                         </td>
                       </tr>
