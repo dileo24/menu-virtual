@@ -11,7 +11,7 @@ export default function ModalLogin({ onClose }) {
   useEffect(() => {
     dispatch(getUsuarios());
   }, [dispatch]);
-  console.log(usuarios);
+
   const [input, setInput] = useState({
     email: "",
     clave: "",
@@ -24,12 +24,18 @@ export default function ModalLogin({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (usuarios.find((user) => user.email === input.email)) {
-      dispatch(getUserActual({ email: input.email, clave: input.clave }));
+    const userEmail = usuarios.find((user) => user.email === input.email);
 
-      navigate("/");
+    if (userEmail) {
+      dispatch(getUserActual({ email: input.email, clave: input.clave }))
+        .then(() => {
+          navigate("/");
+        })
+        .catch(() => {
+          alert("Contraseña incorrecta. Pruebe de nuevo");
+        });
     } else {
-      alert("Ese email no se encuentra registrado!!");
+      alert("Este email no se encuentra registrado.");
     }
   };
 
