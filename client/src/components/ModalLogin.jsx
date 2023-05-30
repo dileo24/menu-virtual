@@ -34,16 +34,11 @@ export default function ModalLogin({ onClose }) {
   };
 
   return (
-    <div className="flex flex-col  justify-center h-screen bg-gray-200">
-      <h2 className="  -mt-16 text-3xl font-light text-center">
-        Iniciar Sesión
-      </h2>
+    <div className="flex flex-col justify-center h-screen bg-gray-200">
+      <h2 className="-mt-16 text-3xl font-light text-center">Iniciar Sesión</h2>
 
       <div className="flex flex-col mt-10 items-center contenedor w-full">
         <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
-          {/* <span className="close" onClick={onClose}>
-            &times;
-          </span> */}
           <div className="form shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
             <form onSubmit={handleSubmit} className="bg-white p-3">
               <div className="mb-4">
@@ -80,17 +75,18 @@ export default function ModalLogin({ onClose }) {
                   required
                 />
               </div>
-              <div className="modal-footer flex w-full justify-between">
+
+              <div className="modal-footer">
                 <button
                   type="submit"
-                  className="rounded w-56 bg-teal-600 hover:bg-teal-900 ml-20 mt-5 p-2 text-white uppercase font-bold cursor-pointer"
+                  className="rounded w-full bg-teal-600 hover:bg-teal-900 mt-5 p-2 text-white uppercase font-bold cursor-pointer"
                 >
                   Iniciar Sesión
                 </button>
                 <Link to="/">
                   <button
                     type="button"
-                    className="rounded bg-red-700 hover:bg-red-900 mr-20 w-56 mt-5 p-2 text-white uppercase font-bold cursor-pointer"
+                    className="rounded bg-red-700 hover:bg-red-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer"
                     onClick={onClose}
                   >
                     Cancelar
