@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { register } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Aside from "./Aside";
+import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 
 export default function ModalRegister({ onClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userActual.tokenSession);
+  const [showPassword, setShowPassword] = useState(false);
 
   const [input, setInput] = useState({
     nombre: "",
@@ -27,6 +29,10 @@ export default function ModalRegister({ onClose }) {
     dispatch(register(input, token));
 
     navigate("/");
+  };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -97,7 +103,7 @@ export default function ModalRegister({ onClose }) {
                     />
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-4 relative">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
                       htmlFor="clave"
@@ -106,13 +112,24 @@ export default function ModalRegister({ onClose }) {
                     </label>
                     <input
                       className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="clave"
                       placeholder="Escribe su contraseña"
                       value={input.clave}
                       onChange={(e) => handlerChange(e)}
                       required
                     />
+                    {showPassword ? (
+                      <RiEyeOffLine
+                        className=" w-8 absolute top-0 right-0 h-full flex items-center pr-3 text-gray-500 cursor-pointer mt-4 "
+                        onClick={handleShowPassword}
+                      />
+                    ) : (
+                      <RiEyeLine
+                        className=" w-8 absolute top-0 right-0 h-full flex items-center pr-3 text-gray-500 cursor-pointer mt-4 "
+                        onClick={handleShowPassword}
+                      />
+                    )}
                   </div>
 
                   <div className="modal-footer">
