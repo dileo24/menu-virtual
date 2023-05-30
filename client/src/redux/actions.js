@@ -6,6 +6,7 @@ export const GET_PRODUCTOS = "GET_PRODUCTOS";
 export const AGREGAR_CARRITO = "AGREGAR_CARRITO";
 export const LIMPIAR_CARRITO = "LIMPIAR_CARRITO";
 export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
+export const DELETE_USER = "DELETE_USER";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -14,6 +15,33 @@ export const getProductos = () => {
     return dispatch({
       type: GET_PRODUCTOS,
       payload: response.data,
+    });
+  };
+};
+
+/****************** USUARIOS ******************/
+
+export const getUsuarios = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/usuarios");
+    return dispatch({
+      type: GET_USUARIOS,
+      payload: response.data.resultado,
+    });
+  };
+};
+
+export const deleteUsuario = (id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`/usuarios/${id}`, config);
+    dispatch({
+      type: DELETE_USER,
+      payload: id,
     });
   };
 };
@@ -41,16 +69,6 @@ export const getUserActual = (userData) => {
         payload: parsedUserActual,
       });
     }
-  };
-};
-
-export const getUsuarios = () => {
-  return async function (dispatch) {
-    const response = await axios.get("/usuarios");
-    return dispatch({
-      type: GET_USUARIOS,
-      payload: response.data.resultado,
-    });
   };
 };
 

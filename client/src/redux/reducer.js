@@ -6,6 +6,7 @@ import {
   LIMPIAR_CARRITO,
   ELIMINAR_ITEM_CARRITO,
   GET_PRODUCTOS,
+  DELETE_USER,
 } from "./actions.js";
 
 const initialState = {
@@ -24,6 +25,19 @@ function rootReducer(state = initialState, action) {
         productos: [...action.payload],
       };
 
+    /****************** USUARIOS ******************/
+    case GET_USUARIOS:
+      return {
+        ...state,
+        usuarios: [...action.payload],
+      };
+
+    case DELETE_USER:
+      return {
+        ...state,
+        usuarios: state.usuarios.filter((user) => user.id !== action.payload),
+      };
+
     /****************** LOGIN ******************/
     case GET_USER_ACTUAL:
       return {
@@ -36,12 +50,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         userActual: null,
-      };
-
-    case GET_USUARIOS:
-      return {
-        ...state,
-        usuarios: [...action.payload],
       };
 
     /****************** CARRITO ******************/

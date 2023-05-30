@@ -25,7 +25,7 @@ export default function ModalRegister({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
+    console.log(token);
     dispatch(register(input, token));
 
     navigate("/");

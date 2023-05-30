@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsuarios } from "../redux/actions";
+import { deleteUsuario, getUsuarios } from "../redux/actions";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
+  const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsuarios());
   }, [dispatch]);
+
+  const handlerEliminar = (id) => {
+    dispatch(deleteUsuario(id, token));
+  };
 
   return (
     <div className="min-h-100 bg-gray-200">
@@ -40,7 +45,10 @@ export default function Usuarios() {
                           </p>
                         </div>
                         <div className="flex">
-                          <button className=" mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm">
+                          <button
+                            onClick={() => handlerEliminar(user.id)}
+                            className=" mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                          >
                             Eliminar usuario
                           </button>
                           <button className="rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm">
