@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserActual } from "../redux/actions";
-import { useDispatch } from "react-redux";
+import { getUserActual, getUsuarios } from "../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ModalLogin({ onClose }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const usuarios = useSelector((state) => state.usuarios);
 
+  useEffect(() => {
+    dispatch(getUsuarios());
+  }, [dispatch]);
+  console.log(usuarios);
   const [input, setInput] = useState({
     email: "",
     clave: "",
@@ -22,6 +27,12 @@ export default function ModalLogin({ onClose }) {
 
     navigate("/");
   };
+
+  /*   const handleEmails = () => {
+    usuarios.map(user => {
+      user.email !== input.email && 
+    })
+  } */
 
   return (
     <div className="flex flex-col  justify-center h-screen bg-gray-200">

@@ -23,18 +23,7 @@ export default function ModalRegister({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(input);
-    dispatch(
-      register(
-        input,
-        token /* {
-        email: input.email,
-        clave: input.clave,
-        nombre: input.nombre,
-        apellido: input.apellido,
-        rolID: "2",
-      } */
-      )
-    );
+    dispatch(register(input, token));
 
     navigate("/");
   };
@@ -42,9 +31,6 @@ export default function ModalRegister({ onClose }) {
   return (
     <div className="modal">
       <div className="modal-content">
-        {/* <span className="close" onClick={onClose}>
-          &times;
-        </span> */}
         <h2>Registro de usuarios</h2>
         <div className="form">
           <form onSubmit={handleSubmit}>
