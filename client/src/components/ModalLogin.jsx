@@ -23,16 +23,15 @@ export default function ModalLogin({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getUserActual({ email: input.email, clave: input.clave }));
 
-    navigate("/");
+    if (usuarios.find((user) => user.email === input.email)) {
+      dispatch(getUserActual({ email: input.email, clave: input.clave }));
+
+      navigate("/");
+    } else {
+      alert("Ese email no se encuentra registrado!!");
+    }
   };
-
-  /*   const handleEmails = () => {
-    usuarios.map(user => {
-      user.email !== input.email && 
-    })
-  } */
 
   return (
     <div className="flex flex-col  justify-center h-screen bg-gray-200">
