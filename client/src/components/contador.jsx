@@ -8,10 +8,16 @@ import {
 
 export default function Contador({ nombre, descripcion, precio, id }) {
   const dispatch = useDispatch();
-  const [valor, setValor] = useState(0);
+  const [valor, setValor] = useState(() => {
+    const storedValue = localStorage.getItem(`contador_${id}`);
+    return storedValue ? parseInt(storedValue) : 0;
+  });
 
   const handleIncremento = ({ nombre, descripcion, precio, id }) => {
-    setValor(valor + 1);
+    const newValue = valor + 1;
+    setValor(newValue);
+    localStorage.setItem(`contador_${id}`, newValue.toString());
+
     dispatch(
       agregarCarrito({
         nombre,
@@ -24,7 +30,10 @@ export default function Contador({ nombre, descripcion, precio, id }) {
 
   const handleDecremento = (id) => {
     if (valor > 0) {
-      setValor(valor - 1);
+      const newValue = valor - 1;
+      setValor(newValue);
+      localStorage.setItem(`contador_${id}`, newValue.toString());
+
       dispatch(eliminarItemCarrito(id));
     }
   };
