@@ -1,14 +1,9 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-/* import { eliminarProducto } from "../helpers"; */
 import { Link } from "react-router-dom";
-import {
-  agregarCarrito,
-  deleteProducto,
-  eliminarItemCarrito,
-  getProductos,
-} from "../redux/actions";
+import { deleteProducto, getProductos } from "../redux/actions";
+import Contador from "./contador";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
@@ -22,20 +17,6 @@ export default function Productos() {
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");
   }, [dispatch]);
-
-  const handleCarrito = ({ nombre, descripcion, precio, id }) => {
-    dispatch(
-      agregarCarrito({
-        nombre,
-        descripcion,
-        precio,
-        id,
-      })
-    );
-  };
-  const handleEliminarItem = (id) => {
-    dispatch(eliminarItemCarrito(id));
-  };
 
   const handleEliminarProducto = (id) => {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
@@ -69,7 +50,7 @@ export default function Productos() {
                         Precio
                       </th>
                       <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                        Acciones
+                        {userActual ? "Acciones" : "Cantidad"}
                       </th>
                     </tr>
                   </thead>
@@ -108,27 +89,12 @@ export default function Productos() {
                                   </button>
                                 </>
                               ) : (
-                                <>
-                                  <button
-                                    className="text-red-600 hover:text-red-900 eliminar"
-                                    onClick={() =>
-                                      handleCarrito({
-                                        nombre,
-                                        descripcion,
-                                        precio,
-                                        id,
-                                      })
-                                    }
-                                  >
-                                    +
-                                  </button>
-                                  <button
-                                    className="text-red-600 hover:text-red-900 eliminar"
-                                    onClick={() => handleEliminarItem(id)}
-                                  >
-                                    -
-                                  </button>
-                                </>
+                                <Contador
+                                  id={id}
+                                  nombre={nombre}
+                                  descripcion={descripcion}
+                                  precio={precio}
+                                />
                               )}
                             </td>
                           </tr>

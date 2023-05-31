@@ -137,7 +137,6 @@ export const agregarCarrito = (producto) => {
     carrito.push(producto);
     localStorage.setItem("carrito", JSON.stringify(carrito));
 
-    console.log(carrito);
     dispatch({
       type: AGREGAR_CARRITO,
       payload: carrito,
