@@ -2,17 +2,24 @@ import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProducto, getProductos } from "../redux/actions";
+import {
+  deleteProducto,
+  getCategorias,
+  getProductos,
+  searchXcategoria,
+} from "../redux/actions";
 import Contador from "./contador";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
-  const productosState = useSelector((state) => state.productos);
+  const productosState = useSelector((state) => state.productosHome);
+  const categorias = useSelector((state) => state.categorias);
 
   useEffect(() => {
     dispatch(getProductos());
+    dispatch(getCategorias());
     // Cambiarle el background del botón del Aside
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");
@@ -27,14 +34,23 @@ export default function Productos() {
     }
   };
 
+  const handlerFilterCateg = (e) => {
+    dispatch(searchXcategoria(e.target.value));
+  };
+
   return (
     <div id="productos" className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
         <Aside />
         <main className="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200">
           <h2 className="text-3xl font-light text-center">Menú</h2>
-
           <div className="flex flex-col mt-10">
+            <select onChange={(e) => handlerFilterCateg(e)}>
+              <option value="todas">Todos los Productos</option>
+              {categorias.map((categ) => (
+                <option>{categ.nombre}</option>
+              ))}
+            </select>
             <div className="py-2 overflow-x-auto">
               <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
                 <table className="min-w-full">
