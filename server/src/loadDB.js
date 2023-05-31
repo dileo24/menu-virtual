@@ -2,7 +2,8 @@ const producto = require("./json/productos.json");
 const roles = require("./json/roles.json");
 const usuario = require("./json/usuarios.json");
 const { encrypt } = require("./helpers/handleCrypt");
-const { Producto, Usuario, Rol } = require("./db.js");
+const { Producto, Usuario, Rol, Categoria } = require("./db.js");
+const categoria = require("./json/categorias.json");
 
 async function fnRols() {
   for (const r of roles) {
@@ -12,11 +13,19 @@ async function fnRols() {
 
 async function fnProducto() {
   for (const p of producto) {
-    await Producto.create({
+    const newProduct = await Producto.create({
       nombre: p.nombre,
       descripcion: p.descripcion,
       precio: p.precio,
     });
+    const categoria = await Categoria.findByPk(p.categoriaID);
+    await categoria.addProducto(newProduct);
+  }
+}
+
+async function fnCategorias() {
+  for (const cat of categoria) {
+    await Categoria.create(cat);
   }
 }
 
@@ -38,4 +47,5 @@ module.exports = {
   fnProducto,
   fnRols,
   fnSuperAdmin,
+  fnCategorias,
 };
