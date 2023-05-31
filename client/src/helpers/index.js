@@ -4,7 +4,7 @@ const url = "http://localhost:3001/productos";
 
 // CREACION el nuevo producto en la BDD cuando se crea un nuevo producto:
 export const nuevoProducto = (producto, token) => {
-  console.log(producto, token);
+  // console.log(producto, token);
   try {
     fetch(url, {
       method: "POST",

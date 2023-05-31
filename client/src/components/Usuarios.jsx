@@ -58,36 +58,31 @@ export default function Usuarios() {
                   {usuarios &&
                     usuarios.map((user) =>
                       user.id === 1 ? null : (
-                        <div key={user.id} className="claseUsuario">
-                          <div className="">
-                            <p className="block text-gray-700 text-sm mb-2">
-                              <b>Nombre:</b> {""}
-                              {user.nombre} {user.apellido}
-                            </p>
-                            <p className="block text-gray-700 text-sm mb-2">
-                              <b>Email:</b> {""}
-                              {user.email}
-                            </p>
-                            <p className="block text-gray-700 text-sm mb-2">
-                              <b>Tipo de usuario:</b> {""}
-                              {user.Rol.rol}
-                            </p>
-                            <p className="block text-gray-700 text-sm mb-2">
-                              {user.bloqueo === false ? (
-                                <p>
-                                  <b>Estado actual:</b> Habilitado
-                                </p>
-                              ) : (
-                                <p>
-                                  <b>Estado actual:</b> Bloqueado
-                                </p>
-                              )}
-                            </p>
-                          </div>
+                        <div key={user.id}>
+                          <p className="block text-gray-700 text-sm mb-2">
+                            <b>Nombre:</b> {user.nombre} {user.apellido}
+                          </p>
+                          <p className="block text-gray-700 text-sm mb-2">
+                            <b>Email:</b> {user.email}
+                          </p>
+                          <p className="block text-gray-700 text-sm mb-2">
+                            <b>Tipo de usuario:</b> {user.Rol.rol}
+                          </p>
+                          <p className="block text-gray-700 text-sm mb-2">
+                            {user.bloqueo === false ? (
+                              <span>
+                                <b>Estado actual:</b> Habilitado
+                              </span>
+                            ) : (
+                              <span>
+                                <b>Estado actual:</b> Bloqueado
+                              </span>
+                            )}
+                          </p>
                           <div className="flex">
                             <button
                               onClick={() => handlerEliminar(user.id)}
-                              className=" mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                              className="mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
                             >
                               Eliminar usuario
                             </button>

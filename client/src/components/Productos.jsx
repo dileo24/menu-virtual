@@ -1,22 +1,15 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-/* import { eliminarProducto } from "../helpers"; */
 import { Link } from "react-router-dom";
-import {
-  agregarCarrito,
-  deleteProducto,
-  eliminarItemCarrito,
-  getProductos,
-} from "../redux/actions";
+import { deleteProducto, getProductos } from "../redux/actions";
+import Contador from "./contador";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productos);
-
-  /*  const [productos, setProductos] = useState([]); */
 
   useEffect(() => {
     dispatch(getProductos());
@@ -25,33 +18,12 @@ export default function Productos() {
     productos.classList.add("bg-teal-700");
   }, [dispatch]);
 
-  /* async function mostrarProductos() {
-    const productosData = await obtenerProductos();
-    setProductos(productosData);
-  } */
-
-  const handleCarrito = ({ nombre, descripcion, precio, id }) => {
-    dispatch(
-      agregarCarrito({
-        nombre,
-        descripcion,
-        precio,
-        id,
-      })
-    );
-  };
-  const handleEliminarItem = (id) => {
-    dispatch(eliminarItemCarrito(id));
-  };
-
   const handleEliminarProducto = (id) => {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
     if (confirmarBorrado) {
       dispatch(deleteProducto(id, token)).then(() => {
         dispatch(getProductos());
       });
-      /* eliminarProducto(id); */
-      /*  mostrarProductos(); */
     }
   };
 
@@ -78,7 +50,7 @@ export default function Productos() {
                         Precio
                       </th>
                       <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                        Acciones
+                        {userActual ? "Acciones" : "Cantidad"}
                       </th>
                     </tr>
                   </thead>
@@ -98,8 +70,9 @@ export default function Productos() {
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
                               <p className="text-gray-600">${precio}</p>
                             </td>
-                            {/* condicion para la columna de 'acciones' */}
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              {/* condicion para la columna de 'acciones' */}
+
                               {userActual ? (
                                 <>
                                   <Link
@@ -116,27 +89,12 @@ export default function Productos() {
                                   </button>
                                 </>
                               ) : (
-                                <>
-                                  <button
-                                    className="text-red-600 hover:text-red-900 eliminar"
-                                    onClick={() =>
-                                      handleCarrito({
-                                        nombre,
-                                        descripcion,
-                                        precio,
-                                        id,
-                                      })
-                                    }
-                                  >
-                                    +
-                                  </button>
-                                  <button
-                                    className="text-red-600 hover:text-red-900 eliminar"
-                                    onClick={() => handleEliminarItem(id)}
-                                  >
-                                    -
-                                  </button>
-                                </>
+                                <Contador
+                                  id={id}
+                                  nombre={nombre}
+                                  descripcion={descripcion}
+                                  precio={precio}
+                                />
                               )}
                             </td>
                           </tr>

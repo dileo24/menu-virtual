@@ -43,6 +43,8 @@ export default function ModalRegister({ onClose }) {
       email: "",
       clave: "",
     });
+
+    window.location.reload();
     // navigate("/");
   };
 
