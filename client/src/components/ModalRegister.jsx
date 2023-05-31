@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { register } from "../redux/actions";
+import { Link } from "react-router-dom";
+import { getUsuarios, register } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Aside from "./Aside";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../helpers";
 
 export default function ModalRegister({ onClose }) {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userActual.tokenSession);
+  const usuarios = useSelector((state) => state.usuarios);
+  const emails = usuarios && usuarios.map((user) => user.email);
   const [showPassword, setShowPassword] = useState(false);
 
   const [input, setInput] = useState({
@@ -23,11 +24,13 @@ export default function ModalRegister({ onClose }) {
   const handlerChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  console.log(emails);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!ningunInputVacio(input)) {
+    if (emails && emails.includes(input.email)) {
+      return mostrarAlerta("El email ingresado ya existe", "error");
+    } else if (!ningunInputVacio(input)) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
     mostrarAlerta("Cuenta creada con éxito", "exito");
@@ -52,7 +55,8 @@ export default function ModalRegister({ onClose }) {
     // Cambiarle el background del botón del Aside
     const registrar = document.querySelector(".registrar");
     registrar.classList.add("bg-teal-700");
-  }, []);
+    dispatch(getUsuarios());
+  }, [dispatch]);
 
   return (
     <div className="min-h-100 bg-gray-200">
