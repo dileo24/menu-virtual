@@ -9,6 +9,7 @@ export const LIMPIAR_CARRITO = "LIMPIAR_CARRITO";
 export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
 export const DELETE_USER = "DELETE_USER";
 export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
+export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -47,6 +48,13 @@ export const searchXcategoria = (categoria) => {
   return {
     type: SEARCHxCATEGORIA,
     payload: categoria,
+  };
+};
+
+export const searchXname = (nombre) => {
+  return {
+    type: SEARCHxNOMBRE,
+    payload: nombre,
   };
 };
 
