@@ -36,12 +36,24 @@ router.get("/:id", findUserByID, async (req, res) => {
   return res.json(req.body.findUserByID);
 });
 
-router.put("/:id", updateUsers, async (req, res) => {
-  return res.json(req.body.resultado);
-});
+router.put(
+  "/:id",
+  checkAuth,
+  checkRoleAuth([1]),
+  updateUsers,
+  async (req, res) => {
+    return res.json(req.body.resultado);
+  }
+);
 
-router.delete("/:id", deleteUser, async (req, res) => {
-  return res.json(req.body.eliminado);
-});
+router.delete(
+  "/:id",
+  checkAuth,
+  checkRoleAuth([1]),
+  deleteUser,
+  async (req, res) => {
+    return res.json(req.body.eliminado);
+  }
+);
 
 module.exports = router;

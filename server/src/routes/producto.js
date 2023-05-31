@@ -27,12 +27,24 @@ router.post(
   }
 );
 
-router.put("/:id", updateProduct, async (req, res) => {
-  return res.json(req.body.resultado);
-});
+router.put(
+  "/:id",
+  checkAuth,
+  checkRoleAuth([2, 1]),
+  updateProduct,
+  async (req, res) => {
+    return res.json(req.body.resultado);
+  }
+);
 
-router.delete("/:id", deleteProduct, async (req, res) => {
-  return res.json(req.body.resultado);
-});
+router.delete(
+  "/:id",
+  checkAuth,
+  checkRoleAuth([2, 1]),
+  deleteProduct,
+  async (req, res) => {
+    return res.json(req.body.resultado);
+  }
+);
 
 module.exports = router;
