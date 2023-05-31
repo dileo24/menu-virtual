@@ -24,7 +24,6 @@ export default function ModalRegister({ onClose }) {
   const handlerChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-  console.log(emails);
 
   const handleSubmit = (e) => {
     e.preventDefault();
