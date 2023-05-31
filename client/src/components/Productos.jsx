@@ -1,16 +1,18 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarProducto } from "../helpers";
+/* import { eliminarProducto } from "../helpers"; */
 import { Link } from "react-router-dom";
 import {
   agregarCarrito,
+  deleteProducto,
   eliminarItemCarrito,
   getProductos,
 } from "../redux/actions";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
+  const token = userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productos);
 
@@ -40,13 +42,16 @@ export default function Productos() {
     dispatch(eliminarItemCarrito(id));
   };
 
-  async function handleEliminarProducto(id) {
+  const handleEliminarProducto = (id) => {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
     if (confirmarBorrado) {
-      await eliminarProducto(id);
+      dispatch(deleteProducto(id, token)).then(() => {
+        dispatch(getProductos());
+      });
+      /* eliminarProducto(id); */
       /*  mostrarProductos(); */
     }
-  }
+  };
 
   return (
     <div id="productos" className="min-h-100 bg-gray-200">

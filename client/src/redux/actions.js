@@ -18,6 +18,20 @@ export const getProductos = () => {
     });
   };
 };
+export const deleteProducto = (id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`/productos/${id}`, config);
+    dispatch({
+      type: DELETE_USER,
+      payload: id,
+    });
+  };
+};
 
 /****************** USUARIOS ******************/
 

@@ -7,12 +7,14 @@ import {
   editarProducto,
   mostrarAlerta,
 } from "../helpers";
+import { useSelector } from "react-redux";
 
 export default function EditarProductos() {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [id, setId] = useState("");
+  const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
     // Obtener el ID del producto de la URL cuando se carga la página
@@ -48,7 +50,7 @@ export default function EditarProductos() {
     };
 
     if (ningunInputVacio(producto)) {
-      editarProducto(producto);
+      editarProducto(producto, token);
       mostrarAlerta("Producto editado con éxito", "exito");
     } else {
       mostrarAlerta("Error: Hay algún campo vacío", "error");

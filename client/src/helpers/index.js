@@ -20,7 +20,7 @@ export const nuevoProducto = (producto, token) => {
 };
 
 // LISTADO todos los productos de la API
-export const obtenerProductos = async () => {
+/* export const obtenerProductos = async () => {
   try {
     const resultado = await fetch(url);
     const productos = await resultado.json();
@@ -28,11 +28,11 @@ export const obtenerProductos = async () => {
   } catch (error) {
     console.log(error);
   }
-};
+}; */
 
 // ELIMINACION un producto
 
-export const eliminarProducto = async (idProducto) => {
+/* export const eliminarProducto = async (idProducto) => {
   try {
     await fetch(`${url}/${idProducto}`, {
       method: "DELETE",
@@ -40,7 +40,7 @@ export const eliminarProducto = async (idProducto) => {
   } catch (error) {
     console.log(error);
   }
-};
+}; */
 
 // Obtener un producto por su ID
 export const obtenerProducto = async (id) => {
@@ -54,13 +54,14 @@ export const obtenerProducto = async (id) => {
 };
 
 // Actualizar el producto editado
-export const editarProducto = async (producto) => {
+export const editarProducto = async (producto, token) => {
   try {
     await fetch(`${url}/${producto.id}`, {
       method: "PUT",
       body: JSON.stringify(producto),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     window.location.href = "/";
