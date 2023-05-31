@@ -16,19 +16,12 @@ export default function Productos() {
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productos);
 
-  /*  const [productos, setProductos] = useState([]); */
-
   useEffect(() => {
     dispatch(getProductos());
     // Cambiarle el background del botón del Aside
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");
   }, [dispatch]);
-
-  /* async function mostrarProductos() {
-    const productosData = await obtenerProductos();
-    setProductos(productosData);
-  } */
 
   const handleCarrito = ({ nombre, descripcion, precio, id }) => {
     dispatch(
@@ -50,8 +43,6 @@ export default function Productos() {
       dispatch(deleteProducto(id, token)).then(() => {
         dispatch(getProductos());
       });
-      /* eliminarProducto(id); */
-      /*  mostrarProductos(); */
     }
   };
 
@@ -98,8 +89,9 @@ export default function Productos() {
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
                               <p className="text-gray-600">${precio}</p>
                             </td>
-                            {/* condicion para la columna de 'acciones' */}
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              {/* condicion para la columna de 'acciones' */}
+
                               {userActual ? (
                                 <>
                                   <Link
