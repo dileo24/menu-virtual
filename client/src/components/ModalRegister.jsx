@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Aside from "./Aside";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
+import { mostrarAlerta, ningunInputVacio } from "../helpers";
 
 export default function ModalRegister({ onClose }) {
   const navigate = useNavigate();
@@ -25,15 +26,33 @@ export default function ModalRegister({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(token);
-    dispatch(register(input, token));
 
-    navigate("/");
+    if (!ningunInputVacio(input)) {
+      return mostrarAlerta("Error: Hay algún campo vacío", "error");
+    }
+    mostrarAlerta("Cuenta creada con éxito", "exito");
+    dispatch(register(input, token));
+    console.log(token);
+
+    // Reiniciar los campos del formulario
+    setInput({
+      nombre: "",
+      apellido: "",
+      email: "",
+      clave: "",
+    });
+    // navigate("/");
   };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    // Cambiarle el background del botón del Aside
+    const registrar = document.querySelector(".registrar");
+    registrar.classList.add("bg-teal-700");
+  }, []);
 
   return (
     <div className="min-h-100 bg-gray-200">
@@ -44,7 +63,7 @@ export default function ModalRegister({ onClose }) {
             Crear cuenta para empleado
           </h2>
 
-          <div className="flex flex-col mt-10 items-center contenedor w-full">
+          <div className="contenedor flex flex-col mt-10 items-center w-full relative">
             <div className="modal-content -my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
               <div className="form shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
                 <form onSubmit={handleSubmit} className="bg-white p-3">
@@ -81,7 +100,6 @@ export default function ModalRegister({ onClose }) {
                       placeholder="Escribe su apellido"
                       value={input.apellido}
                       onChange={(e) => handlerChange(e)}
-                      autoFocus
                     />
                   </div>
 
@@ -99,7 +117,6 @@ export default function ModalRegister({ onClose }) {
                       placeholder="Escribe su email"
                       value={input.email}
                       onChange={(e) => handlerChange(e)}
-                      required
                     />
                   </div>
 
@@ -117,7 +134,6 @@ export default function ModalRegister({ onClose }) {
                       placeholder="Escribe su contraseña"
                       value={input.clave}
                       onChange={(e) => handlerChange(e)}
-                      required
                     />
                     {showPassword ? (
                       <RiEyeOffLine

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Aside from "./Aside";
-import Main from "./Main";
+import FormProducto from "./FormProducto";
 import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../helpers";
 import { useSelector } from "react-redux";
 
@@ -32,21 +32,22 @@ export default function NuevoProducto() {
     setPrecio("");
   }
 
+  useEffect(() => {
+    // Cambiarle el background del botón del Aside
+    const nuevoProducto = document.querySelector(".nuevoProducto");
+    nuevoProducto.classList.add("bg-teal-700");
+  }, []);
+
   return (
-    <div id="nuevoProducto" className="min-h-100 bg-gray-200">
-      <div className="md:flex min-h-screen md:align-top">
-        <Aside />
-        <Main
-          nombre={nombre}
-          setNombre={setNombre}
-          descripcion={descripcion}
-          setDescripcion={setDescripcion}
-          precio={precio}
-          setPrecio={setPrecio}
-          onSubmit={validarProducto}
-          titulo={titulo}
-        />
-      </div>
-    </div>
+    <FormProducto
+      nombre={nombre}
+      setNombre={setNombre}
+      descripcion={descripcion}
+      setDescripcion={setDescripcion}
+      precio={precio}
+      setPrecio={setPrecio}
+      onSubmit={validarProducto}
+      titulo={titulo}
+    />
   );
 }

@@ -12,15 +12,17 @@ import {
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
-  const token = userActual.tokenSession;
+  const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productos);
 
   /*  const [productos, setProductos] = useState([]); */
 
   useEffect(() => {
-    /*  mostrarProductos(); */
     dispatch(getProductos());
+    // Cambiarle el background del botón del Aside
+    const productos = document.querySelector(".productos");
+    productos.classList.add("bg-teal-700");
   }, [dispatch]);
 
   /* async function mostrarProductos() {
@@ -94,7 +96,7 @@ export default function Productos() {
                               <p className="text-gray-700">{descripcion}</p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
-                              <p className="text-gray-600">{precio}</p>
+                              <p className="text-gray-600">${precio}</p>
                             </td>
                             {/* condicion para la columna de 'acciones' */}
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">

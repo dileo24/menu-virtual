@@ -114,7 +114,7 @@ export function mostrarAlerta(texto, tipo) {
   contenedor.appendChild(alertaDiv);
   setTimeout(() => {
     alertaDiv.remove();
-  }, 1000);
+  }, 1500);
 }
 
 export function ningunInputVacio(obj) {

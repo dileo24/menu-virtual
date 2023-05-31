@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
-import Main from "./Main";
+import FormProducto from "./FormProducto";
 import {
   obtenerProducto,
   ningunInputVacio,
@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 
 export default function EditarProductos() {
+  const titulo = "Editar Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -59,21 +60,17 @@ export default function EditarProductos() {
   }
 
   return (
-    <div className="min-h-100 bg-gray-200">
-      <div className="md:flex min-h-screen md:align-top">
-        <Aside />
-        <Main
-          nombre={nombre}
-          setNombre={setNombre}
-          descripcion={descripcion}
-          setDescripcion={setDescripcion}
-          precio={precio}
-          setPrecio={setPrecio}
-          id={id}
-          setId={setId}
-          onSubmit={validarProducto}
-        />
-      </div>
-    </div>
+    <FormProducto
+      nombre={nombre}
+      setNombre={setNombre}
+      descripcion={descripcion}
+      setDescripcion={setDescripcion}
+      precio={precio}
+      setPrecio={setPrecio}
+      id={id}
+      setId={setId}
+      onSubmit={validarProducto}
+      titulo={titulo}
+    />
   );
 }

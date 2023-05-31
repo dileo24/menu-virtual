@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import { eliminarItemCarrito } from "../redux/actions";
@@ -10,6 +10,12 @@ export default function Carrito() {
   const handleEliminarItem = (id) => {
     dispatch(eliminarItemCarrito(id));
   };
+
+  useEffect(() => {
+    // Cambiarle el background del botón del Aside
+    const carrito = document.querySelector(".carrito");
+    carrito.classList.add("bg-teal-700");
+  }, []);
 
   return (
     <div className="min-h-100 bg-gray-200">

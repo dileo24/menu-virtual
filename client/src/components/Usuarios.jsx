@@ -15,6 +15,9 @@ export default function Usuarios() {
 
   useEffect(() => {
     dispatch(getUsuarios());
+    // Cambiarle el background del botón del Aside
+    const administrar = document.querySelector(".administrar");
+    administrar.classList.add("bg-teal-700");
   }, [dispatch]);
 
   const handlerEliminar = (id) => {
@@ -51,60 +54,66 @@ export default function Usuarios() {
           <div className="flex flex-col mt-10 items-center contenedor w-auto">
             <div className="modal-content -my-2 py-2 overflow-x-auto  w-auto">
               <div className="form shadow overflow-hidden sm:rounded-lg border-b border-gray-200 w-auto">
-                <div className="bg-white p-3 w-auto">
+                <div className="bg-white p-6 w-auto">
                   {usuarios &&
-                    usuarios.map((user) => (
-                      <div key={user.id} className="">
-                        <div className="">
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Nombre:</b> {""}
-                            {user.nombre} {user.apellido}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Email:</b> {""}
-                            {user.email}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Tipo de usuario:</b> {""}
-                            {user.Rol.rol}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
+                    usuarios.map((user) =>
+                      user.id === 1 ? null : (
+                        <div key={user.id} className="claseUsuario">
+                          <div className="">
+                            <p className="block text-gray-700 text-sm mb-2">
+                              <b>Nombre:</b> {""}
+                              {user.nombre} {user.apellido}
+                            </p>
+                            <p className="block text-gray-700 text-sm mb-2">
+                              <b>Email:</b> {""}
+                              {user.email}
+                            </p>
+                            <p className="block text-gray-700 text-sm mb-2">
+                              <b>Tipo de usuario:</b> {""}
+                              {user.Rol.rol}
+                            </p>
+                            <p className="block text-gray-700 text-sm mb-2">
+                              {user.bloqueo === false ? (
+                                <p>
+                                  <b>Estado actual:</b> Habilitado
+                                </p>
+                              ) : (
+                                <p>
+                                  <b>Estado actual:</b> Bloqueado
+                                </p>
+                              )}
+                            </p>
+                          </div>
+                          <div className="flex">
+                            <button
+                              onClick={() => handlerEliminar(user.id)}
+                              className=" mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                            >
+                              Eliminar usuario
+                            </button>
                             {user.bloqueo === false ? (
-                              <b>Estado actual: Habilitado</b>
+                              <button
+                                onClick={() =>
+                                  handlerBloqueo(user.id, user.nombre)
+                                }
+                                className="rounded bg-orange-500 hover:bg-orange-700 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                              >
+                                Bloquear usuario
+                              </button>
                             ) : (
-                              <b>Estado actual: Bloqueado</b>
+                              <button
+                                onClick={() =>
+                                  handlerDesbloqueo(user.id, user.nombre)
+                                }
+                                className="rounded bg-green-700 hover:bg-green-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                              >
+                                Desbloquear usuario
+                              </button>
                             )}
-                          </p>
+                          </div>
                         </div>
-                        <div className="flex">
-                          <button
-                            onClick={() => handlerEliminar(user.id)}
-                            className=" mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                          >
-                            Eliminar usuario
-                          </button>
-                          {user.bloqueo === false ? (
-                            <button
-                              onClick={() =>
-                                handlerBloqueo(user.id, user.nombre)
-                              }
-                              className="rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                            >
-                              Bloquear usuario
-                            </button>
-                          ) : (
-                            <button
-                              onClick={() =>
-                                handlerDesbloqueo(user.id, user.nombre)
-                              }
-                              className="rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                            >
-                              Desbloquear usuario
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                      )
+                    )}
                 </div>
               </div>
             </div>
