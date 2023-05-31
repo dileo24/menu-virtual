@@ -1,11 +1,16 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteUsuario, getUsuarios } from "../redux/actions";
+import {
+  bloqueoUsuario,
+  deleteUsuario,
+  desbloqueoUsuario,
+  getUsuarios,
+} from "../redux/actions";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
-  const token = useSelector((state) => state.userActual.tokenSession);
+  const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -13,7 +18,27 @@ export default function Usuarios() {
   }, [dispatch]);
 
   const handlerEliminar = (id) => {
-    dispatch(deleteUsuario(id, token));
+    dispatch(deleteUsuario(id, userActual.tokenSession));
+  };
+
+  const handlerBloqueo = (id, nombre) => {
+    let res = window.confirm(`Está seguro de querer bloquear a "${nombre}"?`);
+    if (res === true) {
+      dispatch(
+        bloqueoUsuario({ bloqueo: "true" }, id, userActual.tokenSession)
+      );
+    }
+  };
+
+  const handlerDesbloqueo = (id, nombre) => {
+    let res = window.confirm(
+      `Está seguro de querer desbloquear a "${nombre}"?`
+    );
+    if (res === true) {
+      dispatch(
+        desbloqueoUsuario({ bloqueo: "false" }, id, userActual.tokenSession)
+      );
+    }
   };
 
   return (
@@ -43,6 +68,13 @@ export default function Usuarios() {
                             <b>Tipo de usuario:</b> {""}
                             {user.Rol.rol}
                           </p>
+                          <p className="block text-gray-700 text-sm mb-2">
+                            {user.bloqueo === false ? (
+                              <b>Estado actual: Habilitado</b>
+                            ) : (
+                              <b>Estado actual: Bloqueado</b>
+                            )}
+                          </p>
                         </div>
                         <div className="flex">
                           <button
@@ -51,9 +83,25 @@ export default function Usuarios() {
                           >
                             Eliminar usuario
                           </button>
-                          <button className="rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm">
-                            Bloquear usuario
-                          </button>
+                          {user.bloqueo === false ? (
+                            <button
+                              onClick={() =>
+                                handlerBloqueo(user.id, user.nombre)
+                              }
+                              className="rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                            >
+                              Bloquear usuario
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() =>
+                                handlerDesbloqueo(user.id, user.nombre)
+                              }
+                              className="rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
+                            >
+                              Desbloquear usuario
+                            </button>
+                          )}
                         </div>
                       </div>
                     ))}

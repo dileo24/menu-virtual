@@ -46,6 +46,30 @@ export const deleteUsuario = (id, token) => {
   };
 };
 
+export const bloqueoUsuario = (data, id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.put(`/usuarios/${id}`, data, config);
+    dispatch(getUsuarios());
+  };
+};
+
+export const desbloqueoUsuario = (data, id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.put(`/usuarios/${id}`, data, config);
+    dispatch(getUsuarios());
+  };
+};
+
 /****************** LOGIN ******************/
 export const getUserActual = (userData) => {
   return async function (dispatch) {
