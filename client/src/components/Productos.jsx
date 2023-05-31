@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProducto, getCategorias, getProductos } from "../redux/actions";
+import { deleteProducto, getProductos } from "../redux/actions";
 import Contador from "./contador";
 import Filtros from "./Filtros";
 
@@ -14,7 +14,6 @@ export default function Productos() {
 
   useEffect(() => {
     dispatch(getProductos());
-    dispatch(getCategorias());
     // Cambiarle el background del botón del Aside
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");

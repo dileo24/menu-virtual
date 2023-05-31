@@ -7,7 +7,7 @@ export default function Filtros() {
   const [filtroCategoria, setFiltroCategoria] = useState("todas");
   const dispatch = useDispatch();
 
-  const handlerRecargar = (e) => {
+  const handlerRecargar = () => {
     dispatch(getProductos());
     setFiltroCategoria("todas");
   };
@@ -33,7 +33,7 @@ export default function Filtros() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col mt-10">
       <div>
         <input
           type="text"
