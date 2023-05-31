@@ -6,7 +6,9 @@ import {
   LIMPIAR_CARRITO,
   ELIMINAR_ITEM_CARRITO,
   GET_PRODUCTOS,
+  SEARCHxCATEGORIA,
   DELETE_USER,
+  GET_CATEGORIAS,
 } from "./actions.js";
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
   usuarios: [],
   productos: [],
   carrito: [],
+  categorias: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -23,7 +26,25 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         productos: [...action.payload],
+        productosHome: [...action.payload],
       };
+    case GET_CATEGORIAS:
+      return {
+        ...state,
+        categorias: [...action.payload],
+      };
+    case SEARCHxCATEGORIA: {
+      let prodFilter =
+        action.payload === "todas"
+          ? state.productos
+          : state.productos.filter(
+              (e) => e.categoria.nombre === action.payload
+            );
+      return {
+        ...state,
+        productosHome: prodFilter,
+      };
+    }
 
     /****************** USUARIOS ******************/
     case GET_USUARIOS:

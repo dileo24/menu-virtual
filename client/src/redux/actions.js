@@ -3,10 +3,12 @@ export const GET_USER_ACTUAL = "GET_USER_ACTUAL";
 export const CLEAN_USER_ACTUAL = "CLEAN_USER_ACTUAL";
 export const GET_USUARIOS = "GET_USUARIOS";
 export const GET_PRODUCTOS = "GET_PRODUCTOS";
+export const GET_CATEGORIAS = "GET_CATEGORIAS";
 export const AGREGAR_CARRITO = "AGREGAR_CARRITO";
 export const LIMPIAR_CARRITO = "LIMPIAR_CARRITO";
 export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
 export const DELETE_USER = "DELETE_USER";
+export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -30,6 +32,21 @@ export const deleteProducto = (id, token) => {
       type: DELETE_USER,
       payload: id,
     });
+  };
+};
+export const getCategorias = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/categorias");
+    return dispatch({
+      type: GET_CATEGORIAS,
+      payload: response.data,
+    });
+  };
+};
+export const searchXcategoria = (categoria) => {
+  return {
+    type: SEARCHxCATEGORIA,
+    payload: categoria,
   };
 };
 
