@@ -1,0 +1,17 @@
+[
+  {
+    "tipo": "Efectivo"
+  },
+  {
+    "tipo": "Transferencia"
+  },
+  {
+    "tipo": "Crédito"
+  },
+  {
+    "tipo": "MercadoPago"
+  },
+  {
+    "tipo": "Otro"
+  }
+]

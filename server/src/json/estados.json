@@ -1,0 +1,14 @@
+[
+  {
+    "tipo": "En preparación"
+  },
+  {
+    "tipo": "Entregado"
+  },
+  {
+    "tipo": "Pagado"
+  },
+  {
+    "tipo": "Cancelado"
+  }
+]

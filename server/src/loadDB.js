@@ -1,13 +1,35 @@
 const producto = require("./json/productos.json");
 const roles = require("./json/roles.json");
 const usuario = require("./json/usuarios.json");
+const pagos = require("./json/pagos.json");
+const estados = require("./json/estados.json");
 const { encrypt } = require("./helpers/handleCrypt");
-const { Producto, Usuario, Rol, Categoria } = require("./db.js");
+const {
+  Producto,
+  Usuario,
+  Rol,
+  Categoria,
+  Pago,
+  Pedido,
+  Estado,
+} = require("./db.js");
 const categoria = require("./json/categorias.json");
 
 async function fnRols() {
   for (const r of roles) {
     await Rol.create(r);
+  }
+}
+
+async function fnPagos() {
+  for (const p of pagos) {
+    await Pago.create(p);
+  }
+}
+
+async function fnEstado() {
+  for (const e of estados) {
+    await Estado.create(e);
   }
 }
 
@@ -48,4 +70,6 @@ module.exports = {
   fnRols,
   fnSuperAdmin,
   fnCategorias,
+  fnPagos,
+  fnEstado,
 };
