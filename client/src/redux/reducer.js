@@ -9,6 +9,7 @@ import {
   SEARCHxCATEGORIA,
   DELETE_USER,
   GET_CATEGORIAS,
+  SEARCHxNOMBRE,
 } from "./actions.js";
 
 const initialState = {
@@ -43,6 +44,15 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         productosHome: prodFilter,
+      };
+    }
+    case SEARCHxNOMBRE: {
+      const productsFilter = state.productos.filter((e) =>
+        e.nombre.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      return {
+        ...state,
+        productosHome: [...productsFilter],
       };
     }
 

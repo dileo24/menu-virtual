@@ -5,6 +5,9 @@ const {
   fnProducto,
   fnSuperAdmin,
   fnCategorias,
+  fnPagos,
+  fnEstado,
+  fnPedidos,
 } = require("./src/loadDB.js");
 
 conn.sync({ force: true }).then(async () => {
@@ -13,6 +16,9 @@ conn.sync({ force: true }).then(async () => {
     await fnProducto();
     await fnRols();
     await fnSuperAdmin();
+    await fnPagos();
+    await fnEstado();
+    await fnPedidos();
     console.log("%s listening at 3001");
   });
 });

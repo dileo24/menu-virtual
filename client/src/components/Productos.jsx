@@ -2,28 +2,19 @@ import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  deleteProducto,
-  getCategorias,
-  getProductos,
-  searchXcategoria,
-} from "../redux/actions";
+import { deleteProducto, getProductos } from "../redux/actions";
 import Contador from "./contador";
-import { eliminarItemCarrito } from "../redux/actions";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
+  const productosState = useSelector((state) => state.productosHome);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productosHome);
   const categorias = useSelector((state) => state.categorias);
-  const carrito = useSelector((state) => state.carrito);
-  const [showMenu, setShowMenu] = useState(false);
-  const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
 
   useEffect(() => {
     dispatch(getProductos());
-    dispatch(getCategorias());
     // Cambiarle el background del botón del Aside
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");
@@ -42,26 +33,13 @@ export default function Productos() {
     dispatch(searchXcategoria(e.target.value));
   };
 
-  const handleShowMenu = () => {
-    setShowMenu(!showMenu);
-    if (verOcultar === "Ver mi pedido") {
-      setVerOcultar("Ocultar mi pedido");
-    } else {
-      setVerOcultar("Ver mi pedido");
-    }
-  };
-
-  const handleEliminarItem = (id) => {
-    dispatch(eliminarItemCarrito(id));
-  };
-
   return (
     <div id="productos" className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
         <Aside />
         <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
           <h2 className="text-3xl font-light text-center">Menú</h2>
-          <div className="px-5 flex flex-col mt-10">
+          <div className="flex flex-col mt-10">
             <select onChange={(e) => handlerFilterCateg(e)}>
               <option value="todas">Todos los Productos</option>
               {categorias.map((categ) => (

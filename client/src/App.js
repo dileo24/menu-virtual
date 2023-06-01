@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import ModalRegister from "./components/ModalRegister";
 import Usuarios from "./components/Usuarios";
 import Carrito from "./components/Carrito";
+import Pedidos from "./components/Pedidos";
 
 axios.defaults.baseURL = "http://localhost:3001";
 
@@ -23,6 +24,7 @@ function App() {
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />
+            <Route path="/pedidos" element={<Pedidos />} />
           </>
         ) : (
           <Route path="/carrito" element={<Carrito />} />

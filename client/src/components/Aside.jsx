@@ -44,7 +44,18 @@ export default function Aside() {
           >
             Nuevo producto
           </Link>
-        ) : null}
+        ) : (
+          <>
+            {" "}
+            <Link
+              to="/carrito"
+              className="carrito px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Carrito de Compras
+            </Link>
+            <p>{carrito.length}</p>
+          </>
+        )}
         {userActual && userActual.data.RolId === 1 && (
           <>
             {" "}
