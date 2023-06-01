@@ -7,7 +7,7 @@
     ],
     "mesa": "2",
     "precio": "9200",
-    "estado": "1",
+    "estadoID": "1",
     "tipoPagoID": "1"
   },
   {
@@ -18,7 +18,7 @@
     ],
     "mesa": "1",
     "precio": "9200",
-    "estado": "2",
+    "estadoID": "2",
     "tipoPagoID": "3"
   },
   {
@@ -29,7 +29,7 @@
     ],
     "mesa": "4",
     "precio": "9200",
-    "estado": "4",
+    "estadoID": "4",
     "tipoPagoID": "5"
   }
 ]

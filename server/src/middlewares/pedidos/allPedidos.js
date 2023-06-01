@@ -1,12 +1,20 @@
-const { Pedido, Pago } = require("../../db");
+const { Pedido, Pago, Estado } = require("../../db");
 
 const allPedidos = async (req, res, next) => {
   try {
     req.body.allPedidos = await Pedido.findAll({
       order: [["id", "ASC"]],
-      include: {
-        model: Pago,
-      },
+      attributes: { exclude: ["PagoId", "EstadoId"] },
+      include: [
+        {
+          model: Pago,
+          attributes: ["id", "tipo"],
+        },
+        {
+          model: Estado,
+          attributes: ["id", "tipo"],
+        },
+      ],
     });
     next();
   } catch (err) {

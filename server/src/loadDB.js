@@ -3,6 +3,7 @@ const roles = require("./json/roles.json");
 const usuario = require("./json/usuarios.json");
 const pagos = require("./json/pagos.json");
 const estados = require("./json/estados.json");
+const pedidos = require("./json/pedidos.json");
 const { encrypt } = require("./helpers/handleCrypt");
 const {
   Producto,
@@ -33,6 +34,11 @@ async function fnEstado() {
   }
 }
 
+async function fnCategorias() {
+  for (const cat of categoria) {
+    await Categoria.create(cat);
+  }
+}
 async function fnProducto() {
   for (const p of producto) {
     const newProduct = await Producto.create({
@@ -45,9 +51,17 @@ async function fnProducto() {
   }
 }
 
-async function fnCategorias() {
-  for (const cat of categoria) {
-    await Categoria.create(cat);
+async function fnPedidos() {
+  for (const ped of pedidos) {
+    const newPedido = await Pedido.create({
+      productos: ped.productos,
+      mesa: ped.mesa,
+      precio: ped.precio,
+    });
+    const tipoPago = await Pago.findByPk(ped.tipoPagoID);
+    const estado = await Estado.findByPk(ped.estadoID);
+    await estado.addPedido(newPedido);
+    await tipoPago.addPedido(newPedido);
   }
 }
 
@@ -72,4 +86,5 @@ module.exports = {
   fnCategorias,
   fnPagos,
   fnEstado,
+  fnPedidos,
 };

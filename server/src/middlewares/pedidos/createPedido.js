@@ -1,17 +1,18 @@
-const { Producto, Categoria } = require("../../db");
+const { Pedido, Pago, Estado } = require("../../db");
 
-const createProduct = async (req, res, next) => {
+const createPedido = async (req, res, next) => {
   try {
-    const { productos, mesa, precio, tipoPagoID, estado } = req.body;
+    const { productos, mesa, precio, tipoPagoID, estadoID } = req.body;
 
-    const tipoPago = await Categoria.findByPk(tipoPagoID);
-    const newProduct = await Producto.create({
+    const tipoPago = await Pago.findByPk(tipoPagoID);
+    const estado = await Estado.findByPk(estadoID);
+    const newPedido = await Pedido.create({
       productos,
       mesa,
       precio,
-      estado,
     });
-    await tipoPago.addProducto(newProduct);
+    await tipoPago.addPedido(newPedido);
+    await estado.addPedido(newPedido);
     req.body.resultado = {
       status: "200",
       respuesta: `el pedido para la mesa ${mesa} está en estado ${estado}`,
@@ -19,7 +20,7 @@ const createProduct = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log("error en createProduct");
+    console.log("error en createPedido");
     console.log(err.message);
     req.body.resultado = { status: "404", respuesta: err.message };
     console.log(req.body.resultado);
@@ -27,4 +28,4 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-module.exports = createProduct;
+module.exports = createPedido;
