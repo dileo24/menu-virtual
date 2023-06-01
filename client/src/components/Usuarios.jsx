@@ -48,7 +48,7 @@ export default function Usuarios() {
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
         <Aside />
-        <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-3/5  xl:w-4/5">
+        <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="text-3xl font-light text-center">Lista de usuarios</h2>
 
           <div className="flex flex-col mt-10 items-center contenedor w-auto">

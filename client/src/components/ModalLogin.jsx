@@ -53,7 +53,7 @@ export default function ModalLogin({ onClose }) {
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
         <Aside />
-        <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-3/5  xl:w-4/5">
+        <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="-mt-16 text-3xl font-light text-center">
             Iniciar Sesión
           </h2>

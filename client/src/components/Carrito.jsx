@@ -11,11 +11,11 @@ export default function Carrito() {
     dispatch(eliminarItemCarrito(id));
   };
 
-  useEffect(() => {
-    // Cambiarle el background del botón del Aside
-    const carrito = document.querySelector(".carrito");
-    carrito.classList.add("bg-teal-700");
-  }, []);
+  // useEffect(() => {
+  //   // Cambiarle el background del botón del Aside
+  //   const carrito = document.querySelector(".carrito");
+  //   carrito.classList.add("bg-teal-700");
+  // }, []);
 
   return (
     <div className="min-h-100 bg-gray-200">

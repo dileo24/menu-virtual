@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,6 +9,7 @@ import {
   searchXcategoria,
 } from "../redux/actions";
 import Contador from "./contador";
+import { eliminarItemCarrito } from "../redux/actions";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
@@ -16,6 +17,9 @@ export default function Productos() {
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productosHome);
   const categorias = useSelector((state) => state.categorias);
+  const carrito = useSelector((state) => state.carrito);
+  const [showMenu, setShowMenu] = useState(false);
+  const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
 
   useEffect(() => {
     dispatch(getProductos());
@@ -38,13 +42,26 @@ export default function Productos() {
     dispatch(searchXcategoria(e.target.value));
   };
 
+  const handleShowMenu = () => {
+    setShowMenu(!showMenu);
+    if (verOcultar === "Ver mi pedido") {
+      setVerOcultar("Ocultar mi pedido");
+    } else {
+      setVerOcultar("Ver mi pedido");
+    }
+  };
+
+  const handleEliminarItem = (id) => {
+    dispatch(eliminarItemCarrito(id));
+  };
+
   return (
     <div id="productos" className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
         <Aside />
-        <main className="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200">
+        <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
           <h2 className="text-3xl font-light text-center">Menú</h2>
-          <div className="flex flex-col mt-10">
+          <div className="px-5 flex flex-col mt-10">
             <select onChange={(e) => handlerFilterCateg(e)}>
               <option value="todas">Todos los Productos</option>
               {categorias.map((categ) => (
@@ -110,6 +127,7 @@ export default function Productos() {
                                   nombre={nombre}
                                   descripcion={descripcion}
                                   precio={precio}
+                                  // valor={valor}
                                 />
                               )}
                             </td>
@@ -120,6 +138,56 @@ export default function Productos() {
                 </table>
               </div>
             </div>
+          </div>
+          {userActual ? null : (
+            <>
+              <div className=" w-full absolute bottom-0 md:w-4/5 xl:w-4/5 bg-gray-300 shadow flex justify-center items-center">
+                <button
+                  className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
+                  onClick={handleShowMenu}
+                >
+                  <b className="font-bold">{verOcultar}</b>
+                </button>
+              </div>
+            </>
+          )}
+
+          <div className="flex justify-center items-center">
+            {/* Menu desplegable */}
+            {showMenu && (
+              <div className="flex items-center justify-center absolute bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
+                <table className="text-center">
+                  <thead>
+                    <tr>
+                      <th className="text-center px-4 py-2">Producto</th>
+                      <th className="text-center px-4 py-2">Precio</th>
+                      <th className="text-center px-4 py-2">Eliminar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {carrito &&
+                      carrito.map((prod, id) => (
+                        <tr key={id}>
+                          <td className="text-center px-4 py-2">
+                            {prod.nombre}
+                          </td>
+                          <td className="text-center px-4 py-2">
+                            ${prod.precio}
+                          </td>
+                          <td className="text-center px-4 py-2">
+                            <button
+                              onClick={() => handleEliminarItem(prod.id)}
+                              className=" text-red-500"
+                            >
+                              X
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         </main>
       </div>

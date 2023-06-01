@@ -7,7 +7,6 @@ export default function Aside() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
-  const carrito = useSelector((state) => state.carrito);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
@@ -19,7 +18,7 @@ export default function Aside() {
   };
 
   return (
-    <aside className="md:w-2/5 lg:w-2/5 xl:w-1/5 bg-teal-600 px-5 py-10">
+    <aside className="md:w-1/5 lg:w-1/5 xl:w-1/5 bg-teal-600 px-5 py-10">
       <h1 className="uppercase text-white tracking-wide text-2xl font-bold mt-2">
         Menú Virtual
       </h1>
@@ -45,18 +44,7 @@ export default function Aside() {
           >
             Nuevo producto
           </Link>
-        ) : (
-          <>
-            {" "}
-            <Link
-              to="/carrito"
-              className="carrito px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-            >
-              Carrito de Compras
-            </Link>
-            <p>{carrito.length}</p>
-          </>
-        )}
+        ) : null}
         {userActual && userActual.data.RolId === 1 && (
           <>
             {" "}
