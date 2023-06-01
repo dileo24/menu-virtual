@@ -2,20 +2,25 @@ const { Pedido, Pago, Estado } = require("../../db");
 
 const createPedido = async (req, res, next) => {
   try {
-    const { productos, mesa, precio, tipoPagoID, estadoID } = req.body;
+    const { productos, mesa, precio, tipoPagoID } = req.body;
 
     const tipoPago = await Pago.findByPk(tipoPagoID);
-    const estado = await Estado.findByPk(estadoID);
+    const estado = await Estado.findOne({
+      where: { id: "1" },
+    });
+
     const newPedido = await Pedido.create({
       productos,
       mesa,
       precio,
     });
+
     await tipoPago.addPedido(newPedido);
     await estado.addPedido(newPedido);
+
     req.body.resultado = {
       status: "200",
-      respuesta: `el pedido para la mesa ${mesa} está en estado ${estado}`,
+      respuesta: `el pedido para la mesa ${mesa} está ${estado.tipo}`,
     };
 
     next();
