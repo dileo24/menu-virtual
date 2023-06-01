@@ -10,7 +10,6 @@ export default function Productos() {
   const productosState = useSelector((state) => state.productosHome);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
-  const productosState = useSelector((state) => state.productosHome);
   const categorias = useSelector((state) => state.categorias);
 
   useEffect(() => {
