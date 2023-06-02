@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductos, searchXcategoria, searchXname } from "../redux/actions";
+import {
+  getCategorias,
+  getProductos,
+  searchXcategoria,
+  searchXname,
+} from "../redux/actions";
 export default function Filtros() {
   const categorias = useSelector((state) => state.categorias);
   const [state, setState] = useState("");
   const [filtroCategoria, setFiltroCategoria] = useState("todas");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategorias());
+  }, [dispatch]);
 
   const handlerRecargar = () => {
     dispatch(getProductos());
@@ -13,9 +22,13 @@ export default function Filtros() {
   };
 
   const handlerFilterCateg = (e) => {
-    const categoria = e.target.value;
-    setFiltroCategoria(categoria);
-    dispatch(searchXcategoria(categoria));
+    const selectedCategoria = e.target.value;
+    setFiltroCategoria(selectedCategoria);
+    if (selectedCategoria === "todas") {
+      dispatch(getProductos());
+    } else {
+      dispatch(searchXcategoria(selectedCategoria));
+    }
   };
 
   const handleState = (e) => {
@@ -23,8 +36,10 @@ export default function Filtros() {
   };
 
   const limpiarState = () => {
-    dispatch(searchXname(state));
-    setState("");
+    if (state !== "") {
+      dispatch(searchXname(state));
+      setState("");
+    }
   };
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {

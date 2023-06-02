@@ -16,6 +16,7 @@ const initialState = {
   userActual: null,
   usuarios: [],
   productos: [],
+  productosHome: [],
   carrito: [],
   categorias: [],
 };
@@ -39,8 +40,9 @@ function rootReducer(state = initialState, action) {
         action.payload === "todas"
           ? state.productos
           : state.productos.filter(
-              (e) => e.categoria.nombre === action.payload
+              (prod) => prod.categoria.nombre === action.payload
             );
+      console.log(prodFilter);
       return {
         ...state,
         productosHome: prodFilter,

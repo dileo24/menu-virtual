@@ -14,6 +14,7 @@ export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
   return async function (dispatch) {
+    console.log("despaché los productos de nuevooo");
     const response = await axios.get("/productos");
     return dispatch({
       type: GET_PRODUCTOS,
