@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
-import Main from "./Main";
+import FormProducto from "./FormProducto";
 import {
   obtenerProducto,
   ningunInputVacio,
   editarProducto,
   mostrarAlerta,
 } from "../helpers";
+import { useSelector } from "react-redux";
 
 export default function EditarProductos() {
   const titulo = "Editar Producto";
@@ -14,6 +15,7 @@ export default function EditarProductos() {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [id, setId] = useState("");
+  const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
     // Obtener el ID del producto de la URL cuando se carga la página
@@ -49,7 +51,7 @@ export default function EditarProductos() {
     };
 
     if (ningunInputVacio(producto)) {
-      editarProducto(producto);
+      editarProducto(producto, token);
       mostrarAlerta("Producto editado con éxito", "exito");
     } else {
       mostrarAlerta("Error: Hay algún campo vacío", "error");
@@ -58,22 +60,17 @@ export default function EditarProductos() {
   }
 
   return (
-    <div className="min-h-100 bg-gray-200">
-      <div className="md:flex min-h-screen md:align-top">
-        <Aside />
-        <Main
-          nombre={nombre}
-          setNombre={setNombre}
-          descripcion={descripcion}
-          setDescripcion={setDescripcion}
-          precio={precio}
-          setPrecio={setPrecio}
-          id={id}
-          setId={setId}
-          onSubmit={validarProducto}
-          titulo={titulo}
-        />
-      </div>
-    </div>
+    <FormProducto
+      nombre={nombre}
+      setNombre={setNombre}
+      descripcion={descripcion}
+      setDescripcion={setDescripcion}
+      precio={precio}
+      setPrecio={setPrecio}
+      id={id}
+      setId={setId}
+      onSubmit={validarProducto}
+      titulo={titulo}
+    />
   );
 }

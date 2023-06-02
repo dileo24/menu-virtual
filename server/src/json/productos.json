@@ -1,32 +1,38 @@
 [
   {
-    "nombre": "Bife a la plancha con papas",
+    "nombre": "Pizza Especial (8 porciones)",
     "descripcion": "Descripcion del producto",
-    "precio": "2500"
+    "precio": "3500",
+    "categoriaID": "2"
   },
   {
     "nombre": "Papas Bravas (para 2)",
     "descripcion": "Descripcion del producto",
-    "precio": "1500"
+    "precio": "1500",
+    "categoriaID": "5"
   },
   {
     "nombre": "Lomito Completo Premium",
     "descripcion": "Descripcion del producto",
-    "precio": "2000"
+    "precio": "2000",
+    "categoriaID": "4"
   },
   {
     "nombre": "Pizza Fugazzeta (8 porciones)",
     "descripcion": "Descripcion del producto",
-    "precio": "1500"
+    "precio": "2500",
+    "categoriaID": "2"
   },
   {
-    "nombre": "Fajitas de Ternera (para 4)",
+    "nombre": "Papas a la Alemana (para 4)",
     "descripcion": "Descripcion del producto",
-    "precio": "5300"
+    "precio": "5300",
+    "categoriaID": "5"
   },
   {
     "nombre": "Hamburguesa Americana Doble",
     "descripcion": "Descripcion del producto",
-    "precio": "1800"
+    "precio": "1800",
+    "categoriaID": "3"
   }
 ]

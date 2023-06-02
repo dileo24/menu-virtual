@@ -1,6 +1,7 @@
 const { verifyToken } = require("../../helpers/generateToken");
 
 const checkAuth = async (req, res, next) => {
+  //verifica que un usuario tenga un token válido, que sea sesión válida
   try {
     const token = req.headers.authorization.split(" ").pop();
     const tokenData = await verifyToken(token);

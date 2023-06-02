@@ -1,0 +1,35 @@
+[
+  {
+    "productos": [
+      "Pizza Especial (8 porciones)",
+      "Papas Bravas (para 2)",
+      "Lomito Completo Premium"
+    ],
+    "mesa": "2",
+    "precio": "9200",
+    "estadoID": "1",
+    "tipoPagoID": "1"
+  },
+  {
+    "productos": [
+      "Papas a la Alemana (para 4)",
+      "Lomito Completo Premium",
+      "Pizza Fugazzeta (8 porciones)"
+    ],
+    "mesa": "1",
+    "precio": "9200",
+    "estadoID": "2",
+    "tipoPagoID": "3"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5"
+  }
+]

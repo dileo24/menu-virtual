@@ -3,13 +3,15 @@
 const url = "http://localhost:3001/productos";
 
 // CREACION el nuevo producto en la BDD cuando se crea un nuevo producto:
-export const nuevoProducto = (producto) => {
+export const nuevoProducto = (producto, token) => {
+  // console.log(producto, token);
   try {
     fetch(url, {
       method: "POST",
       body: JSON.stringify(producto),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
   } catch (error) {
@@ -18,28 +20,27 @@ export const nuevoProducto = (producto) => {
 };
 
 // LISTADO todos los productos de la API
-export const obtenerProductos = async () => {
+/* export const obtenerProductos = async () => {
   try {
     const resultado = await fetch(url);
     const productos = await resultado.json();
-    console.log(productos);
     return productos;
   } catch (error) {
     console.log(error);
   }
-};
+}; */
 
 // ELIMINACION un producto
 
-export const eliminarProducto = async (idProducto) => {
-  try {
-    await fetch(`${url}/${idProducto}`, {
-      method: "DELETE",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const eliminarProducto = async (idProducto) => {
+//   try {
+//     await fetch(`${url}/${idProducto}`, {
+//       method: "DELETE",
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // Obtener un producto por su ID
 export const obtenerProducto = async (id) => {
@@ -53,13 +54,14 @@ export const obtenerProducto = async (id) => {
 };
 
 // Actualizar el producto editado
-export const editarProducto = async (producto) => {
+export const editarProducto = async (producto, token) => {
   try {
     await fetch(`${url}/${producto.id}`, {
       method: "PUT",
       body: JSON.stringify(producto),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
     });
     window.location.href = "/";
@@ -112,7 +114,7 @@ export function mostrarAlerta(texto, tipo) {
   contenedor.appendChild(alertaDiv);
   setTimeout(() => {
     alertaDiv.remove();
-  }, 1000);
+  }, 2500);
 }
 
 export function ningunInputVacio(obj) {
