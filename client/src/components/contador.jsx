@@ -31,6 +31,7 @@ export default function Contador({ nombre, descripcion, precio, id }) {
       localStorage.setItem(`contador_${id}`, newValue.toString());
 
       dispatch(eliminarItemCarrito(id));
+      eliminarItemCarrito(id);
     }
   };
 

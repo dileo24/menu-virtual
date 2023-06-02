@@ -32,15 +32,15 @@ export const nuevoProducto = (producto, token) => {
 
 // ELIMINACION un producto
 
-/* export const eliminarProducto = async (idProducto) => {
-  try {
-    await fetch(`${url}/${idProducto}`, {
-      method: "DELETE",
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}; */
+// export const eliminarProducto = async (idProducto) => {
+//   try {
+//     await fetch(`${url}/${idProducto}`, {
+//       method: "DELETE",
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 // Obtener un producto por su ID
 export const obtenerProducto = async (id) => {

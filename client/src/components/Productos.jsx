@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Aside from "./Aside";
 import Filtros from "./Filtros";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../redux/actions";
-import Contador from "./contador";
-import { eliminarItemCarrito } from "../redux/actions";
+import Contador from "./Contador";
+import Carrito from "./Carrito";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.productosHome);
-  const carrito = useSelector((state) => state.carrito);
-  const [showMenu, setShowMenu] = useState(false);
-  const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
 
   useEffect(() => {
     dispatch(getProductos());
@@ -30,20 +27,6 @@ export default function Productos() {
         dispatch(getProductos());
       });
     }
-  };
-
-  const handleShowMenu = () => {
-    setShowMenu(!showMenu);
-    if (verOcultar === "Ver mi pedido") {
-      setVerOcultar("Ocultar mi pedido");
-    } else {
-      setVerOcultar("Ver mi pedido");
-    }
-  };
-
-  const handleEliminarItem = (id) => {
-    console.log(`intentando eliminar el item con id ${id}`);
-    dispatch(eliminarItemCarrito(id));
   };
 
   return (
@@ -90,8 +73,7 @@ export default function Productos() {
                               <p className="text-gray-600">${precio}</p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {/* condicion para la columna de 'acciones' */}
-
+                              {/* Si el usuario inició sesión */}
                               {userActual ? (
                                 <>
                                   <Link
@@ -108,6 +90,7 @@ export default function Productos() {
                                   </button>
                                 </>
                               ) : (
+                                // Si el usuario no inició sesión
                                 <Contador
                                   id={id}
                                   nombre={nombre}
@@ -125,56 +108,8 @@ export default function Productos() {
                 </div>
               </div>
             </div>
-            {userActual ? null : (
-              <>
-                <div className=" w-full absolute bottom-0 md:w-4/5 xl:w-4/5 bg-gray-300 shadow flex justify-center items-center">
-                  <button
-                    className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
-                    onClick={handleShowMenu}
-                  >
-                    <b className="font-bold">{verOcultar}</b>
-                  </button>
-                </div>
-              </>
-            )}
 
-            <div className="flex justify-center items-center">
-              {/* Menu desplegable */}
-              {showMenu && (
-                <div className="flex items-center justify-center absolute bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
-                  <table className="text-center">
-                    <thead>
-                      <tr>
-                        <th className="text-center px-4 py-2">Producto</th>
-                        <th className="text-center px-4 py-2">Precio</th>
-                        <th className="text-center px-4 py-2">Eliminar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {carrito &&
-                        carrito.map((prod, id) => (
-                          <tr key={id}>
-                            <td className="text-center px-4 py-2">
-                              {prod.nombre}
-                            </td>
-                            <td className="text-center px-4 py-2">
-                              ${prod.precio}
-                            </td>
-                            <td className="text-center px-4 py-2">
-                              <button
-                                onClick={() => handleEliminarItem(prod.id)}
-                                className=" text-red-500"
-                              >
-                                X
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
+            <Carrito />
           </main>
         </div>
       </div>
