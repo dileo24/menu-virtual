@@ -1,4 +1,5 @@
 const server = require("./src/app.js");
+const port = process.env.PORT || 3001;
 const { conn } = require("./src/db.js");
 const {
   fnRols,
@@ -11,7 +12,7 @@ const {
 } = require("./src/loadDB.js");
 
 conn.sync({ force: true }).then(async () => {
-  server.listen(3001, async () => {
+  server.listen(port, async () => {
     await fnCategorias();
     await fnProducto();
     await fnRols();
