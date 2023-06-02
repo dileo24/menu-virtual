@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React /*, { useEffect } */ from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import { eliminarItemCarrito } from "../redux/actions";
