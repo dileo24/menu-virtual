@@ -4,6 +4,12 @@ import { eliminarItemCarrito } from "../redux/actions";
 
 export default function Carrito() {
   const carrito = useSelector((state) => state.carrito);
+  const preciosArray = carrito.map((carritoItem) => carritoItem.precio);
+  let precioFinal = 0;
+  for (let i = 0; i < preciosArray.length; i++) {
+    precioFinal += parseInt(preciosArray[i]);
+  }
+
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
@@ -67,6 +73,12 @@ export default function Carrito() {
                       </td>
                     </tr>
                   ))}
+                <tr>
+                  <td className="text-center px-4 py-2" colSpan="2">
+                    Precio Final:
+                  </td>
+                  <td className="text-center px-4 py-2">${precioFinal}</td>
+                </tr>
               </tbody>
               <button
                 className=" ml-40 py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg"
