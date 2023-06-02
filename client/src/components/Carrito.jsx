@@ -19,16 +19,7 @@ export default function Carrito() {
   };
 
   const handleEliminarItemCarrito = (id) => {
-    console.log(id);
-    const storedValue = localStorage.getItem(`contador_${id}`);
-    if (storedValue) {
-      const contadorValue = parseInt(storedValue);
-      if (contadorValue > 0) {
-        localStorage.setItem(`contador_${id}`, (contadorValue - 1).toString());
-      }
-    }
     dispatch(eliminarItemCarrito(id));
-    // window.location.reload();
   };
 
   return (
