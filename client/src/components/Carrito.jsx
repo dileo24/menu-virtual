@@ -26,7 +26,7 @@ export default function Carrito() {
     <>
       {userActual ? null : (
         <>
-          <div className=" w-full absolute bottom-0 md:w-4/5 xl:w-4/5 bg-gray-300 shadow flex justify-center items-center">
+          <div className=" fixed w-full bottom-0 md:w-4/5 xl:w-4/5 bg-gray-300 shadow flex justify-center items-center">
             <button
               className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
               onClick={handleShowMenu}
@@ -40,7 +40,7 @@ export default function Carrito() {
       <div className="flex justify-center items-center">
         {/* Menu desplegable */}
         {showMenu && (
-          <div className="flex items-center justify-center absolute bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
+          <div className="fixed flex items-center justify-center bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
             <table className="text-center">
               <thead>
                 <tr>
@@ -68,6 +68,12 @@ export default function Carrito() {
                     </tr>
                   ))}
               </tbody>
+              <button
+                className=" ml-40 py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg"
+                // onClick={handleShowMenu}
+              >
+                <b className="font-bold">Siguiente</b>
+              </button>
             </table>
           </div>
         )}
