@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-        (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />

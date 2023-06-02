@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { eliminarItemCarrito, agregarCarrito } from "../redux/actions";
 
 export default function Contador({ nombre, descripcion, precio, id }) {
   const dispatch = useDispatch();
+  const carrito = useSelector((state) => state.carrito);
+  console.log(carrito);
   const [valor, setValor] = useState(() => {
     const storedValue = localStorage.getItem(`contador_${id}`);
     return storedValue ? parseInt(storedValue) : 0;
@@ -31,7 +33,6 @@ export default function Contador({ nombre, descripcion, precio, id }) {
       localStorage.setItem(`contador_${id}`, newValue.toString());
 
       dispatch(eliminarItemCarrito(id));
-      eliminarItemCarrito(id);
     }
   };
 

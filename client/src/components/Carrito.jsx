@@ -28,7 +28,7 @@ export default function Carrito() {
       }
     }
     dispatch(eliminarItemCarrito(id));
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (
