@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const allPagos = require("../middlewares/pagos/allPAgos");
+const allPagos = require("../middlewares/pagos/allPagos");
 
 const router = Router();
 
