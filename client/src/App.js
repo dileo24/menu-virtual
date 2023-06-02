@@ -10,8 +10,11 @@ import Usuarios from "./components/Usuarios";
 import Carrito from "./components/Carrito";
 import Pedidos from "./components/Pedidos";
 
-// axios.defaults.baseURL = "http://localhost:3001";
-axios.defaults.baseURL = "https://menu-virtual-production.up.railway.app";
+// Local
+axios.defaults.baseURL = "http://localhost:3001";
+
+// Deploy
+// axios.defaults.baseURL = "https://menu-virtual-production.up.railway.app";
 
 function App() {
   const userActual = useSelector((state) => state.userActual);
