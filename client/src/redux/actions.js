@@ -10,6 +10,7 @@ export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
 export const DELETE_USER = "DELETE_USER";
 export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
+export const GET_PEDIDOS = "GET_PEDIDOS";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -196,5 +197,29 @@ export const limpiarCarrito = () => {
     dispatch({
       type: LIMPIAR_CARRITO,
     });
+  };
+};
+
+/****************** PEDIDOS ******************/
+export const getPedidos = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/pedidos");
+    return dispatch({
+      type: GET_PEDIDOS,
+      payload: response.data,
+    });
+  };
+};
+
+export const createPedido = (payload) => {
+  return async function () {
+    const response = await axios.post("/pedidos", payload);
+    return response;
+  };
+};
+
+export const updatePedido = (data, id) => {
+  return async function () {
+    await axios.put(`/productos/${id}`, data);
   };
 };

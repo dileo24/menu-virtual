@@ -10,6 +10,7 @@ import {
   DELETE_USER,
   GET_CATEGORIAS,
   SEARCHxNOMBRE,
+  GET_PEDIDOS,
 } from "./actions.js";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
   productosHome: [],
   carrito: [],
   categorias: [],
+  pedidos: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -102,6 +104,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         carrito: action.payload,
+      };
+
+    /****************** PEDIDOS ******************/
+    case GET_PEDIDOS:
+      return {
+        ...state,
+        pedidos: [...action.payload],
       };
 
     default:
