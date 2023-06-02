@@ -42,6 +42,7 @@ export default function Productos() {
   };
 
   const handleEliminarItem = (id) => {
+    console.log(`intentando eliminar el item con id ${id}`);
     dispatch(eliminarItemCarrito(id));
   };
 

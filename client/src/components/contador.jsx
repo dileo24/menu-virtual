@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getProductos,
-  eliminarItemCarrito,
-  agregarCarrito,
-} from "../redux/actions";
+import { eliminarItemCarrito, agregarCarrito } from "../redux/actions";
 
 export default function Contador({ nombre, descripcion, precio, id }) {
   const dispatch = useDispatch();
@@ -37,10 +33,6 @@ export default function Contador({ nombre, descripcion, precio, id }) {
       dispatch(eliminarItemCarrito(id));
     }
   };
-
-  useEffect(() => {
-    dispatch(getProductos());
-  }, [dispatch]);
 
   return (
     <div>
