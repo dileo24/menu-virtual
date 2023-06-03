@@ -7,8 +7,7 @@ const tokenSign = async (user) => {
       id: user.id,
       role: user.RolId,
     },
-    process.env.JWT_SECRET,
-    { expiresIn: "2h" }
+    process.env.JWT_SECRET
   );
 };
 const verifyToken = async (token) => {
