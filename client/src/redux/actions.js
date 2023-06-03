@@ -220,9 +220,15 @@ export const createPedido = (payload) => {
   };
 };
 
-export const updatePedido = (data, id) => {
-  return async function () {
-    await axios.put(`/productos/${id}`, data);
+export const updatePedido = (id, data, token) => {
+  return async function (dispatch) {
+    /* const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }; */
+    await axios.put(`/pedidos/${id}`, data /* , config */);
+    dispatch(getPedidos());
   };
 };
 

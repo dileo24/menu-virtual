@@ -2,7 +2,12 @@ import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "./Filtros";
-import { getEstados, getPedidos, getTipoPago } from "../redux/actions";
+import {
+  getEstados,
+  getPedidos,
+  getTipoPago,
+  updatePedido,
+} from "../redux/actions";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -15,6 +20,19 @@ export default function Pedidos() {
     dispatch(getEstados());
     dispatch(getTipoPago());
   }, [dispatch]);
+
+  const handleUpdate = (id, data) => {
+    let res = window.confirm(`Está seguro de querer modificar este pedido"?`);
+    if (res === true) {
+      dispatch(updatePedido(id, data));
+    }
+  };
+
+  const handleSelectChange = (e, id, atributo) => {
+    const value = e.target.value;
+    const data = { [atributo]: value };
+    handleUpdate(id, data);
+  };
 
   return (
     pedidos && (
@@ -68,26 +86,30 @@ export default function Pedidos() {
                               {Estado.tipo}
                             </td> */}
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              <select id="">
+                              <select
+                                id=""
+                                value={Estado.id}
+                                onChange={(e) =>
+                                  handleSelectChange(e, id, "estadoID")
+                                }
+                              >
                                 {estados.map((est) => (
-                                  <option
-                                    key={est.id}
-                                    value={est.id}
-                                    selected={est.id === Estado.id}
-                                  >
+                                  <option key={est.id} value={est.id}>
                                     {est.tipo}
                                   </option>
                                 ))}
                               </select>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              <select id="">
+                              <select
+                                id=""
+                                value={Pago.id}
+                                onChange={(e) =>
+                                  handleSelectChange(e, id, "tipoPagoID")
+                                }
+                              >
                                 {tipoPagos.map((pag) => (
-                                  <option
-                                    key={pag.id}
-                                    value={pag.id}
-                                    selected={pag.id === Pago.id}
-                                  >
+                                  <option key={pag.id} value={pag.id}>
                                     {pag.tipo}
                                   </option>
                                 ))}
