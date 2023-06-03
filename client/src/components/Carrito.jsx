@@ -20,7 +20,7 @@ export default function Carrito() {
   const tipoPagos = useSelector((state) => state.tipoPagos);
   const [input, setInput] = useState({
     productos: nombresProdArray && nombresProdArray,
-    precio: precioFinal && precioFinal,
+    precio: `${precioFinal && precioFinal}`,
     mesa: "",
     aclaraciones: "",
     tipoPagoID: "",
@@ -64,6 +64,7 @@ export default function Carrito() {
       });
     }
   };
+  console.log(input);
   const handlerSubmitForm = (e) => {
     e.preventDefault();
     dispatch(createPedido(input));
@@ -143,7 +144,7 @@ export default function Carrito() {
         {/* Menu desplegable 2*/}
         {showMenu2 && (
           <div className="fixed flex items-center justify-center bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
-            <form id="formulario">
+            <form id="formulario" onSubmit={(e) => handlerSubmitForm(e)}>
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -211,7 +212,6 @@ export default function Carrito() {
                 type="submit"
                 className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer rounded"
                 value="Pagar"
-                onChange={(e) => handlerSubmitForm(e)}
               />
             </form>
           </div>
