@@ -24,11 +24,13 @@ export default function Contador({ nombre, descripcion, precio, id }) {
 
   return (
     <div className="flex">
-      <button onClick={() => handleDecremento(id)}>-</button>
+      <div onClick={() => handleDecremento(id)} className="cursor-pointer">
+        -
+      </div>
       <p className="text-center w-12 focus:outline-none focus:border-none">
         {contadorNum.length}
       </p>
-      <button
+      <div
         onClick={() =>
           handleIncremento({
             nombre,
@@ -37,9 +39,10 @@ export default function Contador({ nombre, descripcion, precio, id }) {
             id,
           })
         }
+        className="cursor-pointer"
       >
         +
-      </button>
+      </div>
     </div>
   );
 }
