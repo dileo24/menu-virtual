@@ -2,14 +2,16 @@ import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "./Filtros";
-import { getPedidos } from "../redux/actions";
+import { getEstados, getPedidos } from "../redux/actions";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
+  const estados = useSelector((state) => state.estados);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPedidos());
+    dispatch(getEstados());
   }, [dispatch]);
 
   return (
@@ -48,7 +50,7 @@ export default function Pedidos() {
                           <tr key={id}>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
-                                {productos}
+                                {productos.join(", ")}
                               </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -57,8 +59,21 @@ export default function Pedidos() {
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
                               <p className="text-gray-600">${precio}</p>
                             </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                            {/*                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                               {Estado.tipo}
+                            </td> */}
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              <select id="">
+                                {estados.map((est) => (
+                                  <option
+                                    key={est.id}
+                                    value={est.id}
+                                    selected={est.id === Estado.id}
+                                  >
+                                    {est.tipo}
+                                  </option>
+                                ))}
+                              </select>
                             </td>
                           </tr>
                         )

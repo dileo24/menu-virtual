@@ -11,6 +11,7 @@ export const DELETE_USER = "DELETE_USER";
 export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 export const GET_PEDIDOS = "GET_PEDIDOS";
+export const GET_ESTADOS = "GET_ESTADOS";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -221,5 +222,15 @@ export const createPedido = (payload) => {
 export const updatePedido = (data, id) => {
   return async function () {
     await axios.put(`/productos/${id}`, data);
+  };
+};
+
+export const getEstados = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/estados");
+    return dispatch({
+      type: GET_ESTADOS,
+      payload: response.data,
+    });
   };
 };

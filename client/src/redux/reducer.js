@@ -11,6 +11,7 @@ import {
   GET_CATEGORIAS,
   SEARCHxNOMBRE,
   GET_PEDIDOS,
+  GET_ESTADOS,
 } from "./actions.js";
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
   carrito: [],
   categorias: [],
   pedidos: [],
+  estados: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -111,6 +113,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         pedidos: [...action.payload],
+      };
+    case GET_ESTADOS:
+      return {
+        ...state,
+        estados: [...action.payload],
       };
 
     default:
