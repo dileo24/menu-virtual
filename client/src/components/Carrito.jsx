@@ -1,21 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarItemCarrito } from "../redux/actions";
+import { eliminarItemCarrito, getTipoPago } from "../redux/actions";
+import { createPedido } from "../redux/actions";
 // import Contador from "./Contador";
 
 export default function Carrito() {
   const carrito = useSelector((state) => state.carrito);
   const preciosArray = carrito.map((carritoItem) => carritoItem.precio);
+  const nombresProdArray = carrito.map((carritoItem) => carritoItem.nombre);
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
-
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const [showMenu2, setShowMenu2] = useState(false);
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
   const userActual = useSelector((state) => state.userActual);
+  const tipoPagos = useSelector((state) => state.tipoPagos);
+  const [input, setInput] = useState({
+    productos: nombresProdArray && nombresProdArray,
+    precio: precioFinal && precioFinal,
+    mesa: "",
+    aclaraciones: "",
+    tipoPagoID: "",
+    estadoID: "1",
+  });
+
+  useEffect(() => {
+    dispatch(getTipoPago());
+  }, [dispatch]);
 
   const handleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -36,6 +50,33 @@ export default function Carrito() {
 
   const handleEliminarItemCarrito = (id) => {
     dispatch(eliminarItemCarrito(id));
+  };
+
+  //formulario
+  const handlerChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
+  const handlerSelectTipo = (e) => {
+    if (!input.tipoPagoID.includes(e.target.value)) {
+      setInput({
+        ...input,
+        tipoPagoID: e.target.value,
+      });
+    }
+  };
+  const handlerSubmitForm = (e) => {
+    e.preventDefault();
+    dispatch(createPedido(input));
+    console.log(input);
+    alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
+    setInput({
+      productos: [],
+      precio: "",
+      mesa: "",
+      aclaraciones: "",
+      tipoPagoID: "",
+      estadoID: "1",
+    });
   };
 
   return (
@@ -102,7 +143,7 @@ export default function Carrito() {
         {/* Menu desplegable 2*/}
         {showMenu2 && (
           <div className="fixed flex items-center justify-center bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
-            <form id="formulario" method="POST">
+            <form id="formulario">
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -113,11 +154,12 @@ export default function Carrito() {
                 <input
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="nombre"
-                  name="nombre"
-                  type="text"
+                  name="mesa"
+                  type="number"
                   placeholder="Número de mesa"
-                  // value={nombre}
-                  // onChange={(e) => setNombre(e.target.value)}
+                  value={input.mesa}
+                  required
+                  onChange={(e) => handlerChange(e)}
                 />
               </div>
 
@@ -131,60 +173,45 @@ export default function Carrito() {
                 <input
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="descripcion"
-                  name="descripcion"
+                  name="aclaraciones"
                   type="text"
                   placeholder="Personalizá tu pedido"
-                  // value={descripcion}
-                  // onChange={(e) => setDescripcion(e.target.value)}
+                  value={input.aclaraciones}
+                  required
+                  onChange={(e) => handlerChange(e)}
                 />
               </div>
 
-              <div class="mb-4">
+              <div className="mb-4">
                 <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="precio"
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="precio"
                 >
                   Método de pago
                 </label>
-                <div class="flex">
-                  <label class="inline-flex items-center mr-4">
-                    <input
-                      type="checkbox"
-                      class="form-checkbox text-indigo-600 h-5 w-5"
-                    />
-                    <span class="ml-2 text-gray-700">Efectivo</span>
-                  </label>
-                  <label class="inline-flex items-center mr-4">
-                    <input
-                      type="checkbox"
-                      class="form-checkbox text-indigo-600 h-5 w-5"
-                    />
-                    <span class="ml-2 text-gray-700">Transferencia</span>
-                  </label>
-                  <label class="inline-flex items-center mr-4">
-                    <input
-                      type="checkbox"
-                      class="form-checkbox text-indigo-600 h-5 w-5"
-                    />
-                    <span class="ml-2 text-gray-700">Crédito</span>
-                  </label>
-                  <label class="inline-flex items-center">
-                    <input
-                      type="checkbox"
-                      class="form-checkbox text-indigo-600 h-5 w-5"
-                    />
-                    <span class="ml-2 text-gray-700">Débito</span>
-                  </label>
+                <div className="flex">
+                  {tipoPagos?.map((tipo) => (
+                    <label
+                      className="inline-flex items-center mr-4"
+                      key={tipo.id}
+                    >
+                      <input
+                        type="checkbox"
+                        className="form-checkbox text-indigo-600 h-5 w-5"
+                        value={tipo.id}
+                        onChange={(e) => handlerSelectTipo(e)}
+                      />
+                      <span className="ml-2 text-gray-700">{tipo.tipo}</span>
+                    </label>
+                  ))}
                 </div>
               </div>
-
-              <input type="hidden" name="id" id="id" value="" />
 
               <input
                 type="submit"
                 className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer rounded"
                 value="Pagar"
-                // onClick={onSubmit}
+                onChange={(e) => handlerSubmitForm(e)}
               />
             </form>
           </div>

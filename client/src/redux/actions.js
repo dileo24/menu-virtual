@@ -225,6 +225,7 @@ export const createPedido = (payload, token) => {
         Authorization: `Bearer ${token}`,
       },
     };
+    console.log(payload);
     const response = await axios.post("/pedidos", payload, config);
     return response;
   };
