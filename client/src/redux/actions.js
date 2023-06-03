@@ -203,9 +203,14 @@ export const limpiarCarrito = () => {
 };
 
 /****************** PEDIDOS ******************/
-export const getPedidos = () => {
+export const getPedidos = (token) => {
   return async function (dispatch) {
-    const response = await axios.get("/pedidos");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get("/pedidos", config);
     return dispatch({
       type: GET_PEDIDOS,
       payload: response.data,
@@ -213,22 +218,27 @@ export const getPedidos = () => {
   };
 };
 
-export const createPedido = (payload) => {
+export const createPedido = (payload, token) => {
   return async function () {
-    const response = await axios.post("/pedidos", payload);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post("/pedidos", payload, config);
     return response;
   };
 };
 
 export const updatePedido = (id, data, token) => {
   return async function (dispatch) {
-    /* const config = {
+    const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }; */
-    await axios.put(`/pedidos/${id}`, data /* , config */);
-    dispatch(getPedidos());
+    };
+    await axios.put(`/pedidos/${id}`, data, config);
+    dispatch(getPedidos(token));
   };
 };
 

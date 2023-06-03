@@ -13,27 +13,23 @@ export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
   const estados = useSelector((state) => state.estados);
   const tipoPagos = useSelector((state) => state.tipoPagos);
+  const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPedidos());
+    dispatch(getPedidos(token));
     dispatch(getEstados());
     dispatch(getTipoPago());
-  }, [dispatch]);
-
-  const handleUpdate = (id, data) => {
-    let res = window.confirm(`Está seguro de querer modificar este pedido"?`);
-    if (res === true) {
-      dispatch(updatePedido(id, data));
-    }
-  };
+  }, [dispatch, token]);
 
   const handleSelectChange = (e, id, atributo) => {
     const value = e.target.value;
     const data = { [atributo]: value };
-    handleUpdate(id, data);
+    let res = window.confirm(`Está seguro de querer modificar este pedido"?`);
+    if (res === true) {
+      dispatch(updatePedido(id, data, token));
+    }
   };
-
   return (
     pedidos && (
       <div id="productos" className="min-h-100 bg-gray-200">
@@ -82,9 +78,6 @@ export default function Pedidos() {
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
                               <p className="text-gray-600">${precio}</p>
                             </td>
-                            {/*                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Estado.tipo}
-                            </td> */}
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                               <select
                                 id=""
