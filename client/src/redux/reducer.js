@@ -12,6 +12,7 @@ import {
   SEARCHxNOMBRE,
   GET_PEDIDOS,
   GET_ESTADOS,
+  GET_TIPOPAGOS,
 } from "./actions.js";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   categorias: [],
   pedidos: [],
   estados: [],
+  tipoPagos: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -118,6 +120,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         estados: [...action.payload],
+      };
+    case GET_TIPOPAGOS:
+      return {
+        ...state,
+        tipoPagos: [...action.payload],
       };
 
     default:

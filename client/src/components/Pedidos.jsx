@@ -2,16 +2,18 @@ import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "./Filtros";
-import { getEstados, getPedidos } from "../redux/actions";
+import { getEstados, getPedidos, getTipoPago } from "../redux/actions";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
   const estados = useSelector((state) => state.estados);
+  const tipoPagos = useSelector((state) => state.tipoPagos);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getPedidos());
     dispatch(getEstados());
+    dispatch(getTipoPago());
   }, [dispatch]);
 
   return (
@@ -42,11 +44,14 @@ export default function Pedidos() {
                         <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                           Estado
                         </th>
+                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                          Tipo de Pago
+                        </th>
                       </tr>
                     </thead>
                     <tbody className="bg-white">
                       {pedidos.map(
-                        ({ productos, mesa, precio, Estado, id }) => (
+                        ({ productos, mesa, precio, Estado, Pago, id }) => (
                           <tr key={id}>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
@@ -71,6 +76,19 @@ export default function Pedidos() {
                                     selected={est.id === Estado.id}
                                   >
                                     {est.tipo}
+                                  </option>
+                                ))}
+                              </select>
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              <select id="">
+                                {tipoPagos.map((pag) => (
+                                  <option
+                                    key={pag.id}
+                                    value={pag.id}
+                                    selected={pag.id === Pago.id}
+                                  >
+                                    {pag.tipo}
                                   </option>
                                 ))}
                               </select>

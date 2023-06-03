@@ -12,6 +12,7 @@ export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
+export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -230,6 +231,15 @@ export const getEstados = () => {
     const response = await axios.get("/estados");
     return dispatch({
       type: GET_ESTADOS,
+      payload: response.data,
+    });
+  };
+};
+export const getTipoPago = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/pagos");
+    return dispatch({
+      type: GET_TIPOPAGOS,
       payload: response.data,
     });
   };
