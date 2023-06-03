@@ -8,7 +8,8 @@
     "mesa": "2",
     "precio": "9200",
     "estadoID": "1",
-    "tipoPagoID": "1"
+    "tipoPagoID": "1",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
   },
   {
     "productos": [
@@ -19,7 +20,8 @@
     "mesa": "1",
     "precio": "9200",
     "estadoID": "2",
-    "tipoPagoID": "3"
+    "tipoPagoID": "3",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
   },
   {
     "productos": [
@@ -30,6 +32,7 @@
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
-    "tipoPagoID": "5"
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
   }
 ]

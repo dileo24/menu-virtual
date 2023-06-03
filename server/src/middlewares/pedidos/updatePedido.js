@@ -2,7 +2,8 @@ const { Pedido, Estado, Pago } = require("../../db");
 
 const updatePedido = async (req, res, next) => {
   try {
-    const { productos, mesa, precio, tipoPagoID, estadoID } = req.body;
+    const { productos, mesa, precio, aclaraciones, tipoPagoID, estadoID } =
+      req.body;
     const id = req.params.id;
     const pedido = await Pedido.findByPk(id);
     if (pedido !== null) {
@@ -13,6 +14,7 @@ const updatePedido = async (req, res, next) => {
           mesa: mesa || pedido.mesa,
           tipoPagoID: tipoPagoID || pedido.tipoPagoID,
           estadoID: estadoID || pedido.estadoID,
+          aclaraciones: aclaraciones || pedido.aclaraciones,
         },
         { where: { id: id } }
       );
