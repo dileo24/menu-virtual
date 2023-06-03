@@ -10,14 +10,9 @@ const checkRoleAuth = require("../middlewares/auth/roleAuth");
 
 const router = Router();
 
-router.get(
-  "/",
-  /*  checkAuth, */
-  /* checkRoleAuth([2]), */ allUsers,
-  async (req, res) => {
-    return res.json(req.body.allUsers);
-  }
-);
+router.get("/", allUsers, async (req, res) => {
+  return res.json(req.body.allUsers);
+});
 router.post("/login", login, async (req, res) => {
   return res.json(req.body);
 });
