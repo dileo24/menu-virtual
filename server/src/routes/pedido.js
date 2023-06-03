@@ -17,15 +17,9 @@ router.get(
   }
 );
 
-router.post(
-  "/",
-  checkAuth,
-  checkRoleAuth([2, 1]),
-  createPedido,
-  async (req, res) => {
-    return res.status(200).send(req.body.resultado);
-  }
-);
+router.post("/", createPedido, async (req, res) => {
+  return res.status(200).send(req.body.resultado);
+});
 
 router.put(
   "/:id",
