@@ -13,8 +13,8 @@ export default function Carrito() {
     precioFinal += parseInt(preciosArray[i]);
   }
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
-  const [showMenu2, setShowMenu2] = useState(false);
+  const [MostrarMenu, setMostrarMenu] = useState(false);
+  const [MostrarMenu2, setMostrarMenu2] = useState(false);
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
@@ -31,10 +31,16 @@ export default function Carrito() {
     dispatch(getTipoPago());
   }, [dispatch]);
 
-  const handleShowMenu = () => {
-    setShowMenu(!showMenu);
-    if (showMenu2) {
-      setShowMenu2(!showMenu2);
+  const handleEliminarItemCarrito = (id) => {
+    dispatch(eliminarItemCarrito(id));
+  };
+
+  // Menús desplegables
+  const handleMostrarMenu = () => {
+    setMostrarMenu(!MostrarMenu);
+
+    if (MostrarMenu2) {
+      setMostrarMenu2(!MostrarMenu2);
     }
     if (verOcultar === "Ver mi pedido") {
       setVerOcultar("Ocultar mi pedido");
@@ -42,14 +48,15 @@ export default function Carrito() {
       setVerOcultar("Ver mi pedido");
     }
   };
-
-  const handleShowMenu2 = () => {
-    setShowMenu2(!showMenu2);
-    setShowMenu(showMenu);
+  const handleMostrarMenu2 = () => {
+    setMostrarMenu2(!MostrarMenu2);
+    setMostrarMenu(MostrarMenu);
   };
-
-  const handleEliminarItemCarrito = (id) => {
-    dispatch(eliminarItemCarrito(id));
+  const handleMostrarMenu1 = () => {
+    if (MostrarMenu2) {
+      setMostrarMenu2(!MostrarMenu2);
+    }
+    setMostrarMenu(MostrarMenu);
   };
 
   //formulario
@@ -64,11 +71,11 @@ export default function Carrito() {
       });
     }
   };
-  console.log(input);
+  // console.log(input);
   const handlerSubmitForm = (e) => {
     e.preventDefault();
     dispatch(createPedido(input));
-    console.log(input);
+    // console.log(input);
     alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
     setInput({
       productos: [],
@@ -87,7 +94,7 @@ export default function Carrito() {
           <div className=" fixed w-full bottom-0 md:w-4/5 xl:w-4/5 bg-gray-300 shadow flex justify-center items-center">
             <button
               className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
-              onClick={handleShowMenu}
+              onClick={handleMostrarMenu}
             >
               <b className="font-bold">{verOcultar}</b>
             </button>
@@ -97,7 +104,7 @@ export default function Carrito() {
 
       <div className="flex justify-center items-center">
         {/* Menu desplegable 1*/}
-        {showMenu && (
+        {MostrarMenu && (
           <div className="fixed flex items-center justify-center bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
             <table className="text-center">
               <thead>
@@ -133,7 +140,7 @@ export default function Carrito() {
               </tbody>
               <div
                 className=" ml-40 py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg cursor-pointer"
-                onClick={handleShowMenu2}
+                onClick={handleMostrarMenu2}
               >
                 <div className="font-bold">Siguiente</div>
               </div>
@@ -142,8 +149,14 @@ export default function Carrito() {
         )}
 
         {/* Menu desplegable 2*/}
-        {showMenu2 && (
-          <div className="fixed flex items-center justify-center bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
+        {MostrarMenu2 && (
+          <div className="fixed bottom-0 mb-12 md:w-3/6 xl:w-3/6  px-8 pb-8 pt-2 bg-gray-300 rounded z-10">
+            <button
+              className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
+              onClick={handleMostrarMenu1}
+            >
+              <b className="font-bold">Atrás</b>
+            </button>
             <form id="formulario" onSubmit={(e) => handlerSubmitForm(e)}>
               <div className="mb-4">
                 <label
@@ -178,7 +191,6 @@ export default function Carrito() {
                   type="text"
                   placeholder="Personalizá tu pedido"
                   value={input.aclaraciones}
-                  required
                   onChange={(e) => handlerChange(e)}
                 />
               </div>
