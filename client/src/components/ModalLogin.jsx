@@ -4,12 +4,7 @@ import { getUserActual, getUsuarios } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import Aside from "./Aside";
-import {
-  obtenerProducto,
-  ningunInputVacio,
-  editarProducto,
-  mostrarAlerta,
-} from "../helpers";
+import { mostrarAlerta } from "../helpers";
 
 export default function ModalLogin({ onClose }) {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
   getTipoPago,
-  limpiarCarrito,
+  // limpiarCarrito,
 } from "../redux/actions";
 import { createPedido } from "../redux/actions";
 // import Contador from "./Contador";
@@ -117,7 +117,7 @@ export default function Carrito() {
       <div className="flex justify-center items-center">
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
-          <div className="fixed flex items-center justify-center bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10">
+          <div className="fixed bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10 px-8">
             <table className="text-center">
               <thead>
                 <tr>
@@ -150,19 +150,19 @@ export default function Carrito() {
                   </td>
                 </tr>
               </tbody>
-              <div
-                className=" ml-40 py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg cursor-pointer"
-                onClick={handleMostrarMenu2}
-              >
-                <div className="font-bold">Siguiente</div>
-              </div>
             </table>
+            <div
+              className=" py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg cursor-pointer"
+              onClick={handleMostrarMenu2}
+            >
+              <div className="font-bold">Siguiente</div>
+            </div>
           </div>
         )}
 
         {/* Menu desplegable 2*/}
         {MostrarMenu2 && (
-          <div className="fixed bottom-0 mb-12 md:w-3/6 xl:w-3/6  px-8 pb-8 pt-2 bg-gray-300 rounded z-10">
+          <div className="fixed bottom-0 mb-12 md:w-4/5 xl:w-3/6  px-8 pb-8 pt-2 bg-gray-300 rounded z-10">
             <button
               className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
               onClick={handleMostrarMenu1}
