@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
   getTipoPago,
-  // limpiarCarrito,
+  limpiarCarrito,
 } from "../redux/actions";
 import { createPedido } from "../redux/actions";
 // import Contador from "./Contador";
@@ -42,13 +42,12 @@ export default function Carrito() {
     const nombres = carrito.map((carritoItem) => carritoItem.nombre);
     setNombresProdArray(nombres);
 
-    // Actualizar el estado input con los valores actualizados
-    setInput({
-      ...input,
+    setInput((prevInput) => ({
+      ...prevInput,
       productos: nombres,
       precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    });
-  }, [carrito, input]);
+    }));
+  }, [carrito]);
 
   const handleEliminarItemCarrito = (id) => {
     dispatch(eliminarItemCarrito(id));
