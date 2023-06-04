@@ -10,8 +10,8 @@ import { createPedido } from "../redux/actions";
 
 export default function Carrito() {
   const carrito = useSelector((state) => state.carrito);
-  const preciosArray = carrito.map((carritoItem) => carritoItem.precio);
-  const nombresProdArray = carrito.map((carritoItem) => carritoItem.nombre);
+  const [preciosArray, setPreciosArray] = useState([]);
+  const [nombresProdArray, setNombresProdArray] = useState([]);
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
@@ -23,8 +23,8 @@ export default function Carrito() {
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
   const [input, setInput] = useState({
-    productos: nombresProdArray && nombresProdArray,
-    precio: `${precioFinal && precioFinal}`,
+    productos: nombresProdArray,
+    precio: precioFinal,
     mesa: "",
     aclaraciones: "",
     tipoPagoID: "",
@@ -34,6 +34,21 @@ export default function Carrito() {
   useEffect(() => {
     dispatch(getTipoPago());
   }, [dispatch]);
+
+  useEffect(() => {
+    const precios = carrito.map((carritoItem) => carritoItem.precio);
+    setPreciosArray(precios);
+
+    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
+    setNombresProdArray(nombres);
+
+    // Actualizar el estado input con los valores actualizados
+    setInput({
+      ...input,
+      productos: nombres,
+      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
+    });
+  }, [carrito, input]);
 
   const handleEliminarItemCarrito = (id) => {
     dispatch(eliminarItemCarrito(id));
@@ -75,7 +90,7 @@ export default function Carrito() {
       });
     }
   };
-  // console.log(input);
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (input.aclaraciones.length > 50) {
@@ -84,10 +99,7 @@ export default function Carrito() {
       return;
     }
     dispatch(createPedido(input));
-    // console.log(input);
-    alert(
-      "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
-    );
+    dispatch(limpiarCarrito());
     setInput({
       productos: [],
       precio: "",
@@ -96,6 +108,7 @@ export default function Carrito() {
       tipoPagoID: "",
       estadoID: "1",
     });
+    alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
     window.location.href = "/";
   };
 
