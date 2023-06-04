@@ -52,7 +52,7 @@ export default function ModalRegister({ onClose }) {
       clave: "",
     });
 
-    window.location.reload();
+    /*  window.location.reload(); */
     // navigate("/");
   };
 
