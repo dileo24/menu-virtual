@@ -11,10 +11,10 @@ import Carrito from "./components/Carrito";
 import Pedidos from "./components/Pedidos";
 
 // Local
-axios.defaults.baseURL = "http://localhost:3001";
+//axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
-// axios.defaults.baseURL = "https://menu-virtual-production.up.railway.app";
+axios.defaults.baseURL = "https://menu-virtual-production.up.railway.app";
 
 function App() {
   const userActual = useSelector((state) => state.userActual);
@@ -24,7 +24,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+        (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />
