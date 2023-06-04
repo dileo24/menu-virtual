@@ -20,11 +20,11 @@ export default function Usuarios() {
     administrar.classList.add("bg-teal-700");
   }, [dispatch]);
 
-  const handlerEliminar = (id) => {
+  const handleEliminar = (id) => {
     dispatch(deleteUsuario(id, userActual.tokenSession));
   };
 
-  const handlerBloqueo = (id, nombre) => {
+  const handleBloqueo = (id, nombre) => {
     let res = window.confirm(`Está seguro de querer bloquear a "${nombre}"?`);
     if (res === true) {
       dispatch(
@@ -33,7 +33,7 @@ export default function Usuarios() {
     }
   };
 
-  const handlerDesbloqueo = (id, nombre) => {
+  const handleDesbloqueo = (id, nombre) => {
     let res = window.confirm(
       `Está seguro de querer desbloquear a "${nombre}"?`
     );
@@ -81,7 +81,7 @@ export default function Usuarios() {
                           </p>
                           <div className="flex">
                             <button
-                              onClick={() => handlerEliminar(user.id)}
+                              onClick={() => handleEliminar(user.id)}
                               className="mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
                             >
                               Eliminar usuario
@@ -89,7 +89,7 @@ export default function Usuarios() {
                             {user.bloqueo === false ? (
                               <button
                                 onClick={() =>
-                                  handlerBloqueo(user.id, user.nombre)
+                                  handleBloqueo(user.id, user.nombre)
                                 }
                                 className="rounded bg-orange-500 hover:bg-orange-700 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
                               >
@@ -98,7 +98,7 @@ export default function Usuarios() {
                             ) : (
                               <button
                                 onClick={() =>
-                                  handlerDesbloqueo(user.id, user.nombre)
+                                  handleDesbloqueo(user.id, user.nombre)
                                 }
                                 className="rounded bg-green-700 hover:bg-green-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
                               >

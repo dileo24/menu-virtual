@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Aside from "./Aside";
 import FormProducto from "./FormProducto";
 import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../helpers";
 import { useSelector } from "react-redux";

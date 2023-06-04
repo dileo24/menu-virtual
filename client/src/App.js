@@ -10,7 +10,10 @@ import Usuarios from "./components/Usuarios";
 import Carrito from "./components/Carrito";
 import Pedidos from "./components/Pedidos";
 
-// axios.defaults.baseURL = "http://localhost:3001";
+// Local
+//axios.defaults.baseURL = "http://localhost:3001";
+
+// Deploy
 axios.defaults.baseURL = "https://menu-virtual-production.up.railway.app";
 
 function App() {
@@ -21,7 +24,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+        (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />

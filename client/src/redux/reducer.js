@@ -10,6 +10,9 @@ import {
   DELETE_USER,
   GET_CATEGORIAS,
   SEARCHxNOMBRE,
+  GET_PEDIDOS,
+  GET_ESTADOS,
+  GET_TIPOPAGOS,
 } from "./actions.js";
 
 const initialState = {
@@ -19,6 +22,9 @@ const initialState = {
   productosHome: [],
   carrito: [],
   categorias: [],
+  pedidos: [],
+  estados: [],
+  tipoPagos: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -102,6 +108,23 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         carrito: action.payload,
+      };
+
+    /****************** PEDIDOS ******************/
+    case GET_PEDIDOS:
+      return {
+        ...state,
+        pedidos: [...action.payload],
+      };
+    case GET_ESTADOS:
+      return {
+        ...state,
+        estados: [...action.payload],
+      };
+    case GET_TIPOPAGOS:
+      return {
+        ...state,
+        tipoPagos: [...action.payload],
       };
 
     default:

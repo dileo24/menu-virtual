@@ -10,6 +10,9 @@ export const ELIMINAR_ITEM_CARRITO = "ELIMINAR_ITEM_CARRITO";
 export const DELETE_USER = "DELETE_USER";
 export const SEARCHxCATEGORIA = "SEARCHxCATEGORIA";
 export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
+export const GET_PEDIDOS = "GET_PEDIDOS";
+export const GET_ESTADOS = "GET_ESTADOS";
+export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -195,6 +198,66 @@ export const limpiarCarrito = () => {
 
     dispatch({
       type: LIMPIAR_CARRITO,
+    });
+  };
+};
+
+/****************** PEDIDOS ******************/
+export const getPedidos = (token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.get("/pedidos", config);
+    return dispatch({
+      type: GET_PEDIDOS,
+      payload: response.data,
+    });
+  };
+};
+
+export const createPedido = (payload, token) => {
+  return async function () {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    console.log(payload);
+    const response = await axios.post("/pedidos", payload, config);
+    return response;
+  };
+};
+
+export const updatePedido = (id, data, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.put(`/pedidos/${id}`, data, config);
+    dispatch(getPedidos(token));
+  };
+};
+
+export const getEstados = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/estados");
+    return dispatch({
+      type: GET_ESTADOS,
+      payload: response.data,
+    });
+  };
+};
+export const getTipoPago = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/pagos");
+    return dispatch({
+      type: GET_TIPOPAGOS,
+      payload: response.data,
     });
   };
 };

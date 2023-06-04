@@ -4,7 +4,7 @@ const allPedidos = async (req, res, next) => {
   try {
     req.body.allPedidos = await Pedido.findAll({
       order: [["id", "ASC"]],
-      attributes: { exclude: ["PagoId", "EstadoId"] },
+      /* attributes: { exclude: ["PagoId", "EstadoId"] }, */
       include: [
         {
           model: Pago,
