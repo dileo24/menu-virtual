@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarItemCarrito, getTipoPago } from "../redux/actions";
+import {
+  eliminarItemCarrito,
+  getTipoPago,
+  limpiarCarrito,
+} from "../redux/actions";
 import { createPedido } from "../redux/actions";
 // import Contador from "./Contador";
 
