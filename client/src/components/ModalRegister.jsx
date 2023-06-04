@@ -28,7 +28,8 @@ export default function ModalRegister({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    /* if (input.clave.length < 8) {
+    validateEmail(input.email.valueOf());
+    if (input.clave.length < 8) {
       return mostrarAlerta(
         "La contraseña debe tener al menos 8 caracteres",
         "error"
@@ -39,7 +40,7 @@ export default function ModalRegister({ onClose }) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     } else if (!email) {
       return mostrarAlerta("Formato del email inválido", "error");
-    } */
+    }
     mostrarAlerta("Cuenta creada con éxito", "exito");
     dispatch(register(input, token));
     console.log(token);
@@ -71,7 +72,7 @@ export default function ModalRegister({ onClose }) {
   const validateEmail = (e) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(e.target.value)) {
+    if (!emailRegex.test(e)) {
       email = false;
       console.log(email);
     } else {
@@ -142,7 +143,6 @@ export default function ModalRegister({ onClose }) {
                       name="email"
                       placeholder="Escribe su email"
                       value={input.email}
-                      onBlur={(e) => validateEmail(e)}
                       onChange={(e) => handleChange(e)}
                     />
                   </div>

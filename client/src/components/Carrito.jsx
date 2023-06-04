@@ -107,7 +107,9 @@ export default function Carrito() {
       tipoPagoID: "",
       estadoID: "1",
     });
-    alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
+    alert(
+      "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
+    );
     window.location.href = "/";
   };
 
