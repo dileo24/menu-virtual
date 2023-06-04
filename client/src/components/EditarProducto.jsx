@@ -14,6 +14,8 @@ export default function EditarProductos() {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [id, setId] = useState("");
+  const [itemsPersonalizables, setItemsPersonalizables] = useState([]);
+  const [numItemsPersonalizables, setNumItemsPersonalizables] = useState(0);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export default function EditarProductos() {
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
     setId(producto.id);
+    setItemsPersonalizables(producto.itemsPersonalizables);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
@@ -47,6 +50,7 @@ export default function EditarProductos() {
       descripcion,
       precio,
       id: parseInt(id),
+      itemsPersonalizables,
     };
 
     if (ningunInputVacio(producto)) {
@@ -54,7 +58,6 @@ export default function EditarProductos() {
       mostrarAlerta("Producto editado con éxito", "exito");
     } else {
       mostrarAlerta("Error: Hay algún campo vacío", "error");
-      console.log(producto);
     }
   }
 
@@ -68,8 +71,12 @@ export default function EditarProductos() {
       setPrecio={setPrecio}
       id={id}
       setId={setId}
+      itemsPersonalizables={itemsPersonalizables}
+      setItemsPersonalizables={setItemsPersonalizables}
       onSubmit={validarProducto}
       titulo={titulo}
+      numItemsPersonalizables={numItemsPersonalizables}
+      setNumItemsPersonalizables={setNumItemsPersonalizables}
     />
   );
 }

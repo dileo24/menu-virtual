@@ -8,6 +8,9 @@ export default function NuevoProducto() {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
+  const [itemsPersonalizables, setItemsPersonalizables] = useState([]);
+  const [numItemsPersonalizables, setNumItemsPersonalizables] = useState(0);
+
   const token = useSelector((state) => state.userActual.tokenSession);
 
   function validarProducto(e) {
@@ -17,18 +20,22 @@ export default function NuevoProducto() {
       nombre,
       descripcion,
       precio,
+      itemsPersonalizables,
     };
 
     if (!ningunInputVacio(producto)) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
     nuevoProducto(producto, token);
+    console.log(producto);
     mostrarAlerta("Producto agregado con éxito", "exito");
 
     // Reiniciar los campos del formulario
     setNombre("");
     setDescripcion("");
     setPrecio("");
+    setItemsPersonalizables([]);
+    setNumItemsPersonalizables(0);
   }
 
   useEffect(() => {
@@ -45,8 +52,12 @@ export default function NuevoProducto() {
       setDescripcion={setDescripcion}
       precio={precio}
       setPrecio={setPrecio}
+      itemsPersonalizables={itemsPersonalizables}
+      setItemsPersonalizables={setItemsPersonalizables}
       onSubmit={validarProducto}
       titulo={titulo}
+      numItemsPersonalizables={numItemsPersonalizables}
+      setNumItemsPersonalizables={setNumItemsPersonalizables}
     />
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Aside from "./Aside";
 
 export default function FormProducto({
@@ -10,7 +10,23 @@ export default function FormProducto({
   setPrecio,
   onSubmit,
   titulo,
+  itemsPersonalizables,
+  setItemsPersonalizables,
+  numItemsPersonalizables,
+  setNumItemsPersonalizables,
 }) {
+  const handleNumItemsChange = (e) => {
+    const count = parseInt(e.target.value);
+    setNumItemsPersonalizables(count);
+    setItemsPersonalizables(Array(count).fill(""));
+  };
+
+  const handleItemChange = (e, index) => {
+    const updatedItems = [...itemsPersonalizables];
+    updatedItems[index] = e.target.value;
+    setItemsPersonalizables(updatedItems);
+  };
+
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
@@ -78,6 +94,49 @@ export default function FormProducto({
                       onChange={(e) => setPrecio(e.target.value)}
                     />
                   </div>
+
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="numItemsPersonalizables"
+                    >
+                      Cantidad de Items Personalizables
+                    </label>
+                    <select
+                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="numItemsPersonalizables"
+                      name="numItemsPersonalizables"
+                      value={numItemsPersonalizables}
+                      onChange={handleNumItemsChange}
+                    >
+                      <option value={0}>0</option>
+                      <option value={1}>1</option>
+                      <option value={2}>2</option>
+                      <option value={3}>3</option>
+                      {/* Agrega aquí más opciones según tus necesidades */}
+                    </select>
+                  </div>
+
+                  {itemsPersonalizables.map((item, index) => (
+                    <div className="mb-4" key={index}>
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor={`item${index}`}
+                      >
+                        Item {index + 1}
+                      </label>
+                      <input
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id={`item${index}`}
+                        name={`item${index}`}
+                        type="text"
+                        placeholder={`Item ${index + 1}`}
+                        value={item}
+                        maxLength={150}
+                        onChange={(e) => handleItemChange(e, index)}
+                      />
+                    </div>
+                  ))}
 
                   <input type="hidden" name="id" id="id" value="" />
 
