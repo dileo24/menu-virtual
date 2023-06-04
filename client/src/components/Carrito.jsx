@@ -23,8 +23,8 @@ export default function Carrito() {
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
   const [input, setInput] = useState({
-    productos: nombresProdArray && nombresProdArray,
-    precio: `${precioFinal && precioFinal}`,
+    productos: nombresProdArray,
+    precio: precioFinal,
     mesa: "",
     aclaraciones: "",
     tipoPagoID: "",
@@ -68,21 +68,26 @@ export default function Carrito() {
       });
     }
   };
-  console.log(input);
+
   const handlerSubmitForm = (e) => {
     e.preventDefault();
-    dispatch(createPedido(input));
-    dispatch(limpiarCarrito());
-    console.log(input);
-    alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
-    setInput({
-      productos: [],
-      precio: "",
-      mesa: "",
-      aclaraciones: "",
-      tipoPagoID: "",
-      estadoID: "1",
-    });
+    dispatch(createPedido(input))
+      .then(() => {
+        dispatch(limpiarCarrito());
+        console.log(input);
+        alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
+        setInput({
+          productos: [],
+          precio: "",
+          mesa: "",
+          aclaraciones: "",
+          tipoPagoID: "",
+          estadoID: "1",
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
