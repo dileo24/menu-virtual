@@ -37,6 +37,7 @@ export default function FormProducto({
                       type="text"
                       placeholder="Nombre del producto"
                       value={nombre}
+                      maxLength={150}
                       onChange={(e) => setNombre(e.target.value)}
                     />
                   </div>
@@ -55,6 +56,7 @@ export default function FormProducto({
                       type="text"
                       placeholder="Descripción del producto"
                       value={descripcion}
+                      maxLength={150}
                       onChange={(e) => setDescripcion(e.target.value)}
                     />
                   </div>

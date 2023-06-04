@@ -12,6 +12,7 @@ export default function ModalRegister({ onClose }) {
   const usuarios = useSelector((state) => state.usuarios);
   const emails = usuarios && usuarios.map((user) => user.email);
   const [showPassword, setShowPassword] = useState(false);
+  let email;
 
   const [input, setInput] = useState({
     nombre: "",
@@ -21,16 +22,23 @@ export default function ModalRegister({ onClose }) {
     rolID: "2",
   });
 
-  const handlerChange = (e) => {
+  const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (emails && emails.includes(input.email)) {
+    if (input.clave.length < 8) {
+      return mostrarAlerta(
+        "La contraseña debe tener al menos 8 caracteres",
+        "error"
+      );
+    } else if (emails && emails.includes(input.email)) {
       return mostrarAlerta("El email ingresado ya existe", "error");
     } else if (!ningunInputVacio(input)) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
+    } else if (!email) {
+      return mostrarAlerta("Formato del email inválido", "error");
     }
     mostrarAlerta("Cuenta creada con éxito", "exito");
     dispatch(register(input, token));
@@ -59,6 +67,19 @@ export default function ModalRegister({ onClose }) {
     dispatch(getUsuarios());
   }, [dispatch]);
 
+  // Función de validación de email
+  const validateEmail = (e) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(e.target.value)) {
+      email = false;
+      console.log(email);
+    } else {
+      email = true;
+      console.log(email);
+    }
+  };
+
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
@@ -86,7 +107,7 @@ export default function ModalRegister({ onClose }) {
                       name="nombre"
                       placeholder="Escribe su nombre"
                       value={input.nombre}
-                      onChange={(e) => handlerChange(e)}
+                      onChange={(e) => handleChange(e)}
                       autoFocus
                     />
                   </div>
@@ -104,7 +125,7 @@ export default function ModalRegister({ onClose }) {
                       name="apellido"
                       placeholder="Escribe su apellido"
                       value={input.apellido}
-                      onChange={(e) => handlerChange(e)}
+                      onChange={(e) => handleChange(e)}
                     />
                   </div>
 
@@ -121,7 +142,8 @@ export default function ModalRegister({ onClose }) {
                       name="email"
                       placeholder="Escribe su email"
                       value={input.email}
-                      onChange={(e) => handlerChange(e)}
+                      onBlur={(e) => validateEmail(e)}
+                      onChange={(e) => handleChange(e)}
                     />
                   </div>
 
@@ -138,7 +160,8 @@ export default function ModalRegister({ onClose }) {
                       name="clave"
                       placeholder="Escribe su contraseña"
                       value={input.clave}
-                      onChange={(e) => handlerChange(e)}
+                      min={8}
+                      onChange={(e) => handleChange(e)}
                     />
                     {showPassword ? (
                       <RiEyeOffLine

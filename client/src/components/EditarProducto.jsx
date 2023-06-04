@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Aside from "./Aside";
 import FormProducto from "./FormProducto";
 import {
   obtenerProducto,
