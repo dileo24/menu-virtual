@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
   getTipoPago,
-  // limpiarCarrito,
+  limpiarCarrito,
 } from "../redux/actions";
 import { createPedido } from "../redux/actions";
 // import Contador from "./Contador";
