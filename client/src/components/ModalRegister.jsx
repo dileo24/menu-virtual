@@ -28,7 +28,7 @@ export default function ModalRegister({ onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (input.clave.length < 8) {
+    /* if (input.clave.length < 8) {
       return mostrarAlerta(
         "La contraseña debe tener al menos 8 caracteres",
         "error"
@@ -39,7 +39,7 @@ export default function ModalRegister({ onClose }) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     } else if (!email) {
       return mostrarAlerta("Formato del email inválido", "error");
-    }
+    } */
     mostrarAlerta("Cuenta creada con éxito", "exito");
     dispatch(register(input, token));
     console.log(token);
