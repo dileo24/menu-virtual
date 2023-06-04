@@ -218,15 +218,10 @@ export const getPedidos = (token) => {
   };
 };
 
-export const createPedido = (payload, token) => {
+export const createPedido = (payload) => {
   return async function () {
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
     console.log(payload);
-    const response = await axios.post("/pedidos", payload, config);
+    const response = await axios.post("/pedidos", payload);
     return response;
   };
 };
