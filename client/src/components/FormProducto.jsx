@@ -27,6 +27,18 @@ export default function FormProducto({
     setItemsPersonalizables(updatedItems);
   };
 
+  const incrementNumItems = () => {
+    setNumItemsPersonalizables(numItemsPersonalizables + 1);
+    setItemsPersonalizables([...itemsPersonalizables, ""]);
+  };
+
+  const decrementNumItems = () => {
+    if (numItemsPersonalizables > 0) {
+      setNumItemsPersonalizables(numItemsPersonalizables - 1);
+      setItemsPersonalizables(itemsPersonalizables.slice(0, -1));
+    }
+  };
+
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
@@ -95,26 +107,35 @@ export default function FormProducto({
                     />
                   </div>
 
-                  <div className="mb-4">
+                  <div className="mb-4 ">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
                       htmlFor="numItemsPersonalizables"
                     >
                       Cantidad de Items Personalizables
                     </label>
-                    <select
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="numItemsPersonalizables"
-                      name="numItemsPersonalizables"
-                      value={numItemsPersonalizables}
-                      onChange={handleNumItemsChange}
-                    >
-                      <option value={0}>0</option>
-                      <option value={1}>1</option>
-                      <option value={2}>2</option>
-                      <option value={3}>3</option>
-                      {/* Agrega aquí más opciones según tus necesidades */}
-                    </select>
+                    <div className="flex">
+                      <div
+                        className="cursor-pointer "
+                        onClick={decrementNumItems}
+                      >
+                        -
+                      </div>
+                      <input
+                        className="border rounded w-10 mx-3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="numItemsPersonalizables"
+                        name="numItemsPersonalizables"
+                        type="number"
+                        value={numItemsPersonalizables}
+                        onChange={handleNumItemsChange}
+                      />
+                      <div
+                        className="cursor-pointer"
+                        onClick={incrementNumItems}
+                      >
+                        +
+                      </div>
+                    </div>
                   </div>
 
                   {itemsPersonalizables.map((item, index) => (
@@ -132,7 +153,6 @@ export default function FormProducto({
                         type="text"
                         placeholder={`Item ${index + 1}`}
                         value={item}
-                        maxLength={150}
                         onChange={(e) => handleItemChange(e, index)}
                       />
                     </div>
