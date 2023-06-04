@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarItemCarrito, getTipoPago } from "../redux/actions";
+import {
+  eliminarItemCarrito,
+  getTipoPago,
+  limpiarCarrito,
+} from "../redux/actions";
 import { createPedido } from "../redux/actions";
 // import Contador from "./Contador";
 
@@ -68,6 +72,7 @@ export default function Carrito() {
   const handlerSubmitForm = (e) => {
     e.preventDefault();
     dispatch(createPedido(input));
+    dispatch(limpiarCarrito());
     console.log(input);
     alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
     setInput({
