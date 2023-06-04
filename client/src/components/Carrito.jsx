@@ -64,10 +64,10 @@ export default function Carrito() {
   };
 
   //formulario
-  const handlerChange = (e) => {
+  const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-  const handlerSelectTipo = (e) => {
+  const handleSelectTipo = (e) => {
     if (!input.tipoPagoID.includes(e.target.value)) {
       setInput({
         ...input,
@@ -76,11 +76,18 @@ export default function Carrito() {
     }
   };
   // console.log(input);
-  const handlerSubmitForm = (e) => {
+  const handleSubmitForm = (e) => {
     e.preventDefault();
+    if (input.aclaraciones.length > 50) {
+      // Validación de longitud de aclaraciones
+      alert("Las aclaraciones deben tener hasta 50 caracteres");
+      return;
+    }
     dispatch(createPedido(input));
     // console.log(input);
-    alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
+    alert(
+      "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
+    );
     setInput({
       productos: [],
       precio: "",
@@ -89,6 +96,7 @@ export default function Carrito() {
       tipoPagoID: "",
       estadoID: "1",
     });
+    window.location.href = "/";
   };
 
   return (
@@ -161,7 +169,7 @@ export default function Carrito() {
             >
               <b className="font-bold">Atrás</b>
             </button>
-            <form id="formulario" onSubmit={(e) => handlerSubmitForm(e)}>
+            <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -176,8 +184,10 @@ export default function Carrito() {
                   type="number"
                   placeholder="Número de mesa"
                   value={input.mesa}
+                  min={1}
+                  max={20}
                   required
-                  onChange={(e) => handlerChange(e)}
+                  onChange={(e) => handleChange(e)}
                 />
               </div>
 
@@ -190,12 +200,14 @@ export default function Carrito() {
                 </label>
                 <input
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="descripcion"
+                  id="aclaraciones"
                   name="aclaraciones"
                   type="text"
-                  placeholder="Personalizá tu pedido"
+                  placeholder="Personalizá tu pedido (no obligatorio)"
+                  min={0}
+                  max={3}
                   value={input.aclaraciones}
-                  onChange={(e) => handlerChange(e)}
+                  onChange={(e) => handleChange(e)}
                 />
               </div>
 
@@ -214,9 +226,9 @@ export default function Carrito() {
                     >
                       <input
                         type="checkbox"
-                        className="form-checkbox text-indigo-600 h-5 w-5"
+                        className="form-checkbox text-indigo-600 h-5 w-5 cursor-pointer"
                         value={tipo.id}
-                        onChange={(e) => handlerSelectTipo(e)}
+                        onChange={(e) => handleSelectTipo(e)}
                       />
                       <span className="ml-2 text-gray-700">{tipo.tipo}</span>
                     </label>
@@ -227,7 +239,7 @@ export default function Carrito() {
               <input
                 type="submit"
                 className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer rounded"
-                value="Pagar"
+                value="Hacer pedido"
               />
             </form>
           </div>

@@ -16,12 +16,12 @@ export default function Filtros() {
     dispatch(getCategorias());
   }, [dispatch]);
 
-  const handlerRecargar = () => {
+  const handleRecargar = () => {
     dispatch(getProductos());
     setFiltroCategoria("todas");
   };
 
-  const handlerFilterCateg = (e) => {
+  const handleFilterCateg = (e) => {
     const selectedCategoria = e.target.value;
     setFiltroCategoria(selectedCategoria);
     if (selectedCategoria === "todas") {
@@ -61,10 +61,10 @@ export default function Filtros() {
           Buscar...
         </button>
       </div>
-      <button style={{ backgroundColor: "grey" }} onClick={handlerRecargar}>
+      <button style={{ backgroundColor: "grey" }} onClick={handleRecargar}>
         Limpiar filtros/búsquedas
       </button>
-      <select value={filtroCategoria} onChange={(e) => handlerFilterCateg(e)}>
+      <select value={filtroCategoria} onChange={(e) => handleFilterCateg(e)}>
         <option value="todas" hidden>
           Todos los Productos
         </option>

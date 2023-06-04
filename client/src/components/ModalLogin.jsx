@@ -4,6 +4,12 @@ import { getUserActual, getUsuarios } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import Aside from "./Aside";
+import {
+  obtenerProducto,
+  ningunInputVacio,
+  editarProducto,
+  mostrarAlerta,
+} from "../helpers";
 
 export default function ModalLogin({ onClose }) {
   const navigate = useNavigate();
@@ -23,7 +29,7 @@ export default function ModalLogin({ onClose }) {
     clave: "",
   });
 
-  const handlerChange = (e) => {
+  const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
@@ -38,10 +44,10 @@ export default function ModalLogin({ onClose }) {
           navigate("/");
         })
         .catch(() => {
-          alert("Contraseña incorrecta. Pruebe de nuevo");
+          mostrarAlerta("Contraseña incorrecta. Pruebe de nuevo", "error");
         });
     } else {
-      alert("Este email no se encuentra registrado.");
+      mostrarAlerta("Este email no se encuentra registrado.", "error");
     }
   };
 
@@ -75,7 +81,7 @@ export default function ModalLogin({ onClose }) {
                       name="email"
                       placeholder="Escribe tu email"
                       value={input.email}
-                      onChange={(e) => handlerChange(e)}
+                      onChange={(e) => handleChange(e)}
                       required
                     />
                   </div>
@@ -92,7 +98,7 @@ export default function ModalLogin({ onClose }) {
                       name="clave"
                       placeholder="Escribe tu contraseña"
                       value={input.clave}
-                      onChange={(e) => handlerChange(e)}
+                      onChange={(e) => handleChange(e)}
                       required
                     />
                     {showPassword ? (
