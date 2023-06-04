@@ -23,8 +23,20 @@ export default function NuevoProducto() {
       itemsPersonalizables,
     };
 
-    if (!ningunInputVacio(producto)) {
+    if (
+      !ningunInputVacio(producto) ||
+      itemsPersonalizables.some((item) => item === "")
+    ) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
+    }
+    if (nombre === " - Personalizable") {
+      return mostrarAlerta("Error: El nombre está incompleto", "error");
+    }
+    if (numItemsPersonalizables === 1) {
+      return mostrarAlerta(
+        "Error: No puede haber un solo ítem personalizable.",
+        "error"
+      );
     }
     nuevoProducto(producto, token);
     console.log(producto);

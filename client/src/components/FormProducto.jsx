@@ -1,5 +1,6 @@
-// import React, { useState } from "react";
+import React /*, { useState } */ from "react";
 import Aside from "./Aside";
+import Button from "./Button";
 
 export default function FormProducto({
   nombre,
@@ -30,12 +31,21 @@ export default function FormProducto({
   const incrementNumItems = () => {
     setNumItemsPersonalizables(numItemsPersonalizables + 1);
     setItemsPersonalizables([...itemsPersonalizables, ""]);
+
+    if (numItemsPersonalizables === 0 && !nombre.includes("(Personalizable)")) {
+      setNombre(`${nombre} - Personalizable`);
+    }
   };
 
   const decrementNumItems = () => {
     if (numItemsPersonalizables > 0) {
       setNumItemsPersonalizables(numItemsPersonalizables - 1);
       setItemsPersonalizables(itemsPersonalizables.slice(0, -1));
+      if (numItemsPersonalizables === 1) {
+        setNombre(nombre.replace(/- Personalizable$/, "").trim());
+      }
+    } else {
+      setNombre(nombre.replace(/- Personalizable$/, "").trim());
     }
   };
 
@@ -112,29 +122,20 @@ export default function FormProducto({
                       className="block text-gray-700 text-sm font-bold mb-2"
                       htmlFor="numItemsPersonalizables"
                     >
-                      Cantidad de Items Personalizables
+                      Cantidad de ítems personalizables
+                      <span className="font-normal"> (no obligatorio)</span>
                     </label>
                     <div className="flex">
-                      <div
-                        className="cursor-pointer "
-                        onClick={decrementNumItems}
-                      >
-                        -
-                      </div>
+                      <Button signo="-" funcion={decrementNumItems} />
                       <input
-                        className="border rounded w-10 mx-3 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="border rounded w-10 mx-3 py-2 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="numItemsPersonalizables"
                         name="numItemsPersonalizables"
                         type="number"
                         value={numItemsPersonalizables}
                         onChange={handleNumItemsChange}
                       />
-                      <div
-                        className="cursor-pointer"
-                        onClick={incrementNumItems}
-                      >
-                        +
-                      </div>
+                      <Button signo="+" funcion={incrementNumItems} />
                     </div>
                   </div>
 
@@ -144,15 +145,16 @@ export default function FormProducto({
                         className="block text-gray-700 text-sm font-bold mb-2"
                         htmlFor={`item${index}`}
                       >
-                        Item {index + 1}
+                        ítem {index + 1}
                       </label>
                       <input
                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id={`item${index}`}
                         name={`item${index}`}
                         type="text"
-                        placeholder={`Item ${index + 1}`}
+                        placeholder={`ítem ${index + 1}`}
                         value={item}
+                        required
                         onChange={(e) => handleItemChange(e, index)}
                       />
                     </div>
