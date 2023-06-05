@@ -21,7 +21,6 @@ const initialState = {
   usuarios: [],
   productos: [],
   home: [],
-  homeFilter: [],
   carrito: [],
   categorias: [],
   pedidos: [],
@@ -66,12 +65,18 @@ function rootReducer(state = initialState, action) {
       };
     }
     case SEARCHxNOMBRE: {
-      const productsFilter = state.productos.filter((e) =>
+      const productsSearch = state.productos.filter((e) =>
         e.nombre.toLowerCase().includes(action.payload.toLowerCase())
       );
+      const itemsSearch = state.itemsExtra.filter((e) =>
+        e.nombre.toLowerCase().includes(action.payload.toLowerCase())
+      );
+      let filter = productsSearch.concat(itemsSearch);
+      console.log(filter);
+
       return {
         ...state,
-        homeFilter: [...productsFilter],
+        home: filter,
       };
     }
 
