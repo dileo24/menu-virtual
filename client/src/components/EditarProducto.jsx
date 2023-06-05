@@ -14,8 +14,9 @@ export default function EditarProductos() {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [id, setId] = useState("");
-  const [itemsPersonalizables, setItemsPersonalizables] = useState([]);
-  const [numItemsPersonalizables, setNumItemsPersonalizables] = useState(0);
+  const [categoriaID, setCategoriaID] = useState("");
+  const [itemsExtra, setItemsExtra] = useState([]);
+  const [numItemsExtra, setNumItemsExtra] = useState(0);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -34,11 +35,14 @@ export default function EditarProductos() {
 
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
+    // console.log(producto);
+    setCategoriaID(producto.categoriaID);
     setNombre(producto.nombre);
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
     setId(producto.id);
-    setItemsPersonalizables(producto.itemsPersonalizables);
+    setNumItemsExtra(producto.itemsExtra.length);
+    setItemsExtra(producto.itemsExtra);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
@@ -46,15 +50,17 @@ export default function EditarProductos() {
     e.preventDefault();
 
     const producto = {
+      categoriaID,
       nombre,
       descripcion,
       precio,
       id: parseInt(id),
-      itemsPersonalizables,
+      itemsExtra,
     };
 
     if (ningunInputVacio(producto)) {
       editarProducto(producto, token);
+      // console.log(producto);
       mostrarAlerta("Producto editado con éxito", "exito");
     } else {
       mostrarAlerta("Error: Hay algún campo vacío", "error");
@@ -71,12 +77,14 @@ export default function EditarProductos() {
       setPrecio={setPrecio}
       id={id}
       setId={setId}
-      itemsPersonalizables={itemsPersonalizables}
-      setItemsPersonalizables={setItemsPersonalizables}
+      itemsExtra={itemsExtra}
+      setItemsExtra={setItemsExtra}
       onSubmit={validarProducto}
       titulo={titulo}
-      numItemsPersonalizables={numItemsPersonalizables}
-      setNumItemsPersonalizables={setNumItemsPersonalizables}
+      numItemsExtra={numItemsExtra}
+      setNumItemsExtra={setNumItemsExtra}
+      categoriaID={categoriaID}
+      setCategoriaID={setCategoriaID}
     />
   );
 }
