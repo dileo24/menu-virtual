@@ -35,7 +35,7 @@ export default function EditarProductos() {
 
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
-    // console.log(producto);
+    console.log(producto);
     setCategoriaID(producto.categoriaID);
     setNombre(producto.nombre);
     setDescripcion(producto.descripcion);
@@ -58,13 +58,21 @@ export default function EditarProductos() {
       itemsExtra,
     };
 
-    if (ningunInputVacio(producto)) {
-      editarProducto(producto, token);
-      // console.log(producto);
-      mostrarAlerta("Producto editado con éxito", "exito");
-    } else {
-      mostrarAlerta("Error: Hay algún campo vacío", "error");
+    if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
+      return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
+    if (nombre === " - Personalizable") {
+      return mostrarAlerta("Error: El nombre está incompleto", "error");
+    }
+    if (numItemsExtra === 1) {
+      return mostrarAlerta(
+        "Error: No puede haber un solo ítem personalizable.",
+        "error"
+      );
+    }
+    editarProducto(producto, token);
+    console.log(producto);
+    mostrarAlerta("Producto editado con éxito", "exito");
   }
 
   return (

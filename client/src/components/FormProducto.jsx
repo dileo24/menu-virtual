@@ -211,7 +211,7 @@ export default function FormProducto({
                         ítem {index + 1}
                       </label>
                       <select onChange={(e) => handleItemChange(e, index)}>
-                        <option hidden>Elegí un tem</option>
+                        <option hidden>Elegí un ítem</option>
                         {itemsExtraArray.map((item) => (
                           <option key={item.id} value={item.nombre}>
                             {item.nombre}
