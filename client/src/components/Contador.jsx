@@ -27,7 +27,7 @@ export default function Contador({ nombre, descripcion, precio, id }) {
     <div className="flex">
       <Button signo="-" funcion={() => handleDecremento(id)} />
 
-      <p className="text-center w-12 focus:outline-none focus:border-none text-xl mt-1">
+      <p className="text-center w-8 focus:outline-none focus:border-none text-xl">
         {contadorNum.length}
       </p>
 

@@ -190,7 +190,7 @@ export default function FormProducto({
                     <div className="flex">
                       <Button signo="-" funcion={decrementNumItems} />
                       <input
-                        className="rounded w-5 mx-3 py-2 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="w-5 mx-3 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="numItemsExtra"
                         name="numItemsExtra"
                         type="number"
@@ -211,7 +211,7 @@ export default function FormProducto({
                         ítem {index + 1}
                       </label>
                       <select onChange={(e) => handleItemChange(e, index)}>
-                        <option hidden>Elegí un tem</option>
+                        <option hidden>Elegí un ítem</option>
                         {itemsExtraArray.map((item) => (
                           <option key={item.id} value={item.nombre}>
                             {item.nombre}
