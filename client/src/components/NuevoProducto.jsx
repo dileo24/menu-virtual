@@ -8,8 +8,9 @@ export default function NuevoProducto() {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
-  const [itemsPersonalizables, setItemsPersonalizables] = useState([]);
-  const [numItemsPersonalizables, setNumItemsPersonalizables] = useState(0);
+  const [categoriaID, setCategoriaID] = useState("");
+  const [itemsExtra, setItemsExtra] = useState([]);
+  const [numItemsExtra, setNumItemsExtra] = useState(0);
 
   const token = useSelector((state) => state.userActual.tokenSession);
 
@@ -20,19 +21,17 @@ export default function NuevoProducto() {
       nombre,
       descripcion,
       precio,
-      itemsPersonalizables,
+      itemsExtra,
+      categoriaID,
     };
 
-    if (
-      !ningunInputVacio(producto) ||
-      itemsPersonalizables.some((item) => item === "")
-    ) {
+    if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
     if (nombre === " - Personalizable") {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
-    if (numItemsPersonalizables === 1) {
+    if (numItemsExtra === 1) {
       return mostrarAlerta(
         "Error: No puede haber un solo ítem personalizable.",
         "error"
@@ -46,8 +45,8 @@ export default function NuevoProducto() {
     setNombre("");
     setDescripcion("");
     setPrecio("");
-    setItemsPersonalizables([]);
-    setNumItemsPersonalizables(0);
+    setItemsExtra([]);
+    setNumItemsExtra(0);
   }
 
   useEffect(() => {
@@ -64,12 +63,14 @@ export default function NuevoProducto() {
       setDescripcion={setDescripcion}
       precio={precio}
       setPrecio={setPrecio}
-      itemsPersonalizables={itemsPersonalizables}
-      setItemsPersonalizables={setItemsPersonalizables}
+      itemsExtra={itemsExtra}
+      setItemsExtra={setItemsExtra}
       onSubmit={validarProducto}
       titulo={titulo}
-      numItemsPersonalizables={numItemsPersonalizables}
-      setNumItemsPersonalizables={setNumItemsPersonalizables}
+      numItemsExtra={numItemsExtra}
+      setNumItemsExtra={setNumItemsExtra}
+      categoriaID={categoriaID}
+      setCategoriaID={setCategoriaID}
     />
   );
 }

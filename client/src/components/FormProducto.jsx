@@ -2,7 +2,7 @@ import React, { useEffect /*, { useState } */ } from "react";
 import Aside from "./Aside";
 import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
-import { getItemsExtra } from "../redux/actions";
+import { getItemsExtra, getCategorias } from "../redux/actions";
 
 export default function FormProducto({
   nombre,
@@ -13,43 +13,51 @@ export default function FormProducto({
   setPrecio,
   onSubmit,
   titulo,
-  itemsPersonalizables,
-  setItemsPersonalizables,
-  numItemsPersonalizables,
-  setNumItemsPersonalizables,
+  itemsExtra,
+  setItemsExtra,
+  numItemsExtra,
+  setNumItemsExtra,
+  categoriaID,
+  setCategoriaID,
 }) {
   const dispatch = useDispatch();
-  const itemsExtra = useSelector((state) => state.itemsExtra);
+
+  const itemsExtraArray = useSelector((state) => state.itemsExtra);
   useEffect(() => {
     dispatch(getItemsExtra());
   }, [dispatch]);
 
+  const categorias = useSelector((state) => state.categorias);
+  useEffect(() => {
+    dispatch(getCategorias());
+  }, [dispatch]);
+
   const handleNumItemsChange = (e) => {
     const count = parseInt(e.target.value);
-    setNumItemsPersonalizables(count);
-    setItemsPersonalizables(Array(count).fill(""));
+    setNumItemsExtra(count);
+    setItemsExtra(Array(count).fill(""));
   };
 
   const handleItemChange = (e, index) => {
-    const updatedItems = [...itemsPersonalizables];
+    const updatedItems = [...itemsExtra];
     updatedItems[index] = e.target.value;
-    setItemsPersonalizables(updatedItems);
+    setItemsExtra(updatedItems);
   };
 
   const incrementNumItems = () => {
-    setNumItemsPersonalizables(numItemsPersonalizables + 1);
-    setItemsPersonalizables([...itemsPersonalizables, ""]);
+    setNumItemsExtra(numItemsExtra + 1);
+    setItemsExtra([...itemsExtra, ""]);
 
-    if (numItemsPersonalizables === 0 && !nombre.includes("(Personalizable)")) {
+    if (numItemsExtra === 0 && !nombre.includes("(Personalizable)")) {
       setNombre(`${nombre} - Personalizable`);
     }
   };
 
   const decrementNumItems = () => {
-    if (numItemsPersonalizables > 0) {
-      setNumItemsPersonalizables(numItemsPersonalizables - 1);
-      setItemsPersonalizables(itemsPersonalizables.slice(0, -1));
-      if (numItemsPersonalizables === 1) {
+    if (numItemsExtra > 0) {
+      setNumItemsExtra(numItemsExtra - 1);
+      setItemsExtra(itemsExtra.slice(0, -1));
+      if (numItemsExtra === 1) {
         setNombre(nombre.replace(/- Personalizable$/, "").trim());
       }
     } else {
@@ -69,6 +77,23 @@ export default function FormProducto({
             <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
               <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
                 <form id="formulario" className="bg-white p-3" method="POST">
+                  <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">
+                      Categoría
+                    </label>
+                    <select
+                      className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setCategoriaID(e.target.value)}
+                    >
+                      <option hidden>Elegí una categoría</option>
+                      {categorias.map((categoria) => (
+                        <option key={categoria.id} value={categoria.id}>
+                          {categoria.nombre}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   <div className="mb-4">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
@@ -128,26 +153,26 @@ export default function FormProducto({
                   <div className="mb-4 ">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="numItemsPersonalizables"
+                      htmlFor="numItemsExtra"
                     >
-                      Cantidad de ítems personalizables
+                      Cantidad de ítems Extra
                       <span className="font-normal"> (no obligatorio)</span>
                     </label>
                     <div className="flex">
                       <Button signo="-" funcion={decrementNumItems} />
                       <input
                         className="border rounded w-10 mx-3 py-2 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="numItemsPersonalizables"
-                        name="numItemsPersonalizables"
+                        id="numItemsExtra"
+                        name="numItemsExtra"
                         type="number"
-                        value={numItemsPersonalizables}
+                        value={numItemsExtra}
                         onChange={handleNumItemsChange}
                       />
                       <Button signo="+" funcion={incrementNumItems} />
                     </div>
                   </div>
 
-                  {itemsPersonalizables.map((item, index) => (
+                  {itemsExtra.map((item, index) => (
                     <div className="mb-4" key={index}>
                       <label
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -156,7 +181,8 @@ export default function FormProducto({
                         ítem {index + 1}
                       </label>
                       <select onChange={(e) => handleItemChange(e, index)}>
-                        {itemsExtra.map((item) => (
+                        <option hidden>Elegí un tem</option>
+                        {itemsExtraArray.map((item) => (
                           <option key={item.id} value={item.nombre}>
                             {item.nombre}
                           </option>
