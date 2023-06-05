@@ -3,6 +3,7 @@ import Aside from "./Aside";
 import Button from "./Button";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemsExtra, getCategorias } from "../redux/actions";
+import { mostrarAlerta } from "../helpers";
 
 export default function FormProducto({
   nombre,
@@ -33,7 +34,14 @@ export default function FormProducto({
   }, [dispatch]);
 
   const handleNumItemsChange = (e) => {
-    const count = parseInt(e.target.value);
+    let count = parseInt(e.target.value);
+    if (count === 1) {
+      count = 0;
+      return mostrarAlerta(
+        "Error: No puede haber un solo ítem personalizable.",
+        "error"
+      );
+    }
     setNumItemsExtra(count);
     setItemsExtra(Array(count).fill(""));
   };
@@ -45,24 +53,44 @@ export default function FormProducto({
   };
 
   const incrementNumItems = () => {
-    setNumItemsExtra(numItemsExtra + 1);
-    setItemsExtra([...itemsExtra, ""]);
+    let newNumItemsExtra = numItemsExtra;
 
-    if (numItemsExtra === 0 && !nombre.includes("(Personalizable)")) {
-      setNombre(`${nombre} - Personalizable`);
+    if (numItemsExtra === 0) {
+      newNumItemsExtra = 2;
+    } else {
+      newNumItemsExtra++;
     }
+
+    setNumItemsExtra(newNumItemsExtra);
+
+    let newItemsExtra = [...itemsExtra];
+    for (let i = 0; i < newNumItemsExtra - itemsExtra.length; i++) {
+      newItemsExtra.push("");
+    }
+    setItemsExtra(newItemsExtra);
+
+    // if (newNumItemsExtra === 2 && !nombre.includes("(Personalizable)")) {
+    //   setNombre(`${nombre} - Personalizable`);
+    // }
   };
 
   const decrementNumItems = () => {
     if (numItemsExtra > 0) {
-      setNumItemsExtra(numItemsExtra - 1);
-      setItemsExtra(itemsExtra.slice(0, -1));
-      if (numItemsExtra === 1) {
-        setNombre(nombre.replace(/- Personalizable$/, "").trim());
+      if (numItemsExtra === 2) {
+        setNumItemsExtra(0);
+        setItemsExtra([]);
+        // setNombre(nombre.replace(/- Personalizable$/, "").trim());
+      } else {
+        setNumItemsExtra(numItemsExtra - 1);
+        setItemsExtra(itemsExtra.slice(0, -1));
+        // if (numItemsExtra === 1) {
+        //   setNombre(nombre.replace(/- Personalizable$/, "").trim());
+        // }
       }
-    } else {
-      setNombre(nombre.replace(/- Personalizable$/, "").trim());
     }
+    // else {
+    //   setNombre(nombre.replace(/- Personalizable$/, "").trim());
+    // }
   };
 
   return (
@@ -84,6 +112,7 @@ export default function FormProducto({
                     <select
                       className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       onChange={(e) => setCategoriaID(e.target.value)}
+                      required
                     >
                       <option hidden>Elegí una categoría</option>
                       {categorias.map((categoria) => (
@@ -161,12 +190,13 @@ export default function FormProducto({
                     <div className="flex">
                       <Button signo="-" funcion={decrementNumItems} />
                       <input
-                        className="border rounded w-10 mx-3 py-2 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="rounded w-5 mx-3 py-2 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="numItemsExtra"
                         name="numItemsExtra"
                         type="number"
                         value={numItemsExtra}
                         onChange={handleNumItemsChange}
+                        readOnly
                       />
                       <Button signo="+" funcion={incrementNumItems} />
                     </div>
