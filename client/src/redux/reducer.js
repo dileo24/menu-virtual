@@ -20,7 +20,8 @@ const initialState = {
   userActual: null,
   usuarios: [],
   productos: [],
-  productosHome: [],
+  home: [],
+  homeFilter: [],
   carrito: [],
   categorias: [],
   pedidos: [],
@@ -36,7 +37,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         productos: [...action.payload],
-        productosHome: [...action.payload],
+        home: [...action.payload],
       };
     case GET_CATEGORIAS:
       return {
@@ -50,10 +51,18 @@ function rootReducer(state = initialState, action) {
           : state.productos.filter(
               (prod) => prod.categoria.nombre === action.payload
             );
-      console.log(prodFilter);
+      let itemFilter =
+        action.payload === "todas"
+          ? state.itemsExtra
+          : state.itemsExtra.filter(
+              (item) => item.categoriaItem.nombre === action.payload
+            );
+
+      let filter = prodFilter.concat(itemFilter);
+      console.log(filter);
       return {
         ...state,
-        productosHome: prodFilter,
+        home: filter,
       };
     }
     case SEARCHxNOMBRE: {
@@ -62,7 +71,7 @@ function rootReducer(state = initialState, action) {
       );
       return {
         ...state,
-        productosHome: [...productsFilter],
+        homeFilter: [...productsFilter],
       };
     }
 
@@ -70,6 +79,7 @@ function rootReducer(state = initialState, action) {
     case GET_ITEMSEXTRA:
       return {
         ...state,
+        home: [...state.productos, ...action.payload],
         itemsExtra: [...action.payload],
       };
 

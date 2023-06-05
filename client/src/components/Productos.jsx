@@ -3,7 +3,7 @@ import Aside from "./Aside";
 import Filtros from "./Filtros";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProducto, getProductos } from "../redux/actions";
+import { deleteProducto, getItemsExtra, getProductos } from "../redux/actions";
 import Contador from "./Contador";
 import Carrito from "./Carrito";
 
@@ -11,10 +11,10 @@ export default function Productos() {
   const userActual = useSelector((state) => state.userActual);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
-  const productosState = useSelector((state) => state.productosHome);
+  const productosState = useSelector((state) => state.home);
 
   useEffect(() => {
-    dispatch(getProductos());
+    dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
     // Cambiarle el background del botón del Aside
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");
@@ -24,7 +24,7 @@ export default function Productos() {
     const confirmarBorrado = window.confirm("¿Está seguro de querer borrar?");
     if (confirmarBorrado) {
       dispatch(deleteProducto(id, token)).then(() => {
-        dispatch(getProductos());
+        dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
       });
     }
   };
@@ -59,8 +59,8 @@ export default function Productos() {
                     </thead>
                     <tbody className="bg-white">
                       {productosState.map(
-                        ({ nombre, descripcion, precio, id }) => (
-                          <tr key={id}>
+                        ({ nombre, descripcion, precio, id }, index) => (
+                          <tr key={index}>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
                                 {nombre}

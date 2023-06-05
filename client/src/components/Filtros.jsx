@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategorias,
+  getItemsExtra,
   getProductos,
   searchXcategoria,
   searchXname,
@@ -17,7 +18,7 @@ export default function Filtros() {
   }, [dispatch]);
 
   const handleRecargar = () => {
-    dispatch(getProductos());
+    dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
     setFiltroCategoria("todas");
   };
 

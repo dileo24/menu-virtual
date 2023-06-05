@@ -1,72 +1,72 @@
 [
   {
     "nombre": "Café",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "400"
   },
   {
     "nombre": "Café con leche",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "500"
   },
   {
     "nombre": "Lágrima",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "5200"
   },
   {
     "nombre": "Licuado de banana",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "900"
   },
   {
     "nombre": "Licuado de durazno",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "1100"
   },
   {
     "nombre": "Licuado de frutilla",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "1200"
   },
   {
     "nombre": "Té",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "400"
   },
   {
     "nombre": "Té verde",
-    "categoriaID": "6",
+    "categoriaID": "9",
     "precio": "500"
   },
   {
     "nombre": "Fanta 500ml",
-    "categoriaID": "7",
+    "categoriaID": "8",
     "precio": "500"
   },
   {
     "nombre": "Coca Cola 500ml",
-    "categoriaID": "7",
+    "categoriaID": "8",
+    "precio": "500"
+  },
+  {
+    "nombre": "Agua sin gas 500ml",
+    "categoriaID": "8",
     "precio": "500"
   },
   {
     "nombre": "Aquarius de Manzana 500ml",
-    "categoriaID": "7",
-    "precio": "500"
-  },
-  {
-    "nombre": "Aquarius sin gas 500ml",
-    "categoriaID": "7",
+    "categoriaID": "8",
     "precio": "500"
   },
   {
     "nombre": "Aquarius de Naranja 500ml",
-    "categoriaID": "7",
+    "categoriaID": "8",
     "precio": "500"
   },
   {
     "nombre": "Aquarius de Pomelo 500ml",
-    "categoriaID": "7",
+    "categoriaID": "8",
     "precio": "3200"
   }
 ]

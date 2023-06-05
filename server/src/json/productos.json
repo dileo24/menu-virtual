@@ -51,16 +51,30 @@
   },
   {
     "nombre": "Desayuno para 4",
-    "descripcion": "Descripcion del producto",
+    "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
-    "categoriaID": "3",
+    "categoriaID": "6",
     "itemsExtra": ["Té", "Té verde", "Café", "Café con leche", "Lágrima"]
   },
   {
     "nombre": "Merienda para 4",
-    "descripcion": "Descripcion del producto",
+    "descripcion": "4 tostados con papas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
-    "categoriaID": "3",
+    "categoriaID": "6",
     "itemsExtra": ["Té", "Té verde", "Café", "Café con leche", "Lágrima"]
+  },
+  {
+    "nombre": "Asado para 2 con bebida",
+    "descripcion": "Vacío y Costilla con bebidas de 500ml",
+    "precio": "5300",
+    "categoriaID": "7",
+    "itemsExtra": [
+      "Coca Cola 500ml",
+      "Fanta 500ml",
+      "Agua sin gas 500ml",
+      "Aquarius de Manzana 500ml",
+      "Aquarius de Naranja 500ml",
+      "Aquarius de Pomelo 500ml"
+    ]
   }
 ]

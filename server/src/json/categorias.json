@@ -19,5 +19,11 @@
   },
   {
     "nombre": "Almuerzo o Cena"
+  },
+  {
+    "nombre": "Bebidas"
+  },
+  {
+    "nombre": "Infusiones"
   }
 ]
