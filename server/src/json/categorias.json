@@ -1,8 +1,5 @@
 [
   {
-    "nombre": "Postres"
-  },
-  {
     "nombre": "Pizzas"
   },
   {
@@ -25,5 +22,11 @@
   },
   {
     "nombre": "Infusiones"
+  },
+  {
+    "nombre": "Postres"
+  },
+  {
+    "nombre": "Guarniciones"
   }
 ]
