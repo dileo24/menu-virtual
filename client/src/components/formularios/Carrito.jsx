@@ -81,7 +81,6 @@ export default function Carrito() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
   const handleSelectTipo = (e) => {
-    console.log(input.tipoPagoID);
     if (!input.tipoPagoID.includes(e.target.value)) {
       setInput({
         ...input,

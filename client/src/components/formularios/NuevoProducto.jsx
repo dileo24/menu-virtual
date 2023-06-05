@@ -47,7 +47,6 @@ export default function NuevoProducto() {
     // Cambiarle el background del botón del Aside
     const nuevoProducto = document.querySelector(".nuevoProducto");
     nuevoProducto.classList.add("bg-teal-700");
-    console.log(itemsExtra);
   }, []);
 
   return (
