@@ -7,7 +7,6 @@ export default function Items({
   numItemsExtra,
   setNumItemsExtra,
   itemsExtraArray,
-  titulo,
 }) {
   const handleNumItemsChange = (e) => {
     let count = parseInt(e.target.value);
