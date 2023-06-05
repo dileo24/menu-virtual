@@ -155,23 +155,10 @@ export default function FormProducto({
                       >
                         ítem {index + 1}
                       </label>
-                      {/* <input
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id={`item${index}`}
-                        name={`item${index}`}
-                        type="text"
-                        placeholder={`ítem ${index + 1}`}
-                        value={item}
-                        required
-                        onChange={(e) => handleItemChange(e, index)}
-                      /> */}
-                      <select
-                        id=""
-                        onChange={(e) => handleItemChange(e, index)}
-                      >
-                        {itemsExtra.map((est) => (
-                          <option key={est.id} value={est.id}>
-                            {est.nombre}
+                      <select onChange={(e) => handleItemChange(e, index)}>
+                        {itemsExtra.map((item) => (
+                          <option key={item.id} value={item.nombre}>
+                            {item.nombre}
                           </option>
                         ))}
                       </select>
