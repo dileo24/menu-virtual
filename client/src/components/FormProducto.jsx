@@ -190,7 +190,7 @@ export default function FormProducto({
                     <div className="flex">
                       <Button signo="-" funcion={decrementNumItems} />
                       <input
-                        className="rounded w-5 mx-3 py-2 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        className="w-5 mx-3 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id="numItemsExtra"
                         name="numItemsExtra"
                         type="number"
