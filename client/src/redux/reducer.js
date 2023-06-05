@@ -13,6 +13,7 @@ import {
   GET_PEDIDOS,
   GET_ESTADOS,
   GET_TIPOPAGOS,
+  GET_ITEMSEXTRA,
 } from "./actions.js";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   pedidos: [],
   estados: [],
   tipoPagos: [],
+  itemsExtra: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -63,6 +65,13 @@ function rootReducer(state = initialState, action) {
         productosHome: [...productsFilter],
       };
     }
+
+    /****************** ITEMS EXTRA ******************/
+    case GET_ITEMSEXTRA:
+      return {
+        ...state,
+        itemsExtra: [...action.payload],
+      };
 
     /****************** USUARIOS ******************/
     case GET_USUARIOS:

@@ -13,6 +13,7 @@ export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
+export const GET_ITEMSEXTRA = "GET_ITEMSEXTRA";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -59,6 +60,17 @@ export const searchXname = (nombre) => {
   return {
     type: SEARCHxNOMBRE,
     payload: nombre,
+  };
+};
+
+/****************** ITEMS EXTRA ******************/
+export const getItemsExtra = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/itemsextra");
+    return dispatch({
+      type: GET_ITEMSEXTRA,
+      payload: response.data,
+    });
   };
 };
 

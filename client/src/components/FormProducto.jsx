@@ -1,6 +1,8 @@
-import React /*, { useState } */ from "react";
+import React, { useEffect /*, { useState } */ } from "react";
 import Aside from "./Aside";
 import Button from "./Button";
+import { useDispatch, useSelector } from "react-redux";
+import { getItemsExtra } from "../redux/actions";
 
 export default function FormProducto({
   nombre,
@@ -16,6 +18,12 @@ export default function FormProducto({
   numItemsPersonalizables,
   setNumItemsPersonalizables,
 }) {
+  const dispatch = useDispatch();
+  const itemsExtra = useSelector((state) => state.itemsExtra);
+  useEffect(() => {
+    dispatch(getItemsExtra());
+  }, [dispatch]);
+
   const handleNumItemsChange = (e) => {
     const count = parseInt(e.target.value);
     setNumItemsPersonalizables(count);
@@ -147,7 +155,7 @@ export default function FormProducto({
                       >
                         ítem {index + 1}
                       </label>
-                      <input
+                      {/* <input
                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         id={`item${index}`}
                         name={`item${index}`}
@@ -156,7 +164,17 @@ export default function FormProducto({
                         value={item}
                         required
                         onChange={(e) => handleItemChange(e, index)}
-                      />
+                      /> */}
+                      <select
+                        id=""
+                        onChange={(e) => handleItemChange(e, index)}
+                      >
+                        {itemsExtra.map((est) => (
+                          <option key={est.id} value={est.id}>
+                            {est.nombre}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                   ))}
 

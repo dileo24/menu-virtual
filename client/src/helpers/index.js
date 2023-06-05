@@ -22,30 +22,6 @@ export const nuevoProducto = (producto, token) => {
     console.log(error);
   }
 };
-
-// LISTADO todos los productos de la API
-/* export const obtenerProductos = async () => {
-  try {
-    const resultado = await fetch(url);
-    const productos = await resultado.json();
-    return productos;
-  } catch (error) {
-    console.log(error);
-  }
-}; */
-
-// ELIMINACION un producto
-
-// export const eliminarProducto = async (idProducto) => {
-//   try {
-//     await fetch(`${url}/${idProducto}`, {
-//       method: "DELETE",
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 // Obtener un producto por su ID
 export const obtenerProducto = async (id) => {
   try {

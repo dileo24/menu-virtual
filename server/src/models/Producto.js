@@ -27,7 +27,8 @@ module.exports = (sequelize) => {
         defaultValue: "",
       },
       itemsExtra: {
-        type: DataTypes.BOOLEAN,
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
       },
       imagen: {
         type: DataTypes.TEXT,

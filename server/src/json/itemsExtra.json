@@ -40,15 +40,19 @@
     "categoriaID": "7"
   },
   {
-    "nombre": "Aquarius",
+    "nombre": "Aquarius de Manzana",
     "categoriaID": "7"
   },
   {
-    "nombre": "Agua sin gas",
+    "nombre": "Aquarius sin gas",
     "categoriaID": "7"
   },
   {
-    "nombre": "Agua con gas",
+    "nombre": "Aquarius de Naranja",
+    "categoriaID": "7"
+  },
+  {
+    "nombre": "Aquarius de Pomelo",
     "categoriaID": "7"
   }
 ]
