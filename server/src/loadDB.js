@@ -43,7 +43,13 @@ async function fnCategorias() {
 }
 async function fnItemExtra() {
   for (const item of itemsExtra) {
-    await ItemExtra.create(item);
+    const newItem = await ItemExtra.create({
+      nombre: item.nombre,
+      precio: item.precio,
+    });
+
+    const categoria = await Categoria.findByPk(item.categoriaID);
+    await categoria.addItemExtra(newItem);
   }
 }
 
