@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getUsuarios, register } from "../redux/actions";
+import { getUsuarios, register } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Aside from "./Aside";
+import Aside from "../secciones/Aside";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
-import { mostrarAlerta, ningunInputVacio } from "../helpers";
+import { mostrarAlerta, ningunInputVacio } from "../../helpers";
 
 export default function ModalRegister({ onClose }) {
   const dispatch = useDispatch();

@@ -1,14 +1,14 @@
 import { Routes, Route } from "react-router-dom";
-import Productos from "./components/Productos";
-import NuevoProducto from "./components/NuevoProducto";
-import EditarProducto from "./components/EditarProducto";
-import ModalLogin from "./components/ModalLogin";
+import Productos from "./components/secciones/Menu";
+import NuevoProducto from "./components/formularios/NuevoProducto";
+import EditarProducto from "./components/formularios/EditarProducto";
+import ModalLogin from "./components/formularios/ModalLogin";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import ModalRegister from "./components/ModalRegister";
-import Usuarios from "./components/Usuarios";
-import Carrito from "./components/Carrito";
-import Pedidos from "./components/Pedidos";
+import ModalRegister from "./components/formularios/ModalRegister";
+import Usuarios from "./components/secciones/Usuarios";
+import Carrito from "./components/formularios/Carrito";
+import Pedidos from "./components/secciones/Pedidos";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -24,7 +24,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-        (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />

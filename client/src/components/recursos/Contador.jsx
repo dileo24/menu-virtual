@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarItemCarrito, agregarCarrito } from "../redux/actions";
+import { eliminarItemCarrito, agregarCarrito } from "../../redux/actions";
 import Button from "./Button";
 
 export default function Contador({ nombre, descripcion, precio, id }) {

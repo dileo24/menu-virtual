@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import FormProducto from "./FormProducto";
-import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../helpers";
+import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../../helpers";
 import { useSelector } from "react-redux";
 
 export default function NuevoProducto() {
-  const titulo = "Nuevo Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -31,17 +30,12 @@ export default function NuevoProducto() {
     if (nombre === " - Personalizable") {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
-    if (numItemsExtra === 1) {
-      return mostrarAlerta(
-        "Error: No puede haber un solo ítem personalizable.",
-        "error"
-      );
-    }
     nuevoProducto(producto, token);
     console.log(producto);
     mostrarAlerta("Producto agregado con éxito", "exito");
 
     // Reiniciar los campos del formulario
+    setCategoriaID("");
     setNombre("");
     setDescripcion("");
     setPrecio("");
@@ -53,6 +47,7 @@ export default function NuevoProducto() {
     // Cambiarle el background del botón del Aside
     const nuevoProducto = document.querySelector(".nuevoProducto");
     nuevoProducto.classList.add("bg-teal-700");
+    console.log(itemsExtra);
   }, []);
 
   return (
@@ -66,7 +61,6 @@ export default function NuevoProducto() {
       itemsExtra={itemsExtra}
       setItemsExtra={setItemsExtra}
       onSubmit={validarProducto}
-      titulo={titulo}
       numItemsExtra={numItemsExtra}
       setNumItemsExtra={setNumItemsExtra}
       categoriaID={categoriaID}

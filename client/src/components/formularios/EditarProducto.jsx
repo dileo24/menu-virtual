@@ -5,11 +5,10 @@ import {
   ningunInputVacio,
   editarProducto,
   mostrarAlerta,
-} from "../helpers";
+} from "../../helpers";
 import { useSelector } from "react-redux";
 
 export default function EditarProductos() {
-  const titulo = "Editar Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -64,12 +63,6 @@ export default function EditarProductos() {
     if (nombre === " - Personalizable") {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
-    if (numItemsExtra === 1) {
-      return mostrarAlerta(
-        "Error: No puede haber un solo ítem personalizable.",
-        "error"
-      );
-    }
     editarProducto(producto, token);
     console.log(producto);
     mostrarAlerta("Producto editado con éxito", "exito");
@@ -88,7 +81,6 @@ export default function EditarProductos() {
       itemsExtra={itemsExtra}
       setItemsExtra={setItemsExtra}
       onSubmit={validarProducto}
-      titulo={titulo}
       numItemsExtra={numItemsExtra}
       setNumItemsExtra={setNumItemsExtra}
       categoriaID={categoriaID}

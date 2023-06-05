@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
-import Filtros from "./Filtros";
+import Filtros from "../recursos/Filtros";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProducto, getItemsExtra, getProductos } from "../redux/actions";
-import Contador from "./Contador";
-import Carrito from "./Carrito";
+import {
+  deleteProducto,
+  getItemsExtra,
+  getProductos,
+} from "../../redux/actions";
+import Contador from "../recursos/Contador";
+import Carrito from "../formularios/Carrito";
 
 export default function Productos() {
   const userActual = useSelector((state) => state.userActual);

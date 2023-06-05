@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import Filtros from "./Filtros";
+import Filtros from "../recursos/Filtros";
 import {
   getEstados,
   getPedidos,
   getTipoPago,
   updatePedido,
-} from "../redux/actions";
+} from "../../redux/actions";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);

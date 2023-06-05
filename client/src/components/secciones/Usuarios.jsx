@@ -6,7 +6,7 @@ import {
   deleteUsuario,
   desbloqueoUsuario,
   getUsuarios,
-} from "../redux/actions";
+} from "../../redux/actions";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
