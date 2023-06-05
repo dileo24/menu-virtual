@@ -84,7 +84,7 @@ export default function Items({
           </label>
           <select onChange={(e) => handleItemChange(e, index)}>
             <option hidden>
-              {itemsExtra[0] === "" ? "Elegí un item" : itemsExtra[index]}
+              {itemsExtra[index] === "" ? "Elegí un item" : itemsExtra[index]}
             </option>
 
             {itemsExtraArray.map((item) => (
