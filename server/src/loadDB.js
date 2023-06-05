@@ -1,5 +1,6 @@
 const producto = require("./json/productos.json");
 const roles = require("./json/roles.json");
+const itemsExtra = require("./json/itemsExtra.json");
 const usuario = require("./json/usuarios.json");
 const pagos = require("./json/pagos.json");
 const estados = require("./json/estados.json");
@@ -13,6 +14,7 @@ const {
   Pago,
   Pedido,
   Estado,
+  ItemExtra,
 } = require("./db.js");
 const categoria = require("./json/categorias.json");
 
@@ -39,15 +41,35 @@ async function fnCategorias() {
     await Categoria.create(cat);
   }
 }
+async function fnItemExtra() {
+  for (const item of itemsExtra) {
+    await ItemExtra.create(item);
+  }
+}
+
 async function fnProducto() {
   for (const p of producto) {
     const newProduct = await Producto.create({
       nombre: p.nombre,
       descripcion: p.descripcion,
       precio: p.precio,
+      itemsExtra: p.itemsExtra,
     });
+
     const categoria = await Categoria.findByPk(p.categoriaID);
     await categoria.addProducto(newProduct);
+    /* console.log(p.itemExtraID);
+    const itemExtras = await ItemExtra.findAll({
+      where: {
+        id: p.itemExtraID,
+      },
+    });
+    console.log("Cantidad de itemExtras encontrados:", itemExtras.length);
+
+    for (const itemExtra of itemExtras) {
+      console.log(itemExtra);
+      await itemExtra.addProducto(newProduct);
+    } */
   }
 }
 
@@ -88,4 +110,5 @@ module.exports = {
   fnPagos,
   fnEstado,
   fnPedidos,
+  fnItemExtra,
 };

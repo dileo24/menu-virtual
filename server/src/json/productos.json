@@ -3,36 +3,70 @@
     "nombre": "Pizza Especial (8 porciones)",
     "descripcion": "Descripcion del producto",
     "precio": "3500",
-    "categoriaID": "2"
+    "categoriaID": "2",
+    "itemsExtra": false
   },
   {
     "nombre": "Papas Bravas (para 2)",
     "descripcion": "Descripcion del producto",
     "precio": "1500",
-    "categoriaID": "5"
+    "categoriaID": "5",
+    "itemsExtra": false
   },
   {
     "nombre": "Lomito Completo Premium",
     "descripcion": "Descripcion del producto",
     "precio": "2000",
-    "categoriaID": "4"
+    "categoriaID": "4",
+    "itemsExtra": false
   },
   {
     "nombre": "Pizza Fugazzeta (8 porciones)",
     "descripcion": "Descripcion del producto",
     "precio": "2500",
-    "categoriaID": "2"
+    "categoriaID": "2",
+    "itemsExtra": false
   },
   {
     "nombre": "Papas a la Alemana (para 4)",
     "descripcion": "Descripcion del producto",
     "precio": "5300",
-    "categoriaID": "5"
+    "categoriaID": "5",
+    "itemsExtra": false
   },
   {
     "nombre": "Hamburguesa Americana Doble",
     "descripcion": "Descripcion del producto",
     "precio": "1800",
-    "categoriaID": "3"
+    "categoriaID": "3",
+    "itemsExtra": false
+  },
+  {
+    "nombre": "Desayuno para 2",
+    "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
+    "precio": "3200",
+    "categoriaID": "6",
+    "itemsExtra": true
+  },
+  {
+    "nombre": "Merienda para 2",
+    "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
+    "precio": "3200",
+    "categoriaID": "6",
+    "itemsExtra": true
+  },
+  {
+    "nombre": "Desayuno para 4",
+    "descripcion": "Descripcion del producto",
+    "precio": "1800",
+    "categoriaID": "3",
+    "itemsExtra": true
+  },
+  {
+    "nombre": "Merienda para 4",
+    "descripcion": "Descripcion del producto",
+    "precio": "1800",
+    "categoriaID": "3",
+    "itemsExtra": true
   }
 ]

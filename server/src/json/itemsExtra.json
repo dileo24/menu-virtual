@@ -1,0 +1,54 @@
+[
+  {
+    "nombre": "Café",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Café con leche",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Lágrima",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Licuado de banana",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Licuado de durazno",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Licuado de frutilla",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Té",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Té verde",
+    "categoriaID": "6"
+  },
+  {
+    "nombre": "Fanta",
+    "categoriaID": "7"
+  },
+  {
+    "nombre": "Coca Cola",
+    "categoriaID": "7"
+  },
+  {
+    "nombre": "Aquarius",
+    "categoriaID": "7"
+  },
+  {
+    "nombre": "Agua sin gas",
+    "categoriaID": "7"
+  },
+  {
+    "nombre": "Agua con gas",
+    "categoriaID": "7"
+  }
+]

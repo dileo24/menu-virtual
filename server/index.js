@@ -9,6 +9,7 @@ const {
   fnPagos,
   fnEstado,
   fnPedidos,
+  fnItemExtra,
 } = require("./src/loadDB.js");
 
 conn.sync({ force: true }).then(async () => {
@@ -20,6 +21,7 @@ conn.sync({ force: true }).then(async () => {
     await fnPagos();
     await fnEstado();
     await fnPedidos();
+    await fnItemExtra();
     console.log("%s listening at 3001");
   });
 });

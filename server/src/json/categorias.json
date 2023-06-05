@@ -13,5 +13,11 @@
   },
   {
     "nombre": "Papas"
+  },
+  {
+    "nombre": "Desayuno o Merienda"
+  },
+  {
+    "nombre": "Almuerzo o Cena"
   }
 ]

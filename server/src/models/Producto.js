@@ -26,6 +26,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "",
       },
+      itemsExtra: {
+        type: DataTypes.BOOLEAN,
+      },
       imagen: {
         type: DataTypes.TEXT,
         validate: {

@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Sequelize, Op } = require("sequelize");
+const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
@@ -46,7 +46,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Categoria, Rol, Usuario, Producto, Pago, Pedido, Estado } =
+const { Categoria, Rol, Usuario, Producto, Pago, Pedido, Estado, ItemExtra } =
   sequelize.models; // añadir modelos
 
 // Aca vendrian las relaciones
@@ -60,18 +60,26 @@ Pedido.belongsTo(Pago);
 Estado.hasMany(Pedido);
 Pedido.belongsTo(Estado);
 
+/* Producto.belongsToMany(ItemExtra, { through: "Producto_ItemExtra" });
+ItemExtra.belongsToMany(Producto, { through: "Producto_ItemExtra" }); */
+
 Categoria.hasMany(Producto, {
   foreignKey: "categoriaID",
-  as: "productos", // Establece el alias como "productos"
 });
-
 Producto.belongsTo(Categoria, {
   foreignKey: "categoriaID",
-  as: "categoria", // Establece el alias como "categoria"
+  as: "categoria",
+});
+
+Categoria.hasMany(ItemExtra, {
+  foreignKey: "categoriaID",
+});
+ItemExtra.belongsTo(Categoria, {
+  foreignKey: "categoriaID",
+  as: "categoriaItem",
 });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importar la conexión { conn } = require('./db.js');
-  Op,
 };
