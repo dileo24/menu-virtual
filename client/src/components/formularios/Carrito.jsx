@@ -236,18 +236,24 @@ export default function Carrito() {
                 >
                   Método de pago
                 </label>
-                <select
-                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  onChange={(e) => handleSelectTipo(e)}
-                  required
-                >
-                  <option value="">Seleccione un método de pago</option>
+                <div className="flex">
                   {tipoPagos?.map((tipo) => (
-                    <option key={tipo.id} value={tipo.id}>
-                      {tipo.tipo}
-                    </option>
+                    <div key={tipo.id}>
+                      <input
+                        type="radio"
+                        id={tipo.id}
+                        name="metodoPago"
+                        value={tipo.id}
+                        className="mr-2"
+                        onChange={(e) => handleSelectTipo(e)}
+                        required
+                      />
+                      <label htmlFor={tipo.id} className="mr-4">
+                        {tipo.tipo}
+                      </label>
+                    </div>
                   ))}
-                </select>
+                </div>
               </div>
 
               <input
