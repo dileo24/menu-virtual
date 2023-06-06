@@ -18,7 +18,6 @@ export const GET_ITEMSEXTRA = "GET_ITEMSEXTRA";
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
   return async function (dispatch) {
-    console.log("despaché los productos de nuevooo");
     const response = await axios.get("/productos");
     return dispatch({
       type: GET_PRODUCTOS,
