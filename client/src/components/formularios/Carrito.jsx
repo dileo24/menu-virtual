@@ -91,25 +91,30 @@ export default function Carrito() {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    if (input.aclaraciones.length > 50) {
-      // Validación de longitud de aclaraciones
-      alert("Las aclaraciones deben tener hasta 50 caracteres");
-      return;
+
+    if (carrito.length) {
+      if (input.aclaraciones.length > 50) {
+        // Validación de longitud de aclaraciones
+        alert("Las aclaraciones deben tener hasta 50 caracteres");
+        return;
+      }
+      dispatch(createPedido(input));
+      dispatch(limpiarCarrito());
+      setInput({
+        productos: [],
+        precio: "",
+        mesa: "",
+        aclaraciones: "",
+        tipoPagoID: "",
+        estadoID: "1",
+      });
+      alert(
+        "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
+      );
+      window.location.href = "/";
+    } else {
+      alert("Error: No elegiste ningún producto del Menú");
     }
-    dispatch(createPedido(input));
-    dispatch(limpiarCarrito());
-    setInput({
-      productos: [],
-      precio: "",
-      mesa: "",
-      aclaraciones: "",
-      tipoPagoID: "",
-      estadoID: "1",
-    });
-    alert(
-      "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
-    );
-    window.location.href = "/";
   };
 
   return (
@@ -231,22 +236,18 @@ export default function Carrito() {
                 >
                   Método de pago
                 </label>
-                <div className="flex">
+                <select
+                  className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  onChange={(e) => handleSelectTipo(e)}
+                  required
+                >
+                  <option value="">Seleccione un método de pago</option>
                   {tipoPagos?.map((tipo) => (
-                    <label
-                      className="inline-flex items-center mr-4"
-                      key={tipo.id}
-                    >
-                      <input
-                        type="checkbox"
-                        className="form-checkbox text-indigo-600 h-5 w-5 cursor-pointer"
-                        value={tipo.id}
-                        onChange={(e) => handleSelectTipo(e)}
-                      />
-                      <span className="ml-2 text-gray-700">{tipo.tipo}</span>
-                    </label>
+                    <option key={tipo.id} value={tipo.id}>
+                      {tipo.tipo}
+                    </option>
                   ))}
-                </div>
+                </select>
               </div>
 
               <input
