@@ -51,9 +51,6 @@ export default function Productos() {
                           Productos
                         </th>
                         <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Descripción
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                           Precio
                         </th>
                         <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
@@ -69,9 +66,9 @@ export default function Productos() {
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
                                 {nombre}
                               </p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-gray-700">{descripcion}</p>
+                              <p className="text-gray-700 mt-2">
+                                {descripcion}
+                              </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
                               <p className="text-gray-600">${precio}</p>
