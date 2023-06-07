@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
       get() {
         const rawValue = this.getDataValue("createdAt");
         if (rawValue) {
-          return format(rawValue, "yyyy-MM-dd HH:mm");
+          return format(rawValue, "dd/MM/yyyy HH:mm");
         }
         return null;
       },
@@ -48,7 +48,7 @@ module.exports = (sequelize) => {
       get() {
         const rawValue = this.getDataValue("updatedAt");
         if (rawValue) {
-          return format(rawValue, "yyyy-MM-dd HH:mm");
+          return format(rawValue, "dd/MM/yyyy HH:mm");
         }
         return null;
       },
