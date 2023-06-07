@@ -28,6 +28,7 @@ export default function Carrito() {
     aclaraciones: "",
     tipoPagoID: "",
     estadoID: "1",
+    itemsExtra: [],
   });
 
   useEffect(() => {
@@ -65,6 +66,7 @@ export default function Carrito() {
       setVerOcultar("Ver mi pedido");
     }
   };
+
   const handleMostrarMenu2 = () => {
     setMostrarMenu2(!MostrarMenu2);
     setMostrarMenu(MostrarMenu);
@@ -80,6 +82,13 @@ export default function Carrito() {
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  const handleSelectItemExtra = (prodId, item) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      itemsExtra: [...prevInput.itemsExtra, item],
+    }));
+  };
+
   const handleSelectTipo = (e) => {
     if (!input.tipoPagoID.includes(e.target.value)) {
       setInput({
@@ -98,6 +107,7 @@ export default function Carrito() {
         alert("Las aclaraciones deben tener hasta 50 caracteres");
         return;
       }
+      /* console.log(input); */
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -107,6 +117,7 @@ export default function Carrito() {
         aclaraciones: "",
         tipoPagoID: "",
         estadoID: "1",
+        itemsExtra: [],
       });
       alert(
         "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
@@ -188,6 +199,7 @@ export default function Carrito() {
               <b className="font-bold">Atrás</b>
             </button>
             <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
+              {/* ****************** MESA ****************** */}
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -209,6 +221,41 @@ export default function Carrito() {
                 />
               </div>
 
+              {/* ****************** ITEMS ****************** */}
+              <div className="mb-4">
+                <label
+                  className="block text-gray-700 text-sm font-bold mb-2"
+                  htmlFor="mesa"
+                >
+                  Seleccione items extra
+                </label>
+                <div className="flex">
+                  {carrito.length &&
+                    carrito.map(
+                      (prod, indexCarr) =>
+                        prod.itemsExtra && (
+                          <div key={indexCarr}>
+                            <p>{prod.nombre}</p>
+                            <select
+                              name="itemsExtra"
+                              onChange={(e) =>
+                                handleSelectItemExtra(prod.id, e.target.value)
+                              }
+                              required
+                            >
+                              {prod.itemsExtra.map((item, index) => (
+                                <option key={index} value={item}>
+                                  {item}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        )
+                    )}
+                </div>
+              </div>
+
+              {/* ****************** ACLARACIONES ****************** */}
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -229,6 +276,7 @@ export default function Carrito() {
                 />
               </div>
 
+              {/* ****************** MÉTODO DE PAGO ****************** */}
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"

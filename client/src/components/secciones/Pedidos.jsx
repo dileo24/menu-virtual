@@ -65,11 +65,28 @@ export default function Pedidos() {
                     </thead>
                     <tbody className="bg-white">
                       {pedidos.map(
-                        ({ productos, mesa, precio, Estado, Pago, id }) => (
+                        ({
+                          productos,
+                          mesa,
+                          aclaraciones,
+                          precio,
+                          Estado,
+                          itemsExtra,
+                          Pago,
+                          id,
+                        }) => (
                           <tr key={id}>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
                                 {productos.join(", ")}
+                              </p>
+                              {itemsExtra && (
+                                <p className="text-gray-700 mt-2">
+                                  {itemsExtra.join(", ")}
+                                </p>
+                              )}
+                              <p className="text-gray-700 mt-2">
+                                {aclaraciones}
                               </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
