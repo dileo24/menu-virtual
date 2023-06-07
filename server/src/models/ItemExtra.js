@@ -28,6 +28,7 @@ module.exports = (sequelize) => {
       listado: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
+        defaultValue: true,
       },
       imagen: {
         type: DataTypes.TEXT,
