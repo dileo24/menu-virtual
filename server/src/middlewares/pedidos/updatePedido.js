@@ -13,6 +13,7 @@ const updatePedido = async (req, res, next) => {
           precio: precio || pedido.precio,
           mesa: mesa || pedido.mesa,
           tipoPagoID: tipoPagoID || pedido.tipoPagoID,
+          itemsExtra: itemsExtra || pedido.itemsExtra,
           estadoID: estadoID || pedido.estadoID,
           aclaraciones: aclaraciones || pedido.aclaraciones,
         },
