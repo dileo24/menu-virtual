@@ -13,10 +13,6 @@ module.exports = (sequelize) => {
         unique: true,
         autoIncrement: true,
       },
-      productos: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
       mesa: {
         type: DataTypes.STRING,
         allowNull: false,

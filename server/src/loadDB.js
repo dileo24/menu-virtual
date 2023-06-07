@@ -96,17 +96,31 @@ async function fnProducto() {
 }
 
 async function fnPedidos() {
-  for (const ped of pedidos) {
-    const newPedido = await Pedido.create({
-      productos: ped.productos,
-      mesa: ped.mesa,
-      precio: ped.precio,
-      aclaraciones: ped.aclaraciones,
-    });
-    const tipoPago = await Pago.findByPk(ped.tipoPagoID);
-    const estado = await Estado.findByPk(ped.estadoID);
-    await estado.addPedido(newPedido);
-    await tipoPago.addPedido(newPedido);
+  try {
+    for (const ped of pedidos) {
+      const newPedido = await Pedido.create({
+        mesa: ped.mesa,
+        precio: ped.precio,
+        aclaraciones: ped.aclaraciones,
+      });
+
+      const tipoPago = await Pago.findByPk(ped.tipoPagoID);
+      const estado = await Estado.findByPk(ped.estadoID);
+
+      await estado.addPedido(newPedido);
+      await tipoPago.addPedido(newPedido);
+
+      for (const productoId of ped.productos) {
+        const producto = await Producto.findByPk(productoId);
+        if (producto) {
+          await newPedido.addProducto(producto);
+        }
+      }
+    }
+
+    console.log("Pedidos creados exitosamente.");
+  } catch (err) {
+    console.log("Error al crear los pedidos:", err);
   }
 }
 

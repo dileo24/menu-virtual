@@ -69,6 +69,9 @@ Pedido.belongsTo(Pago);
 Estado.hasMany(Pedido);
 Pedido.belongsTo(Estado);
 
+Pedido.hasMany(Producto);
+Producto.belongsTo(Pedido);
+
 /* Producto.belongsToMany(ItemExtra, { through: "Producto_ItemExtra" });
 ItemExtra.belongsToMany(Producto, { through: "Producto_ItemExtra" }); */
 
