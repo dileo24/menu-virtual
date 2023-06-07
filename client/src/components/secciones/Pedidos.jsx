@@ -72,6 +72,7 @@ export default function Pedidos() {
                           precio,
                           Estado,
                           itemsExtra,
+                          creacion,
                           Pago,
                           id,
                         }) => (
@@ -87,6 +88,9 @@ export default function Pedidos() {
                               )}
                               <p className="text-gray-700 mt-2">
                                 <b> Aclaraciones:</b> {aclaraciones}
+                              </p>
+                              <p className="text-gray-700 mt-2">
+                                <b> Realizado el:</b> {creacion}
                               </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
