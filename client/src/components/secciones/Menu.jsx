@@ -96,7 +96,7 @@ export default function Productos() {
                               ) : (
                                 // Si el usuario no inició sesión
                                 <Contador
-                                  id={id}
+                                  id={index}
                                   nombre={nombre}
                                   descripcion={descripcion}
                                   precio={precio}
