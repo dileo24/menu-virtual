@@ -235,20 +235,29 @@ export default function Carrito() {
                       (prod, indexCarr) =>
                         prod.itemsExtra && (
                           <div key={indexCarr}>
-                            <p>{prod.nombre}</p>
-                            <select
-                              name="itemsExtra"
-                              onChange={(e) =>
-                                handleSelectItemExtra(prod.id, e.target.value)
-                              }
-                              required
-                            >
-                              {prod.itemsExtra.map((item, index) => (
-                                <option key={index} value={item}>
-                                  {item}
-                                </option>
-                              ))}
-                            </select>
+                            <p>Seleccionar ítems para {prod.nombre}</p>
+                            {Array.from(
+                              { length: prod.cantidadPersonas },
+                              (_, index) => (
+                                <select
+                                  name="itemsExtra"
+                                  onChange={(e) =>
+                                    handleSelectItemExtra(
+                                      prod.id,
+                                      e.target.value
+                                    )
+                                  }
+                                  required
+                                  key={index}
+                                >
+                                  {prod.itemsExtra.map((item, itemIndex) => (
+                                    <option key={itemIndex} value={item}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                              )
+                            )}
                           </div>
                         )
                     )}

@@ -61,7 +61,14 @@ export default function Productos() {
                     <tbody className="bg-white">
                       {productosState.map(
                         (
-                          { nombre, descripcion, precio, itemsExtra, id },
+                          {
+                            nombre,
+                            descripcion,
+                            precio,
+                            itemsExtra,
+                            id,
+                            cantidadPersonas,
+                          },
                           index
                         ) => (
                           <tr key={index}>
@@ -101,7 +108,7 @@ export default function Productos() {
                                   descripcion={descripcion}
                                   precio={precio}
                                   itemsExtra={itemsExtra}
-                                  // valor={valor}
+                                  cantidadPersonas={cantidadPersonas}
                                 />
                               )}
                             </td>

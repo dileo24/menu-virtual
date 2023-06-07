@@ -5,7 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getItemsExtra, getCategorias } from "../../redux/actions";
 
 export default function FormProducto({
+  titulo,
   nombre,
+  cantidadPersonas,
+  setCantidadPersonas,
   setNombre,
   descripcion,
   setDescripcion,
@@ -39,7 +42,7 @@ export default function FormProducto({
         <Aside />
         <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="titulo -mt-16 text-3xl font-light text-center">
-            {!categoriaID ? "Nuevo Producto" : "Editar Producto"}
+            {!titulo ? "Editar Producto" : titulo}
           </h2>
           <div className="flex flex-col mt-10 items-center contenedor">
             <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
@@ -84,6 +87,25 @@ export default function FormProducto({
                       value={nombre}
                       maxLength={150}
                       onChange={(e) => setNombre(e.target.value)}
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="nombre"
+                    >
+                      Cantidad de Personas
+                    </label>
+                    <input
+                      className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      id="cantidadPersonas"
+                      name="cantidadPersonas"
+                      type="number"
+                      placeholder="Para cuántas personas será el combo"
+                      value={cantidadPersonas}
+                      maxLength={150}
+                      onChange={(e) => setCantidadPersonas(e.target.value)}
                     />
                   </div>
 
@@ -137,7 +159,11 @@ export default function FormProducto({
                   <input
                     type="submit"
                     className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer"
-                    value={!categoriaID ? "Crear Producto" : "Guardar cambios"}
+                    value={
+                      titulo === "Nuevo Producto"
+                        ? "Crear Producto"
+                        : "Guardar cambios"
+                    }
                     onClick={onSubmit}
                   />
                 </form>

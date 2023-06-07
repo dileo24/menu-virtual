@@ -17,6 +17,11 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,
       },
+      cantidadPersonas: {
+        type: DataTypes.STRING,
+        defaultValue: "1",
+        allowNull: false,
+      },
       precio: {
         type: DataTypes.STRING,
         allowNull: false,

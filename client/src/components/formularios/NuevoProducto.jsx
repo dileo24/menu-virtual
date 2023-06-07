@@ -4,13 +4,14 @@ import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../../helpers";
 import { useSelector } from "react-redux";
 
 export default function NuevoProducto() {
+  const titulo = "Nuevo Producto";
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [categoriaID, setCategoriaID] = useState("");
   const [itemsExtra, setItemsExtra] = useState([]);
   const [numItemsExtra, setNumItemsExtra] = useState(0);
-
+  const [cantidadPersonas, setCantidadPersonas] = useState("1");
   const token = useSelector((state) => state.userActual.tokenSession);
 
   function validarProducto(e) {
@@ -22,6 +23,7 @@ export default function NuevoProducto() {
       precio,
       itemsExtra,
       categoriaID,
+      cantidadPersonas,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -51,7 +53,10 @@ export default function NuevoProducto() {
 
   return (
     <FormProducto
+      titulo={titulo}
       nombre={nombre}
+      cantidadPersonas={cantidadPersonas}
+      setCantidadPersonas={setCantidadPersonas}
       setNombre={setNombre}
       descripcion={descripcion}
       setDescripcion={setDescripcion}

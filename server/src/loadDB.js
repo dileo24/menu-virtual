@@ -76,6 +76,7 @@ async function fnProducto() {
       descripcion: p.descripcion,
       precio: p.precio,
       itemsExtra: p.itemsExtra,
+      cantidadPersonas: p.cantidadPersonas
     });
 
     const categoria = await Categoria.findByPk(p.categoriaID);

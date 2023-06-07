@@ -9,6 +9,7 @@ export default function Contador({
   precio,
   id,
   itemsExtra,
+  cantidadPersonas,
 }) {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
@@ -20,6 +21,7 @@ export default function Contador({
     precio,
     id,
     itemsExtra,
+    cantidadPersonas,
   }) => {
     dispatch(
       agregarCarrito({
@@ -28,6 +30,7 @@ export default function Contador({
         precio,
         id,
         itemsExtra,
+        cantidadPersonas,
       })
     );
   };
@@ -53,6 +56,7 @@ export default function Contador({
             precio,
             id,
             itemsExtra,
+            cantidadPersonas,
           })
         }
       />

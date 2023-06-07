@@ -2,7 +2,7 @@ const { Producto } = require("../../db");
 
 const updateProduct = async (req, res, next) => {
   try {
-    const { nombre, imagen, descripcion, precio, itemsExtra, categoriaID } =
+    const { nombre, imagen, descripcion, precio, itemsExtra, categoriaID, cantidadPersonas } =
       req.body;
     const id = req.params.id;
     const producto = await Producto.findByPk(id);
@@ -15,6 +15,7 @@ const updateProduct = async (req, res, next) => {
           imagen: imagen || producto.imagen,
           itemsExtra: itemsExtra || producto.itemsExtra,
           categoriaID: categoriaID || producto.categoriaID,
+          cantidadPersonas: cantidadPersonas || producto.cantidadPersonas,
         },
         { where: { id: id } }
       );
