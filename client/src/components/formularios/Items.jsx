@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "../recursos/Button";
+import { useSelector } from "react-redux";
 
 export default function Items({
   itemsExtra,
@@ -7,7 +8,11 @@ export default function Items({
   numItemsExtra,
   setNumItemsExtra,
   itemsExtraArray,
+  categoriaID,
 }) {
+  const categorias = useSelector((state) => state.categorias);
+  const categsItems = categorias.filter((c) => c.id !== 1 && c.id !== 2);
+
   const handleNumItemsChange = (e) => {
     let count = parseInt(e.target.value);
     setNumItemsExtra(count);
@@ -86,7 +91,7 @@ export default function Items({
               {itemsExtra[index] === "" ? "Elegí un item" : itemsExtra[index]}
             </option>
 
-            {itemsExtraArray.map((item) => (
+            {categsItems.map((item) => (
               <option key={item.id} value={item.nombre}>
                 {item.nombre}
               </option>

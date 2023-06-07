@@ -51,7 +51,9 @@ async function fnItemExtra() {
   for (const item of itemsExtra) {
     const newItem = await ItemExtra.create({
       nombre: item.nombre,
+      descripcion: item.descripcion,
       precio: item.precio,
+      listado: item.listado,
     });
 
     const categoria = await Categoria.findByPk(item.categoriaID);
@@ -76,7 +78,7 @@ async function fnProducto() {
       descripcion: p.descripcion,
       precio: p.precio,
       itemsExtra: p.itemsExtra,
-      cantidadPersonas: p.cantidadPersonas
+      cantidadPersonas: p.cantidadPersonas,
     });
 
     const categoria = await Categoria.findByPk(p.categoriaID);

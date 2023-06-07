@@ -6,9 +6,6 @@
     "nombre": "Almuerzo o Cena"
   },
   {
-    "nombre": "Bebidas"
-  },
-  {
     "nombre": "Infusiones"
   },
   {
@@ -16,5 +13,14 @@
   },
   {
     "nombre": "Guarniciones"
+  },
+  {
+    "nombre": "Bebidas con alcohol"
+  },
+  {
+    "nombre": "Bebidas sin alcohol"
+  },
+  {
+    "nombre": "Licuado"
   }
 ]

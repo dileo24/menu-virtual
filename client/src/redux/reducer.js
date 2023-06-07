@@ -82,9 +82,11 @@ function rootReducer(state = initialState, action) {
 
     /****************** ITEMS EXTRA ******************/
     case GET_ITEMSEXTRA:
+      const itemsListados = action.payload.filter((item) => item.listado);
+
       return {
         ...state,
-        home: [...state.productos, ...action.payload],
+        home: [...state.home, ...itemsListados],
         itemsExtra: [...action.payload],
       };
 

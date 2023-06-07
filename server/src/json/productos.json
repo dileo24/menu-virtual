@@ -3,56 +3,44 @@
     "nombre": "Pizza Especial (8 porciones)",
     "descripcion": "Descripcion del producto",
     "precio": "3500",
-    "categoriaID": "2",
-    "cantidadPersonas": "2"
+    "categoriaID": "2"
   },
   {
     "nombre": "Papas Bravas (para 2)",
     "descripcion": "Descripcion del producto",
     "precio": "1500",
-    "categoriaID": "2",
-    "cantidadPersonas": "2"
+    "categoriaID": "2"
   },
   {
     "nombre": "Lomito Completo Premium",
     "descripcion": "Descripcion del producto",
     "precio": "2000",
-    "categoriaID": "2",
-    "cantidadPersonas": "2"
+    "categoriaID": "2"
   },
   {
     "nombre": "Pizza Fugazzeta (8 porciones)",
     "descripcion": "Descripcion del producto",
     "precio": "2500",
-    "categoriaID": "2",
-    "cantidadPersonas": "2"
+    "categoriaID": "2"
   },
   {
     "nombre": "Papas a la Alemana (para 4)",
     "descripcion": "Descripcion del producto",
     "precio": "5300",
-    "categoriaID": "2",
-    "cantidadPersonas": "2"
+    "categoriaID": "2"
   },
   {
     "nombre": "Hamburguesa Americana Doble",
     "descripcion": "Descripcion del producto",
     "precio": "1800",
-    "categoriaID": "2",
-    "cantidadPersonas": "2"
+    "categoriaID": "2"
   },
   {
     "nombre": "Desayuno para 2",
     "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Té",
-      "Té verde",
-      "Café",
-      "Café con leche",
-      "Lágrima"
-    ],
+    "itemsExtra": ["Infusiones", "Postres", "Guarniciones"],
     "cantidadPersonas": "2"
   },
   {
@@ -60,13 +48,7 @@
     "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Té",
-      "Té verde",
-      "Café",
-      "Café con leche",
-      "Lágrima"
-    ],
+    "itemsExtra": ["Bebidas sin alcohol", "Postres", "Guarniciones"],
     "cantidadPersonas": "2"
   },
   {
@@ -74,28 +56,16 @@
     "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Té",
-      "Té verde",
-      "Café",
-      "Café con leche",
-      "Lágrima"
-    ],
-    "cantidadPersonas": "2"
+    "itemsExtra": ["Infusiones", "Postres", "Guarniciones"],
+    "cantidadPersonas": "4"
   },
   {
     "nombre": "Merienda para 4",
     "descripcion": "4 tostados con papas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Té",
-      "Té verde",
-      "Café",
-      "Café con leche",
-      "Lágrima"
-    ],
-    "cantidadPersonas": "2"
+    "itemsExtra": ["Bebidas sin alcohol", "Postres", "Guarniciones"],
+    "cantidadPersonas": "4"
   },
   {
     "nombre": "Asado para 2 con bebida",

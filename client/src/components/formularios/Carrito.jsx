@@ -15,6 +15,7 @@ export default function Carrito() {
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
+  const itemsExtraArray = useSelector((state) => state.itemsExtra);
   const dispatch = useDispatch();
   const [MostrarMenu, setMostrarMenu] = useState(false);
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
@@ -239,23 +240,44 @@ export default function Carrito() {
                             {Array.from(
                               { length: prod.cantidadPersonas },
                               (_, index) => (
-                                <select
-                                  name="itemsExtra"
-                                  onChange={(e) =>
-                                    handleSelectItemExtra(
-                                      prod.id,
-                                      e.target.value
-                                    )
-                                  }
-                                  required
-                                  key={index}
-                                >
-                                  {prod.itemsExtra.map((item, itemIndex) => (
-                                    <option key={itemIndex} value={item}>
-                                      {item}
-                                    </option>
-                                  ))}
-                                </select>
+                                <div key={index}>
+                                  <p>Persona {index + 1}</p>
+                                  {prod.itemsExtra.map(
+                                    (categoria, categoriaIndex) => {
+                                      const itemsFiltrados =
+                                        itemsExtraArray.filter(
+                                          (item) =>
+                                            item.categoriaItem.nombre ===
+                                            categoria
+                                        );
+                                      return (
+                                        <select
+                                          name={`itemsExtra-${categoriaIndex}`}
+                                          onChange={(e) =>
+                                            handleSelectItemExtra(
+                                              prod.id,
+                                              e.target.value
+                                            )
+                                          }
+                                          required
+                                          key={`${index}-${categoriaIndex}`}
+                                        >
+                                          <option hidden>{categoria}</option>
+                                          {itemsFiltrados.map(
+                                            (item, itemIndex) => (
+                                              <option
+                                                key={itemIndex}
+                                                value={item.nombre}
+                                              >
+                                                {item.nombre}
+                                              </option>
+                                            )
+                                          )}
+                                        </select>
+                                      );
+                                    }
+                                  )}
+                                </div>
                               )
                             )}
                           </div>

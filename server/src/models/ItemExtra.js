@@ -16,9 +16,27 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      descripcion: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+        defaultValue: "",
+      },
       precio: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      listado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+      },
+      imagen: {
+        type: DataTypes.TEXT,
+        validate: {
+          isUrl: true,
+        },
+        /* defaultValue:
+          "https://images.vexels.com/media/users/3/251903/isolated/preview/2a17d1b6d0fe74069965b267b75a5a4c-18-alimentos-comidas-planowashinkcontouroverlay-vinylcolor-13.png",
+       */
       },
     },
     {
