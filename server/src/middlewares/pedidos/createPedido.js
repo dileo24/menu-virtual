@@ -1,4 +1,4 @@
-const { Pedido, Pago, Estado, Producto } = require("../../db");
+const { Pedido, Pago, Estado } = require("../../db");
 
 const createPedido = async (req, res, next) => {
   try {
@@ -10,16 +10,11 @@ const createPedido = async (req, res, next) => {
     });
 
     const newPedido = await Pedido.create({
+      productos,
       mesa,
       precio,
       aclaraciones,
     });
-    for (const productoId of productos) {
-      const producto = await Producto.findByPk(productoId);
-      if (producto) {
-        await newPedido.addProducto(producto);
-      }
-    }
 
     await tipoPago.addPedido(newPedido);
     await estado.addPedido(newPedido);

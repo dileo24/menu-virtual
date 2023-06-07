@@ -1,4 +1,4 @@
-const { Pedido, Pago, Estado, Producto } = require("../../db");
+const { Pedido, Pago, Estado } = require("../../db");
 
 const allPedidos = async (req, res, next) => {
   try {
@@ -6,10 +6,6 @@ const allPedidos = async (req, res, next) => {
       order: [["id", "ASC"]],
       /* attributes: { exclude: ["PagoId", "EstadoId"] }, */
       include: [
-        {
-          model: Producto,
-          attributes: ["id", "nombre", "itemsExtra"],
-        },
         {
           model: Pago,
           attributes: ["id", "tipo"],

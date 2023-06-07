@@ -1,6 +1,7 @@
 [
   {
-    "productos": ["1", "5", "10"],
+    "productos": ["Asado para 2 con bebida", "Lomito Completo Premium"],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
     "mesa": "2",
     "precio": "9200",
     "estadoID": "1",
@@ -8,7 +9,11 @@
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
   },
   {
-    "productos": ["3", "1"],
+    "productos": [
+      "Papas a la Alemana (para 4)",
+      "Lomito Completo Premium",
+      "Pizza Fugazzeta (8 porciones)"
+    ],
     "mesa": "1",
     "precio": "9200",
     "estadoID": "2",
@@ -16,7 +21,11 @@
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
   },
   {
-    "productos": ["10"],
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",

@@ -13,6 +13,14 @@ module.exports = (sequelize) => {
         unique: true,
         autoIncrement: true,
       },
+      productos: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+      },
+      itemsExtra: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
       mesa: {
         type: DataTypes.STRING,
         allowNull: false,
