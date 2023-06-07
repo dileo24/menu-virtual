@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import FormProducto from "./FormProducto";
 import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../../helpers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { postItemExtra } from "../../redux/actions";
 
 export default function NuevoProducto() {
   const titulo = "Nuevo Producto";
@@ -13,6 +14,10 @@ export default function NuevoProducto() {
   const [numItemsExtra, setNumItemsExtra] = useState(0);
   const [cantidadPersonas, setCantidadPersonas] = useState("1");
   const token = useSelector((state) => state.userActual.tokenSession);
+  const dispatch = useDispatch();
+
+  //usar esta función para la creación de un item
+  //dispatch(postItemExtra(data, token))
 
   function validarProducto(e) {
     e.preventDefault();
