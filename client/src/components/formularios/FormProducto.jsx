@@ -12,7 +12,6 @@ export default function FormProducto({
   precio,
   setPrecio,
   onSubmit,
-  titulo,
   itemsExtra,
   setItemsExtra,
   numItemsExtra,
@@ -133,6 +132,7 @@ export default function FormProducto({
                     numItemsExtra={numItemsExtra}
                     setNumItemsExtra={setNumItemsExtra}
                     itemsExtraArray={itemsExtraArray}
+                    categoriaID={categoriaID}
                   />
                   <input
                     type="submit"
