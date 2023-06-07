@@ -1,41 +1,57 @@
 const { DataTypes } = require("sequelize");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+const { format } = require("date-fns");
+
 module.exports = (sequelize) => {
-  // defino el modelo
-  sequelize.define(
-    "Pedido",
-    {
-      //id se crea automatico
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        unique: true,
-        autoIncrement: true,
-      },
-      productos: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
-      itemsExtra: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true,
-      },
-      mesa: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      precio: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      aclaraciones: {
-        type: DataTypes.TEXT,
-        allowNull: true,
+  sequelize.define("Pedido", {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      unique: true,
+      autoIncrement: true,
+    },
+    productos: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+    },
+    itemsExtra: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: true,
+    },
+    mesa: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    precio: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    aclaraciones: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    creacion: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      get() {
+        const rawValue = this.getDataValue("createdAt");
+        if (rawValue) {
+          return format(rawValue, "yyyy-MM-dd HH:mm");
+        }
+        return null;
       },
     },
-    {
-      timestamps: false,
-    }
-  );
+    actualizacion: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      get() {
+        const rawValue = this.getDataValue("updatedAt");
+        if (rawValue) {
+          return format(rawValue, "yyyy-MM-dd HH:mm");
+        }
+        return null;
+      },
+    },
+  });
 };
