@@ -82,11 +82,11 @@ export default function Pedidos() {
                               </p>
                               {itemsExtra && (
                                 <p className="text-gray-700 mt-2">
-                                  {itemsExtra.join(", ")}
+                                  <b>Extra:</b> {itemsExtra.join(", ")}
                                 </p>
                               )}
                               <p className="text-gray-700 mt-2">
-                                {aclaraciones}
+                                <b> Aclaraciones:</b> {aclaraciones}
                               </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
