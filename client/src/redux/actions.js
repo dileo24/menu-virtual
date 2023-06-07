@@ -73,6 +73,19 @@ export const getItemsExtra = () => {
   };
 };
 
+export const postItemExtra = (data, token) => {
+  return async function () {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.post("/itemsextra", data, config);
+    return response;
+  };
+};
+
 /****************** USUARIOS ******************/
 
 export const getUsuarios = () => {
