@@ -31,33 +31,58 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      creacion: {
+      creacionFecha: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
         get() {
           const rawValue = this.getDataValue("createdAt");
           if (rawValue) {
-            return format(rawValue, "dd/MM/yyyy HH:mm");
+            return format(rawValue, "dd/MM/yyyy");
           }
           return null;
         },
       },
-      actualizacion: {
+      creacionHora: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+        get() {
+          const rawValue = this.getDataValue("createdAt");
+          if (rawValue) {
+            return format(rawValue, "HH:mm");
+          }
+          return null;
+        },
+      },
+      actualizacionFecha: {
         type: DataTypes.DATE,
         allowNull: false,
         defaultValue: DataTypes.NOW,
         get() {
           const rawValue = this.getDataValue("updatedAt");
           if (rawValue) {
-            return format(rawValue, "dd/MM/yyyy HH:mm");
+            return format(rawValue, "dd/MM/yyyy");
           }
           return null;
         },
       },
-    },
-    {
-      timestamps: false,
+
+      actualizacionHora: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+        get() {
+          const rawValue = this.getDataValue("updatedAt");
+          if (rawValue) {
+            return format(rawValue, "HH:mm");
+          }
+          return null;
+        },
+      },
     }
+    /*  {
+      timestamps: false,
+    } */
   );
 };

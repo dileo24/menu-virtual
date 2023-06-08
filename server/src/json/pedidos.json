@@ -14,6 +14,7 @@
       "Lomito Completo Premium",
       "Pizza Fugazzeta (8 porciones)"
     ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
     "mesa": "1",
     "precio": "9200",
     "estadoID": "2",
@@ -26,6 +27,46 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
