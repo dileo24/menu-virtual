@@ -47,7 +47,7 @@ export default function Aside() {
             </Link>
             <Link
               to="/pedidos"
-              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+              className="pedidos px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
             >
               Pedidos
             </Link>

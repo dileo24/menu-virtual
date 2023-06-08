@@ -16,7 +16,6 @@ export default function Productos() {
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.home);
-  console.log(productosState);
 
   useEffect(() => {
     dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
@@ -61,7 +60,7 @@ export default function Productos() {
                     </thead>
                     <tbody className="bg-white">
                       {productosState
-                        .filter((producto) => producto.listado !== false)
+                        // .filter((producto) => producto.listado !== false)
                         .map(
                           (
                             {

@@ -19,9 +19,6 @@ export default function NuevoProducto() {
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
 
-  //usar esta función para la creación de un item
-  //dispatch(postItemExtra(data, token))
-
   function validarProducto(e) {
     e.preventDefault();
 
@@ -42,6 +39,12 @@ export default function NuevoProducto() {
     }
     if (nombre === " - Personalizable") {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
+    }
+    if (mostrarPersonasItems === false) {
+      //usar esta función para la creación de un item
+      dispatch(postItemExtra(producto, token));
+      mostrarAlerta("Producto agregado con éxito", "exito");
+      return (window.location.href = "/");
     }
     nuevoProducto(producto, token);
     console.log(producto);

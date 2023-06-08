@@ -20,6 +20,9 @@ export default function Pedidos() {
     dispatch(getPedidos(token));
     dispatch(getEstados());
     dispatch(getTipoPago());
+    // Cambiarle el background del botón del Aside
+    const pedidos = document.querySelector(".pedidos");
+    pedidos.classList.add("bg-teal-700");
   }, [dispatch, token]);
 
   const handleSelectChange = (e, id, atributo) => {
