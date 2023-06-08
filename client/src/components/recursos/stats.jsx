@@ -12,7 +12,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
-import { useSelector } from "react-redux";
+/* import { useSelector } from "react-redux"; */
 
 ChartJS.register(
   CategoryScale,
@@ -62,10 +62,10 @@ let miData = {
 let misOptions = {};
 
 export default function Stats() {
-  const pedidos = useSelector((state) => state.pedidos);
-  const pedidosPagados = pedidos.filter(
-    (pedido) => pedido.Estado.tipo === "Pagado"
-  );
+  // const pedidos = useSelector((state) => state.pedidos);
+  // const pedidosPagados = pedidos.filter(
+  //   (pedido) => pedido.Estado.tipo === "Pagado"
+  // );
 
   return (
     <div style={{ width: "700px", height: "400px" }}>

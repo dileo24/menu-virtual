@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
-import Stats from "../recursos/stats";
+import Stats from "../recursos/Stats";
 
 export default function Estadisticas() {
   useEffect(() => {

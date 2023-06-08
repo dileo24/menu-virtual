@@ -27,6 +27,7 @@ const initialState = {
   estados: [],
   tipoPagos: [],
   itemsExtra: [],
+  itemsNoListados: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -48,14 +49,14 @@ function rootReducer(state = initialState, action) {
         action.payload === "todas"
           ? state.productos
           : state.productos.filter(
-              (prod) => prod.categoria.nombre === action.payload
-            );
+            (prod) => prod.categoria.nombre === action.payload
+          );
       let itemFilter =
         action.payload === "todas"
           ? state.itemsExtra
           : state.itemsExtra.filter(
-              (item) => item.categoriaItem.nombre === action.payload
-            );
+            (item) => item.categoriaItem.nombre === action.payload
+          );
 
       let filter = prodFilter.concat(itemFilter);
       console.log(filter);
@@ -82,12 +83,15 @@ function rootReducer(state = initialState, action) {
 
     /****************** ITEMS EXTRA ******************/
     case GET_ITEMSEXTRA:
-      const itemsListados = action.payload.filter((item) => item.listado);
+      const itemsListados = []
+      const itemsNoListados = []
+      action.payload.filter((item) => item.listado ? itemsListados.push(item) : itemsNoListados.push(item));
 
       return {
         ...state,
         home: [...state.home, ...itemsListados],
         itemsExtra: [...action.payload],
+        itemsNoListados: [...itemsNoListados]
       };
 
     /****************** USUARIOS ******************/

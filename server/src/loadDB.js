@@ -15,10 +15,8 @@ const {
   Pedido,
   Estado,
   ItemExtra,
-  Subcategoria,
 } = require("./db.js");
 const categoria = require("./json/categorias.json");
-const subcategorias = require("./json/subcategorias.json");
 
 async function fnRols() {
   for (const r of roles) {
@@ -37,11 +35,6 @@ async function fnEstado() {
     await Estado.create(e);
   }
 }
-async function fnSubCategorias() {
-  for (const subcat of subcategorias) {
-    await Subcategoria.create(subcat);
-  }
-}
 async function fnCategorias() {
   for (const cat of categoria) {
     await Categoria.create(cat);
@@ -54,20 +47,12 @@ async function fnItemExtra() {
       descripcion: item.descripcion,
       precio: item.precio,
       listado: item.listado,
+      mostrarPersonaItem: item.mostrarPersonaItem,
+      mostarOtroCheckbox: item.mostarOtroCheckbox,
     });
 
     const categoria = await Categoria.findByPk(item.categoriaID);
     await categoria.addItemExtra(newItem);
-    const subcategoria = await Subcategoria.findByPk(item.subCategoriaID);
-    if (subcategoria) {
-      await subcategoria.addItemExtra(newItem);
-    } else {
-      // Manejo del caso en el que no se encuentra la subcategoría
-      console.log(
-        "No se encontró la subcategoría con el ID:",
-        item.subCategoriaID
-      );
-    }
   }
 }
 
@@ -137,5 +122,4 @@ module.exports = {
   fnEstado,
   fnPedidos,
   fnItemExtra,
-  fnSubCategorias,
 };

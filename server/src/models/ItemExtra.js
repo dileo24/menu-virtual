@@ -21,6 +21,16 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "",
       },
+      mostrarPersonaItem: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
+      mostarOtroCheckbox: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: true,
+      },
       precio: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -10,7 +10,7 @@ const deleteProduct = async (req, res, next) => {
       await Producto.destroy({ where: { id: producto.id } });
       req.body.resultado = {
         status: 200,
-        respuesta: `El Producto ${producto.nombre} ah sido eliminado`,
+        respuesta: `El Producto ${producto.nombre} ha sido eliminado`,
       };
       next();
     } else {
