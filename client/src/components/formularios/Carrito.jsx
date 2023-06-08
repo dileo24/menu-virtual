@@ -224,65 +224,65 @@ export default function Carrito() {
 
               {/* ****************** ITEMS ****************** */}
               <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="mesa"
-                >
-                  Seleccione items extra
-                </label>
                 <div className="flex">
-                  {carrito.length &&
-                    carrito.map(
-                      (prod, indexCarr) =>
-                        prod.itemsExtra && (
-                          <div key={indexCarr}>
-                            <p>Seleccionar ítems para {prod.nombre}</p>
-                            {Array.from(
-                              { length: prod.cantidadPersonas },
-                              (_, index) => (
-                                <div key={index}>
-                                  <p>Persona {index + 1}</p>
-                                  {prod.itemsExtra.map(
-                                    (categoria, categoriaIndex) => {
-                                      const itemsFiltrados =
-                                        itemsExtraArray.filter(
-                                          (item) =>
-                                            item.categoriaItem.nombre ===
-                                            categoria
+                  {carrito.length
+                    ? carrito.map(
+                        (prod, indexCarr) =>
+                          prod.itemsExtra && (
+                            <div key={indexCarr}>
+                              <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="mesa"
+                              >
+                                Seleccione items para {prod.nombre}
+                              </label>
+                              {Array.from(
+                                { length: prod.cantidadPersonas },
+                                (_, index) => (
+                                  <div key={index}>
+                                    <p>Persona {index + 1}</p>
+                                    {prod.itemsExtra.map(
+                                      (categoria, categoriaIndex) => {
+                                        const itemsFiltrados =
+                                          itemsExtraArray.filter(
+                                            (item) =>
+                                              item.categoriaItem.nombre ===
+                                              categoria
+                                          );
+                                        return (
+                                          <select
+                                            name={`itemsExtra-${categoriaIndex}`}
+                                            onChange={(e) =>
+                                              handleSelectItemExtra(
+                                                prod.id,
+                                                e.target.value
+                                              )
+                                            }
+                                            required
+                                            key={`${index}-${categoriaIndex}`}
+                                          >
+                                            <option hidden>{categoria}</option>
+                                            {itemsFiltrados.map(
+                                              (item, itemIndex) => (
+                                                <option
+                                                  key={itemIndex}
+                                                  value={item.nombre}
+                                                >
+                                                  {item.nombre}
+                                                </option>
+                                              )
+                                            )}
+                                          </select>
                                         );
-                                      return (
-                                        <select
-                                          name={`itemsExtra-${categoriaIndex}`}
-                                          onChange={(e) =>
-                                            handleSelectItemExtra(
-                                              prod.id,
-                                              e.target.value
-                                            )
-                                          }
-                                          required
-                                          key={`${index}-${categoriaIndex}`}
-                                        >
-                                          <option hidden>{categoria}</option>
-                                          {itemsFiltrados.map(
-                                            (item, itemIndex) => (
-                                              <option
-                                                key={itemIndex}
-                                                value={item.nombre}
-                                              >
-                                                {item.nombre}
-                                              </option>
-                                            )
-                                          )}
-                                        </select>
-                                      );
-                                    }
-                                  )}
-                                </div>
-                              )
-                            )}
-                          </div>
-                        )
-                    )}
+                                      }
+                                    )}
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          )
+                      )
+                    : ""}
                 </div>
               </div>
 
