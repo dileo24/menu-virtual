@@ -55,7 +55,6 @@ export default function Aside() {
         ) : null}
         {userActual && userActual.data.RolId === 1 && (
           <>
-            {" "}
             <Link
               to="/register"
               className="registrar px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
@@ -67,6 +66,12 @@ export default function Aside() {
               className="administrar px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
             >
               Administrar usuarios
+            </Link>
+            <Link
+              to="/estadisticas"
+              className="estadisticas px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Estadisticas
             </Link>
           </>
         )}
