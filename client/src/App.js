@@ -7,7 +7,6 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import ModalRegister from "./components/formularios/Register";
 import Usuarios from "./components/secciones/Usuarios";
-import Carrito from "./components/formularios/Carrito";
 import Pedidos from "./components/secciones/Pedidos";
 
 // Local
@@ -24,15 +23,13 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Productos />} />
         {userActual &&
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
-          <>
-            <Route path="/nuevoProducto" element={<NuevoProducto />} />
-            <Route path="/editarProducto" element={<EditarProducto />} />
-            <Route path="/pedidos" element={<Pedidos />} />
-          </>
-        ) : (
-          <Route path="/carrito" element={<Carrito />} />
-        )}
+          (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
+            <>
+              <Route path="/nuevoProducto" element={<NuevoProducto />} />
+              <Route path="/editarProducto" element={<EditarProducto />} />
+              <Route path="/pedidos" element={<Pedidos />} />
+            </>
+          )}
         {userActual && userActual.data.RolId === 1 && (
           <>
             <Route path="/register" element={<ModalRegister />} />

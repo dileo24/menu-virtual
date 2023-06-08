@@ -6,10 +6,12 @@
     "categoriaID": "2"
   },
   {
-    "nombre": "Papas Bravas (para 2)",
+    "nombre": "Papas Bravas con 2 Pintas",
     "descripcion": "Descripcion del producto",
     "precio": "1500",
-    "categoriaID": "2"
+    "categoriaID": "2",
+    "itemsExtra": ["Cervezas"],
+    "cantidadPersonas": "2"
   },
   {
     "nombre": "Lomito Completo Premium",
@@ -40,7 +42,7 @@
     "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": ["Infusiones", "Postres", "Guarniciones"],
+    "itemsExtra": ["Infusiones", "Postres"],
     "cantidadPersonas": "2"
   },
   {
@@ -48,7 +50,7 @@
     "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": ["Bebidas sin alcohol", "Postres", "Guarniciones"],
+    "itemsExtra": ["Licuados", "Postres"],
     "cantidadPersonas": "2"
   },
   {
@@ -56,7 +58,7 @@
     "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": ["Infusiones", "Postres", "Guarniciones"],
+    "itemsExtra": ["Infusiones", "Postres"],
     "cantidadPersonas": "4"
   },
   {
@@ -64,7 +66,7 @@
     "descripcion": "4 tostados con papas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": ["Bebidas sin alcohol", "Postres", "Guarniciones"],
+    "itemsExtra": ["Licuados", "Postres"],
     "cantidadPersonas": "4"
   },
   {
@@ -72,14 +74,7 @@
     "descripcion": "Vacío y Costilla con bebidas de 500ml",
     "precio": "5300",
     "categoriaID": "2",
-    "itemsExtra": [
-      "Coca Cola 500ml",
-      "Fanta 500ml",
-      "Agua sin gas 500ml",
-      "Aquarius de Manzana 500ml",
-      "Aquarius de Naranja 500ml",
-      "Aquarius de Pomelo 500ml"
-    ],
+    "itemsExtra": ["Bebidas sin alcohol", "Guarniciones"],
     "cantidadPersonas": "2"
   }
 ]

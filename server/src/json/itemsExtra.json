@@ -142,5 +142,37 @@
     "precio": "1150",
     "descripcion": "Descripcion del producto",
     "subCategoriaID": "1"
+  },
+  {
+    "nombre": "Golden Ale (rubia)",
+    "categoriaID": "6",
+    "listado": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto",
+    "subCategoriaID": "1"
+  },
+  {
+    "nombre": "Irish Red (roja)",
+    "categoriaID": "6",
+    "listado": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto",
+    "subCategoriaID": "1"
+  },
+  {
+    "nombre": "Blackwood (negra)",
+    "categoriaID": "6",
+    "listado": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto",
+    "subCategoriaID": "1"
+  },
+  {
+    "nombre": "Orange Honey (rubia)",
+    "categoriaID": "6",
+    "listado": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto",
+    "subCategoriaID": "1"
   }
 ]
