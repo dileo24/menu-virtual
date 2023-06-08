@@ -27,15 +27,8 @@ export default function Items({
 
   const incrementNumItems = () => {
     let newNumItemsExtra = numItemsExtra;
-
-    if (numItemsExtra === 0) {
-      newNumItemsExtra = 2;
-    } else {
-      newNumItemsExtra++;
-    }
-
+    newNumItemsExtra++;
     setNumItemsExtra(newNumItemsExtra);
-
     let newItemsExtra = [...itemsExtra];
     for (let i = 0; i < newNumItemsExtra - itemsExtra.length; i++) {
       newItemsExtra.push("");
@@ -45,19 +38,14 @@ export default function Items({
 
   const decrementNumItems = () => {
     if (numItemsExtra > 0) {
-      if (numItemsExtra === 2) {
-        setNumItemsExtra(0);
-        setItemsExtra([]);
-      } else {
-        setNumItemsExtra(numItemsExtra - 1);
-        setItemsExtra(itemsExtra.slice(0, -1));
-      }
+      setNumItemsExtra(numItemsExtra - 1);
+      setItemsExtra(itemsExtra.slice(0, -1));
     }
   };
 
   return (
     <>
-      <div className="mb-4 ">
+      <div className="mb-4">
         <label
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="numItemsExtra"

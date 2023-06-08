@@ -16,6 +16,10 @@ export default function EditarProductos() {
   const [categoriaID, setCategoriaID] = useState("");
   const [itemsExtra, setItemsExtra] = useState([]);
   const [numItemsExtra, setNumItemsExtra] = useState(0);
+  const [cantidadPersonas, setCantidadPersonas] = useState("1");
+  const [listado, setListado] = useState(true);
+  const [mostrarPersonasItems, setmostrarPersonasItems] = useState(true);
+  const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -42,6 +46,10 @@ export default function EditarProductos() {
     setId(producto.id);
     setNumItemsExtra(producto.itemsExtra.length);
     setItemsExtra(producto.itemsExtra);
+    setCantidadPersonas(producto.cantidadPersonas);
+    setmostrarPersonasItems(producto.mostrarPersonasItems);
+    setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
+    setListado(producto.listado);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
@@ -55,6 +63,8 @@ export default function EditarProductos() {
       precio,
       id: parseInt(id),
       itemsExtra,
+      cantidadPersonas,
+      listado,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -72,6 +82,8 @@ export default function EditarProductos() {
     <FormProducto
       nombre={nombre}
       setNombre={setNombre}
+      cantidadPersonas={cantidadPersonas}
+      setCantidadPersonas={setCantidadPersonas}
       descripcion={descripcion}
       setDescripcion={setDescripcion}
       precio={precio}
@@ -85,6 +97,12 @@ export default function EditarProductos() {
       setNumItemsExtra={setNumItemsExtra}
       categoriaID={categoriaID}
       setCategoriaID={setCategoriaID}
+      listado={listado}
+      setListado={setListado}
+      mostrarPersonasItems={mostrarPersonasItems}
+      setmostrarPersonasItems={setmostrarPersonasItems}
+      mostrarOtroCheckbox={mostrarOtroCheckbox}
+      setMostrarOtroCheckbox={setMostrarOtroCheckbox}
     />
   );
 }

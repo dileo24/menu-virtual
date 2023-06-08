@@ -1,8 +1,9 @@
-import React, { useEffect /*, { useState } */ } from "react";
+import React, { useEffect, useState } from "react";
 import Aside from "../secciones/Aside";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemsExtra, getCategorias } from "../../redux/actions";
+import { func } from "prop-types";
 
 export default function FormProducto({
   titulo,
@@ -21,6 +22,12 @@ export default function FormProducto({
   setNumItemsExtra,
   categoriaID,
   setCategoriaID,
+  listado,
+  setListado,
+  mostrarPersonasItems,
+  setmostrarPersonasItems,
+  mostrarOtroCheckbox,
+  setMostrarOtroCheckbox,
 }) {
   const dispatch = useDispatch();
 
@@ -30,11 +37,16 @@ export default function FormProducto({
 
   useEffect(() => {
     dispatch(getItemsExtra());
-  }, [dispatch]);
-
-  useEffect(() => {
     dispatch(getCategorias());
   }, [dispatch]);
+
+  function checkCategoria() {
+    if (categoriaID <= "2") {
+      setListado(true);
+      setMostrarOtroCheckbox(false);
+      setmostrarPersonasItems(true);
+    }
+  }
 
   return (
     <div className="min-h-100 bg-gray-200">
@@ -55,13 +67,11 @@ export default function FormProducto({
                     <select
                       className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       onChange={(e) => setCategoriaID(e.target.value)}
+                      onBlur={checkCategoria}
+                      value={categoriaID} // Establece el valor seleccionado en base a la variable de estado categoriaID
                       required
                     >
-                      <option hidden>
-                        {categoriaID
-                          ? categActual.length && categActual[0].nombre
-                          : "Elegí una categoría"}
-                      </option>
+                      <option value="">Elegí una categoría</option>
 
                       {categorias.map((categoria) => (
                         <option key={categoria.id} value={categoria.id}>
@@ -70,6 +80,66 @@ export default function FormProducto({
                       ))}
                     </select>
                   </div>
+
+                  {categoriaID >= "3" && (
+                    <div className="flex mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="nombre"
+                      >
+                        Guardar como ítem
+                      </label>
+                      <p className="ml-2 mr-1">No</p>
+                      <input
+                        className="mr-2 leading-tight"
+                        type="checkbox"
+                        checked={mostrarPersonasItems}
+                        onChange={() => {
+                          setmostrarPersonasItems(true);
+                          setMostrarOtroCheckbox(false);
+                          setListado(true);
+                        }}
+                      />
+                      <p className="mr-1">Sí</p>
+                      <input
+                        className="mr-2 leading-tight"
+                        type="checkbox"
+                        checked={mostrarOtroCheckbox}
+                        onChange={() => {
+                          setMostrarOtroCheckbox(true);
+                          setCantidadPersonas(1);
+                          setmostrarPersonasItems(false);
+                          setNumItemsExtra(0);
+                          setItemsExtra([]);
+                        }}
+                      />
+
+                      {mostrarOtroCheckbox && (
+                        <>
+                          <label
+                            className="block text-gray-700 text-sm font-bold mb-2 ml-5"
+                            htmlFor="nombre"
+                          >
+                            Mostrar en el Menú
+                          </label>
+                          <p className="ml-2 mr-1">No</p>
+                          <input
+                            className="mr-2 leading-tight"
+                            type="checkbox"
+                            checked={!listado}
+                            onChange={() => setListado(false)}
+                          />
+                          <p className=" mr-1">Sí</p>
+                          <input
+                            className="mr-2 leading-tight"
+                            type="checkbox"
+                            checked={listado}
+                            onChange={() => setListado(true)}
+                          />
+                        </>
+                      )}
+                    </div>
+                  )}
 
                   <div className="mb-4">
                     <label
@@ -87,25 +157,6 @@ export default function FormProducto({
                       value={nombre}
                       maxLength={150}
                       onChange={(e) => setNombre(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="nombre"
-                    >
-                      Cantidad de Personas
-                    </label>
-                    <input
-                      className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="cantidadPersonas"
-                      name="cantidadPersonas"
-                      type="number"
-                      placeholder="Para cuántas personas será el combo"
-                      value={cantidadPersonas}
-                      maxLength={150}
-                      onChange={(e) => setCantidadPersonas(e.target.value)}
                     />
                   </div>
 
@@ -148,14 +199,36 @@ export default function FormProducto({
 
                   <input type="hidden" name="id" id="id" value="" />
 
-                  <Items
-                    itemsExtra={itemsExtra}
-                    setItemsExtra={setItemsExtra}
-                    numItemsExtra={numItemsExtra}
-                    setNumItemsExtra={setNumItemsExtra}
-                    itemsExtraArray={itemsExtraArray}
-                    categoriaID={categoriaID}
-                  />
+                  {mostrarPersonasItems && (
+                    <>
+                      <div className="mb-4">
+                        <label
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                          htmlFor="cantidadPersonas"
+                        >
+                          Para cuántas personas será el combo
+                        </label>
+                        <input
+                          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="cantidadPersonas"
+                          name="cantidadPersonas"
+                          type="number"
+                          placeholder="Para cuántas personas será el combo"
+                          value={cantidadPersonas}
+                          onChange={(e) => setCantidadPersonas(e.target.value)}
+                        />
+                      </div>
+                      <Items
+                        itemsExtra={itemsExtra}
+                        setItemsExtra={setItemsExtra}
+                        numItemsExtra={numItemsExtra}
+                        setNumItemsExtra={setNumItemsExtra}
+                        itemsExtraArray={itemsExtraArray}
+                        categoriaID={categoriaID}
+                      />
+                    </>
+                  )}
+
                   <input
                     type="submit"
                     className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer"

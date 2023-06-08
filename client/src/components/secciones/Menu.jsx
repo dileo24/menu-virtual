@@ -16,6 +16,7 @@ export default function Productos() {
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.home);
+  console.log(productosState);
 
   useEffect(() => {
     dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
@@ -59,62 +60,64 @@ export default function Productos() {
                       </tr>
                     </thead>
                     <tbody className="bg-white">
-                      {productosState.map(
-                        (
-                          {
-                            nombre,
-                            descripcion,
-                            precio,
-                            itemsExtra,
-                            id,
-                            cantidadPersonas,
-                          },
-                          index
-                        ) => (
-                          <tr key={index}>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
-                                {nombre}
-                              </p>
-                              <p className="text-gray-700 mt-2">
-                                {descripcion}
-                              </p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
-                              <p className="text-gray-600">${precio}</p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {/* Si el usuario inició sesión */}
-                              {userActual ? (
-                                <>
-                                  <Link
-                                    to={`/editarProducto?id=${id}`}
-                                    className="text-teal-600 hover:text-teal-900 mr-5"
-                                  >
-                                    Editar
-                                  </Link>
-                                  <button
-                                    onClick={() => handleEliminarProducto(id)}
-                                    className="text-red-600 hover:text-red-900 eliminar"
-                                  >
-                                    Eliminar
-                                  </button>
-                                </>
-                              ) : (
-                                // Si el usuario no inició sesión
-                                <Contador
-                                  id={index}
-                                  nombre={nombre}
-                                  descripcion={descripcion}
-                                  precio={precio}
-                                  itemsExtra={itemsExtra}
-                                  cantidadPersonas={cantidadPersonas}
-                                />
-                              )}
-                            </td>
-                          </tr>
-                        )
-                      )}
+                      {productosState
+                        .filter((producto) => producto.listado !== false)
+                        .map(
+                          (
+                            {
+                              nombre,
+                              descripcion,
+                              precio,
+                              itemsExtra,
+                              id,
+                              cantidadPersonas,
+                            },
+                            index
+                          ) => (
+                            <tr key={index}>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
+                                  {nombre}
+                                </p>
+                                <p className="text-gray-700 mt-2">
+                                  {descripcion}
+                                </p>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
+                                <p className="text-gray-600">${precio}</p>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                                {/* Si el usuario inició sesión */}
+                                {userActual ? (
+                                  <>
+                                    <Link
+                                      to={`/editarProducto?id=${id}`}
+                                      className="text-teal-600 hover:text-teal-900 mr-5"
+                                    >
+                                      Editar
+                                    </Link>
+                                    <button
+                                      onClick={() => handleEliminarProducto(id)}
+                                      className="text-red-600 hover:text-red-900 eliminar"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </>
+                                ) : (
+                                  // Si el usuario no inició sesión
+                                  <Contador
+                                    id={index}
+                                    nombre={nombre}
+                                    descripcion={descripcion}
+                                    precio={precio}
+                                    itemsExtra={itemsExtra}
+                                    cantidadPersonas={cantidadPersonas}
+                                  />
+                                )}
+                              </td>
+                            </tr>
+                          )
+                        )}
                     </tbody>
                   </table>
                 </div>

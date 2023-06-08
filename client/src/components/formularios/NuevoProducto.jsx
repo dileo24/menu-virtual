@@ -13,6 +13,9 @@ export default function NuevoProducto() {
   const [itemsExtra, setItemsExtra] = useState([]);
   const [numItemsExtra, setNumItemsExtra] = useState(0);
   const [cantidadPersonas, setCantidadPersonas] = useState("1");
+  const [listado, setListado] = useState(true);
+  const [mostrarPersonasItems, setmostrarPersonasItems] = useState(true);
+  const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
 
@@ -29,6 +32,9 @@ export default function NuevoProducto() {
       itemsExtra,
       categoriaID,
       cantidadPersonas,
+      listado,
+      mostrarPersonasItems,
+      mostrarOtroCheckbox,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -74,6 +80,12 @@ export default function NuevoProducto() {
       setNumItemsExtra={setNumItemsExtra}
       categoriaID={categoriaID}
       setCategoriaID={setCategoriaID}
+      listado={listado}
+      setListado={setListado}
+      mostrarPersonasItems={mostrarPersonasItems}
+      setmostrarPersonasItems={setmostrarPersonasItems}
+      mostrarOtroCheckbox={mostrarOtroCheckbox}
+      setMostrarOtroCheckbox={setMostrarOtroCheckbox}
     />
   );
 }
