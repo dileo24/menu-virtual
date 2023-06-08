@@ -103,12 +103,27 @@ export default function Carrito() {
     e.preventDefault();
 
     if (carrito.length) {
+      // Validación de longitud de aclaraciones
       if (input.aclaraciones.length > 50) {
-        // Validación de longitud de aclaraciones
         alert("Las aclaraciones deben tener hasta 50 caracteres");
         return;
       }
-      /* console.log(input); */
+
+      // Validación de itemsExtra seleccionados
+      const totalItemsExtraRequired = carrito.reduce((total, prod) => {
+        if (prod.itemsExtra) {
+          return total + prod.cantidadPersonas * prod.itemsExtra.length;
+        }
+        return total;
+      }, 0);
+      if (
+        !input.itemsExtra ||
+        input.itemsExtra.length !== totalItemsExtraRequired
+      ) {
+        alert("Debes seleccionar todos los items extra requeridos");
+        return;
+      }
+
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -121,7 +136,7 @@ export default function Carrito() {
         itemsExtra: [],
       });
       alert(
-        "Pedido realizado con éxito. En un momento te lo llavamos a tu mesa."
+        "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
       );
       window.location.href = "/";
     } else {
