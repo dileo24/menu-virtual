@@ -13,9 +13,15 @@ input[type="number"]::-moz-number-spin-box {
   /* color: rgb(61, 61, 206); */
 }
 
-.stats {
+.statsBar {
   canvas {
     width: 1200px !important;
     height: 600px !important;
+  }
+}
+.statsPie {
+  canvas {
+    width: 800px !important;
+    height: 800px !important;
   }
 }

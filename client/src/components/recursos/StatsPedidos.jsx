@@ -7,6 +7,7 @@ import {
   LinearScale,
   PointElement,
   BarElement,
+  /* LineElement, */
   Title,
   Tooltip,
   Legend,
@@ -18,13 +19,14 @@ ChartJS.register(
   LinearScale,
   PointElement,
   BarElement,
+  /* LineElement, */
   Title,
   Tooltip,
   Legend,
   Filler
 );
 
-export default function StatsBarras() {
+export default function StatsPedidos() {
   const pedidos = useSelector((state) => state.pedidos);
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
@@ -110,7 +112,8 @@ export default function StatsBarras() {
         Pedidos totales PAGADOS
         {pedPag.length}
       </p>
-      <div className="stats">
+      <div className="statsBar">
+        {/* <Line data={miData} /> */}
         <Bar data={miData} />
       </div>
     </div>

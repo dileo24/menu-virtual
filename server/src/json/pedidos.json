@@ -248,7 +248,7 @@
   },
   {
     "productos": [
-      "Hamburguesa Americana Doble",
+      "Merienda para 2",
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
@@ -262,11 +262,7 @@
     "creacionFecha": "13/06/2023"
   },
   {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
+    "productos": ["Merienda para 4"],
     "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
     "mesa": "4",
     "precio": "9200",
@@ -278,9 +274,9 @@
   },
   {
     "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
+      "Desayuno para 2",
+      "Papas Bravas con 2 Pintas",
+      "Merienda para 4"
     ],
     "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
     "mesa": "4",
