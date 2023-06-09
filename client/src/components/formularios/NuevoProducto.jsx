@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FormProducto from "./FormProducto";
 import { nuevoProducto, mostrarAlerta, ningunInputVacio } from "../../helpers";
-import { useDispatch, useSelector } from "react-redux";
-import { postItemExtra } from "../../redux/actions";
+import { useSelector } from "react-redux";
 
 export default function NuevoProducto() {
   const titulo = "Nuevo Producto";
@@ -17,7 +16,6 @@ export default function NuevoProducto() {
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(true);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
-  const dispatch = useDispatch();
 
   function validarProducto(e) {
     e.preventDefault();
@@ -40,12 +38,7 @@ export default function NuevoProducto() {
     if (nombre === " - Personalizable") {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
-    if (mostrarPersonaItem === false) {
-      //usar esta función para la creación de un item
-      dispatch(postItemExtra(producto, token));
-      mostrarAlerta("Producto agregado con éxito", "exito");
-      return (window.location.href = "/");
-    }
+
     nuevoProducto(producto, token);
     console.log(producto);
     mostrarAlerta("Producto agregado con éxito", "exito");

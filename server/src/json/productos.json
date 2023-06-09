@@ -76,5 +76,226 @@
     "categoriaID": "2",
     "itemsExtra": ["Bebidas sin alcohol", "Guarniciones"],
     "cantidadPersonas": "2"
+  },
+
+  {
+    "nombre": "Café",
+    "categoriaID": "3",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "300",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Café con leche",
+    "categoriaID": "3",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Lágrima",
+    "categoriaID": "3",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "550",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Licuado de banana",
+    "categoriaID": "8",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "900",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Licuado de durazno",
+    "categoriaID": "8",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "1100",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Licuado de frutilla",
+    "categoriaID": "8",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "1200",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Té",
+    "categoriaID": "3",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "300",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Té verde",
+    "categoriaID": "3",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Fanta 500ml",
+    "categoriaID": "7",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Coca Cola 500ml",
+    "categoriaID": "7",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Agua sin gas 500ml",
+    "categoriaID": "7",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Aquarius de Manzana 500ml",
+    "categoriaID": "7",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Aquarius de Naranja 500ml",
+    "categoriaID": "7",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "500",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Aquarius de Pomelo 500ml",
+    "categoriaID": "7",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "3200",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Papas Fritas",
+    "categoriaID": "5",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "1050",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Papas al Horno",
+    "categoriaID": "5",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "1050",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Cheesecake",
+    "categoriaID": "4",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "1150",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Flan con Dulce de leche",
+    "categoriaID": "4",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "1150",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Golden Ale (rubia)",
+    "categoriaID": "6",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Irish Red (roja)",
+    "categoriaID": "6",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Blackwood (negra)",
+    "categoriaID": "6",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "nombre": "Orange Honey (rubia)",
+    "categoriaID": "6",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostarOtroCheckbox": true,
+    "precio": "700",
+    "descripcion": "Descripcion del producto"
   }
 ]

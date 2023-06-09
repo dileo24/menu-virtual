@@ -9,13 +9,11 @@ const {
   fnPagos,
   fnEstado,
   fnPedidos,
-  fnItemExtra,
 } = require("./src/loadDB.js");
 
 conn.sync({ force: true }).then(async () => {
   server.listen(port, async () => {
     await fnCategorias();
-    await fnItemExtra();
     await fnProducto();
     await fnRols();
     await fnSuperAdmin();

@@ -17,6 +17,11 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,
       },
+      item: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: true,
+      },
       cantidadPersonas: {
         type: DataTypes.STRING,
         defaultValue: "1",
@@ -28,7 +33,7 @@ module.exports = (sequelize) => {
       },
       descripcion: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
         defaultValue: "",
       },
       itemsExtra: {
@@ -37,12 +42,25 @@ module.exports = (sequelize) => {
       },
       imagen: {
         type: DataTypes.TEXT,
+        allowNull: true,
         validate: {
           isUrl: true,
         },
-        /* defaultValue:
-          "https://images.vexels.com/media/users/3/251903/isolated/preview/2a17d1b6d0fe74069965b267b75a5a4c-18-alimentos-comidas-planowashinkcontouroverlay-vinylcolor-13.png",
-       */
+      },
+      mostrarPersonaItem: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: true,
+      },
+      mostarOtroCheckbox: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: true,
+      },
+      listado: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: true,
       },
     },
     {

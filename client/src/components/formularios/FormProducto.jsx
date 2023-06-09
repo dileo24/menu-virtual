@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Aside from "../secciones/Aside";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
-import { getItemsExtra, getCategorias } from "../../redux/actions";
+import { getCategorias } from "../../redux/actions";
 // import { func } from "prop-types";
 
 export default function FormProducto({
@@ -36,7 +36,6 @@ export default function FormProducto({
   // const categActual = categorias.filter((categ) => categ.id === categoriaID);
 
   useEffect(() => {
-    dispatch(getItemsExtra());
     dispatch(getCategorias());
     if (categoriaID <= "2") {
       setListado(true);

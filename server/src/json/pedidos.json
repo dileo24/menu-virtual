@@ -7,6 +7,7 @@
     "estadoID": "1",
     "tipoPagoID": "1",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "15:27",
     "creacionFecha": "01/06/2023"
   },
   {
@@ -21,6 +22,7 @@
     "estadoID": "2",
     "tipoPagoID": "3",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "19:54",
     "creacionFecha": "01/06/2023"
   },
   {
@@ -35,6 +37,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "12:30",
     "creacionFecha": "03/06/2023"
   },
   {
@@ -49,6 +52,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "10:15",
     "creacionFecha": "03/06/2023"
   },
   {
@@ -63,6 +67,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "02:41",
     "creacionFecha": "03/06/2023"
   },
   {
@@ -77,6 +82,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "01:15",
     "creacionFecha": "05/06/2023"
   },
   {
@@ -91,6 +97,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "20:14",
     "creacionFecha": "07/06/2023"
   },
   {
@@ -105,6 +112,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "21:34",
     "creacionFecha": "07/06/2023"
   },
   {
@@ -119,6 +127,7 @@
     "estadoID": "4",
     "tipoPagoID": "5",
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionHora": "15:27",
     "creacionFecha": "07/06/2023"
   }
 ]

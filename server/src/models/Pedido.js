@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      creacionFecha: {
+      creacionHora: {
         type: DataTypes.STRING,
         allowNull: false,
       },

@@ -3,12 +3,7 @@ import Aside from "./Aside";
 import Filtros from "../recursos/Filtros";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  deleteItem,
-  deleteProducto,
-  getItemsExtra,
-  getProductos,
-} from "../../redux/actions";
+import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
 import Carrito from "../formularios/Carrito";
 
@@ -20,7 +15,7 @@ export default function Productos() {
   const productosState = useSelector((state) => state.home);
   console.log(productosState);
   useEffect(() => {
-    dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
+    dispatch(getProductos());
     // Cambiarle el background del botón del Aside
     const productos = document.querySelector(".productos");
     productos.classList.add("bg-teal-700");
@@ -32,17 +27,7 @@ export default function Productos() {
     );
     if (confirmarBorrado) {
       dispatch(deleteProducto(id, token)).then(() => {
-        dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
-      });
-    }
-  };
-  const handleEliminarItem = (id) => {
-    const confirmarBorrado = window.confirm(
-      "¿Está seguro de querer borrar el ítem?"
-    );
-    if (confirmarBorrado) {
-      dispatch(deleteItem(id, token)).then(() => {
-        dispatch(getProductos()).then(() => dispatch(getItemsExtra()));
+        dispatch(getProductos());
       });
     }
   };
@@ -100,43 +85,22 @@ export default function Productos() {
                               <p className="text-gray-600">${precio}</p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {/* Si el usuario inició sesión */}
                               {userActual ? (
-                                productosState[index].hasOwnProperty(
-                                  "listado"
-                                ) ? (
-                                  <>
-                                    <Link
-                                      to={`/editarProducto?idItem=${id}`}
-                                      className="text-teal-600 hover:text-teal-900 mr-5"
-                                    >
-                                      Editar
-                                    </Link>
-                                    <button
-                                      onClick={() => handleEliminarItem(id)}
-                                      className="text-red-600 hover:text-red-900 eliminar"
-                                    >
-                                      Eliminar
-                                    </button>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Link
-                                      to={`/editarProducto?id=${id}`}
-                                      className="text-teal-600 hover:text-teal-900 mr-5"
-                                    >
-                                      Editar
-                                    </Link>
-                                    <button
-                                      onClick={() => handleEliminarProducto(id)}
-                                      className="text-red-600 hover:text-red-900 eliminar"
-                                    >
-                                      Eliminar
-                                    </button>
-                                  </>
-                                )
+                                <>
+                                  <Link
+                                    to={`/editarProducto?id=${id}`}
+                                    className="text-teal-600 hover:text-teal-900 mr-5"
+                                  >
+                                    Editar
+                                  </Link>
+                                  <button
+                                    onClick={() => handleEliminarProducto(id)}
+                                    className="text-red-600 hover:text-red-900 eliminar"
+                                  >
+                                    Eliminar
+                                  </button>
+                                </>
                               ) : (
-                                // Si el usuario no inició sesión
                                 <Contador
                                   id={index}
                                   nombre={nombre}
@@ -204,13 +168,15 @@ export default function Productos() {
                                   {userActual && (
                                     <>
                                       <Link
-                                        to={`/editarProducto?idItem=${id}`}
+                                        to={`/editarProducto?id=${id}`}
                                         className="text-teal-600 hover:text-teal-900 mr-5"
                                       >
                                         Editar
                                       </Link>
                                       <button
-                                        onClick={() => handleEliminarItem(id)}
+                                        onClick={() =>
+                                          handleEliminarProducto(id)
+                                        }
                                         className="text-red-600 hover:text-red-900 eliminar"
                                       >
                                         Eliminar

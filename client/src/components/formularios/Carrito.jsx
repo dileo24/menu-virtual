@@ -22,6 +22,19 @@ export default function Carrito() {
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
+
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getDate()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()}`;
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  const formattedTime = `${formattedHours}:${
+    minutes < 10 ? "0" + minutes : minutes
+  } ${ampm}`;
+
   const [input, setInput] = useState({
     productos: nombresProdArray,
     precio: precioFinal,
@@ -30,8 +43,9 @@ export default function Carrito() {
     tipoPagoID: "",
     estadoID: "1",
     itemsExtra: [],
+    creacionFecha: formattedDate,
+    creacionHora: formattedTime,
   });
-
   useEffect(() => {
     dispatch(getTipoPago());
   }, [dispatch]);
@@ -123,7 +137,7 @@ export default function Carrito() {
         alert("Debes seleccionar todos los items extra requeridos");
         return;
       }
-
+      console.log(input);
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -134,6 +148,8 @@ export default function Carrito() {
         tipoPagoID: "",
         estadoID: "1",
         itemsExtra: [],
+        creacionFecha: "",
+        creacionHora: "",
       });
       alert(
         "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
@@ -261,7 +277,7 @@ export default function Carrito() {
                                         const itemsFiltrados =
                                           itemsExtraArray.filter(
                                             (item) =>
-                                              item.categoriaItem.nombre ===
+                                              item.categoria.nombre ===
                                               categoria
                                           );
                                         return (

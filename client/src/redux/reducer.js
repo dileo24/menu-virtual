@@ -13,8 +13,6 @@ import {
   GET_PEDIDOS,
   GET_ESTADOS,
   GET_TIPOPAGOS,
-  GET_ITEMSEXTRA,
-  DELETE_ITEM,
 } from "./actions.js";
 
 const initialState = {
@@ -35,10 +33,21 @@ function rootReducer(state = initialState, action) {
   switch (action.type) {
     /****************** PRODUCTOS ******************/
     case GET_PRODUCTOS:
+      const itemsListados = [];
+      const itemsNoListados = [];
+      const items = action.payload.filter((prod) => prod.item === true);
+      items.map((item) =>
+        item.listado === true
+          ? itemsListados.push(item)
+          : itemsNoListados.push(item)
+      );
+
       return {
         ...state,
         productos: [...action.payload],
         home: [...action.payload],
+        itemsExtra: [...items],
+        itemsNoListados: [...itemsNoListados],
       };
     case GET_CATEGORIAS:
       return {
@@ -50,56 +59,29 @@ function rootReducer(state = initialState, action) {
         action.payload === "todas"
           ? state.productos
           : state.productos.filter(
-            (prod) => prod.categoria.nombre === action.payload
-          );
-      let itemFilter =
-        action.payload === "todas"
-          ? state.itemsExtra
-          : state.itemsExtra.filter(
-            (item) => item.categoriaItem.nombre === action.payload
-          );
-
-      let filter = prodFilter.concat(itemFilter);
-      console.log(filter);
+              (prod) => prod.categoria.nombre === action.payload
+            );
       return {
         ...state,
-        home: filter,
+        home: prodFilter,
       };
     }
     case SEARCHxNOMBRE: {
-      const productsSearch = state.productos.filter((e) =>
-        e.nombre.toLowerCase().includes(action.payload.toLowerCase())
+      let removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      };
+
+      let productsSearch = state.productos.filter((e) =>
+        removeAccents(e.nombre.toLowerCase()).includes(
+          removeAccents(action.payload.toLowerCase())
+        )
       );
-      const itemsSearch = state.itemsExtra.filter((e) =>
-        e.nombre.toLowerCase().includes(action.payload.toLowerCase())
-      );
-      let filter = productsSearch.concat(itemsSearch);
-      console.log(filter);
 
       return {
         ...state,
-        home: filter,
+        home: productsSearch,
       };
     }
-
-    /****************** ITEMS EXTRA ******************/
-    case GET_ITEMSEXTRA:
-      const itemsListados = []
-      const itemsNoListados = []
-      action.payload.filter((item) => item.listado ? itemsListados.push(item) : itemsNoListados.push(item));
-
-      return {
-        ...state,
-        home: [...state.home, ...itemsListados],
-        itemsExtra: [...action.payload],
-        itemsNoListados: [...itemsNoListados]
-      };
-
-    case DELETE_ITEM:
-      return {
-        ...state,
-        itemsExtra: state.itemsExtra.filter((item) => item.id !== action.payload),
-      };
 
     /****************** USUARIOS ******************/
     case GET_USUARIOS:
