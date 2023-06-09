@@ -91,6 +91,7 @@ async function fnPedidos() {
       precio: ped.precio,
       aclaraciones: ped.aclaraciones,
       itemsExtra: ped.itemsExtra,
+      creacionFecha: ped.creacionFecha,
     });
     const tipoPago = await Pago.findByPk(ped.tipoPagoID);
     const estado = await Estado.findByPk(ped.estadoID);

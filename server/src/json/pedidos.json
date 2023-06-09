@@ -6,7 +6,8 @@
     "precio": "9200",
     "estadoID": "1",
     "tipoPagoID": "1",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "01/06/2023"
   },
   {
     "productos": [
@@ -19,7 +20,8 @@
     "precio": "9200",
     "estadoID": "2",
     "tipoPagoID": "3",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "01/06/2023"
   },
   {
     "productos": [
@@ -32,7 +34,8 @@
     "precio": "9200",
     "estadoID": "4",
     "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "03/06/2023"
   },
   {
     "productos": [
@@ -45,7 +48,8 @@
     "precio": "9200",
     "estadoID": "4",
     "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "03/06/2023"
   },
   {
     "productos": [
@@ -58,7 +62,8 @@
     "precio": "9200",
     "estadoID": "4",
     "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "03/06/2023"
   },
   {
     "productos": [
@@ -71,6 +76,49 @@
     "precio": "9200",
     "estadoID": "4",
     "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal"
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "05/06/2023"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "07/06/2023"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "07/06/2023"
+  },
+  {
+    "productos": [
+      "Hamburguesa Americana Doble",
+      "Papas a la Alemana (para 4)",
+      "Pizza Especial (8 porciones)"
+    ],
+    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "mesa": "4",
+    "precio": "9200",
+    "estadoID": "4",
+    "tipoPagoID": "5",
+    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
+    "creacionFecha": "07/06/2023"
   }
 ]

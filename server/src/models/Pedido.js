@@ -32,17 +32,17 @@ module.exports = (sequelize) => {
         allowNull: true,
       },
       creacionFecha: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: DataTypes.NOW,
-        get() {
-          const rawValue = this.getDataValue("createdAt");
-          if (rawValue) {
-            return format(rawValue, "dd/MM/yyyy");
-          }
-          return null;
-        },
       },
+      creacionFecha: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      actualizacionFecha: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      } /* 
       creacionHora: {
         type: DataTypes.DATE,
         allowNull: false,
@@ -79,10 +79,10 @@ module.exports = (sequelize) => {
           }
           return null;
         },
-      },
-    }
-    /*  {
+      }, */,
+    },
+    {
       timestamps: false,
-    } */
+    }
   );
 };
