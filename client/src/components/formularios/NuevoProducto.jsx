@@ -15,6 +15,7 @@ export default function NuevoProducto() {
   const [listado, setListado] = useState(true);
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(true);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
+  const [item, setItem] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   function validarProducto(e) {
@@ -22,6 +23,7 @@ export default function NuevoProducto() {
 
     const producto = {
       nombre,
+      item,
       descripcion,
       precio,
       itemsExtra,
@@ -34,9 +36,6 @@ export default function NuevoProducto() {
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
-    }
-    if (nombre === " - Personalizable") {
-      return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
 
     nuevoProducto(producto, token);
@@ -82,6 +81,8 @@ export default function NuevoProducto() {
       setMostrarPersonaItem={setMostrarPersonaItem}
       mostrarOtroCheckbox={mostrarOtroCheckbox}
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
+      item={item}
+      setItem={setItem}
     />
   );
 }

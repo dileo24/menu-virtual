@@ -18,7 +18,7 @@ export const nuevoProducto = (producto, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    window.location.href = "/";
+    // window.location.href = "/";
   } catch (error) {
     console.log(error);
   }
