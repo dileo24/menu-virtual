@@ -6,6 +6,7 @@ const createProduct = async (req, res, next) => {
       nombre,
       descripcion,
       precio,
+      item,
       itemsExtra,
       categoriaID,
       imagen,
@@ -25,6 +26,7 @@ const createProduct = async (req, res, next) => {
       precio,
       imagen,
       itemsExtra,
+      item,
       cantidadPersonas,
     });
     await categoria.addProducto(newProduct);
