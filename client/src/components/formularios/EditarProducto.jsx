@@ -19,8 +19,8 @@ export default function EditarProductos() {
   const [numItemsExtra, setNumItemsExtra] = useState(0);
   const [cantidadPersonas, setCantidadPersonas] = useState("1");
   const [listado, setListado] = useState(true);
-  const [mostrarPersonasItems, setmostrarPersonasItems] = useState(true);
-  const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
+  const [mostrarPersonaItem, setMostrarPersonaItem] = useState(false);
+  const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(true);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -30,14 +30,16 @@ export default function EditarProductos() {
     const idItem = parseInt(parametrosURL.get("idItem"));
 
     if (idItem) {
+      console.log("Es un ítem");
       obtenerItem(idItem)
         .then((item) => {
-          mostrarProducto(item);
+          mostrarItem(item);
         })
         .catch((error) => {
           console.log("error al obtener item" + error);
         });
     } else if (idProducto) {
+      console.log("Es un producto");
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
@@ -50,25 +52,29 @@ export default function EditarProductos() {
 
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
-    // console.log(producto);
-    if (producto.categoriaID) {
-      setCategoriaID(producto.categoriaID);
-    }
-    if (producto.categoriaItem) {
-      setCategoriaID(producto.categoriaItem.id);
-    }
+    setCategoriaID(producto.categoriaID);
     setNombre(producto.nombre);
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
-    // setId(producto.id);
+    setId(producto.id);
     setNumItemsExtra(producto.itemsExtra.length);
     setItemsExtra(producto.itemsExtra);
     setCantidadPersonas(producto.cantidadPersonas);
-    if (producto.mostrarPersonasItems) {
-      setmostrarPersonasItems(producto.mostrarPersonasItems);
-      setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
-      setListado(producto.listado);
-    }
+  }
+
+  // Mostrar los datos del item en el formulario
+  function mostrarItem(item) {
+    console.log(item);
+    setCategoriaID(item.categoriaID);
+    setNombre(item.nombre);
+    setDescripcion(item.descripcion);
+    setPrecio(item.precio);
+    setId(item.id);
+    setNumItemsExtra(item.itemsExtra.length);
+    setCantidadPersonas(item.cantidadPersonas);
+    setMostrarPersonaItem(item.mostrarPersonaItem);
+    setMostrarOtroCheckbox(item.mostrarOtroCheckbox);
+    setListado(item.listado);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
@@ -84,6 +90,8 @@ export default function EditarProductos() {
       itemsExtra,
       cantidadPersonas,
       listado,
+      mostrarPersonaItem,
+      mostrarOtroCheckbox,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -118,8 +126,8 @@ export default function EditarProductos() {
       setCategoriaID={setCategoriaID}
       listado={listado}
       setListado={setListado}
-      mostrarPersonasItems={mostrarPersonasItems}
-      setmostrarPersonasItems={setmostrarPersonasItems}
+      mostrarPersonaItem={mostrarPersonaItem}
+      setMostrarPersonaItem={setMostrarPersonaItem}
       mostrarOtroCheckbox={mostrarOtroCheckbox}
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
     />

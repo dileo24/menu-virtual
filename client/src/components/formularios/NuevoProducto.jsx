@@ -14,7 +14,7 @@ export default function NuevoProducto() {
   const [numItemsExtra, setNumItemsExtra] = useState(0);
   const [cantidadPersonas, setCantidadPersonas] = useState("1");
   const [listado, setListado] = useState(true);
-  const [mostrarPersonasItems, setmostrarPersonasItems] = useState(true);
+  const [mostrarPersonaItem, setMostrarPersonaItem] = useState(true);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ export default function NuevoProducto() {
       categoriaID,
       cantidadPersonas,
       listado,
-      mostrarPersonasItems,
+      mostrarPersonaItem,
       mostrarOtroCheckbox,
     };
 
@@ -40,7 +40,7 @@ export default function NuevoProducto() {
     if (nombre === " - Personalizable") {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
-    if (mostrarPersonasItems === false) {
+    if (mostrarPersonaItem === false) {
       //usar esta función para la creación de un item
       dispatch(postItemExtra(producto, token));
       mostrarAlerta("Producto agregado con éxito", "exito");
@@ -85,8 +85,8 @@ export default function NuevoProducto() {
       setCategoriaID={setCategoriaID}
       listado={listado}
       setListado={setListado}
-      mostrarPersonasItems={mostrarPersonasItems}
-      setmostrarPersonasItems={setmostrarPersonasItems}
+      mostrarPersonaItem={mostrarPersonaItem}
+      setMostrarPersonaItem={setMostrarPersonaItem}
       mostrarOtroCheckbox={mostrarOtroCheckbox}
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
     />

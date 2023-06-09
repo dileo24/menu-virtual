@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Aside from "../secciones/Aside";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
 import { getItemsExtra, getCategorias } from "../../redux/actions";
-import { func } from "prop-types";
+// import { func } from "prop-types";
 
 export default function FormProducto({
   titulo,
@@ -24,8 +24,8 @@ export default function FormProducto({
   setCategoriaID,
   listado,
   setListado,
-  mostrarPersonasItems,
-  setmostrarPersonasItems,
+  mostrarPersonaItem,
+  setMostrarPersonaItem,
   mostrarOtroCheckbox,
   setMostrarOtroCheckbox,
 }) {
@@ -33,20 +33,17 @@ export default function FormProducto({
 
   const itemsExtraArray = useSelector((state) => state.itemsExtra);
   const categorias = useSelector((state) => state.categorias);
-  const categActual = categorias.filter((categ) => categ.id === categoriaID);
+  // const categActual = categorias.filter((categ) => categ.id === categoriaID);
 
   useEffect(() => {
     dispatch(getItemsExtra());
     dispatch(getCategorias());
-  }, [dispatch]);
-
-  function checkCategoria() {
     if (categoriaID <= "2") {
       setListado(true);
       setMostrarOtroCheckbox(false);
-      setmostrarPersonasItems(true);
+      setMostrarPersonaItem(true);
     }
-  }
+  }, [dispatch]);
 
   return (
     <div className="min-h-100 bg-gray-200">
@@ -67,7 +64,6 @@ export default function FormProducto({
                     <select
                       className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       onChange={(e) => setCategoriaID(e.target.value)}
-                      onBlur={checkCategoria}
                       value={categoriaID} // Establece el valor seleccionado en base a la variable de estado categoriaID
                       required
                     >
@@ -93,9 +89,12 @@ export default function FormProducto({
                       <input
                         className="mr-2 leading-tight"
                         type="checkbox"
-                        checked={mostrarPersonasItems}
+                        checked={mostrarPersonaItem}
                         onChange={() => {
-                          setmostrarPersonasItems(true);
+                          setMostrarPersonaItem(true);
+                          console.log(
+                            "Ahora se muestra el input de Personas y el de Items"
+                          );
                           setMostrarOtroCheckbox(false);
                           setListado(true);
                         }}
@@ -108,7 +107,10 @@ export default function FormProducto({
                         onChange={() => {
                           setMostrarOtroCheckbox(true);
                           setCantidadPersonas(1);
-                          setmostrarPersonasItems(false);
+                          setMostrarPersonaItem(false);
+                          console.log(
+                            "Ahora NO se muestra el input de Personas y el de Items"
+                          );
                           setNumItemsExtra(0);
                           setItemsExtra([]);
                         }}
@@ -199,7 +201,7 @@ export default function FormProducto({
 
                   <input type="hidden" name="id" id="id" value="" />
 
-                  {mostrarPersonasItems && (
+                  {mostrarPersonaItem && (
                     <>
                       <div className="mb-4">
                         <label
