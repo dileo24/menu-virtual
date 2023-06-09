@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
-import Stats from "../recursos/Stats";
+import StatsLineas from "../recursos/StatsLineas";
+import StatsBarras from "../recursos/StatsBarras";
 
 export default function Estadisticas() {
   useEffect(() => {
@@ -14,7 +15,8 @@ export default function Estadisticas() {
         <Aside />
         <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5 xl:w-4/5">
           <div className="flex flex-col  items-center contenedor w-auto">
-            <Stats />
+            {/* <StatsLineas /> */}
+            <StatsBarras />
           </div>
         </div>
       </div>

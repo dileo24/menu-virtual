@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
@@ -17,14 +17,14 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
   Filler
 );
 
-export default function Stats() {
+export default function StatsBarras() {
   const pedidos = useSelector((state) => state.pedidos);
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
@@ -50,24 +50,28 @@ export default function Stats() {
   const añoActual = fechaActual.getFullYear();
   const diasDelMesActual = generarDiasDelMes(mesActual, añoActual);
 
-  // Cargando ventas
-  // cargando ventas
-  let ventas = Array(diasDelMesActual.length).fill(0);
+  // cargando pedidosPagados
+  let pedidosPagados = Array(diasDelMesActual.length).fill(0);
+  let pedidosCancelados = Array(diasDelMesActual.length).fill(0);
 
   pedidos.forEach((pedido) => {
     const [dia, mes, año] = pedido.creacionFecha.split("/");
     const creacionFecha = new Date(`${mes}/${dia}/${año}`);
 
-    console.log(pedido.creacionFecha);
     const diaPedido = creacionFecha.getDate();
 
     if (diasDelMesActual.includes(diaPedido)) {
       const index = diasDelMesActual.indexOf(diaPedido);
-      ventas[index]++;
+
+      if (pedido.Estado.tipo === "Pagado") {
+        pedidosPagados[index]++;
+      } else if (pedido.Estado.tipo === "Cancelado") {
+        pedidosCancelados[index]++;
+      }
     }
   });
-  console.log(pedidos);
-  console.log(ventas);
+  console.log(pedidosCancelados);
+  console.log(pedidosPagados);
 
   //cargando estadísticas
   let miData = {
@@ -75,8 +79,8 @@ export default function Stats() {
     datasets: [
       //cada línea del gráfico
       {
-        label: "Ventas",
-        data: ventas,
+        label: "Pedidos Pagados",
+        data: pedidosPagados,
         tension: 0.5,
         fill: true,
         borderColor: "rgb(255,99,132)",
@@ -85,12 +89,30 @@ export default function Stats() {
         pointBorderColor: "rgba(255,99,132)",
         pointBackgroundColor: "rgba(255,99,132)",
       },
+      {
+        label: "Pedidos Cancelados",
+        data: pedidosCancelados,
+        tension: 0.5,
+        fill: true,
+        borderColor: "rgb(61, 61, 206)",
+        backgroundColor: "rgb(115,50,132, 0.5)",
+        pointRadius: 5,
+        pointBorderColor: "rgba(61, 61, 206)",
+        pointBackgroundColor: "rgba(61, 61, 206)",
+      },
     ],
   };
+  let pedPag = pedidos.filter((ped) => ped.Estado.tipo === "Pagado");
 
   return (
-    <div style={{ width: "700px", height: "400px" }}>
-      <Line data={miData} />
+    <div>
+      <p>
+        Pedidos totales PAGADOS
+        {pedPag.length}
+      </p>
+      <div className="stats">
+        <Bar data={miData} />
+      </div>
     </div>
   );
 }
