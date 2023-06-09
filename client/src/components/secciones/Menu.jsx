@@ -155,7 +155,7 @@ export default function Productos() {
                                   item,
                                   id,
                                   cantidadPersonas,
-                                  mostarOtroCheckbox,
+                                  mostrarOtroCheckbox,
                                   mostrarPersonaItem,
                                 },
                                 index

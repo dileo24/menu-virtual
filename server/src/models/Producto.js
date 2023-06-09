@@ -52,7 +52,7 @@ module.exports = (sequelize) => {
         defaultValue: true,
         allowNull: true,
       },
-      mostarOtroCheckbox: {
+      mostrarOtroCheckbox: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
         allowNull: true,

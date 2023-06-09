@@ -37,7 +37,6 @@ export default function NuevoProducto() {
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
-
     nuevoProducto(producto, token);
     console.log(producto);
     mostrarAlerta("Producto agregado con éxito", "exito");
@@ -50,7 +49,9 @@ export default function NuevoProducto() {
     setItemsExtra([]);
     setNumItemsExtra(0);
   }
-
+  console.log("mostrarOtroCheckbox: " + mostrarOtroCheckbox);
+  console.log("mostrarPersonaItem: " + mostrarPersonaItem);
+  console.log("listado: " + listado);
   useEffect(() => {
     // Cambiarle el background del botón del Aside
     const nuevoProducto = document.querySelector(".nuevoProducto");

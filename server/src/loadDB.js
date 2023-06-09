@@ -50,7 +50,7 @@ async function fnProducto() {
       cantidadPersonas: p.cantidadPersonas,
       listado: p.listado,
       mostrarPersonaItem: p.mostrarPersonaItem,
-      mostarOtroCheckbox: p.mostarOtroCheckbox,
+      mostrarOtroCheckbox: p.mostrarOtroCheckbox,
     });
 
     const categoria = await Categoria.findByPk(p.categoriaID);

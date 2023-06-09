@@ -44,7 +44,13 @@ export default function FormProducto({
       setMostrarOtroCheckbox(false);
       setMostrarPersonaItem(true);
     }
-  }, [dispatch]);
+  }, [
+    dispatch,
+    categoriaID,
+    setListado,
+    setMostrarOtroCheckbox,
+    setMostrarPersonaItem,
+  ]);
 
   return (
     <div className="min-h-100 bg-gray-200">
