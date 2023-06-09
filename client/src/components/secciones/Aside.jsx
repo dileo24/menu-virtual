@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { cleanUserActual } from "../redux/actions";
+import { cleanUserActual } from "../../redux/actions";
 
 export default function Aside() {
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ export default function Aside() {
             </Link>
             <Link
               to="/pedidos"
-              className="nuevoProducto px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+              className="pedidos px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
             >
               Pedidos
             </Link>
@@ -55,7 +55,6 @@ export default function Aside() {
         ) : null}
         {userActual && userActual.data.RolId === 1 && (
           <>
-            {" "}
             <Link
               to="/register"
               className="registrar px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
@@ -67,6 +66,12 @@ export default function Aside() {
               className="administrar px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
             >
               Administrar usuarios
+            </Link>
+            <Link
+              to="/estadisticas"
+              className="estadisticas px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Estadisticas
             </Link>
           </>
         )}

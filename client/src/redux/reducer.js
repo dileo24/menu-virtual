@@ -19,22 +19,35 @@ const initialState = {
   userActual: null,
   usuarios: [],
   productos: [],
-  productosHome: [],
+  home: [],
   carrito: [],
   categorias: [],
   pedidos: [],
   estados: [],
   tipoPagos: [],
+  itemsExtra: [],
+  itemsNoListados: [],
 };
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     /****************** PRODUCTOS ******************/
     case GET_PRODUCTOS:
+      const itemsListados = [];
+      const itemsNoListados = [];
+      const items = action.payload.filter((prod) => prod.item === true);
+      items.map((item) =>
+        item.listado === true
+          ? itemsListados.push(item)
+          : itemsNoListados.push(item)
+      );
+
       return {
         ...state,
         productos: [...action.payload],
-        productosHome: [...action.payload],
+        home: [...action.payload],
+        itemsExtra: [...items],
+        itemsNoListados: [...itemsNoListados],
       };
     case GET_CATEGORIAS:
       return {
@@ -48,19 +61,25 @@ function rootReducer(state = initialState, action) {
           : state.productos.filter(
               (prod) => prod.categoria.nombre === action.payload
             );
-      console.log(prodFilter);
       return {
         ...state,
-        productosHome: prodFilter,
+        home: prodFilter,
       };
     }
     case SEARCHxNOMBRE: {
-      const productsFilter = state.productos.filter((e) =>
-        e.nombre.toLowerCase().includes(action.payload.toLowerCase())
+      let removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      };
+
+      let productsSearch = state.productos.filter((e) =>
+        removeAccents(e.nombre.toLowerCase()).includes(
+          removeAccents(action.payload.toLowerCase())
+        )
       );
+
       return {
         ...state,
-        productosHome: [...productsFilter],
+        home: productsSearch,
       };
     }
 

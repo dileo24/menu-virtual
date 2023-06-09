@@ -4,9 +4,8 @@ import {
   eliminarItemCarrito,
   getTipoPago,
   limpiarCarrito,
-} from "../redux/actions";
-import { createPedido } from "../redux/actions";
-// import Contador from "./Contador";
+} from "../../redux/actions";
+import { createPedido } from "../../redux/actions";
 
 export default function Carrito() {
   const carrito = useSelector((state) => state.carrito);
@@ -16,12 +15,26 @@ export default function Carrito() {
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
+  const itemsExtraArray = useSelector((state) => state.itemsExtra);
   const dispatch = useDispatch();
   const [MostrarMenu, setMostrarMenu] = useState(false);
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
+
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getDate()}/${
+    currentDate.getMonth() + 1
+  }/${currentDate.getFullYear()}`;
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  const formattedTime = `${formattedHours}:${
+    minutes < 10 ? "0" + minutes : minutes
+  } ${ampm}`;
+
   const [input, setInput] = useState({
     productos: nombresProdArray,
     precio: precioFinal,
@@ -29,8 +42,10 @@ export default function Carrito() {
     aclaraciones: "",
     tipoPagoID: "",
     estadoID: "1",
+    itemsExtra: [],
+    creacionFecha: formattedDate,
+    creacionHora: formattedTime,
   });
-
   useEffect(() => {
     dispatch(getTipoPago());
   }, [dispatch]);
@@ -66,6 +81,7 @@ export default function Carrito() {
       setVerOcultar("Ver mi pedido");
     }
   };
+
   const handleMostrarMenu2 = () => {
     setMostrarMenu2(!MostrarMenu2);
     setMostrarMenu(MostrarMenu);
@@ -81,6 +97,13 @@ export default function Carrito() {
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  const handleSelectItemExtra = (prodId, item) => {
+    setInput((prevInput) => ({
+      ...prevInput,
+      itemsExtra: [...prevInput.itemsExtra, item],
+    }));
+  };
+
   const handleSelectTipo = (e) => {
     if (!input.tipoPagoID.includes(e.target.value)) {
       setInput({
@@ -92,23 +115,49 @@ export default function Carrito() {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    if (input.aclaraciones.length > 50) {
+
+    if (carrito.length) {
       // Validación de longitud de aclaraciones
-      alert("Las aclaraciones deben tener hasta 50 caracteres");
-      return;
+      if (input.aclaraciones.length > 50) {
+        alert("Las aclaraciones deben tener hasta 50 caracteres");
+        return;
+      }
+
+      // Validación de itemsExtra seleccionados
+      const totalItemsExtraRequired = carrito.reduce((total, prod) => {
+        if (prod.itemsExtra) {
+          return total + prod.cantidadPersonas * prod.itemsExtra.length;
+        }
+        return total;
+      }, 0);
+      if (
+        !input.itemsExtra ||
+        input.itemsExtra.length !== totalItemsExtraRequired
+      ) {
+        alert("Debes seleccionar todos los items extra requeridos");
+        return;
+      }
+      console.log(input);
+      dispatch(createPedido(input));
+      dispatch(limpiarCarrito());
+      setInput({
+        productos: [],
+        precio: "",
+        mesa: "",
+        aclaraciones: "",
+        tipoPagoID: "",
+        estadoID: "1",
+        itemsExtra: [],
+        creacionFecha: "",
+        creacionHora: "",
+      });
+      alert(
+        "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
+      );
+      window.location.href = "/";
+    } else {
+      alert("Error: No elegiste ningún producto del Menú");
     }
-    dispatch(createPedido(input));
-    dispatch(limpiarCarrito());
-    setInput({
-      productos: [],
-      precio: "",
-      mesa: "",
-      aclaraciones: "",
-      tipoPagoID: "",
-      estadoID: "1",
-    });
-    alert("Depósito creado con éxito! Se lo redirigirá al inicio...");
-    window.location.href = "/";
   };
 
   return (
@@ -182,6 +231,7 @@ export default function Carrito() {
               <b className="font-bold">Atrás</b>
             </button>
             <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
+              {/* ****************** MESA ****************** */}
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -203,6 +253,71 @@ export default function Carrito() {
                 />
               </div>
 
+              {/* ****************** ITEMS ****************** */}
+              <div className="mb-4">
+                <div className="flex">
+                  {carrito.length
+                    ? carrito.map(
+                        (prod, indexCarr) =>
+                          prod.itemsExtra && (
+                            <div key={indexCarr}>
+                              <label
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                                htmlFor="mesa"
+                              >
+                                Seleccione items para {prod.nombre}
+                              </label>
+                              {Array.from(
+                                { length: prod.cantidadPersonas },
+                                (_, index) => (
+                                  <div key={index}>
+                                    <p>Persona {index + 1}</p>
+                                    {prod.itemsExtra.map(
+                                      (categoria, categoriaIndex) => {
+                                        const itemsFiltrados =
+                                          itemsExtraArray.filter(
+                                            (item) =>
+                                              item.categoria.nombre ===
+                                              categoria
+                                          );
+                                        return (
+                                          <select
+                                            name={`itemsExtra-${categoriaIndex}`}
+                                            onChange={(e) =>
+                                              handleSelectItemExtra(
+                                                prod.id,
+                                                e.target.value
+                                              )
+                                            }
+                                            required
+                                            key={`${index}-${categoriaIndex}`}
+                                          >
+                                            <option hidden>{categoria}</option>
+                                            {itemsFiltrados.map(
+                                              (item, itemIndex) => (
+                                                <option
+                                                  key={itemIndex}
+                                                  value={item.nombre}
+                                                >
+                                                  {item.nombre}
+                                                </option>
+                                              )
+                                            )}
+                                          </select>
+                                        );
+                                      }
+                                    )}
+                                  </div>
+                                )
+                              )}
+                            </div>
+                          )
+                      )
+                    : ""}
+                </div>
+              </div>
+
+              {/* ****************** ACLARACIONES ****************** */}
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -223,6 +338,7 @@ export default function Carrito() {
                 />
               </div>
 
+              {/* ****************** MÉTODO DE PAGO ****************** */}
               <div className="mb-4">
                 <label
                   className="block text-gray-700 text-sm font-bold mb-2"
@@ -232,18 +348,20 @@ export default function Carrito() {
                 </label>
                 <div className="flex">
                   {tipoPagos?.map((tipo) => (
-                    <label
-                      className="inline-flex items-center mr-4"
-                      key={tipo.id}
-                    >
+                    <div key={tipo.id}>
                       <input
-                        type="checkbox"
-                        className="form-checkbox text-indigo-600 h-5 w-5 cursor-pointer"
+                        type="radio"
+                        id={tipo.id}
+                        name="metodoPago"
                         value={tipo.id}
+                        className="mr-2"
                         onChange={(e) => handleSelectTipo(e)}
+                        required
                       />
-                      <span className="ml-2 text-gray-700">{tipo.tipo}</span>
-                    </label>
+                      <label htmlFor={tipo.id} className="mr-4">
+                        {tipo.tipo}
+                      </label>
+                    </div>
                   ))}
                 </div>
               </div>

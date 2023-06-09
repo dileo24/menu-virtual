@@ -2,7 +2,15 @@ const { Producto, Categoria } = require("../../db");
 
 const createProduct = async (req, res, next) => {
   try {
-    const { nombre, descripcion, precio, categoriaID, imagen } = req.body;
+    const {
+      nombre,
+      descripcion,
+      precio,
+      itemsExtra,
+      categoriaID,
+      imagen,
+      cantidadPersonas,
+    } = req.body;
     if (typeof nombre !== "string" || nombre === undefined) {
       throw new Error(
         `El Nombre del Producto debe ser unicamente texto, y has insertado ${
@@ -16,6 +24,8 @@ const createProduct = async (req, res, next) => {
       descripcion,
       precio,
       imagen,
+      itemsExtra,
+      cantidadPersonas,
     });
     await categoria.addProducto(newProduct);
     req.body.resultado = {

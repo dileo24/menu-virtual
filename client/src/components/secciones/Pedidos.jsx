@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import Filtros from "./Filtros";
+import Filtros from "../recursos/Filtros";
 import {
   getEstados,
   getPedidos,
   getTipoPago,
   updatePedido,
-} from "../redux/actions";
+} from "../../redux/actions";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -20,6 +20,9 @@ export default function Pedidos() {
     dispatch(getPedidos(token));
     dispatch(getEstados());
     dispatch(getTipoPago());
+    // Cambiarle el background del botón del Aside
+    const pedidos = document.querySelector(".pedidos");
+    pedidos.classList.add("bg-teal-700");
   }, [dispatch, token]);
 
   const handleSelectChange = (e, id, atributo) => {
@@ -65,11 +68,34 @@ export default function Pedidos() {
                     </thead>
                     <tbody className="bg-white">
                       {pedidos.map(
-                        ({ productos, mesa, precio, Estado, Pago, id }) => (
+                        ({
+                          productos,
+                          mesa,
+                          aclaraciones,
+                          precio,
+                          Estado,
+                          itemsExtra,
+                          creacionFecha,
+                          creacionHora,
+                          Pago,
+                          id,
+                        }) => (
                           <tr key={id}>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
                                 {productos.join(", ")}
+                              </p>
+                              {itemsExtra && (
+                                <p className="text-gray-700 mt-2">
+                                  <b>Extra:</b> {itemsExtra.join(", ")}
+                                </p>
+                              )}
+                              <p className="text-gray-700 mt-2">
+                                <b> Aclaraciones:</b> {aclaraciones}
+                              </p>
+                              <p className="text-gray-700 mt-2">
+                                <b> Realizado el:</b>{" "}
+                                {creacionFecha + " a las " + creacionHora}
                               </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">

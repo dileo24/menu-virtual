@@ -1,14 +1,15 @@
-const { Producto, Categoria } = require("../../db");
+const { Producto, Categoria, ItemExtra } = require("../../db");
 
 const allProducts = async (req, res, next) => {
   try {
     req.body.allProducts = await Producto.findAll({
-      order: [["id", "ASC"]],
-      attributes: { exclude: "categoriaID" },
-      include: {
-        model: Categoria,
-        as: "categoria",
-      },
+      order: [["id", "asc"]],
+      attributes: { exclude: ["categoriaID"] },
+      include: { model: Categoria, as: "categoria" },
+      /* {
+          model: ItemExtra,
+          as: "ItemExtras",
+        }, */
     });
     next();
   } catch (err) {

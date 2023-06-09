@@ -2,7 +2,16 @@ const { Pedido, Pago, Estado } = require("../../db");
 
 const createPedido = async (req, res, next) => {
   try {
-    const { productos, mesa, precio, aclaraciones, tipoPagoID } = req.body;
+    const {
+      productos,
+      mesa,
+      precio,
+      aclaraciones,
+      creacionFecha,
+      creacionHora,
+      itemsExtra,
+      tipoPagoID,
+    } = req.body;
 
     const tipoPago = await Pago.findByPk(tipoPagoID);
     const estado = await Estado.findOne({
@@ -14,6 +23,9 @@ const createPedido = async (req, res, next) => {
       mesa,
       precio,
       aclaraciones,
+      itemsExtra,
+      creacionFecha,
+      creacionHora,
     });
 
     await tipoPago.addPedido(newPedido);

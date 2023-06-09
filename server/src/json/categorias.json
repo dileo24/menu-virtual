@@ -1,17 +1,26 @@
 [
   {
+    "nombre": "Desayuno o Merienda"
+  },
+  {
+    "nombre": "Almuerzo o Cena"
+  },
+  {
+    "nombre": "Infusiones"
+  },
+  {
     "nombre": "Postres"
   },
   {
-    "nombre": "Pizzas"
+    "nombre": "Guarniciones"
   },
   {
-    "nombre": "Hamburguesas"
+    "nombre": "Cervezas"
   },
   {
-    "nombre": "Lomitos"
+    "nombre": "Bebidas sin alcohol"
   },
   {
-    "nombre": "Papas"
+    "nombre": "Licuados"
   }
 ]

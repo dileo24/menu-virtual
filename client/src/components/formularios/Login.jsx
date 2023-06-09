@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserActual, getUsuarios } from "../redux/actions";
+import { getUserActual, getUsuarios } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
-import Aside from "./Aside";
-import { mostrarAlerta } from "../helpers";
+import Aside from "../secciones/Aside";
+import { mostrarAlerta } from "../../helpers";
 
 export default function ModalLogin({ onClose }) {
   const navigate = useNavigate();

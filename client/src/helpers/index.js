@@ -1,7 +1,7 @@
 //// Funciones para la Base de Datos ////
 
 // Local
-//const url = "http://localhost:3001/productos";
+/* const url = "http://localhost:3001/productos"; */
 
 // Deploy
 const url = "https://menu-virtual-production-9dbc.up.railway.app/productos";
@@ -18,40 +18,28 @@ export const nuevoProducto = (producto, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    window.location.href = "/";
   } catch (error) {
     console.log(error);
   }
 };
-
-// LISTADO todos los productos de la API
-/* export const obtenerProductos = async () => {
-  try {
-    const resultado = await fetch(url);
-    const productos = await resultado.json();
-    return productos;
-  } catch (error) {
-    console.log(error);
-  }
-}; */
-
-// ELIMINACION un producto
-
-// export const eliminarProducto = async (idProducto) => {
-//   try {
-//     await fetch(`${url}/${idProducto}`, {
-//       method: "DELETE",
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 // Obtener un producto por su ID
 export const obtenerProducto = async (id) => {
   try {
     const resultado = await fetch(`${url}/${id}`);
     const producto = await resultado.json();
     return producto;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Obtener un Item por su ID
+export const obtenerItem = async (id) => {
+  try {
+    const resultado = await fetch(`http://localhost:3001/itemsextra/${id}`);
+    const item = await resultado.json();
+    return item;
   } catch (error) {
     console.log(error);
   }
@@ -68,7 +56,7 @@ export const editarProducto = async (producto, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    window.location.href = "/";
+    // window.location.href = "/";
   } catch (error) {
     console.log(error);
   }
@@ -118,7 +106,7 @@ export function mostrarAlerta(texto, tipo) {
   contenedor.appendChild(alertaDiv);
   setTimeout(() => {
     alertaDiv.remove();
-  }, 2500);
+  }, 3000);
 }
 
 export function ningunInputVacio(obj) {

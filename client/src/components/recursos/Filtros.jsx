@@ -5,7 +5,7 @@ import {
   getProductos,
   searchXcategoria,
   searchXname,
-} from "../redux/actions";
+} from "../../redux/actions";
 export default function Filtros() {
   const categorias = useSelector((state) => state.categorias);
   const [state, setState] = useState("");

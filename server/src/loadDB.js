@@ -33,21 +33,40 @@ async function fnEstado() {
     await Estado.create(e);
   }
 }
-
 async function fnCategorias() {
   for (const cat of categoria) {
     await Categoria.create(cat);
   }
 }
+
 async function fnProducto() {
   for (const p of producto) {
     const newProduct = await Producto.create({
       nombre: p.nombre,
+      item: p.item,
       descripcion: p.descripcion,
       precio: p.precio,
+      itemsExtra: p.itemsExtra,
+      cantidadPersonas: p.cantidadPersonas,
+      listado: p.listado,
+      mostrarPersonaItem: p.mostrarPersonaItem,
+      mostarOtroCheckbox: p.mostarOtroCheckbox,
     });
+
     const categoria = await Categoria.findByPk(p.categoriaID);
     await categoria.addProducto(newProduct);
+    /* console.log(p.itemExtraID);
+    const itemExtras = await ItemExtra.findAll({
+      where: {
+        id: p.itemExtraID,
+      },
+    });
+    console.log("Cantidad de itemExtras encontrados:", itemExtras.length);
+
+    for (const itemExtra of itemExtras) {
+      console.log(itemExtra);
+      await itemExtra.addProducto(newProduct);
+    } */
   }
 }
 
@@ -58,6 +77,9 @@ async function fnPedidos() {
       mesa: ped.mesa,
       precio: ped.precio,
       aclaraciones: ped.aclaraciones,
+      itemsExtra: ped.itemsExtra,
+      creacionFecha: ped.creacionFecha,
+      creacionHora: ped.creacionHora,
     });
     const tipoPago = await Pago.findByPk(ped.tipoPagoID);
     const estado = await Estado.findByPk(ped.estadoID);
