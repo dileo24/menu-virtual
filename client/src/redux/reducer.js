@@ -14,6 +14,7 @@ import {
   GET_ESTADOS,
   GET_TIPOPAGOS,
   GET_ITEMSEXTRA,
+  DELETE_ITEM,
 } from "./actions.js";
 
 const initialState = {
@@ -92,6 +93,12 @@ function rootReducer(state = initialState, action) {
         home: [...state.home, ...itemsListados],
         itemsExtra: [...action.payload],
         itemsNoListados: [...itemsNoListados]
+      };
+
+    case DELETE_ITEM:
+      return {
+        ...state,
+        itemsExtra: state.itemsExtra.filter((item) => item.id !== action.payload),
       };
 
     /****************** USUARIOS ******************/

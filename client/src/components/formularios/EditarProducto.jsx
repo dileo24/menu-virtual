@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import FormProducto from "./FormProducto";
 import {
   obtenerProducto,
+  obtenerItem,
   ningunInputVacio,
   editarProducto,
   mostrarAlerta,
@@ -26,30 +27,48 @@ export default function EditarProductos() {
     // Obtener el ID del producto de la URL cuando se carga la página
     const parametrosURL = new URLSearchParams(window.location.search);
     const idProducto = parseInt(parametrosURL.get("id"));
+    const idItem = parseInt(parametrosURL.get("idItem"));
 
-    obtenerProducto(idProducto)
-      .then((producto) => {
-        mostrarProducto(producto);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (idItem) {
+      obtenerItem(idItem)
+        .then((item) => {
+          mostrarProducto(item);
+        })
+        .catch((error) => {
+          console.log("error al obtener item" + error);
+        });
+    } else if (idProducto) {
+      obtenerProducto(idProducto)
+        .then((producto) => {
+          mostrarProducto(producto);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
-    console.log(producto);
-    setCategoriaID(producto.categoriaID);
+    // console.log(producto);
+    if (producto.categoriaID) {
+      setCategoriaID(producto.categoriaID);
+    }
+    if (producto.categoriaItem) {
+      setCategoriaID(producto.categoriaItem.id);
+    }
     setNombre(producto.nombre);
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
-    setId(producto.id);
+    // setId(producto.id);
     setNumItemsExtra(producto.itemsExtra.length);
     setItemsExtra(producto.itemsExtra);
     setCantidadPersonas(producto.cantidadPersonas);
-    setmostrarPersonasItems(producto.mostrarPersonasItems);
-    setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
-    setListado(producto.listado);
+    if (producto.mostrarPersonasItems) {
+      setmostrarPersonasItems(producto.mostrarPersonasItems);
+      setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
+      setListado(producto.listado);
+    }
   }
 
   // Validar y actualizar el producto con los nuevos cambios

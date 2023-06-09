@@ -34,6 +34,17 @@ export const obtenerProducto = async (id) => {
   }
 };
 
+// Obtener un Item por su ID
+export const obtenerItem = async (id) => {
+  try {
+    const resultado = await fetch(`http://localhost:3001/itemsextra/${id}`);
+    const item = await resultado.json();
+    return item;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // Actualizar el producto editado
 export const editarProducto = async (producto, token) => {
   try {

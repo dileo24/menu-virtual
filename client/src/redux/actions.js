@@ -14,6 +14,7 @@ export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 export const GET_ITEMSEXTRA = "GET_ITEMSEXTRA";
+export const DELETE_ITEM = "DELETE_ITEM";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -83,6 +84,21 @@ export const postItemExtra = (data, token) => {
 
     const response = await axios.post("/itemsextra", data, config);
     return response;
+  };
+};
+
+export const deleteItem = (id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`/itemsextra/${id}`, config);
+    dispatch({
+      type: DELETE_ITEM,
+      payload: id,
+    });
   };
 };
 

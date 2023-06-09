@@ -5,11 +5,16 @@ const deleteItems = require("../middlewares/itemsExtra/deleteItems");
 const updateItem = require("../middlewares/itemsExtra/updateItem");
 const checkAuth = require("../middlewares/auth/auth");
 const checkRoleAuth = require("../middlewares/auth/roleAuth");
+const getItemByID = require("../middlewares/itemsExtra/getItemByID");
 
 const router = Router();
 
 router.get("/", allItemsExtra, async (req, res) => {
   return res.json(req.body.allItemsExtra);
+});
+
+router.get("/:id", getItemByID, async (req, res) => {
+  return res.json(req.body.itemById);
 });
 
 router.post(
