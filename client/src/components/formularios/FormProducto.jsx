@@ -28,6 +28,8 @@ export default function FormProducto({
   setMostrarPersonaItem,
   mostrarOtroCheckbox,
   setMostrarOtroCheckbox,
+  item,
+  setItem,
 }) {
   const dispatch = useDispatch();
 
@@ -37,12 +39,18 @@ export default function FormProducto({
 
   useEffect(() => {
     dispatch(getCategorias());
-    if (categoriaID <= "2") {
+    if (categoriaID === "2" || categoriaID === "1") {
       setListado(true);
       setMostrarOtroCheckbox(false);
       setMostrarPersonaItem(true);
     }
-  }, [dispatch]);
+  }, [
+    dispatch,
+    categoriaID,
+    setListado,
+    setMostrarOtroCheckbox,
+    setMostrarPersonaItem,
+  ]);
 
   return (
     <div className="min-h-100 bg-gray-200">
@@ -96,6 +104,7 @@ export default function FormProducto({
                           );
                           setMostrarOtroCheckbox(false);
                           setListado(true);
+                          setItem(false);
                         }}
                       />
                       <p className="mr-1">Sí</p>
@@ -112,6 +121,7 @@ export default function FormProducto({
                           );
                           setNumItemsExtra(0);
                           setItemsExtra([]);
+                          setItem(true);
                         }}
                       />
 

@@ -84,7 +84,7 @@
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "300",
     "descripcion": "Descripcion del producto"
   },
@@ -94,7 +94,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -104,7 +104,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "550",
     "descripcion": "Descripcion del producto"
   },
@@ -114,7 +114,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "900",
     "descripcion": "Descripcion del producto"
   },
@@ -124,7 +124,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1100",
     "descripcion": "Descripcion del producto"
   },
@@ -134,7 +134,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1200",
     "descripcion": "Descripcion del producto"
   },
@@ -144,7 +144,7 @@
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "300",
     "descripcion": "Descripcion del producto"
   },
@@ -154,7 +154,7 @@
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -164,7 +164,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -174,7 +174,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -184,7 +184,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -194,7 +194,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -204,7 +204,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -214,7 +214,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "3200",
     "descripcion": "Descripcion del producto"
   },
@@ -224,7 +224,7 @@
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1050",
     "descripcion": "Descripcion del producto"
   },
@@ -234,7 +234,7 @@
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1050",
     "descripcion": "Descripcion del producto"
   },
@@ -244,7 +244,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1150",
     "descripcion": "Descripcion del producto"
   },
@@ -254,7 +254,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1150",
     "descripcion": "Descripcion del producto"
   },
@@ -264,7 +264,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   },
@@ -274,7 +274,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   },
@@ -284,7 +284,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   },
@@ -294,7 +294,7 @@
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   }

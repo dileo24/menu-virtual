@@ -6,10 +6,14 @@ const createProduct = async (req, res, next) => {
       nombre,
       descripcion,
       precio,
+      item,
+      listado,
       itemsExtra,
       categoriaID,
       imagen,
       cantidadPersonas,
+      mostrarPersonaItem,
+      mostrarOtroCheckbox,
     } = req.body;
     if (typeof nombre !== "string" || nombre === undefined) {
       throw new Error(
@@ -24,8 +28,12 @@ const createProduct = async (req, res, next) => {
       descripcion,
       precio,
       imagen,
+      listado,
       itemsExtra,
+      item,
       cantidadPersonas,
+      mostrarPersonaItem,
+      mostrarOtroCheckbox,
     });
     await categoria.addProducto(newProduct);
     req.body.resultado = {

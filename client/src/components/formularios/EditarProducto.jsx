@@ -21,6 +21,7 @@ export default function EditarProductos() {
   const [listado, setListado] = useState(true);
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(false);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(true);
+  const [item, setItem] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -92,6 +93,7 @@ export default function EditarProductos() {
       listado,
       mostrarPersonaItem,
       mostrarOtroCheckbox,
+      item,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -130,6 +132,8 @@ export default function EditarProductos() {
       setMostrarPersonaItem={setMostrarPersonaItem}
       mostrarOtroCheckbox={mostrarOtroCheckbox}
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
+      item={item}
+      setItem={setItem}
     />
   );
 }

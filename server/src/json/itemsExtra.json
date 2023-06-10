@@ -4,7 +4,7 @@
     "categoriaID": "3",
     "listado": false,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "300",
     "descripcion": "Descripcion del producto"
   },
@@ -13,7 +13,7 @@
     "categoriaID": "3",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -22,7 +22,7 @@
     "categoriaID": "3",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "550",
     "descripcion": "Descripcion del producto"
   },
@@ -31,7 +31,7 @@
     "categoriaID": "8",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "900",
     "descripcion": "Descripcion del producto"
   },
@@ -40,7 +40,7 @@
     "categoriaID": "8",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1100",
     "descripcion": "Descripcion del producto"
   },
@@ -49,7 +49,7 @@
     "categoriaID": "8",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1200",
     "descripcion": "Descripcion del producto"
   },
@@ -58,7 +58,7 @@
     "categoriaID": "3",
     "listado": false,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "300",
     "descripcion": "Descripcion del producto"
   },
@@ -67,7 +67,7 @@
     "categoriaID": "3",
     "listado": false,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -76,7 +76,7 @@
     "categoriaID": "7",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -85,7 +85,7 @@
     "categoriaID": "7",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -94,7 +94,7 @@
     "categoriaID": "7",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -103,7 +103,7 @@
     "categoriaID": "7",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -112,7 +112,7 @@
     "categoriaID": "7",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "500",
     "descripcion": "Descripcion del producto"
   },
@@ -121,7 +121,7 @@
     "categoriaID": "7",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "3200",
     "descripcion": "Descripcion del producto"
   },
@@ -130,7 +130,7 @@
     "categoriaID": "5",
     "listado": false,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1050",
     "descripcion": "Descripcion del producto"
   },
@@ -139,7 +139,7 @@
     "categoriaID": "5",
     "listado": false,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1050",
     "descripcion": "Descripcion del producto"
   },
@@ -148,7 +148,7 @@
     "categoriaID": "4",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1150",
     "descripcion": "Descripcion del producto"
   },
@@ -157,7 +157,7 @@
     "categoriaID": "4",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "1150",
     "descripcion": "Descripcion del producto"
   },
@@ -166,7 +166,7 @@
     "categoriaID": "6",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   },
@@ -175,7 +175,7 @@
     "categoriaID": "6",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   },
@@ -184,7 +184,7 @@
     "categoriaID": "6",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   },
@@ -193,7 +193,7 @@
     "categoriaID": "6",
     "listado": true,
     "mostrarPersonaItem": false,
-    "mostarOtroCheckbox": true,
+    "mostrarOtroCheckbox": true,
     "precio": "700",
     "descripcion": "Descripcion del producto"
   }

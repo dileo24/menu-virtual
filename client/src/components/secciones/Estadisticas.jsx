@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside";
-import Stats from "../recursos/Stats";
+import StatsProductos from "../recursos/StatsProductos";
+import StatsPedidos from "../recursos/StatsPedidos";
 
 export default function Estadisticas() {
   useEffect(() => {
@@ -14,7 +15,8 @@ export default function Estadisticas() {
         <Aside />
         <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5 xl:w-4/5">
           <div className="flex flex-col  items-center contenedor w-auto">
-            <Stats />
+            <StatsPedidos />
+            <StatsProductos />
           </div>
         </div>
       </div>
