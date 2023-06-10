@@ -127,7 +127,7 @@ export default function Productos() {
                         .filter(
                           (producto) =>
                             producto.listado === true && producto.item === true
-                        ) // Aplica el filtro para mostrar solo los productos con listado:true
+                        )
                         .map(
                           (
                             {
@@ -137,8 +137,6 @@ export default function Productos() {
                               itemsExtra,
                               id,
                               cantidadPersonas,
-                              listado,
-                              item,
                             },
                             index
                           ) => (
@@ -213,21 +211,7 @@ export default function Productos() {
                           {productosState
                             .filter((producto) => producto.listado === false) // Aplica el filtro para mostrar solo los productos con listado:false
                             .map(
-                              (
-                                {
-                                  nombre,
-                                  descripcion,
-                                  precio,
-                                  itemsExtra,
-                                  listado,
-                                  item,
-                                  id,
-                                  cantidadPersonas,
-                                  mostrarOtroCheckbox,
-                                  mostrarPersonaItem,
-                                },
-                                index
-                              ) => (
+                              ({ nombre, descripcion, precio, id }, index) => (
                                 <tr key={index}>
                                   <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                     <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
