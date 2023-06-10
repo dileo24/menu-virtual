@@ -59,8 +59,12 @@ export default function Productos() {
                       </tr>
                     </thead>
                     <tbody className="bg-white">
+                      {/********************* PRODUCTOS VISIBLES *********************/}
                       {productosState
-                        .filter((producto) => producto.listado === true) // Aplica el filtro para mostrar solo los productos con estado listado === true
+                        .filter(
+                          (producto) =>
+                            producto.listado === true && producto.item === false
+                        ) // Aplica el filtro para mostrar solo los productos con listado:true
                         .map(
                           (
                             {
@@ -117,9 +121,73 @@ export default function Productos() {
                             </tr>
                           )
                         )}
+
+                      {/********************* ITEMS VISIBLES *********************/}
+                      {productosState
+                        .filter(
+                          (producto) =>
+                            producto.listado === true && producto.item === true
+                        ) // Aplica el filtro para mostrar solo los productos con listado:true
+                        .map(
+                          (
+                            {
+                              nombre,
+                              descripcion,
+                              precio,
+                              itemsExtra,
+                              id,
+                              cantidadPersonas,
+                              listado,
+                              item,
+                            },
+                            index
+                          ) => (
+                            <tr key={index}>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
+                                  {nombre}
+                                </p>
+                                <p className="text-gray-700 mt-2">
+                                  {descripcion}
+                                </p>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
+                                <p className="text-gray-600">${precio}</p>
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                                {userActual ? (
+                                  <>
+                                    <Link
+                                      to={`/editarProducto?idItem=${id}`}
+                                      className="text-teal-600 hover:text-teal-900 mr-5"
+                                    >
+                                      Editar
+                                    </Link>
+                                    <button
+                                      onClick={() => handleEliminarProducto(id)}
+                                      className="text-red-600 hover:text-red-900 eliminar"
+                                    >
+                                      Eliminar
+                                    </button>
+                                  </>
+                                ) : (
+                                  <Contador
+                                    id={index}
+                                    nombre={nombre}
+                                    descripcion={descripcion}
+                                    precio={precio}
+                                    itemsExtra={itemsExtra}
+                                    cantidadPersonas={cantidadPersonas}
+                                  />
+                                )}
+                              </td>
+                            </tr>
+                          )
+                        )}
                     </tbody>
                   </table>
                 </div>
+                {/********************* ITEMS NO VISIBLES *********************/}
                 {userActual && (
                   <>
                     <p className="mt-10 mb-5 font-bold text-center text-2xl">
@@ -143,7 +211,7 @@ export default function Productos() {
                         </thead>
                         <tbody className="bg-gray-400">
                           {productosState
-                            .filter((producto) => producto.listado === false) // Aplica el filtro para mostrar solo los productos con estado listado === false
+                            .filter((producto) => producto.listado === false) // Aplica el filtro para mostrar solo los productos con listado:false
                             .map(
                               (
                                 {
@@ -177,7 +245,7 @@ export default function Productos() {
                                     {userActual && (
                                       <>
                                         <Link
-                                          to={`/editarProducto?id=${id}`}
+                                          to={`/editarProducto?idItem=${id}`}
                                           className="text-teal-600 hover:text-teal-900 mr-5"
                                         >
                                           Editar
