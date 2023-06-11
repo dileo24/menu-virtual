@@ -44,7 +44,7 @@ export default function Pedidos() {
           <Aside />
           <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
             <h2 className="text-3xl font-light text-center">
-              Planilla de Pedidos
+              Mis pedidos realizados
             </h2>
             <div className="px-5 flex flex-col mt-10">
               {/* <Filtros /> */}
