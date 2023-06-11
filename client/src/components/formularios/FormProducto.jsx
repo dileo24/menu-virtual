@@ -30,6 +30,8 @@ export default function FormProducto({
   setMostrarOtroCheckbox,
   item,
   setItem,
+  // checkListadoTrue,
+  // checkListadoFalse,
 }) {
   const dispatch = useDispatch();
 
@@ -39,7 +41,7 @@ export default function FormProducto({
 
   useEffect(() => {
     dispatch(getCategorias());
-    if (categoriaID <= "2") {
+    if (categoriaID === "2" || categoriaID === "1") {
       setListado(true);
       setMostrarOtroCheckbox(false);
       setMostrarPersonaItem(true);
@@ -137,14 +139,14 @@ export default function FormProducto({
                           <input
                             className="mr-2 leading-tight"
                             type="checkbox"
-                            checked={!listado}
+                            checked={listado === false ? true : false}
                             onChange={() => setListado(false)}
                           />
                           <p className=" mr-1">Sí</p>
                           <input
                             className="mr-2 leading-tight"
                             type="checkbox"
-                            checked={listado}
+                            checked={listado === true ? true : false}
                             onChange={() => setListado(true)}
                           />
                         </>

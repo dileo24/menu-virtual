@@ -21,6 +21,9 @@ export default function EditarProductos() {
   const [listado, setListado] = useState(true);
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(false);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(true);
+  const [item, setItem] = useState(false);
+  // const [checkListadoTrue, setCheckListadoTrue] = useState("");
+  // const [checkListadoFalse, setCheckListadoFalse] = useState("");
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -70,11 +73,12 @@ export default function EditarProductos() {
     setDescripcion(item.descripcion);
     setPrecio(item.precio);
     setId(item.id);
-    setNumItemsExtra(item.itemsExtra.length);
     setCantidadPersonas(item.cantidadPersonas);
     setMostrarPersonaItem(item.mostrarPersonaItem);
     setMostrarOtroCheckbox(item.mostrarOtroCheckbox);
     setListado(item.listado);
+    // setCheckListadoFalse(item.listado === false ? true : false);
+    // setCheckListadoTrue(item.listado === true ? true : false);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
@@ -92,6 +96,7 @@ export default function EditarProductos() {
       listado,
       mostrarPersonaItem,
       mostrarOtroCheckbox,
+      item,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -130,6 +135,12 @@ export default function EditarProductos() {
       setMostrarPersonaItem={setMostrarPersonaItem}
       mostrarOtroCheckbox={mostrarOtroCheckbox}
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
+      item={item}
+      setItem={setItem}
+      // checkListadoTrue={checkListadoTrue}
+      // setCheckListadoTrue={setCheckListadoTrue}
+      // checkListadoFalse={checkListadoFalse}
+      // setCheckListadoFalse={setCheckListadoFalse}
     />
   );
 }
