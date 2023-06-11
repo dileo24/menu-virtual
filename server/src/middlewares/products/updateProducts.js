@@ -8,6 +8,7 @@ const updateProduct = async (req, res, next) => {
       descripcion,
       precio,
       itemsExtra,
+      listado,
       item,
       categoriaID,
       cantidadPersonas,
@@ -23,6 +24,7 @@ const updateProduct = async (req, res, next) => {
           imagen: imagen || producto.imagen,
           itemsExtra: itemsExtra || producto.itemsExtra,
           item: item || producto.item,
+          listado: typeof listado !== "undefined" ? listado : producto.listado,
           categoriaID: categoriaID || producto.categoriaID,
           cantidadPersonas: cantidadPersonas || producto.cantidadPersonas,
         },
@@ -30,7 +32,7 @@ const updateProduct = async (req, res, next) => {
       );
       req.body.resultado = {
         status: "200",
-        respuesta: `El producto ${nombre} se ha actualizado exitosamente`,
+        respuesta: `El producto ${producto.nombre} se ha actualizado exitosamente`,
       };
       next();
     } else {
