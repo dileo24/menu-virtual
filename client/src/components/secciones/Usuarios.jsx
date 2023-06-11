@@ -7,7 +7,7 @@ import {
   desbloqueoUsuario,
   getUsuarios,
 } from "../../redux/actions";
-import Filtros from "../recursos/Filtros";
+// import Filtros from "../recursos/Filtros";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
@@ -52,7 +52,7 @@ export default function Usuarios() {
         <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5 xl:w-4/5">
           <div className="flex flex-col mt-10 items-center contenedor w-auto">
             <div className="modal-content -my-2 py-2 overflow-x-auto w-auto">
-              <Filtros />
+              {/* <Filtros /> */}
 
               <div className="grid grid-cols-2 gap-20">
                 {/* Usuarios habilitados */}
@@ -92,7 +92,7 @@ export default function Usuarios() {
                               }
                               className="rounded bg-orange-500 hover:bg-orange-700 mt-1 p-2 text-white uppercase font-bold cursor-pointer text-sm"
                             >
-                              Bloquear usuario
+                              Inhabilitar usuario
                             </button>
                           </div>
                         </div>
@@ -107,7 +107,7 @@ export default function Usuarios() {
                 {/* Usuarios bloqueados */}
                 <div className="px-8 py-5 bg-gray-300 rounded">
                   <p className="text-2xl text-center mb-10">
-                    Usuarios bloqueados
+                    Usuarios inhabilitados
                   </p>
                   {usuarios &&
                     usuarios
@@ -125,7 +125,7 @@ export default function Usuarios() {
                           </p>
                           <p className="block text-gray-700 text-sm mb-2">
                             <span>
-                              <b>Estado actual:</b> Bloqueado
+                              <b>Estado actual:</b> Inhabilitado
                             </span>
                           </p>
                           <div className="flex">
@@ -141,7 +141,7 @@ export default function Usuarios() {
                               }
                               className="rounded bg-green-700 hover:bg-green-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
                             >
-                              Desbloquear usuario
+                              Habilitar usuario
                             </button>
                           </div>
                         </div>
@@ -149,7 +149,7 @@ export default function Usuarios() {
                   {usuarios &&
                     usuarios.filter((user) => user.bloqueo).length === 0 && (
                       <p className="font-light text-center">
-                        No hay usuarios bloqueados
+                        No hay usuarios inhabilitados
                       </p>
                     )}
                 </div>
