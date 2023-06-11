@@ -7,13 +7,13 @@ import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
 import Carrito from "../formularios/Carrito";
 
-export default function Productos() {
+export default function Menu() {
   const userActual = useSelector((state) => state.userActual);
   // const itemsNoListados = useSelector((state) => state.itemsNoListados);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   const productosState = useSelector((state) => state.home);
-  console.log(productosState);
+  // console.log(productosState);
   useEffect(() => {
     dispatch(getProductos());
     // Cambiarle el background del botón del Aside

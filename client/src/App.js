@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Productos from "./components/secciones/Menu";
+import Menu from "./components/secciones/Menu";
 import NuevoProducto from "./components/formularios/NuevoProducto";
 import EditarProducto from "./components/formularios/EditarProducto";
 import ModalLogin from "./components/formularios/Login";
+import PedidosCliente from "./components/secciones/PedidosCliente";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ModalRegister from "./components/formularios/Register";
@@ -22,7 +23,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Productos />} />
+        <Route exact path="/" element={<Menu />} />
         {userActual &&
           (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
             <>
@@ -39,6 +40,7 @@ function App() {
           </>
         )}
         <Route path="/login" element={<ModalLogin />} />
+        <Route path="/pedidosCliente" element={<PedidosCliente />} />
       </Routes>
     </div>
   );

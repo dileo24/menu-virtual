@@ -68,7 +68,7 @@ export default function Carrito() {
     dispatch(eliminarItemCarrito(id));
   };
 
-  // Menús desplegables
+  // Mostrar u ocultar Menús desplegables
   const handleMostrarMenu = () => {
     setMostrarMenu(!MostrarMenu);
 
@@ -137,8 +137,37 @@ export default function Carrito() {
         alert("Debes seleccionar todos los items extra requeridos");
         return;
       }
-      console.log(input);
-      dispatch(createPedido(input));
+
+      // Obtener la lista de inputs previamente almacenados
+      let storedInputs = localStorage.getItem("inputs");
+      if (storedInputs) {
+        storedInputs = JSON.parse(storedInputs);
+      } else {
+        storedInputs = []; // Si no hay inputs previos, crear una lista vacía
+      }
+
+      // Obtener la última ID almacenada en el localStorage
+      const lastInputId = localStorage.getItem("lastInputId");
+      let newId;
+
+      if (lastInputId) {
+        newId = parseInt(lastInputId) + 1; // Incrementar la última ID en 1
+      } else {
+        newId = 1; // Establecer la primera ID si no hay ninguna almacenada
+      }
+
+      // Asignar el nuevo ID al objeto input
+      const newInput = { ...input, id: newId };
+
+      // Agregar el nuevo input a la lista de inputs almacenados
+      storedInputs.push(newInput);
+
+      // Guardar la lista actualizada de inputs en el localStorage
+      localStorage.setItem("inputs", JSON.stringify(storedInputs));
+      localStorage.setItem("lastInputId", newId);
+
+      console.log(newInput);
+      dispatch(createPedido(newInput));
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
