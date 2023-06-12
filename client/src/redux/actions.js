@@ -232,7 +232,18 @@ export const updatePedido = (id, data, token) => {
         Authorization: `Bearer ${token}`,
       },
     };
+
+    const storedInputs = JSON.parse(localStorage.getItem("inputs"));
+
+    const pedidoIndex = storedInputs.findIndex((p) => p.id === Number(id));
+    if (pedidoIndex === -1) {
+      return;
+    }
+    storedInputs[pedidoIndex].estadoID = data.estadoID;
+
+    localStorage.setItem("inputs", JSON.stringify(storedInputs));
     await axios.put(`/pedidos/${id}`, data, config);
+
     dispatch(getPedidos(token));
   };
 };

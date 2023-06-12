@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
+  getPedidos,
   getTipoPago,
   limpiarCarrito,
 } from "../../redux/actions";
@@ -9,6 +10,7 @@ import { createPedido } from "../../redux/actions";
 
 export default function VerMiPedido() {
   const carrito = useSelector((state) => state.carrito);
+  const pedidos = useSelector((state) => state.pedidos);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   let precioFinal = 0;
@@ -34,6 +36,7 @@ export default function VerMiPedido() {
   const formattedTime = `${formattedHours}:${
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
+  let id = pedidos.length + 1;
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -48,6 +51,7 @@ export default function VerMiPedido() {
   });
   useEffect(() => {
     dispatch(getTipoPago());
+    dispatch(getPedidos());
   }, [dispatch]);
 
   useEffect(() => {
@@ -146,8 +150,8 @@ export default function VerMiPedido() {
         storedInputs = []; // Si no hay inputs previos, crear una lista vacía
       }
 
-      // Asignar el nuevo ID al objeto input
-      const newInput = { ...input };
+      // Asignar el nuevo input al objeto inputs
+      const newInput = { ...input, id };
 
       // Agregar el nuevo input a la lista de inputs almacenados
       storedInputs.push(newInput);
@@ -155,7 +159,7 @@ export default function VerMiPedido() {
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
 
-      dispatch(createPedido(newInput));
+      dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
@@ -176,7 +180,6 @@ export default function VerMiPedido() {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
-
   return (
     <>
       {userActual ? null : (
