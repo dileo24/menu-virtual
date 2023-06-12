@@ -3,7 +3,7 @@ import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
 // import { getTipoPago } from "../../redux/actions";
 
-export default function Pedidos() {
+export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
@@ -26,8 +26,8 @@ export default function Pedidos() {
 
   useEffect(() => {
     // Cambiarle el background del botón del Aside
-    const pedidosCliente = document.querySelector(".pedidosCliente");
-    pedidosCliente.classList.add("bg-teal-700");
+    const historial = document.querySelector(".historial");
+    historial.classList.add("bg-teal-700");
 
     const savedInputs = localStorage.getItem("inputs");
     if (savedInputs) {
@@ -58,32 +58,34 @@ export default function Pedidos() {
                         <th className="text-center px-4 py-2">Estado</th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white rounded ">
-                      {inputData.map((input) => (
-                        <tr className=" border-b-2 not:last-child">
-                          <td className="text-left px-10 py-5">
-                            <p className="text-gray-700 mt-2">
-                              <b>{input.productos.join(", ")}</b>
-                            </p>
-                            <p className="text-gray-700 mt-2">
-                              <b>Fecha: </b>
-                              {input.creacionFecha} <b>Hora: </b>
-                              {input.creacionHora}
-                            </p>
-                          </td>
-                          <td className="text-center px-10 py-2">
-                            ${input.precio}
-                            <p className="text-gray-700 mt-2">
-                              Método de Pago:{" "}
-                              <b>{getTipoPagoNombre(input.tipoPagoID)}</b>
-                            </p>
-                          </td>
-                          <td className="text-center px-10 py-2">
-                            {/* estado del pedido */}
-                            Entregado
-                          </td>
-                        </tr>
-                      ))}
+                    <tbody className="bg-white rounded">
+                      {inputData
+                        .map((input, index) => (
+                          <tr className="border-b-2 not:last-child" key={index}>
+                            <td className="text-left px-10 py-5">
+                              <p className="text-gray-700 mt-2">
+                                <b>{input.productos.join(", ")}</b>
+                              </p>
+                              <p className="text-gray-700 mt-2">
+                                <b>Fecha: </b>
+                                {input.creacionFecha} <b>Hora: </b>
+                                {input.creacionHora}
+                              </p>
+                            </td>
+                            <td className="text-center px-10 py-2">
+                              ${input.precio}
+                              <p className="text-gray-700 mt-2">
+                                Método de Pago:{" "}
+                                <b>{getTipoPagoNombre(input.tipoPagoID)}</b>
+                              </p>
+                            </td>
+                            <td className="text-center px-10 py-2">
+                              {/* estado del pedido */}
+                              Entregado
+                            </td>
+                          </tr>
+                        ))
+                        .reverse()}
                     </tbody>
                   </table>
                 </div>

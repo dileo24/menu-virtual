@@ -7,7 +7,7 @@ import {
 } from "../../redux/actions";
 import { createPedido } from "../../redux/actions";
 
-export default function Carrito() {
+export default function VerMiPedido() {
   const carrito = useSelector((state) => state.carrito);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
@@ -165,6 +165,12 @@ export default function Carrito() {
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
       localStorage.setItem("lastInputId", newId);
+
+      // Guardar el objeto input actual en lastInput
+      const lastInput = { ...input };
+
+      // Guardar el objeto lastInput en el localStorage
+      localStorage.setItem("lastInput", JSON.stringify(lastInput));
 
       console.log(newInput);
       dispatch(createPedido(newInput));

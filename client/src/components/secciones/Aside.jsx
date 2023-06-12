@@ -76,10 +76,16 @@ export default function Aside() {
         {!userActual ? (
           <>
             <Link
-              to="/pedidosCliente"
-              className="pedidosCliente px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+              to="/carrito"
+              className="carrito px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
             >
-              Mis pedidos
+              Carrito
+            </Link>
+            <Link
+              to="/historial"
+              className="historial px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Historial de Pedidos
             </Link>
             <Link
               to="/login"

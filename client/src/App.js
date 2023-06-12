@@ -3,13 +3,14 @@ import Menu from "./components/secciones/Menu";
 import NuevoProducto from "./components/formularios/NuevoProducto";
 import EditarProducto from "./components/formularios/EditarProducto";
 import ModalLogin from "./components/formularios/Login";
-import PedidosCliente from "./components/secciones/PedidosCliente";
+import Historial from "./components/secciones/Historial";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ModalRegister from "./components/formularios/Register";
 import Usuarios from "./components/secciones/Usuarios";
 import Pedidos from "./components/secciones/Pedidos";
 import Estadisticas from "./components/secciones/Estadisticas";
+import Carrito from "./components/secciones/Carrito";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -40,7 +41,8 @@ function App() {
           </>
         )}
         <Route path="/login" element={<ModalLogin />} />
-        <Route path="/pedidosCliente" element={<PedidosCliente />} />
+        <Route path="/historial" element={<Historial />} />
+        <Route path="/carrito" element={<Carrito />} />
       </Routes>
     </div>
   );
