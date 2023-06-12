@@ -81,7 +81,7 @@ export default function Historial() {
                             </td>
                             <td className="text-center px-10 py-2">
                               {/* estado del pedido */}
-                              Entregado
+                              Pagado
                             </td>
                           </tr>
                         ))
