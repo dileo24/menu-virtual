@@ -235,7 +235,9 @@ export const updatePedido = (id, data, token) => {
 
     const storedInputs = JSON.parse(localStorage.getItem("inputs"));
 
-    const pedidoIndex = storedInputs.findIndex((p) => p.id === Number(id));
+    let pedidoIndex;
+
+    storedInputs && (pedidoIndex = storedInputs.findIndex((p) => p.id === Number(id)));
     if (pedidoIndex === -1) {
       return;
     }
