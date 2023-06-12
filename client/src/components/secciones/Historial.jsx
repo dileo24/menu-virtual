@@ -1,48 +1,60 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
-import { getEstados } from "../../redux/actions";
-// import { getTipoPago } from "../../redux/actions";
+import { getEstados, getTipoPago } from "../../redux/actions";
 
 export default function Historial() {
+  const savedInputs = localStorage.getItem("inputs");
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const estados = useSelector((state) => state.estados);
+  const tipoPagos = useSelector((state) => state.tipoPagos);
   const dispatch = useDispatch();
-  let estadoActual =
-    inputData.length > 0
-      ? estados.find((e) => toString(e.id) === toString(inputData[0].estadoID))
-      : null;
-  const getTipoPagoNombre = (tipoPagoID) => {
-    switch (tipoPagoID) {
-      case "1":
-        return "Efectivo";
-      case "2":
-        return "Transferencia";
-      case "3":
-        return "Tarjeta";
-      case "4":
-        return "MercadoPago";
-      case "5":
-        return "Otro";
-      default:
-        return "";
-    }
+
+  const handlePago = (tipoPagoID) => {
+    let pagoActual = tipoPagos.find(
+      (pago) => Number(pago.id) === Number(tipoPagoID)
+    );
+    return pagoActual && pagoActual.tipo;
+  };
+
+  const handleEstado = (estadoID) => {
+    let estadoActual = estados.find(
+      (estado) => Number(estado.id) === Number(estadoID)
+    );
+    return estadoActual && estadoActual.tipo;
   };
 
   useEffect(() => {
     dispatch(getEstados());
+    dispatch(getTipoPago());
     // Cambiarle el background del botón del Aside
     const historial = document.querySelector(".historial");
     historial.classList.add("bg-teal-700");
 
-    const savedInputs = localStorage.getItem("inputs");
     if (savedInputs) {
       setInputData(JSON.parse(savedInputs));
     }
 
-    // dispatch(getTipoPago());
-  }, [dispatch]);
+    const handleStorageChange = () => {
+      const savedInputs = localStorage.getItem("inputs");
+      if (savedInputs) {
+        setInputData(JSON.parse(savedInputs));
+      }
+    };
+
+    // Llamar a la función de manejo del evento de cambio al cargar la página
+    handleStorageChange();
+
+    // Agregar el listener del evento de cambio en el localStorage usando useEffect
+    window.addEventListener("storage", handleStorageChange);
+
+    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [dispatch, savedInputs]);
+
   return (
     pedidos && (
       <div id="productos" className="min-h-100 bg-gray-200">
@@ -82,11 +94,11 @@ export default function Historial() {
                               ${input.precio}
                               <p className="text-gray-700 mt-2">
                                 Método de Pago:{" "}
-                                <b>{getTipoPagoNombre(input.tipoPagoID)}</b>
+                                <b>{handlePago(input.tipoPagoID)}</b>
                               </p>
                             </td>
                             <td className="text-center px-10 py-2">
-                              {estadoActual && estadoActual.tipo}
+                              {handleEstado(input.estadoID)}
                             </td>
                           </tr>
                         ))

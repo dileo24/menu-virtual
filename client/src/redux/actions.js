@@ -239,7 +239,8 @@ export const updatePedido = (id, data, token) => {
     if (pedidoIndex === -1) {
       return;
     }
-    storedInputs[pedidoIndex].estadoID = data.estadoID;
+    data.estadoID && (storedInputs[pedidoIndex].estadoID = data.estadoID);
+    data.tipoPagoID && (storedInputs[pedidoIndex].tipoPagoID = data.tipoPagoID);
 
     localStorage.setItem("inputs", JSON.stringify(storedInputs));
     await axios.put(`/pedidos/${id}`, data, config);

@@ -23,6 +23,20 @@ export default function Pedidos() {
     // Cambiarle el background del botón del Aside
     const pedidos = document.querySelector(".pedidos");
     pedidos.classList.add("bg-teal-700");
+
+    // Actualizar en tiempo real el servidor (sin necesidad de recargar la página)
+    const pollServer = async () => {
+      while (true) {
+        // Realizar la petición al servidor para obtener los pedidos actualizados
+        await dispatch(getPedidos(token));
+        // Esperar un tiempo antes de hacer la siguiente petición (por ejemplo, cada 5 segundos)
+        await new Promise((resolve) => setTimeout(resolve, 5000));
+      }
+    };
+    pollServer();
+    return () => {
+      // Código para detener el polling si es necesario
+    };
   }, [dispatch, token]);
 
   const handleSelectChange = (e, id, atributo) => {

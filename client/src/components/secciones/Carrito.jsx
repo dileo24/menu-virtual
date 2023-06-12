@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getEstados, getTipoPago } from "../../redux/actions";
 
 export default function Carrito() {
-  const savedInputs = localStorage.getItem("inputs");
-  const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
+  const pedidos = useSelector((state) => state.pedidos);
   const estados = useSelector((state) => state.estados);
   const tipoPagos = useSelector((state) => state.tipoPagos);
   const dispatch = useDispatch();
@@ -28,14 +27,27 @@ export default function Carrito() {
   useEffect(() => {
     dispatch(getEstados());
     dispatch(getTipoPago());
-    // Cambiarle el background del botón del Aside
     const carrito = document.querySelector(".carrito");
     carrito.classList.add("bg-teal-700");
 
-    if (savedInputs) {
-      setInputData(JSON.parse(savedInputs));
-    }
-  }, [dispatch, savedInputs]);
+    const handleStorageChange = () => {
+      const savedInputs = localStorage.getItem("inputs");
+      if (savedInputs) {
+        setInputData(JSON.parse(savedInputs));
+      }
+    };
+
+    // Llamar a la función de manejo del evento de cambio al cargar la página
+    handleStorageChange();
+
+    // Agregar el listener del evento de cambio en el localStorage usando useEffect
+    window.addEventListener("storage", handleStorageChange);
+
+    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [dispatch]);
 
   return (
     pedidos && (
@@ -60,6 +72,10 @@ export default function Carrito() {
                     </thead>
                     <tbody className="bg-white rounded">
                       {inputData
+                        .filter(
+                          (input) =>
+                            input.estadoID !== "4" && input.estadoID !== "5"
+                        )
                         .map((input, index) => (
                           <tr className="border-b-2 not:last-child" key={index}>
                             <td className="text-left px-10 py-5">
