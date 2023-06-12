@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
+  getPedidos,
   getTipoPago,
   limpiarCarrito,
 } from "../../redux/actions";
 import { createPedido } from "../../redux/actions";
 
-export default function Carrito() {
+export default function VerMiPedido() {
   const carrito = useSelector((state) => state.carrito);
+  const pedidos = useSelector((state) => state.pedidos);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   let precioFinal = 0;
@@ -34,6 +36,7 @@ export default function Carrito() {
   const formattedTime = `${formattedHours}:${
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
+  let id = pedidos.length + 1;
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -48,6 +51,7 @@ export default function Carrito() {
   });
   useEffect(() => {
     dispatch(getTipoPago());
+    dispatch(getPedidos());
   }, [dispatch]);
 
   useEffect(() => {
@@ -68,7 +72,7 @@ export default function Carrito() {
     dispatch(eliminarItemCarrito(id));
   };
 
-  // Menús desplegables
+  // Mostrar u ocultar Menús desplegables
   const handleMostrarMenu = () => {
     setMostrarMenu(!MostrarMenu);
 
@@ -137,7 +141,24 @@ export default function Carrito() {
         alert("Debes seleccionar todos los items extra requeridos");
         return;
       }
-      console.log(input);
+
+      // Obtener la lista de inputs previamente almacenados
+      let storedInputs = localStorage.getItem("inputs");
+      if (storedInputs) {
+        storedInputs = JSON.parse(storedInputs);
+      } else {
+        storedInputs = []; // Si no hay inputs previos, crear una lista vacía
+      }
+
+      // Asignar el nuevo input al objeto inputs
+      const newInput = { ...input, id };
+
+      // Agregar el nuevo input a la lista de inputs almacenados
+      storedInputs.push(newInput);
+
+      // Guardar la lista actualizada de inputs en el localStorage
+      localStorage.setItem("inputs", JSON.stringify(storedInputs));
+
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -159,7 +180,6 @@ export default function Carrito() {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
-
   return (
     <>
       {userActual ? null : (

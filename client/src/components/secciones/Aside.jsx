@@ -11,7 +11,6 @@ export default function Aside() {
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
     if (res === true) {
-      /*  localStorage.clear(); */
       dispatch(cleanUserActual(userActual.data.id));
     }
     navigate("/");
@@ -27,7 +26,6 @@ export default function Aside() {
           Bienvenido {userActual.data.nombre}
         </h1>
       )}
-      {/* <p className="mt-10 text-white">Administra tus productos</p> */}
       <nav className="mt-8">
         <Link
           to="/"
@@ -76,12 +74,26 @@ export default function Aside() {
           </>
         )}
         {!userActual ? (
-          <Link
-            to="/login"
-            className="iniciarSesion px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
-          >
-            Iniciar Sesión
-          </Link>
+          <>
+            <Link
+              to="/carrito"
+              className="carrito px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Carrito
+            </Link>
+            <Link
+              to="/historial"
+              className="historial px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Historial de Pedidos
+            </Link>
+            <Link
+              to="/login"
+              className="iniciarSesion px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400"
+            >
+              Iniciar Sesión
+            </Link>
+          </>
         ) : (
           <button
             onClick={cerrarSesion}
