@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
+import { getEstados } from "../../redux/actions";
 // import { getTipoPago } from "../../redux/actions";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
+  const estados = useSelector((state) => state.estados);
   const dispatch = useDispatch();
+  let estadoActual =
+    inputData.length > 0
+      ? estados.find((e) => toString(e.id) === toString(inputData[0].estadoID))
+      : null;
   const getTipoPagoNombre = (tipoPagoID) => {
     switch (tipoPagoID) {
       case "1":
@@ -25,6 +31,7 @@ export default function Historial() {
   };
 
   useEffect(() => {
+    dispatch(getEstados());
     // Cambiarle el background del botón del Aside
     const historial = document.querySelector(".historial");
     historial.classList.add("bg-teal-700");
@@ -36,7 +43,6 @@ export default function Historial() {
 
     // dispatch(getTipoPago());
   }, [dispatch]);
-
   return (
     pedidos && (
       <div id="productos" className="min-h-100 bg-gray-200">
@@ -80,8 +86,7 @@ export default function Historial() {
                               </p>
                             </td>
                             <td className="text-center px-10 py-2">
-                              {/* estado del pedido */}
-                              Pagado
+                              {estadoActual && estadoActual.tipo}
                             </td>
                           </tr>
                         ))

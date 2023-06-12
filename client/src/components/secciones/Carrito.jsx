@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Aside from "./Aside";
 import { useDispatch, useSelector } from "react-redux";
+import { getEstados } from "../../redux/actions";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
+  const estados = useSelector((state) => state.estados);
   const [inputData, setInputData] = useState([]);
   const lastInput = JSON.parse(localStorage.getItem("lastInput")); // Obtener el último input del localStorage
   const dispatch = useDispatch();
-
+  let estadoActual = estados.find(
+    (e) => toString(e.id) === toString(lastInput.estadoID)
+  );
   const getTipoPagoNombre = (tipoPagoID) => {
     switch (tipoPagoID) {
       case "1":
@@ -26,6 +30,7 @@ export default function Historial() {
   };
 
   useEffect(() => {
+    dispatch(getEstados());
     const carrito = document.querySelector(".carrito");
     carrito.classList.add("bg-teal-700");
 
@@ -75,7 +80,9 @@ export default function Historial() {
                               <b>{getTipoPagoNombre(lastInput.tipoPagoID)}</b>
                             </p>
                           </td>
-                          <td className="px-4 py-2">{lastInput.estadoID}</td>
+                          <td className="px-4 py-2">
+                            {estadoActual && estadoActual.tipo}
+                          </td>
                         </tr>
                       )}
                     </tbody>
