@@ -146,33 +146,15 @@ export default function VerMiPedido() {
         storedInputs = []; // Si no hay inputs previos, crear una lista vacía
       }
 
-      // Obtener la última ID almacenada en el localStorage
-      const lastInputId = localStorage.getItem("lastInputId");
-      let newId;
-
-      if (lastInputId) {
-        newId = parseInt(lastInputId) + 1; // Incrementar la última ID en 1
-      } else {
-        newId = 1; // Establecer la primera ID si no hay ninguna almacenada
-      }
-
       // Asignar el nuevo ID al objeto input
-      const newInput = { ...input, id: newId };
+      const newInput = { ...input };
 
       // Agregar el nuevo input a la lista de inputs almacenados
       storedInputs.push(newInput);
 
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
-      localStorage.setItem("lastInputId", newId);
 
-      // Guardar el objeto input actual en lastInput
-      const lastInput = { ...input };
-
-      // Guardar el objeto lastInput en el localStorage
-      localStorage.setItem("lastInput", JSON.stringify(lastInput));
-
-      console.log(newInput);
       dispatch(createPedido(newInput));
       dispatch(limpiarCarrito());
       setInput({
