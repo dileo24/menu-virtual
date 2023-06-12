@@ -50,7 +50,7 @@ export default function Historial() {
                   <table className="text-center shadow-b">
                     <thead className="bg-gray-300">
                       <tr>
-                        <th className="text-center px-4 py-2">Pedidos</th>
+                        <th className="text-center px-4 py-2">Pedido</th>
                         <th className="text-center px-4 py-2">Precio</th>
                         <th className="text-center px-4 py-2">Estado</th>
                       </tr>
