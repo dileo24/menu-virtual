@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Menu from "./components/secciones/Menu";
+import Carrusel from "./components/secciones/Carrusel";
 import NuevoProducto from "./components/formularios/NuevoProducto";
 import EditarProducto from "./components/formularios/EditarProducto";
 import ModalLogin from "./components/formularios/Login";
@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Menu />} />
+        <Route exact path="/" element={<Carrusel />} />
         {userActual &&
           (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
             <>

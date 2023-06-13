@@ -25,3 +25,11 @@ input[type="number"]::-moz-number-spin-box {
     height: 400px !important;
   }
 }
+
+// UI Settings
+@import "./base/settings";
+
+// Components
+@import "./components/header";
+@import "./components/carrusel";
+@import "./components/menu";

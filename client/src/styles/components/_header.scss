@@ -1,0 +1,29 @@
+.containerHeader {
+  header {
+    border-bottom: 1px solid gray;
+    // height: 10vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    h1 {
+      padding: 5% 0 2.5% 0;
+      font-size: 6vw;
+      color: orange;
+      font-weight: 800;
+    }
+    nav {
+      padding: 2.5% 0 5% 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  .categorias {
+    background-color: white;
+    border-bottom: 1px solid gray;
+    width: 100vw;
+    height: 10vw;
+  }
+}
