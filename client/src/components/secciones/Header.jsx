@@ -17,13 +17,10 @@ export default function Header() {
   };
 
   return (
-    <div className="containerHeader">
-      <header>
-        <h1>QuickBites</h1>
-        {userActual?.data?.nombre && (
-          <h1 className="">Bienvenido {userActual.data.nombre}</h1>
-        )}
-        <nav>
+    <header className="containerHeader">
+      <h1>QuickBites</h1>
+      <div className="subHeader">
+        <nav className="nav">
           <Link to="/" className="menu">
             Menú
           </Link>
@@ -70,8 +67,13 @@ export default function Header() {
             </button>
           )}
         </nav>
-      </header>
-      <div className="categorias"></div>
-    </div>
+        <div className="categorias">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat in
+          officiis accusamus incidunt quisquam aliquid adipisci voluptates ipsa
+          hic. Vel sed illum amet voluptates tempore voluptatum mollitia
+          reiciendis hic atque.
+        </div>
+      </div>
+    </header>
   );
 }

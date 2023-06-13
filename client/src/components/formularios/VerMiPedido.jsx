@@ -184,7 +184,7 @@ export default function VerMiPedido() {
     <>
       {userActual ? null : (
         <>
-          <div className=" fixed w-full bottom-0 md:w-4/5 xl:w-4/5 bg-gray-300 shadow flex justify-center items-center">
+          <div className="footer fixed bottom-0 bg-gray-300 shadow flex justify-center items-center">
             <button
               className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
               onClick={handleMostrarMenu}

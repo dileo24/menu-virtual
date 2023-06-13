@@ -21,9 +21,42 @@ export default function Carrusel() {
   };
 
   // Actualizar la posición del Header al desplazarse verticalmente
+  const [prevScrollPosition, setPrevScrollPosition] = useState(0);
+
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     setHeaderPosition(scrollPosition);
+
+    if (scrollPosition >= 120) {
+      const subHeader = document.querySelector(".subHeader");
+      subHeader.classList.add("absolute", "top-0");
+      const nav = document.querySelector(".nav");
+      const categorias = document.querySelector(".categorias");
+      const header = document.querySelector(".containerHeader");
+      header.classList.add("mb-20");
+      if (scrollPosition > prevScrollPosition) {
+        if (!document.querySelector(".invisible")) {
+          nav.classList.add("invisible");
+          categorias.classList.add("absolute", "top-0");
+          categorias.style.left = "-15%";
+        }
+      } else {
+        if (document.querySelector(".invisible")) {
+          nav.classList.remove("invisible");
+          categorias.classList.remove("absolute", "top-0");
+          categorias.style.left = ""; // Restablecer el valor por defecto
+        }
+      }
+    } else {
+      if (scrollPosition <= 68 && !document.querySelector(".invisible")) {
+        const subHeader = document.querySelector(".subHeader");
+        subHeader.classList.remove("absolute", "top-0");
+        const header = document.querySelector(".containerHeader");
+
+        header.classList.remove("mb-20");
+      }
+    }
+    setPrevScrollPosition(scrollPosition);
   };
 
   const sliderSettings = {
@@ -41,8 +74,12 @@ export default function Carrusel() {
         onTouchMove={handleTouchScroll}
       >
         <Header style={{ top: `${headerPosition}px` }} />
+
         <Slider ref={sliderRef} {...sliderSettings}>
           <div>
+            <Menu />
+            <Menu />
+            <Menu />
             <Menu />
           </div>
           <div>

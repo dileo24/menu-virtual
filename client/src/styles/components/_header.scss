@@ -1,31 +1,61 @@
-.containerHeader {
-  header {
-    border-bottom: 1px solid gray;
-    // height: 10vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: static !important;
+header {
+  border-bottom: 1px solid gray;
+  // height: 10vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: static !important;
 
-    h1 {
-      padding: 5% 0 2.5% 0;
-      font-size: 6vw;
-      color: orange;
-      font-weight: 800;
-    }
+  h1 {
+    padding: 5% 0 2.5% 0;
+    font-size: 6vw;
+    color: orange;
+    font-weight: 800;
+  }
+  .subHeader {
+    border-top: 1px solid gray;
+    z-index: 999;
+
     nav {
-      padding: 2.5% 0 5% 0;
+      background-color: white;
+      height: 6vh;
       width: 100%;
       display: flex;
       justify-content: space-around;
+      align-items: center;
     }
-  }
-  .categorias {
-    background-color: white;
-    border-bottom: 1px solid gray;
-    width: 100vw;
-    height: 10vw;
+    .categorias {
+      background-color: white;
+      border-bottom: 1px solid gray;
+      width: 100vw;
+      height: 10vw;
+      overflow-x: auto;
+      white-space: nowrap;
+
+      /* Estilos para navegadores basados en WebKit */
+      &::-webkit-scrollbar {
+        width: 0; /* Oculta la barra de desplazamiento */
+        background-color: transparent;
+      }
+
+      /* Estilos para navegadores basados en WebKit */
+      &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+      }
+
+      /* Estilos para navegadores basados en WebKit */
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      /* Estilos para navegadores que no son basados en WebKit */
+      scrollbar-width: none; /* Oculta la barra de desplazamiento */
+
+      &::-ms-scrollbar {
+        display: none; /* Oculta la barra de desplazamiento en navegadores de Microsoft */
+      }
+    }
   }
 }
