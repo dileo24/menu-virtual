@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Aside from "./Aside";
+import Header from "./Header";
 import Filtros from "../recursos/Filtros";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -16,7 +16,7 @@ export default function Menu() {
   // console.log(productosState);
   useEffect(() => {
     dispatch(getProductos());
-    // Cambiarle el background del botón del Aside
+    // Cambiarle el background del botón del Header
     const menu = document.querySelector(".menu");
     menu.classList.add("bg-teal-700");
   }, [dispatch]);

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
 import Menu from "./Menu";
 import VerMiPedido from "../formularios/VerMiPedido";
@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 export default function Carrusel() {
   const sliderRef = useRef(null);
+  const [headerPosition, setHeaderPosition] = useState(0);
 
   // Función para manejar el desplazamiento táctil vertical
   const handleTouchScroll = (e) => {
@@ -16,6 +17,13 @@ export default function Carrusel() {
       e.nativeEvent.changedTouches[0].clientY;
     const sliderEl = sliderRef.current.innerSlider.list;
     sliderEl.scrollTop += deltaY;
+    setHeaderPosition(sliderEl.scrollTop);
+  };
+
+  // Actualizar la posición del Header al desplazarse verticalmente
+  const handleContainerScroll = (e) => {
+    const scrollPosition = e.target.scrollTop;
+    setHeaderPosition(scrollPosition);
   };
 
   const sliderSettings = {
@@ -27,8 +35,12 @@ export default function Carrusel() {
 
   return (
     <div>
-      <Header />
-      <div className="carrusel-wrapper" onTouchMove={handleTouchScroll}>
+      <div
+        className="carrusel-wrapper"
+        onScroll={handleContainerScroll}
+        onTouchMove={handleTouchScroll}
+      >
+        <Header style={{ top: `${headerPosition}px` }} />
         <Slider ref={sliderRef} {...sliderSettings}>
           <div>
             <Menu />

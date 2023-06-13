@@ -53,7 +53,7 @@ export default function NuevoProducto() {
   console.log("mostrarPersonaItem: " + mostrarPersonaItem);
   console.log("listado: " + listado);
   useEffect(() => {
-    // Cambiarle el background del botón del Aside
+    // Cambiarle el background del botón del Header
     const nuevoProducto = document.querySelector(".nuevoProducto");
     nuevoProducto.classList.add("bg-teal-700");
   }, []);

@@ -7,6 +7,8 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: static !important;
+
     h1 {
       padding: 5% 0 2.5% 0;
       font-size: 6vw;
