@@ -4,3 +4,12 @@
   -webkit-overflow-scrolling: touch;
   height: 100vh;
 }
+
+#nav,
+#categorias {
+  transition: visibility 0.3s ease, transform 0.3s ease;
+}
+
+.categorias-hidden {
+  transform: translateY(-100%);
+}

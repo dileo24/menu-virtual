@@ -1,124 +1,83 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Menu from "./Menu";
 import VerMiPedido from "../formularios/VerMiPedido";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Swipe from "react-swipe";
 
 export default function Carrusel() {
   const sliderRef = useRef(null);
   const [headerPosition, setHeaderPosition] = useState(0);
-
-  // Función para manejar el desplazamiento táctil vertical
-  // const handleTouchScroll = (e) => {
-  //   const touch = e.touches[0] || e.changedTouches[0];
-  //   const deltaY = touch.clientY - touch.pageY;
-  //   const sliderEl = sliderRef.current.innerSlider.list;
-  //   const currentScrollTop = sliderEl.scrollTop;
-  //   if (sliderEl.scrollTo) {
-  //     // Usar scrollTo si está disponible (navegadores modernos)
-  //     sliderEl.scrollTo({
-  //       top: currentScrollTop + deltaY,
-  //       behavior: "smooth", // Opcional: para un desplazamiento suave
-  //     });
-  //   } else {
-  //     // Fallback para navegadores antiguos
-  //     sliderEl.scrollTop = currentScrollTop + deltaY;
-  //   }
-  //   setHeaderPosition(sliderEl.scrollTop);
-  // };
-
-  // Actualizar la posición del Header al desplazarse verticalmente
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
+
+  useEffect(() => {
+    const handleTouchStart = () => {
+      // Handle touch start event
+    };
+
+    const handleTouchMove = () => {
+      // Handle touch move event
+    };
+
+    const handleTouchEnd = () => {
+      // Handle touch end event
+    };
+
+    const swipeEl = sliderRef.current;
+
+    swipeEl.onSwipeStart = handleTouchStart;
+    swipeEl.onSwipeMove = handleTouchMove;
+    swipeEl.onSwipeEnd = handleTouchEnd;
+
+    return () => {
+      swipeEl.onSwipeStart = null;
+      swipeEl.onSwipeMove = null;
+      swipeEl.onSwipeEnd = null;
+    };
+  }, []);
 
   // const handleContainerScroll = (e) => {
   //   const scrollPosition = e.target.scrollTop;
   //   setHeaderPosition(scrollPosition);
-  //   const subHeader = document.querySelector(".subHeader");
-  //   const nav = document.querySelector(".nav");
-  //   const categorias = document.querySelector(".categorias");
-  //   const header = document.querySelector(".containerHeader");
+  //   const header = document.getElementById("containerHeader");
+  //   const subHeader = document.getElementById("subHeader");
+  //   const nav = document.getElementById("nav");
+  //   const categorias = document.getElementById("categorias");
 
-  //   if (scrollPosition >= 120) {
-  //     subHeader.classList.add("subHeaderAbsolute");
-  //     header.classList.add("headerMargin");
-
+  //   if (scrollPosition >= 68) {
+  //     header.style.marginBottom = "12vh";
+  //     subHeader.style.position = "absolute";
+  //     subHeader.style.top = "0";
   //     if (scrollPosition > prevScrollPosition) {
-  //       if (!document.querySelector(".invisible")) {
-  //         nav.classList.add("invisible");
-  //         categorias.classList.add("categoriasRelative");
+  //       if (!nav.classList.contains("categorias-hidden")) {
+  //         nav.classList.add("categorias-hidden");
+  //         categorias.classList.add("categorias-hidden");
   //       }
   //     } else {
-  //       if (document.querySelector(".invisible")) {
-  //         nav.classList.remove("invisible");
-  //         categorias.classList.remove("categoriasRelative");
+  //       if (nav.classList.contains("categorias-hidden")) {
+  //         nav.classList.remove("categorias-hidden");
+  //         categorias.classList.remove("categorias-hidden");
   //       }
   //     }
   //   } else {
-  //     if (scrollPosition <= 68) {
-  //       nav.classList.remove("invisible");
-  //       categorias.classList.remove("categoriasRelative");
-  //       subHeader.classList.remove("subHeaderAbsolute");
-  //       header.classList.remove("headerMargin");
-  //     }
+  //     header.style.marginBottom = "";
+  //     subHeader.style.position = "static";
+  //     subHeader.style.top = "";
+  //     nav.classList.remove("categorias-hidden");
+  //     categorias.classList.remove("categorias-hidden");
   //   }
   //   setPrevScrollPosition(scrollPosition);
   // };
 
-  const handleContainerScroll = (e) => {
-    const scrollPosition = e.target.scrollTop;
-    setHeaderPosition(scrollPosition);
-    const header = document.getElementById("containerHeader");
-    const subHeader = document.getElementById("subHeader");
-    const nav = document.getElementById("nav");
-    const categorias = document.getElementById("categorias");
-
-    if (scrollPosition >= 120) {
-      header.style.marginBottom = "12vh";
-      subHeader.style.position = "absolute";
-      subHeader.style.top = "0";
-
-      if (scrollPosition > prevScrollPosition) {
-        if (nav.style.visibility !== "hidden") {
-          nav.style.visibility = "hidden";
-          categorias.style.position = "relative";
-          categorias.style.top = "-6vh";
-        }
-      } else {
-        if (nav.style.visibility === "hidden") {
-          nav.style.visibility = "visible";
-          categorias.style.position = "static";
-          categorias.style.top = "";
-        }
-      }
-    } else {
-      if (scrollPosition <= 68) {
-        header.style.marginBottom = "";
-        subHeader.style.position = "static";
-        subHeader.style.top = "";
-        nav.style.visibility = "visible";
-        categorias.style.position = "static";
-        categorias.style.top = "";
-      }
-    }
-    setPrevScrollPosition(scrollPosition);
-  };
-
   const sliderSettings = {
-    infinite: false,
+    continuous: false,
   };
 
   return (
     <div>
-      <div
-        className="carrusel-wrapper"
-        onScroll={handleContainerScroll}
-        // onTouchMove={handleTouchScroll}
-      >
+      <div className="carrusel-wrapper" /* onScroll={handleContainerScroll} */>
         <Header />
 
-        <Slider ref={sliderRef} {...sliderSettings}>
+        <Swipe ref={sliderRef} {...sliderSettings}>
           <div>
             <Menu />
           </div>
@@ -140,7 +99,7 @@ export default function Carrusel() {
           <div>
             <Menu />
           </div>
-        </Slider>
+        </Swipe>
       </div>
       <VerMiPedido />
     </div>
