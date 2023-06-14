@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getUsuarios, register } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Aside from "../secciones/Aside";
+import Header from "../secciones/Header";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../../helpers";
 
@@ -62,7 +62,7 @@ export default function ModalRegister({ onClose }) {
   };
 
   useEffect(() => {
-    // Cambiarle el background del botón del Aside
+    // Cambiarle el background del botón del Header
     const registrar = document.querySelector(".registrar");
     registrar.classList.add("bg-teal-700");
     dispatch(getUsuarios());
@@ -84,7 +84,7 @@ export default function ModalRegister({ onClose }) {
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
-        <Aside />
+        <Header />
         <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="-mt-16 text-3xl font-light text-center">
             Crear cuenta para empleado

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Aside from "./Aside";
+import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getEstados, getTipoPago } from "../../redux/actions";
 
@@ -53,7 +53,7 @@ export default function Carrito() {
     pedidos && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <div className="md:flex min-h-screen md:align-top">
-          <Aside />
+          <Header />
           <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
             <h2 className="text-3xl font-light text-center">
               Mis pedidos realizados

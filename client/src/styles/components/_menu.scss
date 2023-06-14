@@ -1,0 +1,35 @@
+.menuContainer {
+  padding: 15% 5%;
+
+  .cardsVisibles,
+  .cardsNoVisibles {
+    .cardProducto,
+    .cardItem,
+    .cardItemNoVisible {
+      //background-color: gray;
+      margin-bottom: 5%;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      padding: 5%;
+      .nombre {
+        font-weight: 700;
+        font-size: 5vw;
+      }
+      .descripcion {
+      }
+      .PrecioAcciones {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10%;
+        .precio {
+          font-weight: 700;
+          font-size: 5vw;
+        }
+      }
+    }
+  }
+}

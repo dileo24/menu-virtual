@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserActual, getUsuarios } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
-import Aside from "../secciones/Aside";
+import Header from "../secciones/Header";
 import { mostrarAlerta } from "../../helpers";
 
 export default function ModalLogin({ onClose }) {
@@ -14,7 +14,7 @@ export default function ModalLogin({ onClose }) {
 
   useEffect(() => {
     dispatch(getUsuarios());
-    // Cambiarle el background del botón del Aside
+    // Cambiarle el background del botón del Header
     const iniciarSesion = document.querySelector(".iniciarSesion");
     iniciarSesion.classList.add("bg-teal-700");
   }, [dispatch]);
@@ -53,7 +53,7 @@ export default function ModalLogin({ onClose }) {
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
-        <Aside />
+        <Header />
         <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="-mt-16 text-3xl font-light text-center">
             Iniciar Sesión

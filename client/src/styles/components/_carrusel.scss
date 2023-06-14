@@ -1,0 +1,6 @@
+.carrusel-wrapper {
+  overflow-y: auto;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  height: 100vh;
+}

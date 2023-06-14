@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Menu from "./components/secciones/Menu";
+import Carrusel from "./components/secciones/Carrusel";
 import NuevoProducto from "./components/formularios/NuevoProducto";
 import EditarProducto from "./components/formularios/EditarProducto";
 import ModalLogin from "./components/formularios/Login";
@@ -13,10 +13,10 @@ import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
 
 // Local
-// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
-axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
+// axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
 
 function App() {
   const userActual = useSelector((state) => state.userActual);
@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<Menu />} />
+        <Route exact path="/" element={<Carrusel />} />
         {userActual &&
           (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
             <>

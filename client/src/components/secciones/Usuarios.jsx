@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Aside from "./Aside";
+import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bloqueoUsuario,
@@ -16,7 +16,7 @@ export default function Usuarios() {
 
   useEffect(() => {
     dispatch(getUsuarios());
-    // Cambiarle el background del botón del Aside
+    // Cambiarle el background del botón del Header
     const administrar = document.querySelector(".administrar");
     administrar.classList.add("bg-teal-700");
   }, [dispatch]);
@@ -48,7 +48,7 @@ export default function Usuarios() {
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
-        <Aside />
+        <Header />
         <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5 xl:w-4/5">
           <div className="flex flex-col mt-10 items-center contenedor w-auto">
             <div className="modal-content -my-2 py-2 overflow-x-auto w-auto">
