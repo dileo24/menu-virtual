@@ -95,7 +95,7 @@ export default function Carrusel() {
     } else {
       if (scrollPosition <= 68) {
         header.style.marginBottom = "";
-        subHeader.style.position = "";
+        subHeader.style.position = "static";
         subHeader.style.top = "";
         nav.style.visibility = "visible";
         categorias.style.position = "static";
