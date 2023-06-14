@@ -58,10 +58,7 @@ export default function Carrusel() {
   };
 
   const sliderSettings = {
-    dots: false,
     infinite: false,
-    swipeToSlide: true, // Permite el cambio de pestaña horizontalmente con deslizamiento táctil
-    touchMove: true, // Habilita el desplazamiento táctil vertical
   };
 
   return (
