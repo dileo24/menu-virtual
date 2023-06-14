@@ -76,9 +76,6 @@ export default function Carrusel() {
         <Slider ref={sliderRef} {...sliderSettings}>
           <div>
             <Menu />
-            <Menu />
-            <Menu />
-            <Menu />
           </div>
           <div>
             <Menu />

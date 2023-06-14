@@ -1,5 +1,4 @@
 header {
-  border-bottom: 1px solid gray;
   // height: 10vh;
   width: 100vw;
   display: flex;
@@ -15,7 +14,7 @@ header {
     font-weight: 800;
   }
   .subHeader {
-    border-top: 1px solid gray;
+    // border-top: 1px solid gray;
     z-index: 999;
 
     nav {
@@ -30,34 +29,27 @@ header {
       display: flex;
       align-items: center;
       background-color: white;
-      border-bottom: 1px solid gray;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid rgba(0, 0, 0, 0.3);
       width: 100vw;
       // padding-top: 3%;
       height: 6vh;
       overflow-x: auto;
       white-space: nowrap;
-
-      /* Estilos para navegadores basados en WebKit */
+      /* Ocultar la barra de desplazamiento */
+      scrollbar-width: none;
       &::-webkit-scrollbar {
-        width: 0; /* Oculta la barra de desplazamiento */
+        width: 0;
         background-color: transparent;
       }
-
-      /* Estilos para navegadores basados en WebKit */
       &::-webkit-scrollbar-thumb {
         background-color: transparent;
       }
-
-      /* Estilos para navegadores basados en WebKit */
       &::-webkit-scrollbar-track {
         background-color: transparent;
       }
-
-      /* Estilos para navegadores que no son basados en WebKit */
-      scrollbar-width: none; /* Oculta la barra de desplazamiento */
-
       &::-ms-scrollbar {
-        display: none; /* Oculta la barra de desplazamiento en navegadores de Microsoft */
+        display: none;
       }
     }
   }
