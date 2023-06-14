@@ -69,9 +69,10 @@ export default function Header() {
         </nav>
         <div className="categorias">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat in
-          officiis accusamus incidunt quisquam aliquid adipisci voluptates ipsa
-          hic. Vel sed illum amet voluptates tempore voluptatum mollitia
-          reiciendis hic atque.
+          officiis accusamus incidunt quisquam aliquid adipisci voluptates Lorem
+          ipsum dolor sit amet, consectetur adipisicing elit. Veniam nemo rem
+          sunt culpa quae veritatis quos! Autem odio voluptatem, sint
+          consectetur impedit eligendi quasi rem fuga qui est cum nihil.
         </div>
       </div>
     </header>

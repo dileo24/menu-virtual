@@ -32,26 +32,26 @@ export default function Carrusel() {
     const header = document.querySelector(".containerHeader");
 
     if (scrollPosition >= 120) {
-      subHeader.classList.add("absolute", "top-0");
-      header.classList.add("mb-20");
+      subHeader.classList.add("subHeaderAbsolute");
+      header.classList.add("headerMargin");
 
       if (scrollPosition > prevScrollPosition) {
         if (!document.querySelector(".invisible")) {
           nav.classList.add("invisible");
-          categorias.style.position = "relative";
-          categorias.style.top = "-6vh";
+          categorias.classList.add("categoriasRelative");
         }
       } else {
         if (document.querySelector(".invisible")) {
           nav.classList.remove("invisible");
-          categorias.style.position = "";
-          categorias.style.top = "";
+          categorias.classList.remove("categoriasRelative");
         }
       }
     } else {
-      if (scrollPosition <= 68 && !document.querySelector(".invisible")) {
-        subHeader.classList.remove("absolute", "top-0");
-        header.classList.remove("mb-20");
+      if (scrollPosition <= 68) {
+        nav.classList.remove("invisible");
+        categorias.classList.remove("categoriasRelative");
+        subHeader.classList.remove("subHeaderAbsolute");
+        header.classList.remove("headerMargin");
       }
     }
     setPrevScrollPosition(scrollPosition);
@@ -71,7 +71,7 @@ export default function Carrusel() {
         onScroll={handleContainerScroll}
         onTouchMove={handleTouchScroll}
       >
-        <Header style={{ top: `${headerPosition}px` }} />
+        <Header />
 
         <Slider ref={sliderRef} {...sliderSettings}>
           <div>
