@@ -17,10 +17,10 @@ export default function Header() {
   };
 
   return (
-    <header className="containerHeader">
+    <header id="containerHeader" className="containerHeader">
       <h1>QuickBites</h1>
-      <div className="subHeader">
-        <nav className="nav">
+      <div id="subHeader" className="subHeader">
+        <nav id="nav" className="nav">
           <Link to="/" className="menu">
             Menú
           </Link>
@@ -67,7 +67,7 @@ export default function Header() {
             </button>
           )}
         </nav>
-        <div className="categorias">
+        <div id="categorias" className="categorias">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat in
           officiis accusamus incidunt quisquam aliquid adipisci voluptates Lorem
           ipsum dolor sit amet, consectetur adipisicing elit. Veniam nemo rem
