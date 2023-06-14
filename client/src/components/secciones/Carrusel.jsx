@@ -23,35 +23,74 @@ export default function Carrusel() {
   // Actualizar la posición del Header al desplazarse verticalmente
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
 
+  // const handleContainerScroll = (e) => {
+  //   const scrollPosition = e.target.scrollTop;
+  //   setHeaderPosition(scrollPosition);
+  //   const subHeader = document.querySelector(".subHeader");
+  //   const nav = document.querySelector(".nav");
+  //   const categorias = document.querySelector(".categorias");
+  //   const header = document.querySelector(".containerHeader");
+
+  //   if (scrollPosition >= 120) {
+  //     subHeader.classList.add("subHeaderAbsolute");
+  //     header.classList.add("headerMargin");
+
+  //     if (scrollPosition > prevScrollPosition) {
+  //       if (!document.querySelector(".invisible")) {
+  //         nav.classList.add("invisible");
+  //         categorias.classList.add("categoriasRelative");
+  //       }
+  //     } else {
+  //       if (document.querySelector(".invisible")) {
+  //         nav.classList.remove("invisible");
+  //         categorias.classList.remove("categoriasRelative");
+  //       }
+  //     }
+  //   } else {
+  //     if (scrollPosition <= 68) {
+  //       nav.classList.remove("invisible");
+  //       categorias.classList.remove("categoriasRelative");
+  //       subHeader.classList.remove("subHeaderAbsolute");
+  //       header.classList.remove("headerMargin");
+  //     }
+  //   }
+  //   setPrevScrollPosition(scrollPosition);
+  // };
+
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     setHeaderPosition(scrollPosition);
-    const subHeader = document.querySelector(".subHeader");
-    const nav = document.querySelector(".nav");
-    const categorias = document.querySelector(".categorias");
-    const header = document.querySelector(".containerHeader");
+    const header = document.getElementById("containerHeader");
+    const subHeader = document.getElementById("subHeader");
+    const nav = document.getElementById("nav");
+    const categorias = document.getElementById("categorias");
 
     if (scrollPosition >= 120) {
-      subHeader.classList.add("subHeaderAbsolute");
-      header.classList.add("headerMargin");
+      header.style.marginBottom = "12vh";
+      subHeader.style.position = "absolute";
+      subHeader.style.top = "0";
 
       if (scrollPosition > prevScrollPosition) {
-        if (!document.querySelector(".invisible")) {
-          nav.classList.add("invisible");
-          categorias.classList.add("categoriasRelative");
+        if (nav.style.visibility !== "hidden") {
+          nav.style.visibility = "hidden";
+          categorias.style.position = "relative";
+          categorias.style.top = "-6vh";
         }
       } else {
-        if (document.querySelector(".invisible")) {
-          nav.classList.remove("invisible");
-          categorias.classList.remove("categoriasRelative");
+        if (nav.style.visibility === "hidden") {
+          nav.style.visibility = "visible";
+          categorias.style.position = "";
+          categorias.style.top = "";
         }
       }
     } else {
       if (scrollPosition <= 68) {
-        nav.classList.remove("invisible");
-        categorias.classList.remove("categoriasRelative");
-        subHeader.classList.remove("subHeaderAbsolute");
-        header.classList.remove("headerMargin");
+        header.style.marginBottom = "";
+        subHeader.style.position = "";
+        subHeader.style.top = "";
+        nav.style.visibility = "visible";
+        categorias.style.position = "";
+        categorias.style.top = "";
       }
     }
     setPrevScrollPosition(scrollPosition);
