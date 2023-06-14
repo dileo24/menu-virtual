@@ -11,14 +11,23 @@ export default function Carrusel() {
   const [headerPosition, setHeaderPosition] = useState(0);
 
   // Función para manejar el desplazamiento táctil vertical
-  const handleTouchScroll = (e) => {
-    const deltaY =
-      e.nativeEvent.touches[0].clientY -
-      e.nativeEvent.changedTouches[0].clientY;
-    const sliderEl = sliderRef.current.innerSlider.list;
-    sliderEl.scrollTop += deltaY;
-    setHeaderPosition(sliderEl.scrollTop);
-  };
+  // const handleTouchScroll = (e) => {
+  //   const touch = e.touches[0] || e.changedTouches[0];
+  //   const deltaY = touch.clientY - touch.pageY;
+  //   const sliderEl = sliderRef.current.innerSlider.list;
+  //   const currentScrollTop = sliderEl.scrollTop;
+  //   if (sliderEl.scrollTo) {
+  //     // Usar scrollTo si está disponible (navegadores modernos)
+  //     sliderEl.scrollTo({
+  //       top: currentScrollTop + deltaY,
+  //       behavior: "smooth", // Opcional: para un desplazamiento suave
+  //     });
+  //   } else {
+  //     // Fallback para navegadores antiguos
+  //     sliderEl.scrollTop = currentScrollTop + deltaY;
+  //   }
+  //   setHeaderPosition(sliderEl.scrollTop);
+  // };
 
   // Actualizar la posición del Header al desplazarse verticalmente
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
@@ -79,7 +88,7 @@ export default function Carrusel() {
       } else {
         if (nav.style.visibility === "hidden") {
           nav.style.visibility = "visible";
-          categorias.style.position = "";
+          categorias.style.position = "static";
           categorias.style.top = "";
         }
       }
@@ -89,7 +98,7 @@ export default function Carrusel() {
         subHeader.style.position = "";
         subHeader.style.top = "";
         nav.style.visibility = "visible";
-        categorias.style.position = "";
+        categorias.style.position = "static";
         categorias.style.top = "";
       }
     }
@@ -105,7 +114,7 @@ export default function Carrusel() {
       <div
         className="carrusel-wrapper"
         onScroll={handleContainerScroll}
-        onTouchMove={handleTouchScroll}
+        // onTouchMove={handleTouchScroll}
       >
         <Header />
 
