@@ -5,9 +5,9 @@ import VerMiPedido from "../formularios/VerMiPedido";
 import Swipe from "react-swipe";
 
 export default function Carrusel() {
-  const sliderRef = useRef(null);
-  const [headerPosition, setHeaderPosition] = useState(0);
+  // const sliderRef = useRef(null);
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
+  // const [headerPosition, setHeaderPosition] = useState(0);
   // const [currentSlide, setCurrentSlide] = useState(0);
   // const [isFirstSlide, setIsFirstSlide] = useState(true);
   // const [isLastSlide, setIsLastSlide] = useState(false);
@@ -73,7 +73,7 @@ export default function Carrusel() {
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
         <Header />
 
-        <Swipe ref={sliderRef} /* {...sliderSettings} */>
+        <Swipe /* ref={sliderRef} */ /* {...sliderSettings} */>
           <div>
             <Menu />
           </div>
