@@ -6,7 +6,7 @@ import Swipe from "react-swipe";
 
 export default function Carrusel() {
   const sliderRef = useRef(null);
-  // const [headerPosition, setHeaderPosition] = useState(0);
+  const [headerPosition, setHeaderPosition] = useState(0);
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
   // const [currentSlide, setCurrentSlide] = useState(0);
   // const [isFirstSlide, setIsFirstSlide] = useState(true);
@@ -26,7 +26,7 @@ export default function Carrusel() {
 
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
-    setHeaderPosition(scrollPosition);
+    // setHeaderPosition(scrollPosition);
     const header = document.getElementById("containerHeader");
     const subHeader = document.getElementById("subHeader");
     const nav = document.getElementById("nav");
