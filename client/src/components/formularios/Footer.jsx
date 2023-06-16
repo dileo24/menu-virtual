@@ -151,10 +151,10 @@ export default function Footer() {
       }
 
       // Asignar el nuevo input al objeto inputs
-      const newInput = { ...input, id };
+      /* const newInput = { ...input, id }; */
 
       // Agregar el nuevo input a la lista de inputs almacenados
-      storedInputs.push(newInput);
+      storedInputs.push({ id });
 
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
