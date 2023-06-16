@@ -46,6 +46,7 @@ export default function EditarProductos() {
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
+          console.log(producto);
         })
         .catch((error) => {
           console.log(error);
@@ -63,6 +64,9 @@ export default function EditarProductos() {
     setNumItemsExtra(producto.itemsExtra.length);
     setItemsExtra(producto.itemsExtra);
     setCantidadPersonas(producto.cantidadPersonas);
+    setMostrarPersonaItem(producto.mostrarPersonaItem);
+    setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
+    setListado(producto.listado);
   }
 
   // Mostrar los datos del item en el formulario
