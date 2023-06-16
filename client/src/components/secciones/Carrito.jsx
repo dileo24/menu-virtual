@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getEstados, getTipoPago } from "../../redux/actions";
+import { Link } from "react-router-dom";
 
 export default function Carrito() {
   const [inputData, setInputData] = useState([]);
@@ -27,8 +27,6 @@ export default function Carrito() {
   useEffect(() => {
     dispatch(getEstados());
     dispatch(getTipoPago());
-    const carrito = document.querySelector(".carrito");
-    carrito.classList.add("bg-teal-700");
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -52,8 +50,10 @@ export default function Carrito() {
   return (
     pedidos && (
       <div id="productos" className="min-h-100 bg-gray-200">
+        <Link to="/" className="">
+          Atrás
+        </Link>
         <div className="md:flex min-h-screen md:align-top">
-          <Header />
           <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
             <h2 className="text-3xl font-light text-center">
               Mis pedidos realizados

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import Menu from "./Menu";
-import VerMiPedido from "../formularios/VerMiPedido";
+import Footer from "../formularios/Footer";
 import Swipe from "react-swipe";
 
 export default function Carrusel() {
@@ -14,8 +14,8 @@ export default function Carrusel() {
     const nav = document.getElementById("nav");
     const categorias = document.getElementById("categorias");
 
-    if (scrollPosition >= 68) {
-      header.style.marginBottom = "12vh";
+    if (scrollPosition >= 55) {
+      header.style.marginBottom = "14vh";
       subHeader.style.position = "absolute";
       subHeader.style.top = "0";
       if (scrollPosition > prevScrollPosition) {
@@ -68,7 +68,7 @@ export default function Carrusel() {
           </div>
         </Swipe>
       </div>
-      <VerMiPedido />
+      <Footer />
     </div>
   );
 }

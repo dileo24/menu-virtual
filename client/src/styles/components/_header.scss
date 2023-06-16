@@ -1,5 +1,4 @@
 header {
-  // height: 10vh;
   width: 100vw;
   display: flex;
   align-items: center;
@@ -8,22 +7,29 @@ header {
   position: static !important;
 
   h1 {
-    padding: 5% 0 2.5% 0;
+    padding: 3% 0 1% 0;
     font-size: 6vw;
-    color: orange;
+    color: rgb(250, 178, 58);
     font-weight: 800;
   }
   .subHeader {
-    // border-top: 1px solid gray;
     z-index: 999;
 
     nav {
       background-color: white;
-      height: 6vh;
+      height: 7vh;
       width: 100%;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      padding: 0 5%;
       align-items: center;
+      .carritoIcon,
+      .usuarioIcon {
+        width: 12vw;
+        height: 5vh;
+        transform: scaleX(-1);
+        fill: rgb(250, 178, 58);
+      }
     }
     .categorias {
       display: flex;
@@ -33,7 +39,7 @@ header {
       border-top: 1px solid rgba(0, 0, 0, 0.3);
       width: 100vw;
       // padding-top: 3%;
-      height: 6vh;
+      height: 7vh;
       overflow-x: auto;
       white-space: nowrap;
       /* Ocultar la barra de desplazamiento */
@@ -54,17 +60,3 @@ header {
     }
   }
 }
-
-// .headerMargin {
-//   margin-bottom: 12vh;
-// }
-
-// .subHeaderAbsolute {
-//   position: absolute;
-//   top: 0;
-// }
-
-// .categoriasRelative {
-//   position: relative;
-//   top: -6vh;
-// }

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
-// import VerMiPedido from "../formularios/VerMiPedido";
+// import Footer from "../formularios/Footer";
 
 export default function Menu() {
   const userActual = useSelector((state) => state.userActual);
@@ -16,9 +16,6 @@ export default function Menu() {
   // console.log(productosState);
   useEffect(() => {
     dispatch(getProductos());
-    // Cambiarle el background del botón del Header
-    const menu = document.querySelector(".menu");
-    menu.classList.add("bg-teal-700");
   }, [dispatch]);
 
   const handleEliminarProducto = (id) => {
@@ -206,7 +203,7 @@ export default function Menu() {
           )}
         </div>
 
-        {/* <VerMiPedido /> */}
+        {/* <Footer /> */}
       </main>
     )
   );

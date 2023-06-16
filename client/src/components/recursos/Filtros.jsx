@@ -6,6 +6,8 @@ import {
   searchXcategoria,
   searchXname,
 } from "../../redux/actions";
+// import { FaSistrix } from "react-icons/fa";
+
 export default function Filtros() {
   const categorias = useSelector((state) => state.categorias);
   const [state, setState] = useState("");
@@ -48,20 +50,21 @@ export default function Filtros() {
   };
 
   return (
-    <div className="flex flex-col mt-10">
+    <div className="filtro">
       <div>
         <input
+          className="searchBar"
           type="text"
-          placeholder="Buscar ..."
+          placeholder="Buscar productos"
           onChange={handleState}
           onKeyDown={handleKeyDown}
           value={state}
         />
-        <button style={{ backgroundColor: "grey" }} onClick={limpiarState}>
-          Buscar...
-        </button>
+        {/* <button onClick={limpiarState}>
+          <FaSistrix className="lupa" />
+        </button> */}
       </div>
-      <button style={{ backgroundColor: "grey" }} onClick={handleRecargar}>
+      {/* <button style={{ backgroundColor: "grey" }} onClick={handleRecargar}>
         Limpiar filtros/búsquedas
       </button>
       <select value={filtroCategoria} onChange={(e) => handleFilterCateg(e)}>
@@ -73,7 +76,7 @@ export default function Filtros() {
             {categ.nombre}
           </option>
         ))}
-      </select>
+      </select> */}
     </div>
   );
 }
