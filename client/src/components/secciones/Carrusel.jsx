@@ -60,11 +60,11 @@ export default function Carrusel() {
   };
 
   return (
-    <div>
+    <div className="carruselContainer">
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
         <Header />
 
-        <Swipe>
+        <Swipe className="swipe">
           <div>
             <Menu />
           </div>
