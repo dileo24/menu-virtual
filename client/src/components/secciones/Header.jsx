@@ -54,9 +54,9 @@ export default function Header() {
               <Link to="/carrito" className="carrito">
                 Carrito
               </Link>
-              <Link to="/historial" className="historial">
+              {/* <Link to="/historial" className="historial">
                 Historial de Pedidos
-              </Link>
+              </Link> */}
               <Link to="/login" className="iniciarSesion">
                 Iniciar Sesión
               </Link>

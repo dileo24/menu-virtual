@@ -12,40 +12,17 @@ export default function Carrusel() {
   const [isFirstSlide, setIsFirstSlide] = useState(true);
   const [isLastSlide, setIsLastSlide] = useState(false);
 
-  useEffect(() => {
-    const handleTouchStart = () => {
-      // Handle touch start event
-    };
+  // useEffect(() => {
+  //   const handleTouchStart = () => {
+  //   };
 
-    const handleTouchMove = (eventData) => {
-      const { dir } = eventData;
+  //   const handleTouchMove = () => {};
 
-      if (
-        (dir === "Right" && isFirstSlide) ||
-        (dir === "Left" && isLastSlide)
-      ) {
-        eventData.event.preventDefault();
-      }
-    };
+  //   const handleTouchEnd = () => {};
 
-    const handleTouchEnd = () => {
-      if (isFirstSlide || isLastSlide) {
-        // Handle touch end event
-      }
-    };
-
-    const swipeEl = sliderRef.current;
-
-    swipeEl.onSwipeStart = handleTouchStart;
-    swipeEl.onSwipeMove = handleTouchMove;
-    swipeEl.onSwipeEnd = handleTouchEnd;
-
-    return () => {
-      swipeEl.onSwipeStart = null;
-      swipeEl.onSwipeMove = null;
-      swipeEl.onSwipeEnd = null;
-    };
-  }, [isFirstSlide, isLastSlide]);
+  //   return () => {
+  //   };
+  // }, [isFirstSlide, isLastSlide]);
 
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
@@ -80,23 +57,23 @@ export default function Carrusel() {
     setPrevScrollPosition(scrollPosition);
   };
 
-  const handleSlideChange = (index) => {
-    setCurrentSlide(index);
-    setIsFirstSlide(index === 0);
-    setIsLastSlide(index === 6); // Asegúrate de ajustar este valor al número total de diapositivas - 1
-  };
+  // const handleSlideChange = (index) => {
+  //   setCurrentSlide(index);
+  //   setIsFirstSlide(index === 0);
+  //   setIsLastSlide(index === 6); // Asegúrate de ajustar este valor al número total de diapositivas - 1
+  // };
 
-  const sliderSettings = {
-    continuous: false,
-    callback: handleSlideChange, // Agrega esta línea para manejar el cambio de diapositiva
-  };
+  // const sliderSettings = {
+  //   continuous: false,
+  //   callback: handleSlideChange, // Agrega esta línea para manejar el cambio de diapositiva
+  // };
 
   return (
     <div>
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
         <Header />
 
-        <Swipe ref={sliderRef} {...sliderSettings}>
+        <Swipe ref={sliderRef} /* {...sliderSettings} */>
           <div>
             <Menu />
           </div>
