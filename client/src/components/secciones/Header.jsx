@@ -2,6 +2,9 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { cleanUserActual } from "../../redux/actions";
+import Filtros from "../recursos/Filtros";
+import { GiShoppingCart } from "react-icons/gi";
+import { HiUserCircle } from "react-icons/hi";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -21,9 +24,6 @@ export default function Header() {
       <h1>QuickBites</h1>
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
-          <Link to="/" className="menu">
-            Menú
-          </Link>
           {userActual &&
           // 1 superAdmin / 2 admin
           (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
@@ -51,14 +51,12 @@ export default function Header() {
           )}
           {!userActual ? (
             <>
-              <Link to="/carrito" className="carrito">
-                Carrito
-              </Link>
-              {/* <Link to="/historial" className="historial">
-                Historial de Pedidos
-              </Link> */}
               <Link to="/login" className="iniciarSesion">
-                Iniciar Sesión
+                <HiUserCircle className="usuarioIcon" />
+              </Link>
+              <Filtros />
+              <Link to="/carrito" className="carrito">
+                <GiShoppingCart className="carritoIcon" />
               </Link>
             </>
           ) : (

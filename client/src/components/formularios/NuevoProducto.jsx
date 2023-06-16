@@ -38,7 +38,6 @@ export default function NuevoProducto() {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
     nuevoProducto(producto, token);
-    console.log(producto);
     mostrarAlerta("Producto agregado con éxito", "exito");
 
     // Reiniciar los campos del formulario

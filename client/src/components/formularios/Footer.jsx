@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions";
 import { createPedido } from "../../redux/actions";
 
-export default function VerMiPedido() {
+export default function Footer() {
   const carrito = useSelector((state) => state.carrito);
   const pedidos = useSelector((state) => state.pedidos);
   const [preciosArray, setPreciosArray] = useState([]);
@@ -184,11 +184,13 @@ export default function VerMiPedido() {
     <>
       {userActual ? null : (
         <>
-          <div className="footer fixed bottom-0 bg-gray-300 shadow flex justify-center items-center">
-            <button
-              className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
-              onClick={handleMostrarMenu}
-            >
+          <div className="footer">
+            <div className="precio">
+              {preciosArray.length} producto
+              {preciosArray.length == 1 ? "" : "s"}
+              <span>${precioFinal}</span>
+            </div>
+            <button className="botonFooter" onClick={handleMostrarMenu}>
               <b className="font-bold">{verOcultar}</b>
             </button>
           </div>
