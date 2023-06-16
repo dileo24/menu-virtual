@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
-import Header from "./Header";
-import Filtros from "../recursos/Filtros";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
-// import Footer from "../formularios/Footer";
 
 export default function Menu() {
   const userActual = useSelector((state) => state.userActual);
@@ -202,8 +199,6 @@ export default function Menu() {
             </div>
           )}
         </div>
-
-        {/* <Footer /> */}
       </main>
     )
   );
