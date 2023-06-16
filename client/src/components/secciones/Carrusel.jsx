@@ -14,27 +14,47 @@ export default function Carrusel() {
     const nav = document.getElementById("nav");
     const categorias = document.getElementById("categorias");
 
-    if (scrollPosition >= 55) {
+    if (scrollPosition >= /* 55 */ 120) {
       header.style.marginBottom = "14vh";
       subHeader.style.position = "absolute";
       subHeader.style.top = "0";
+      // Con animación suave
+      // if (scrollPosition > prevScrollPosition) {
+      //   if (!nav.classList.contains("nav-hidden")) {
+      //     nav.classList.add("nav-hidden");
+      //     categorias.classList.add("nav-hidden");
+      //   }
+      // } else {
+      //   if (nav.classList.contains("nav-hidden")) {
+      //     nav.classList.remove("nav-hidden");
+      //     categorias.classList.remove("nav-hidden");
+      //   }
+      // }
+      // Sin animación suave
       if (scrollPosition > prevScrollPosition) {
-        if (!nav.classList.contains("categorias-hidden")) {
-          nav.classList.add("categorias-hidden");
-          categorias.classList.add("categorias-hidden");
+        if (nav.style.visibility !== "hidden") {
+          nav.style.visibility = "hidden";
+          categorias.style.position = "relative";
+          categorias.style.top = "-7vh";
         }
       } else {
-        if (nav.classList.contains("categorias-hidden")) {
-          nav.classList.remove("categorias-hidden");
-          categorias.classList.remove("categorias-hidden");
+        if (nav.style.visibility === "hidden") {
+          nav.style.visibility = "visible";
+          categorias.style.position = "static";
+          categorias.style.top = "";
         }
       }
     } else {
       header.style.marginBottom = "";
       subHeader.style.position = "static";
       subHeader.style.top = "";
-      nav.classList.remove("categorias-hidden");
-      categorias.classList.remove("categorias-hidden");
+      // Con animación suave
+      // nav.classList.remove("categorias-hidden");
+      // categorias.classList.remove("categorias-hidden");
+      // Sin animación suave
+      nav.style.visibility = "visible";
+      categorias.style.position = "static";
+      categorias.style.top = "";
     }
     setPrevScrollPosition(scrollPosition);
   };
