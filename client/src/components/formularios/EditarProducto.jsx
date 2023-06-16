@@ -33,7 +33,6 @@ export default function EditarProductos() {
     const idItem = parseInt(parametrosURL.get("idItem"));
 
     if (idItem) {
-      console.log("Es un ítem");
       obtenerItem(idItem)
         .then((item) => {
           mostrarItem(item);
@@ -42,11 +41,9 @@ export default function EditarProductos() {
           console.log("error al obtener item" + error);
         });
     } else if (idProducto) {
-      console.log("Es un producto");
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
-          console.log(producto);
         })
         .catch((error) => {
           console.log(error);
@@ -71,7 +68,6 @@ export default function EditarProductos() {
 
   // Mostrar los datos del item en el formulario
   function mostrarItem(item) {
-    console.log(item);
     setCategoriaID(item.categoriaID);
     setNombre(item.nombre);
     setDescripcion(item.descripcion);
@@ -110,7 +106,6 @@ export default function EditarProductos() {
       return mostrarAlerta("Error: El nombre está incompleto", "error");
     }
     editarProducto(producto, token);
-    console.log(producto);
     mostrarAlerta("Producto editado con éxito", "exito");
   }
 
