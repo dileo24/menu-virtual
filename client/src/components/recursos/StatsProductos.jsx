@@ -7,12 +7,11 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function StatsProductos() {
   const pedidos = useSelector((state) => state.pedidos);
-  const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPedidos(token));
-  }, [dispatch, token]);
+    dispatch(getPedidos());
+  }, [dispatch]);
 
   // Cargando productos más vendidos
   let diezProdsMasVendidos = [];

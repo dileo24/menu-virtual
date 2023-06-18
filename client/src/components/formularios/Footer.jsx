@@ -23,7 +23,6 @@ export default function Footer() {
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
   const userActual = useSelector((state) => state.userActual);
-  const token = userActual && userActual.tokenSession;
   const tipoPagos = useSelector((state) => state.tipoPagos);
 
   const currentDate = new Date();
@@ -52,8 +51,8 @@ export default function Footer() {
   });
   useEffect(() => {
     dispatch(getTipoPago());
-    dispatch(getPedidos(token));
-  }, [dispatch, token]);
+    dispatch(getPedidos());
+  }, [dispatch]);
 
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);

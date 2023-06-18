@@ -202,7 +202,7 @@ export const limpiarCarrito = () => {
 };
 
 /****************** PEDIDOS ******************/
-export const getPedidos = (token) => {
+export const getPedidos = () => {
   return async function (dispatch) {
     /* const config = {
       headers: {
@@ -245,7 +245,7 @@ export const updatePedido = (id, data, token) => {
 
     await axios.put(`/pedidos/${id}`, data, config);
     console.log(data);
-    dispatch(getPedidos(token));
+    dispatch(getPedidos());
   };
 };
 

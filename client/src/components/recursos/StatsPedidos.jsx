@@ -28,12 +28,11 @@ ChartJS.register(
 
 export default function StatsPedidos() {
   const pedidos = useSelector((state) => state.pedidos);
-  const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPedidos(token));
-  }, [dispatch, token]);
+    dispatch(getPedidos());
+  }, [dispatch]);
 
   //cargando días del mes
   const obtenerDiasEnMes = (mes, año) => {

@@ -7,11 +7,9 @@ export default function Carrito() {
   const [inputData, setInputData] = useState([]);
   const pedidos = useSelector((state) => state.pedidos);
   const dispatch = useDispatch();
-  const userActual = useSelector((state) => state.userActual);
-  const token = userActual && userActual.tokenSession;
 
   useEffect(() => {
-    dispatch(getPedidos(token));
+    dispatch(getPedidos());
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -30,7 +28,7 @@ export default function Carrito() {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => ped.id === idPed.id)
