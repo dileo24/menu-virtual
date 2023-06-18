@@ -8,13 +8,11 @@ export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
+  const userActual = useSelector((state) => state.userActual);
+  const token = userActual && userActual.tokenSession;
 
   useEffect(() => {
-    dispatch(getPedidos());
-    // Cambiarle el background del botón del Header
-    const historial = document.querySelector(".historial");
-    /*  historial.classList.add("bg-teal-700"); */
-
+    dispatch(getPedidos(token));
     if (savedInputs) {
       setInputData(JSON.parse(savedInputs));
     }
@@ -36,7 +34,7 @@ export default function Historial() {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch, savedInputs]);
+  }, [dispatch, savedInputs, token]);
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => ped.id === idPed.id)
   );

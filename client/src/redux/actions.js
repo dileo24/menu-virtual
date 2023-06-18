@@ -204,12 +204,12 @@ export const limpiarCarrito = () => {
 /****************** PEDIDOS ******************/
 export const getPedidos = (token) => {
   return async function (dispatch) {
-    const config = {
+    /* const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    };
-    const response = await axios.get("/pedidos", config);
+    }; */
+    const response = await axios.get("/pedidos");
     return dispatch({
       type: GET_PEDIDOS,
       payload: response.data,
@@ -248,7 +248,6 @@ export const updatePedido = (id, data, token) => {
     dispatch(getPedidos(token));
   };
 };
-
 
 export const getEstados = () => {
   return async function (dispatch) {

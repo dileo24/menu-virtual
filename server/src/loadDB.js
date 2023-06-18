@@ -88,7 +88,7 @@ async function fnPedidos() {
   }
 }
 
-async function fnSuperAdmin() {
+async function fnUsuarios() {
   for (const sp of usuario) {
     const user = await Usuario.create({
       nombre: sp.nombre,
@@ -97,7 +97,7 @@ async function fnSuperAdmin() {
       clave: await encrypt(sp.clave),
       bloqueo: sp.bloqueo,
     });
-    const rol = await Rol.findByPk(1);
+    const rol = await Rol.findByPk(sp.rolID);
     await user.setRol(rol);
   }
 }
@@ -105,7 +105,7 @@ async function fnSuperAdmin() {
 module.exports = {
   fnProducto,
   fnRols,
-  fnSuperAdmin,
+  fnUsuarios,
   fnCategorias,
   fnPagos,
   fnEstado,

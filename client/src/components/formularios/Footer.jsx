@@ -23,6 +23,7 @@ export default function Footer() {
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
   const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
   const userActual = useSelector((state) => state.userActual);
+  const token = userActual && userActual.tokenSession;
   const tipoPagos = useSelector((state) => state.tipoPagos);
 
   const currentDate = new Date();
@@ -51,8 +52,8 @@ export default function Footer() {
   });
   useEffect(() => {
     dispatch(getTipoPago());
-    dispatch(getPedidos());
-  }, [dispatch]);
+    dispatch(getPedidos(token));
+  }, [dispatch, token]);
 
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);
@@ -187,7 +188,7 @@ export default function Footer() {
           <div className="footer">
             <div className="precio">
               {preciosArray.length} producto
-              {preciosArray.length == 1 ? "" : "s"}
+              {preciosArray.length === 1 ? "" : "s"}
               <span>${precioFinal}</span>
             </div>
             <button className="botonFooter" onClick={handleMostrarMenu}>

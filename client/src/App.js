@@ -13,10 +13,10 @@ import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
 
 // Local
-// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
-axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
+/* axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app"; */
 
 function App() {
   const userActual = useSelector((state) => state.userActual);
@@ -24,25 +24,27 @@ function App() {
   return (
     <div className="App">
       <Routes>
+        {/* cualquiera */}
         <Route exact path="/" element={<Carrusel />} />
-        {userActual &&
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) && (
-            <>
-              <Route path="/nuevoProducto" element={<NuevoProducto />} />
-              <Route path="/editarProducto" element={<EditarProducto />} />
-              <Route path="/pedidos" element={<Pedidos />} />
-            </>
-          )}
+        <Route path="/login" element={<ModalLogin />} />
+        <Route path="/historial" element={<Historial />} />
+        <Route path="/carrito" element={<Carrito />} />
+        {/* logeados */}
+        {userActual && userActual.data.RolId !== 0 && (
+          <>
+            <Route path="/pedidos" element={<Pedidos />} />
+          </>
+        )}
+        {/* admins */}
         {userActual && userActual.data.RolId === 1 && (
           <>
+            <Route path="/nuevoProducto" element={<NuevoProducto />} />
+            <Route path="/editarProducto" element={<EditarProducto />} />
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
           </>
         )}
-        <Route path="/login" element={<ModalLogin />} />
-        <Route path="/historial" element={<Historial />} />
-        <Route path="/carrito" element={<Carrito />} />
       </Routes>
     </div>
   );

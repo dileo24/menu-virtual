@@ -9,8 +9,8 @@ const router = Router();
 
 router.get(
   "/",
-  /* checkAuth, */
-  /* checkRoleAuth([2, 1]), */
+  /* checkAuth,
+  checkRoleAuth([1, 2, 3]), */
   allPedidos,
   async (req, res) => {
     return res.json(req.body.allPedidos);

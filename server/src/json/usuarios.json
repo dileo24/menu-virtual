@@ -1,9 +1,26 @@
 [
   {
-    "nombre": "Joaquín",
-    "apellido": "Di Leo",
-    "email": "joacodileo@gmail.com",
-    "clave": "hola123",
-    "bloqueo": "false"
+    "nombre": "admin",
+    "apellido": "admincito",
+    "email": "admin@gmail.com",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "rolID": 1
+  },
+  {
+    "nombre": "Cajero",
+    "apellido": "cajerito",
+    "email": "cajero@gmail.com",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "rolID": 2
+  },
+  {
+    "nombre": "Mozo",
+    "apellido": "mocito",
+    "email": "mozo@gmail.com",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "rolID": 3
   }
 ]
