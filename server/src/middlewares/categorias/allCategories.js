@@ -4,7 +4,7 @@ const allCategory = async (req, res, next) => {
   try {
     req.body.allCategories = await Categoria.findAll({
       attributes: ["id", "nombre"],
-      order: [["nombre", "ASC"]],
+      order: [["id", "ASC"]],
     });
     next();
   } catch (error) {

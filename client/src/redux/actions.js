@@ -13,6 +13,7 @@ export const SEARCHxNOMBRE = "SEARCHxNOMBRE";
 export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
+export const DELETE_CATEG = "DELETE_CATEG";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -38,6 +39,16 @@ export const deleteProducto = (id, token) => {
     });
   };
 };
+
+export const searchXname = (nombre) => {
+  return {
+    type: SEARCHxNOMBRE,
+    payload: nombre,
+  };
+};
+
+/****************** CATEGORIAS ******************/
+
 export const getCategorias = () => {
   return async function (dispatch) {
     const response = await axios.get("/categorias");
@@ -47,17 +58,37 @@ export const getCategorias = () => {
     });
   };
 };
+
+export const postCateg = (nombre, token) => {
+  return async function () {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.post("/categorias", nombre, config);
+    return response;
+  };
+};
+export const deleteCateg = (id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`/categorias/${id}`, config);
+    dispatch({
+      type: DELETE_CATEG,
+      payload: id,
+    });
+  };
+};
 export const searchXcategoria = (categoria) => {
   return {
     type: SEARCHxCATEGORIA,
     payload: categoria,
-  };
-};
-
-export const searchXname = (nombre) => {
-  return {
-    type: SEARCHxNOMBRE,
-    payload: nombre,
   };
 };
 

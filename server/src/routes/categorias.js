@@ -23,19 +23,19 @@ router.post(
 );
 
 router.delete(
-  "/id",
+  "/:id",
   checkAuth,
   checkRoleAuth([1]),
   deleteCategory,
   async (req, res) => {
     return res.json({
-      respuesta: `categoria con id ${req.body.eliminado} eliminado`,
+      respuesta: `categoria eliminada`,
     });
   }
 );
 
 router.put(
-  "/id",
+  "/:id",
   checkAuth,
   checkRoleAuth([1]),
   updateCategory,

@@ -11,6 +11,7 @@ import Usuarios from "./components/secciones/Usuarios";
 import Pedidos from "./components/secciones/Pedidos";
 import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
+import NuevaCateg from "./components/formularios/NuevaCateg";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
+            <Route path="/nuevaCateg" element={<NuevaCateg />} />
           </>
         )}
       </Routes>

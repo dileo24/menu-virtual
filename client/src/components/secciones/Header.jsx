@@ -37,6 +37,9 @@ export default function Header() {
               <Link to="/nuevoProducto" className="nuevoProducto">
                 Nuevo producto
               </Link>
+              <Link to="/nuevaCateg" className="nuevaCateg">
+                Nueva categoria
+              </Link>
               <Link to="/pedidos" className="pedidos">
                 Pedidos
               </Link>
