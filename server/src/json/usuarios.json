@@ -17,10 +17,26 @@
   },
   {
     "nombre": "Mozo",
-    "apellido": "mocito",
+    "apellido": "Uno",
     "email": "mozo@gmail.com",
     "clave": "hola1234",
     "bloqueo": "false",
-    "rolID": 3
+    "rolID": 2
+  },
+  {
+    "nombre": "Mozo",
+    "apellido": "Dos",
+    "email": "mozo2@gmail.com",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "rolID": 2
+  },
+  {
+    "nombre": "Mozo",
+    "apellido": "Tres",
+    "email": "mozo3@gmail.com",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "rolID": 2
   }
 ]
