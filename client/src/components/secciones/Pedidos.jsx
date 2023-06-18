@@ -17,7 +17,7 @@ export default function Pedidos() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPedidos(token));
+    dispatch(getPedidos());
     dispatch(getEstados());
     dispatch(getTipoPago());
     // Cambiarle el background del botón del Header
@@ -28,16 +28,16 @@ export default function Pedidos() {
     const pollServer = async () => {
       while (true) {
         // Realizar la petición al servidor para obtener los pedidos actualizados
-        await dispatch(getPedidos(token));
+        await dispatch(getPedidos());
         // Esperar un tiempo antes de hacer la siguiente petición (por ejemplo, cada 5 segundos)
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+        await new Promise((resolve) => setTimeout(resolve, 90000));
       }
     };
     pollServer();
     return () => {
       // Código para detener el polling si es necesario
     };
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   const handleSelectChange = (e, id, atributo) => {
     const value = e.target.value;

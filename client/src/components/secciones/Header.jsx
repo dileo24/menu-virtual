@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { cleanUserActual } from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
 import { GiShoppingCart } from "react-icons/gi";
@@ -21,12 +21,18 @@ export default function Header() {
 
   return (
     <header id="containerHeader" className="containerHeader">
-      <h1>QuickBites</h1>
+      <NavLink to="/">
+        <h1>QuickBites</h1>
+      </NavLink>
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
           {userActual &&
-          // 1 superAdmin / 2 admin
-          (userActual.data.RolId === 1 || userActual.data.RolId === 2) ? (
+            (userActual.data.RolId === 3 || userActual.data.RolId === 2) && (
+              <Link to="/pedidos" className="pedidos">
+                Pedidos
+              </Link>
+            )}
+          {userActual && userActual.data.RolId === 1 && (
             <>
               <Link to="/nuevoProducto" className="nuevoProducto">
                 Nuevo producto
@@ -34,10 +40,6 @@ export default function Header() {
               <Link to="/pedidos" className="pedidos">
                 Pedidos
               </Link>
-            </>
-          ) : null}
-          {userActual && userActual.data.RolId === 1 && (
-            <>
               <Link to="/register" className="registrar">
                 Crear cuenta para empleado
               </Link>

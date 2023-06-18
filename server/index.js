@@ -4,7 +4,7 @@ const { conn } = require("./src/db.js");
 const {
   fnRols,
   fnProducto,
-  fnSuperAdmin,
+  fnUsuarios,
   fnCategorias,
   fnPagos,
   fnEstado,
@@ -16,7 +16,7 @@ conn.sync({ force: true }).then(async () => {
     await fnCategorias();
     await fnProducto();
     await fnRols();
-    await fnSuperAdmin();
+    await fnUsuarios();
     await fnPagos();
     await fnEstado();
     await fnPedidos();

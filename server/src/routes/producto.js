@@ -20,7 +20,7 @@ router.get("/:id", findProductByID, async (req, res) => {
 router.post(
   "/",
   checkAuth,
-  checkRoleAuth([2, 1]),
+  checkRoleAuth([1]),
   createProduct,
   async (req, res) => {
     return res.status(200).send(req.body.resultado);
@@ -30,7 +30,7 @@ router.post(
 router.put(
   "/:id",
   checkAuth,
-  checkRoleAuth([2, 1]),
+  checkRoleAuth([1]),
   updateProduct,
   async (req, res) => {
     return res.json(req.body.resultado);
@@ -40,7 +40,7 @@ router.put(
 router.delete(
   "/:id",
   checkAuth,
-  checkRoleAuth([2, 1]),
+  checkRoleAuth([1]),
   deleteProduct,
   async (req, res) => {
     return res.json(req.body.resultado);

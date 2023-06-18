@@ -1,32 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getEstados, getTipoPago } from "../../redux/actions";
+import { getPedidos } from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 export default function Carrito() {
   const [inputData, setInputData] = useState([]);
   const pedidos = useSelector((state) => state.pedidos);
-  const estados = useSelector((state) => state.estados);
-  const tipoPagos = useSelector((state) => state.tipoPagos);
   const dispatch = useDispatch();
 
-  const handlePago = (tipoPagoID) => {
-    let pagoActual = tipoPagos.find(
-      (pago) => Number(pago.id) === Number(tipoPagoID)
-    );
-    return pagoActual && pagoActual.tipo;
-  };
-
-  const handleEstado = (estadoID) => {
-    let estadoActual = estados.find(
-      (estado) => Number(estado.id) === Number(estadoID)
-    );
-    return estadoActual && estadoActual.tipo;
-  };
-
   useEffect(() => {
-    dispatch(getEstados());
-    dispatch(getTipoPago());
+    dispatch(getPedidos());
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -47,8 +30,13 @@ export default function Carrito() {
     };
   }, [dispatch]);
 
+  let pedidosActuales = inputData.map((idPed) =>
+    pedidos.filter((ped) => ped.id === idPed.id)
+  );
+
   return (
-    pedidos && (
+    pedidos &&
+    pedidosActuales.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <Link to="/" className="">
           Atrás
@@ -71,35 +59,51 @@ export default function Carrito() {
                       </tr>
                     </thead>
                     <tbody className="bg-white rounded">
-                      {inputData
+                      {pedidosActuales
                         .filter(
-                          (input) =>
-                            input.estadoID !== "4" && input.estadoID !== "5"
+                          (pedido) =>
+                            pedido[0] &&
+                            pedido[0].Estado.id !== 4 &&
+                            pedido[0].Estado.id !== 5
                         )
-                        .map((input, index) => (
-                          <tr className="border-b-2 not:last-child" key={index}>
-                            <td className="text-left px-10 py-5">
-                              <p className="text-gray-700 mt-2">
-                                <b>{input.productos.join(", ")}</b>
-                              </p>
-                              <p className="text-gray-700 mt-2">
-                                <b>Fecha: </b>
-                                {input.creacionFecha} <b>Hora: </b>
-                                {input.creacionHora}
-                              </p>
-                            </td>
-                            <td className="text-center px-10 py-2">
-                              ${input.precio}
-                              <p className="text-gray-700 mt-2">
-                                Método de Pago:{" "}
-                                <b>{handlePago(input.tipoPagoID)}</b>
-                              </p>
-                            </td>
-                            <td className="text-center px-10 py-2">
-                              {handleEstado(input.estadoID)}
-                            </td>
-                          </tr>
-                        ))
+                        .map(
+                          (pedido, index) =>
+                            pedido[0] && (
+                              <tr
+                                className="border-b-2 not:last-child"
+                                key={index}
+                              >
+                                <td className="text-left px-10 py-5">
+                                  {
+                                    <>
+                                      <p className="text-gray-700 mt-2">
+                                        <b>{pedido[0].productos}</b>
+                                      </p>
+                                      <p className="text-gray-700 mt-2">
+                                        <b>Fecha: </b>
+                                        {pedido[0].creacionFecha} <b>Hora: </b>
+                                        {pedido[0].creacionHora}
+                                      </p>
+                                    </>
+                                  }
+                                </td>
+                                <td className="text-center px-10 py-2">
+                                  {
+                                    <>
+                                      ${pedido[0].precio}
+                                      <p className="text-gray-700 mt-2">
+                                        Método de Pago:{" "}
+                                        <b>{pedido[0].Pago.tipo}</b>
+                                      </p>
+                                    </>
+                                  }
+                                </td>
+                                <td className="text-center px-10 py-2">
+                                  {pedido[0].Estado.tipo}
+                                </td>
+                              </tr>
+                            )
+                        )
                         .reverse()}
                     </tbody>
                   </table>
