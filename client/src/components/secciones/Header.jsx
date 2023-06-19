@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { cleanUserActual } from "../../redux/actions";
+import { cleanUserActual, searchXname } from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
 import { GiShoppingCart } from "react-icons/gi";
 import { HiUserCircle } from "react-icons/hi";
@@ -20,11 +20,16 @@ export default function Header() {
     navigate("/");
   };
 
+  const reload = () => {
+    dispatch(searchXname(""));
+    navigate("/");
+  };
+
   return (
     <header id="containerHeader" className="containerHeader">
-      <NavLink to="/">
+      <button onClick={reload}>
         <h1 id="marca">QuickBites</h1>
-      </NavLink>
+      </button>
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
           {userActual && userActual.data.RolId === 3 && (
@@ -84,6 +89,10 @@ export default function Header() {
           )}
         </nav>
         <div id="categorias" className="categorias px-5">
+          <a href="#todas" className="mr-4">
+            Menú
+          </a>
+
           {categorias &&
             categorias.map((categ) => (
               <div key={categ.id} className="categoria">
@@ -92,10 +101,10 @@ export default function Header() {
             ))}
         </div>
       </div>
-      <div className="subCategorias">
+      {/* <div className="subCategorias">
         Todo.....Pizzas..... Hamburguesas..... Lomitos..... Empanadas.....
         Pastas
-      </div>
+      </div> */}
     </header>
   );
 }

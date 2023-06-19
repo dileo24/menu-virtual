@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -8,7 +8,8 @@ import Swipe from "react-swipe";
 export default function Carrusel() {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
   const categorias = useSelector((state) => state.categorias);
-  // console.log(categorias);
+  const homeBusqueda = useSelector((state) => state.homeBusqueda);
+
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     const header = document.getElementById("containerHeader");
@@ -17,23 +18,10 @@ export default function Carrusel() {
     const categorias = document.getElementById("categorias");
     const marca = document.getElementById("marca");
 
-    if (scrollPosition >= /* 55 */ 110) {
+    if (scrollPosition >= 110) {
       marca.style.marginBottom = "14vh";
       subHeader.style.position = "absolute";
       subHeader.style.top = "0";
-      // Con animación suave
-      // if (scrollPosition > prevScrollPosition) {
-      //   if (!nav.classList.contains("nav-hidden")) {
-      //     nav.classList.add("nav-hidden");
-      //     categorias.classList.add("nav-hidden");
-      //   }
-      // } else {
-      //   if (nav.classList.contains("nav-hidden")) {
-      //     nav.classList.remove("nav-hidden");
-      //     categorias.classList.remove("nav-hidden");
-      //   }
-      // }
-      // Sin animación suave
       if (scrollPosition > prevScrollPosition) {
         if (nav.style.visibility !== "hidden") {
           nav.style.visibility = "hidden";
@@ -51,10 +39,6 @@ export default function Carrusel() {
       marca.style.marginBottom = "";
       subHeader.style.position = "static";
       subHeader.style.top = "";
-      // Con animación suave
-      // nav.classList.remove("categorias-hidden");
-      // categorias.classList.remove("categorias-hidden");
-      // Sin animación suave
       nav.style.visibility = "visible";
       categorias.style.position = "static";
       categorias.style.top = "";
@@ -68,8 +52,11 @@ export default function Carrusel() {
         <Header />
         {categorias.length && (
           <Swipe className="swipe">
+            <div id="todas">
+              <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
+            </div>
             {categorias.map((categ) => (
-              <div key={categ.id}>
+              <div id={categ.nombre} key={categ.id}>
                 <Menu categoria={categ.nombre} />
               </div>
             ))}
