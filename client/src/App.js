@@ -30,11 +30,9 @@ function App() {
         <Route path="/login" element={<ModalLogin />} />
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />
-        {/* logeados */}
-        {userActual && userActual.data.RolId !== 0 && (
-          <>
-            <Route path="/pedidos" element={<Pedidos />} />
-          </>
+        {/* empleados */}
+        {userActual && userActual.data.RolId === 3 && (
+          <Route path="/pedidos" element={<Pedidos />} />
         )}
         {/* admins */}
         {userActual && userActual.data.RolId === 1 && (
@@ -44,6 +42,14 @@ function App() {
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
+            <Route path="/nuevaCateg" element={<NuevaCateg />} />
+          </>
+        )}
+        {/* admins */}
+        {userActual && userActual.data.RolId === 2 && (
+          <>
+            <Route path="/nuevoProducto" element={<NuevoProducto />} />
+            <Route path="/editarProducto" element={<EditarProducto />} />
             <Route path="/nuevaCateg" element={<NuevaCateg />} />
           </>
         )}

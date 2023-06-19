@@ -34,7 +34,7 @@ router.get("/:id", findUserByID, async (req, res) => {
 router.put(
   "/:id",
   checkAuth,
-  checkRoleAuth([1]),
+  checkRoleAuth([1, 2, 3]),
   updateUsers,
   async (req, res) => {
     return res.json(req.body.resultado);
