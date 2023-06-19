@@ -89,9 +89,7 @@ export default function Header() {
           )}
         </nav>
         <div id="categorias" className="categorias px-5">
-          <a href="#todas" className="mr-4">
-            Menú
-          </a>
+          <a className="mr-4">Menú</a>
 
           {categorias &&
             categorias.map((categ) => (

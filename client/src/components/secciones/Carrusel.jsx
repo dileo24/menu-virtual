@@ -53,10 +53,10 @@ export default function Carrusel() {
         {categorias.length && (
           <Swipe className="swipe">
             <div id="todas">
-              <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
+              <Menu prodsBuscados={homeBusqueda} />
             </div>
             {categorias.map((categ) => (
-              <div id={categ.nombre} key={categ.id}>
+              <div key={categ.id}>
                 <Menu categoria={categ.nombre} />
               </div>
             ))}
