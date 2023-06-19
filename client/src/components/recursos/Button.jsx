@@ -5,7 +5,7 @@ function Button({ signo, funcion }) {
       type="button"
       onClick={funcion}
     >
-      <div className="-mt-1 text-white">{signo}</div>
+      <div className="text-white">{signo}</div>
     </button>
   );
 }

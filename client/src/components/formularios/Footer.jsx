@@ -87,8 +87,12 @@ export default function Footer() {
   };
 
   const handleMostrarMenu2 = () => {
-    setMostrarMenu2(!MostrarMenu2);
-    setMostrarMenu(MostrarMenu);
+    if (carrito.length) {
+      setMostrarMenu2(!MostrarMenu2);
+      setMostrarMenu(MostrarMenu);
+    } else {
+      alert("Tu carrito está vacío");
+    }
   };
   const handleMostrarMenu1 = () => {
     if (MostrarMenu2) {
@@ -149,9 +153,6 @@ export default function Footer() {
       } else {
         storedInputs = []; // Si no hay inputs previos, crear una lista vacía
       }
-
-      // Asignar el nuevo input al objeto inputs
-      /* const newInput = { ...input, id }; */
 
       // Agregar el nuevo input a la lista de inputs almacenados
       storedInputs.push({ id });

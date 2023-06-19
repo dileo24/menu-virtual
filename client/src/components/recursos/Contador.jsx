@@ -41,11 +41,17 @@ export default function Contador({
 
   return (
     <div className="flex">
-      <Button signo="-" funcion={() => handleDecremento(id)} />
+      {contadorNum.length ? (
+        <>
+          <Button signo="-" funcion={() => handleDecremento(id)} />
 
-      <p className="text-center w-8 focus:outline-none focus:border-none text-xl">
-        {contadorNum.length}
-      </p>
+          <p className="text-center w-8 focus:outline-none focus:border-none text-xl">
+            {contadorNum.length}
+          </p>
+        </>
+      ) : (
+        ""
+      )}
 
       <Button
         signo="+"
