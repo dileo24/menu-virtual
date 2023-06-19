@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header id="containerHeader" className="containerHeader">
       <NavLink to="/">
-        <h1>QuickBites</h1>
+        <h1 id="marca">QuickBites</h1>
       </NavLink>
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
@@ -91,6 +91,10 @@ export default function Header() {
               </div>
             ))}
         </div>
+      </div>
+      <div className="subCategorias">
+        Todo.....Pizzas..... Hamburguesas..... Lomitos..... Empanadas.....
+        Pastas
       </div>
     </header>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -8,16 +8,17 @@ import Swipe from "react-swipe";
 export default function Carrusel() {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
   const categorias = useSelector((state) => state.categorias);
-
+  // console.log(categorias);
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
     const header = document.getElementById("containerHeader");
     const subHeader = document.getElementById("subHeader");
     const nav = document.getElementById("nav");
     const categorias = document.getElementById("categorias");
+    const marca = document.getElementById("marca");
 
-    if (scrollPosition >= /* 55 */ 120) {
-      header.style.marginBottom = "14vh";
+    if (scrollPosition >= /* 55 */ 110) {
+      marca.style.marginBottom = "14vh";
       subHeader.style.position = "absolute";
       subHeader.style.top = "0";
       // Con animación suave
@@ -47,7 +48,7 @@ export default function Carrusel() {
         }
       }
     } else {
-      header.style.marginBottom = "";
+      marca.style.marginBottom = "";
       subHeader.style.position = "static";
       subHeader.style.top = "";
       // Con animación suave
@@ -67,15 +68,31 @@ export default function Carrusel() {
         <Header />
 
         <Swipe className="swipe">
-          {/* {categorias &&
+          {categorias.length && console.log(categorias)}
+          {categorias.length &&
             categorias.map((categ) => (
               <div key={categ.id}>
                 <Menu categoria={categ.nombre} />
               </div>
-            ))} */}
+            ))}
+          {/* <div>
+            <Menu />
+          </div>
           <div>
             <Menu />
           </div>
+          <div>
+            <Menu />
+          </div>
+          <div>
+            <Menu />
+          </div>
+          <div>
+            <Menu />
+          </div>
+          <div>
+            <Menu />
+          </div> */}
         </Swipe>
       </div>
       <Footer />

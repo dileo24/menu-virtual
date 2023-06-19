@@ -36,8 +36,9 @@ export default function Menu({ categoria }) {
           {productosState
             .filter(
               (producto) =>
-                producto.listado === true && producto.item === false /* &&
-                producto.categoria.id === categoria */
+                producto.listado === true &&
+                producto.item === false &&
+                producto.categoria.nombre === categoria
             ) // Aplica el filtro para mostrar solo los productos con listado:true
             .map(
               (
@@ -84,13 +85,13 @@ export default function Menu({ categoria }) {
                 </div>
               )
             )}
-          <p>Items</p>
           {/********************* ITEMS VISIBLES *********************/}
           {productosState
             .filter(
               (producto) =>
-                producto.listado === true && producto.item === true /* &&
-                producto.categoria.id === categoria */
+                producto.listado === true &&
+                producto.item === true &&
+                producto.categoria.nombre === categoria
             )
             .map(
               (
@@ -150,9 +151,10 @@ export default function Menu({ categoria }) {
               {productosState
                 .filter(
                   (producto) =>
-                    producto.listado === false && producto.item === true /* &&
-                    producto.categoria.id === categoria */
-                ) // Aplica el filtro para mostrar solo los items con listado:false
+                    producto.listado === false &&
+                    producto.item === true &&
+                    producto.categoria.nombre === categoria
+                )
                 .map(
                   (
                     {

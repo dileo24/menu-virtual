@@ -62,9 +62,34 @@ header {
         font-size: 4.5vw;
         // font-weight: 800;
         &:not(:last-child) {
-          margin-right: 2rem;
+          margin-right: 1rem;
         }
       }
+    }
+  }
+  .subCategorias {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 100vw;
+    height: 7vh;
+    font-size: 4.5vw;
+    overflow-x: auto;
+    white-space: nowrap;
+    /* Ocultar la barra de desplazamiento */
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+    &::-ms-scrollbar {
+      display: none;
     }
   }
 }
