@@ -50,18 +50,26 @@ export default function Items({
           className="block text-gray-700 text-sm font-bold mb-2"
           htmlFor="numItemsExtra"
         >
-          Cantidad de ítems Extra
+          Ítems Extra
           <span className="font-normal"> (no obligatorio)</span>
         </label>
         <div className="flex">
-          <Button signo="-" funcion={decrementNumItems} />
-          <p
-            className="w-5 mx-3 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            onChange={handleNumItemsChange}
-            readOnly
-          >
-            {numItemsExtra}
-          </p>
+          {numItemsExtra ? (
+            <>
+              {" "}
+              <Button signo="-" funcion={decrementNumItems} />
+              <p
+                className="w-5 mx-3 text-center text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                onChange={handleNumItemsChange}
+                readOnly
+              >
+                {numItemsExtra}
+              </p>
+            </>
+          ) : (
+            ""
+          )}
+
           <Button signo="+" funcion={incrementNumItems} />
         </div>
       </div>
