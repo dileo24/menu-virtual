@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
 import Footer from "../formularios/Footer";
+import { getProductos } from "../../redux/actions";
 import Swipe from "react-swipe";
 
 export default function Carrusel() {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
   const categorias = useSelector((state) => state.categorias);
+  const home = useSelector((state) => state.home);
   const homeBusqueda = useSelector((state) => state.homeBusqueda);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProductos);
+  }, [dispatch]);
 
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
@@ -45,19 +52,27 @@ export default function Carrusel() {
     }
     setPrevScrollPosition(scrollPosition);
   };
-
+  let prodsFilter = [];
   return (
     <div className="carruselContainer">
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
         <Header />
         {categorias.length && (
           <Swipe className="swipe">
-            <div id="todas">
-              <Menu prodsBuscados={homeBusqueda} />
+            <div>
+              <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
             </div>
             {categorias.map((categ) => (
-              <div key={categ.id}>
-                <Menu categoria={categ.nombre} />
+              <div>
+                {/* {
+                  (home.filter(
+                    (prod) => prod.categoria.id === categ.id ?
+                    prodsFilter.push(prod)
+                  ))
+                } */}
+                <div key={categ.id}>
+                  <Menu categoria={categ.nombre} />
+                </div>
               </div>
             ))}
           </Swipe>
