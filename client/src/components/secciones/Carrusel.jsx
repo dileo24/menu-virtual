@@ -66,34 +66,15 @@ export default function Carrusel() {
     <div className="carruselContainer">
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
         <Header />
-
-        <Swipe className="swipe">
-          {categorias.length && console.log(categorias)}
-          {categorias.length &&
-            categorias.map((categ) => (
+        {categorias.length && (
+          <Swipe className="swipe">
+            {categorias.map((categ) => (
               <div key={categ.id}>
                 <Menu categoria={categ.nombre} />
               </div>
             ))}
-          {/* <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div> */}
-        </Swipe>
+          </Swipe>
+        )}
       </div>
       <Footer />
     </div>
