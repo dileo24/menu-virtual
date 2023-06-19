@@ -63,14 +63,14 @@ export default function Carrusel() {
               <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
             </div>
             {categorias.map((categ) => (
-              <div>
+              <div key={categ.id}>
                 {/* {
                   (home.filter(
                     (prod) => prod.categoria.id === categ.id ?
                     prodsFilter.push(prod)
                   ))
                 } */}
-                <div key={categ.id}>
+                <div>
                   <Menu categoria={categ.nombre} />
                 </div>
               </div>
