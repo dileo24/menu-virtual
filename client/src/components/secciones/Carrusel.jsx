@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
 import Footer from "../formularios/Footer";
@@ -6,6 +7,7 @@ import Swipe from "react-swipe";
 
 export default function Carrusel() {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
+  const categorias = useSelector((state) => state.categorias);
 
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
@@ -65,24 +67,12 @@ export default function Carrusel() {
         <Header />
 
         <Swipe className="swipe">
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
-          <div>
-            <Menu />
-          </div>
+          {/* {categorias &&
+            categorias.map((categ) => (
+              <div key={categ.id}>
+                <Menu categoria={categ.nombre} />
+              </div>
+            ))} */}
           <div>
             <Menu />
           </div>

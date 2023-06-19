@@ -10,6 +10,7 @@ export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
+  const categorias = useSelector((state) => state.categorias);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
@@ -70,12 +71,13 @@ export default function Header() {
             </button>
           )}
         </nav>
-        <div id="categorias" className="categorias">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat in
-          officiis accusamus incidunt quisquam aliquid adipisci voluptates Lorem
-          ipsum dolor sit amet, consectetur adipisicing elit. Veniam nemo rem
-          sunt culpa quae veritatis quos! Autem odio voluptatem, sint
-          consectetur impedit eligendi quasi rem fuga qui est cum nihil.
+        <div id="categorias" className="categorias px-5">
+          {categorias &&
+            categorias.map((categ) => (
+              <div key={categ.id} className="categoria">
+                {categ.nombre}
+              </div>
+            ))}
         </div>
       </div>
     </header>

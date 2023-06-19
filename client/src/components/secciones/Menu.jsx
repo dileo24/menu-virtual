@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
 
-export default function Menu() {
+export default function Menu({ categoria }) {
   const userActual = useSelector((state) => state.userActual);
   // const itemsNoListados = useSelector((state) => state.itemsNoListados);
   const token = userActual && userActual.tokenSession;
@@ -35,7 +35,9 @@ export default function Menu() {
           {/********************* PRODUCTOS VISIBLES *********************/}
           {productosState
             .filter(
-              (producto) => producto.listado === true && producto.item === false
+              (producto) =>
+                producto.listado === true && producto.item === false /* &&
+                producto.categoria.id === categoria */
             ) // Aplica el filtro para mostrar solo los productos con listado:true
             .map(
               (
@@ -52,7 +54,7 @@ export default function Menu() {
                 <div key={index} className="cardProducto">
                   <p className="nombre">{nombre}</p>
                   <p className="descripcion">{descripcion}</p>
-                  <div className="PrecioAcciones">
+                  <div className="precioAcciones">
                     <p className="precio">${precio}</p>
                     <div className="acciones">
                       {userActual ? (
@@ -86,7 +88,9 @@ export default function Menu() {
           {/********************* ITEMS VISIBLES *********************/}
           {productosState
             .filter(
-              (producto) => producto.listado === true && producto.item === true
+              (producto) =>
+                producto.listado === true && producto.item === true /* &&
+                producto.categoria.id === categoria */
             )
             .map(
               (
@@ -103,7 +107,7 @@ export default function Menu() {
                 <div key={index} className="cardItem">
                   <p className="nombre">{nombre}</p>
                   <p className="descripcion">{descripcion}</p>
-                  <div className="PrecioAcciones">
+                  <div className="precioAcciones">
                     <p className="precio">${precio}</p>
                     <div className="acciones">
                       {userActual ? (
@@ -146,7 +150,8 @@ export default function Menu() {
               {productosState
                 .filter(
                   (producto) =>
-                    producto.listado === false && producto.item === true
+                    producto.listado === false && producto.item === true /* &&
+                    producto.categoria.id === categoria */
                 ) // Aplica el filtro para mostrar solo los items con listado:false
                 .map(
                   (
@@ -163,7 +168,7 @@ export default function Menu() {
                     <div key={index} className="cardItemNoVisible">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
-                      <div className="PrecioAcciones">
+                      <div className="precioAcciones">
                         <p className="precio">${precio}</p>
                         <div className="acciones">
                           {userActual ? (
