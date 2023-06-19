@@ -15,7 +15,7 @@ router.get("/", allCategory, async (req, res) => {
 router.post(
   "/",
   checkAuth,
-  checkRoleAuth([1]),
+  checkRoleAuth([1, 2]),
   createCategory,
   async (req, res) => {
     return res.status(200).send(req.body.resultado);
@@ -23,21 +23,21 @@ router.post(
 );
 
 router.delete(
-  "/id",
+  "/:id",
   checkAuth,
-  checkRoleAuth([1]),
+  checkRoleAuth([1, 2]),
   deleteCategory,
   async (req, res) => {
     return res.json({
-      respuesta: `categoria con id ${req.body.eliminado} eliminado`,
+      respuesta: `categoria eliminada`,
     });
   }
 );
 
 router.put(
-  "/id",
+  "/:id",
   checkAuth,
-  checkRoleAuth([1]),
+  checkRoleAuth([1, 2]),
   updateCategory,
   async (req, res) => {
     return res.json({ respuesta: `Categoria actualizado` });

@@ -13,6 +13,7 @@ import {
   GET_PEDIDOS,
   GET_ESTADOS,
   GET_TIPOPAGOS,
+  DELETE_CATEG,
 } from "./actions.js";
 
 const initialState = {
@@ -49,6 +50,24 @@ function rootReducer(state = initialState, action) {
         itemsExtra: [...items],
         itemsNoListados: [...itemsNoListados],
       };
+    case SEARCHxNOMBRE: {
+      let removeAccents = (str) => {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      };
+
+      let productsSearch = state.productos.filter((e) =>
+        removeAccents(e.nombre.toLowerCase()).includes(
+          removeAccents(action.payload.toLowerCase())
+        )
+      );
+
+      return {
+        ...state,
+        home: productsSearch,
+      };
+    }
+
+    /****************** CATEGORIAS ******************/
     case GET_CATEGORIAS:
       return {
         ...state,
@@ -66,22 +85,13 @@ function rootReducer(state = initialState, action) {
         home: prodFilter,
       };
     }
-    case SEARCHxNOMBRE: {
-      let removeAccents = (str) => {
-        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-      };
-
-      let productsSearch = state.productos.filter((e) =>
-        removeAccents(e.nombre.toLowerCase()).includes(
-          removeAccents(action.payload.toLowerCase())
-        )
-      );
-
+    case DELETE_CATEG:
       return {
         ...state,
-        home: productsSearch,
+        categorias: state.categorias.filter(
+          (categ) => categ.id !== action.payload
+        ),
       };
-    }
 
     /****************** USUARIOS ******************/
     case GET_USUARIOS:

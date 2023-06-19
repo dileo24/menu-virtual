@@ -11,9 +11,10 @@ import Usuarios from "./components/secciones/Usuarios";
 import Pedidos from "./components/secciones/Pedidos";
 import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
+import NuevaCateg from "./components/formularios/NuevaCateg";
 
 // Local
-/* axios.defaults.baseURL = "http://localhost:3001"; */
+// axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
 axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
@@ -29,11 +30,9 @@ function App() {
         <Route path="/login" element={<ModalLogin />} />
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />
-        {/* logeados */}
-        {userActual && userActual.data.RolId !== 0 && (
-          <>
-            <Route path="/pedidos" element={<Pedidos />} />
-          </>
+        {/* empleados */}
+        {userActual && userActual.data.RolId === 3 && (
+          <Route path="/pedidos" element={<Pedidos />} />
         )}
         {/* admins */}
         {userActual && userActual.data.RolId === 1 && (
@@ -43,6 +42,17 @@ function App() {
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
+            <Route path="/nuevaCateg" element={<NuevaCateg />} />
+            <Route path="/pedidos" element={<Pedidos />} />
+          </>
+        )}
+        {/* admins */}
+        {userActual && userActual.data.RolId === 2 && (
+          <>
+            <Route path="/nuevoProducto" element={<NuevoProducto />} />
+            <Route path="/editarProducto" element={<EditarProducto />} />
+            <Route path="/nuevaCateg" element={<NuevaCateg />} />
+            <Route path="/pedidos" element={<Pedidos />} />
           </>
         )}
       </Routes>

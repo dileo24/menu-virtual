@@ -10,6 +10,7 @@ export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
+  const categorias = useSelector((state) => state.categorias);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
@@ -22,20 +23,22 @@ export default function Header() {
   return (
     <header id="containerHeader" className="containerHeader">
       <NavLink to="/">
-        <h1>QuickBites</h1>
+        <h1 id="marca">QuickBites</h1>
       </NavLink>
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
-          {userActual &&
-            (userActual.data.RolId === 3 || userActual.data.RolId === 2) && (
-              <Link to="/pedidos" className="pedidos">
-                Pedidos
-              </Link>
-            )}
+          {userActual && userActual.data.RolId === 3 && (
+            <Link to="/pedidos" className="pedidos">
+              Pedidos
+            </Link>
+          )}
           {userActual && userActual.data.RolId === 1 && (
             <>
               <Link to="/nuevoProducto" className="nuevoProducto">
                 Nuevo producto
+              </Link>
+              <Link to="/nuevaCateg" className="nuevaCateg">
+                Administrar categorias
               </Link>
               <Link to="/pedidos" className="pedidos">
                 Pedidos
@@ -48,6 +51,19 @@ export default function Header() {
               </Link>
               <Link to="/estadisticas" className="estadisticas">
                 Estadisticas
+              </Link>
+            </>
+          )}
+          {userActual && userActual.data.RolId === 2 && (
+            <>
+              <Link to="/nuevoProducto" className="nuevoProducto">
+                Nuevo producto
+              </Link>
+              <Link to="/nuevaCateg" className="nuevaCateg">
+                Administrar categorias
+              </Link>
+              <Link to="/pedidos" className="pedidos">
+                Pedidos
               </Link>
             </>
           )}
@@ -67,13 +83,18 @@ export default function Header() {
             </button>
           )}
         </nav>
-        <div id="categorias" className="categorias">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat in
-          officiis accusamus incidunt quisquam aliquid adipisci voluptates Lorem
-          ipsum dolor sit amet, consectetur adipisicing elit. Veniam nemo rem
-          sunt culpa quae veritatis quos! Autem odio voluptatem, sint
-          consectetur impedit eligendi quasi rem fuga qui est cum nihil.
+        <div id="categorias" className="categorias px-5">
+          {categorias &&
+            categorias.map((categ) => (
+              <div key={categ.id} className="categoria">
+                {categ.nombre}
+              </div>
+            ))}
         </div>
+      </div>
+      <div className="subCategorias">
+        Todo.....Pizzas..... Hamburguesas..... Lomitos..... Empanadas.....
+        Pastas
       </div>
     </header>
   );
