@@ -4,5 +4,8 @@
   },
   {
     "rol": "Administrador"
+  },
+  {
+    "rol": "Empleado"
   }
 ]

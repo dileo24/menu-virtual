@@ -1,11 +1,19 @@
 [
   {
+    "nombre": "super",
+    "apellido": "admin",
+    "email": "super@gmail.com",
+    "clave": "hola1234",
+    "bloqueo": "false",
+    "rolID": 1
+  },
+  {
     "nombre": "admin",
     "apellido": "admincito",
     "email": "admin@gmail.com",
     "clave": "hola1234",
     "bloqueo": "false",
-    "rolID": 1
+    "rolID": 2
   },
   {
     "nombre": "Cajero",
@@ -13,7 +21,7 @@
     "email": "cajero@gmail.com",
     "clave": "hola1234",
     "bloqueo": "false",
-    "rolID": 2
+    "rolID": 3
   },
   {
     "nombre": "Mozo",
@@ -21,7 +29,7 @@
     "email": "mozo@gmail.com",
     "clave": "hola1234",
     "bloqueo": "false",
-    "rolID": 2
+    "rolID": 3
   },
   {
     "nombre": "Mozo",
@@ -29,7 +37,7 @@
     "email": "mozo2@gmail.com",
     "clave": "hola1234",
     "bloqueo": "false",
-    "rolID": 2
+    "rolID": 3
   },
   {
     "nombre": "Mozo",
@@ -37,6 +45,6 @@
     "email": "mozo3@gmail.com",
     "clave": "hola1234",
     "bloqueo": "false",
-    "rolID": 2
+    "rolID": 3
   }
 ]
