@@ -43,6 +43,7 @@ function App() {
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
             <Route path="/nuevaCateg" element={<NuevaCateg />} />
+            <Route path="/pedidos" element={<Pedidos />} />
           </>
         )}
         {/* admins */}
@@ -51,6 +52,7 @@ function App() {
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />
             <Route path="/nuevaCateg" element={<NuevaCateg />} />
+            <Route path="/pedidos" element={<Pedidos />} />
           </>
         )}
       </Routes>

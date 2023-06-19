@@ -27,19 +27,18 @@ export default function Header() {
       </NavLink>
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
-          {userActual &&
-            (userActual.data.RolId === 3 || userActual.data.RolId === 2) && (
-              <Link to="/pedidos" className="pedidos">
-                Pedidos
-              </Link>
-            )}
+          {userActual && userActual.data.RolId === 3 && (
+            <Link to="/pedidos" className="pedidos">
+              Pedidos
+            </Link>
+          )}
           {userActual && userActual.data.RolId === 1 && (
             <>
               <Link to="/nuevoProducto" className="nuevoProducto">
                 Nuevo producto
               </Link>
               <Link to="/nuevaCateg" className="nuevaCateg">
-                Nueva categoria
+                Administrar categorias
               </Link>
               <Link to="/pedidos" className="pedidos">
                 Pedidos
@@ -52,6 +51,19 @@ export default function Header() {
               </Link>
               <Link to="/estadisticas" className="estadisticas">
                 Estadisticas
+              </Link>
+            </>
+          )}
+          {userActual && userActual.data.RolId === 2 && (
+            <>
+              <Link to="/nuevoProducto" className="nuevoProducto">
+                Nuevo producto
+              </Link>
+              <Link to="/nuevaCateg" className="nuevaCateg">
+                Administrar categorias
+              </Link>
+              <Link to="/pedidos" className="pedidos">
+                Pedidos
               </Link>
             </>
           )}
