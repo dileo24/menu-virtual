@@ -38,6 +38,8 @@ header {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-top: 1px solid rgba(0, 0, 0, 0.3);
       width: 100vw;
+      font-weight: 500;
+      font-size: 4.5vw;
       // padding-top: 3%;
       height: 7vh;
       overflow-x: auto;
@@ -58,38 +60,49 @@ header {
         display: none;
       }
       .categoria {
-        font-weight: 500;
-        font-size: 4.5vw;
-        // font-weight: 800;
         &:not(:last-child) {
           margin-right: 1rem;
+        }
+        outline: none;
+      }
+      .active {
+        font-weight: 700;
+        border-bottom: 3.5px solid rgb(250, 178, 58);
+        transition: all 0.1s ease;
+        -webkit-transition: all 0.1s ease;
+        -moz-transition: all 0.1s ease;
+        -ms-transition: all 0.1s ease;
+        -o-transition: all 0.1s ease;
+
+        &:focus {
+          outline: none;
         }
       }
     }
   }
-  .subCategorias {
-    display: flex;
-    align-items: center;
-    background-color: white;
-    width: 100vw;
-    height: 7vh;
-    font-size: 4.5vw;
-    overflow-x: auto;
-    white-space: nowrap;
-    /* Ocultar la barra de desplazamiento */
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      width: 0;
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-    &::-ms-scrollbar {
-      display: none;
-    }
-  }
+  // .subCategorias {
+  //   display: flex;
+  //   align-items: center;
+  //   background-color: white;
+  //   width: 100vw;
+  //   height: 7vh;
+  //   font-size: 4.5vw;
+  //   overflow-x: auto;
+  //   white-space: nowrap;
+  //   /* Ocultar la barra de desplazamiento */
+  //   scrollbar-width: none;
+  //   &::-webkit-scrollbar {
+  //     width: 0;
+  //     background-color: transparent;
+  //   }
+  //   &::-webkit-scrollbar-thumb {
+  //     background-color: transparent;
+  //   }
+  //   &::-webkit-scrollbar-track {
+  //     background-color: transparent;
+  //   }
+  //   &::-ms-scrollbar {
+  //     display: none;
+  //   }
+  // }
 }

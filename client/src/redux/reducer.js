@@ -21,6 +21,7 @@ const initialState = {
   usuarios: [],
   productos: [],
   home: [],
+  homeBusqueda: [],
   carrito: [],
   categorias: [],
   pedidos: [],
@@ -47,6 +48,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         productos: [...action.payload],
         home: [...action.payload],
+        homeBusqueda: [...action.payload],
         itemsExtra: [...items],
         itemsNoListados: [...itemsNoListados],
       };
@@ -63,7 +65,7 @@ function rootReducer(state = initialState, action) {
 
       return {
         ...state,
-        home: productsSearch,
+        homeBusqueda: productsSearch,
       };
     }
 
@@ -78,8 +80,8 @@ function rootReducer(state = initialState, action) {
         action.payload === "todas"
           ? state.productos
           : state.productos.filter(
-              (prod) => prod.categoria.nombre === action.payload
-            );
+            (prod) => prod.categoria.nombre === action.payload
+          );
       return {
         ...state,
         home: prodFilter,

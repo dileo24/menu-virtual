@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
 
-export default function Menu({ categoria }) {
+export default function Menu({ categoria, prodsBuscados }) {
   const userActual = useSelector((state) => state.userActual);
   // const itemsNoListados = useSelector((state) => state.itemsNoListados);
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
-  const productosState = useSelector((state) => state.home);
-  // console.log(productosState);
+  let productosState = useSelector((state) => state.home);
+  prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
+
   useEffect(() => {
     dispatch(getProductos());
   }, [dispatch]);
@@ -26,7 +27,6 @@ export default function Menu({ categoria }) {
     }
   };
 
-  // console.log(itemsNoListados);
   return (
     productosState && (
       <main className="menuContainer">
@@ -36,11 +36,11 @@ export default function Menu({ categoria }) {
           {/********************* PRODUCTOS VISIBLES *********************/}
           {productosState
             .filter(
-              (producto) =>
-                producto.listado === true &&
-                producto.item === false &&
-                producto.categoria.nombre === categoria
-            ) // Aplica el filtro para mostrar solo los productos con listado:true
+              (producto) => producto.listado === true && producto.item === false
+            )
+            .filter((prod) =>
+              categoria !== "todas" ? prod.categoria.nombre === categoria : prod
+            )
             .map(
               (
                 {
@@ -73,7 +73,7 @@ export default function Menu({ categoria }) {
                         </>
                       ) : (
                         <Contador
-                          id={index}
+                          id={id}
                           nombre={nombre}
                           descripcion={descripcion}
                           precio={precio}
@@ -89,10 +89,10 @@ export default function Menu({ categoria }) {
           {/********************* ITEMS VISIBLES *********************/}
           {productosState
             .filter(
-              (producto) =>
-                producto.listado === true &&
-                producto.item === true &&
-                producto.categoria.nombre === categoria
+              (producto) => producto.listado === true && producto.item === true
+            )
+            .filter((prod) =>
+              categoria !== "todas" ? prod.categoria.nombre === categoria : prod
             )
             .map(
               (
@@ -152,9 +152,12 @@ export default function Menu({ categoria }) {
               {productosState
                 .filter(
                   (producto) =>
-                    producto.listado === false &&
-                    producto.item === true &&
-                    producto.categoria.nombre === categoria
+                    producto.listado === false && producto.item === true
+                )
+                .filter((prod) =>
+                  categoria !== "todas"
+                    ? prod.categoria.nombre === categoria
+                    : prod
                 )
                 .map(
                   (

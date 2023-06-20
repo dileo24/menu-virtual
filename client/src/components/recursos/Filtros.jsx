@@ -1,17 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCategorias,
-  getProductos,
-  searchXcategoria,
-  searchXname,
-} from "../../redux/actions";
+import { getCategorias, getProductos, searchXname } from "../../redux/actions";
 // import { FaSistrix } from "react-icons/fa";
 
 export default function Filtros() {
-  const categorias = useSelector((state) => state.categorias);
   const [state, setState] = useState("");
-  const [filtroCategoria, setFiltroCategoria] = useState("todas");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,17 +13,6 @@ export default function Filtros() {
 
   const handleRecargar = () => {
     dispatch(getProductos());
-    setFiltroCategoria("todas");
-  };
-
-  const handleFilterCateg = (e) => {
-    const selectedCategoria = e.target.value;
-    setFiltroCategoria(selectedCategoria);
-    if (selectedCategoria === "todas") {
-      dispatch(getProductos());
-    } else {
-      dispatch(searchXcategoria(selectedCategoria));
-    }
   };
 
   const handleState = (e) => {
