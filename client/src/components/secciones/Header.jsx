@@ -117,7 +117,9 @@ export default function Header({ currentSlide, setDiapositiva }) {
           style={{ overflowX: "auto", whiteSpace: "nowrap" }}
         >
           <button
-            className={`mr-4 ${currentSlide === 0 ? "active" : ""}`}
+            className={`outline-none focus:outline-none mr-4 ${
+              currentSlide === 0 ? "active" : ""
+            }`}
             onClick={() => {
               setDiapositiva(0);
             }}
