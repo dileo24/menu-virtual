@@ -11,7 +11,7 @@ export default function Carrusel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [diapositiva, setDiapositiva] = useState(0);
   const prevDiapositivaRef = useRef(diapositiva);
-
+  const carruselRef = useRef(null); // Referencia al contenedor principal
   const categorias = useSelector((state) => state.categorias);
   const home = useSelector((state) => state.home);
   const homeBusqueda = useSelector((state) => state.homeBusqueda);
@@ -23,9 +23,14 @@ export default function Carrusel() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (diapositiva !== prevDiapositivaRef) {
+    if (diapositiva !== prevDiapositivaRef.current) {
       setCurrentSlide(diapositiva);
+      setPrevScrollPosition(0); // Reiniciar la posición de desplazamiento al cambiar de categoría
+      if (carruselRef.current) {
+        carruselRef.current.scrollTo(0, 0); // Desplazar el contenedor al top 0
+      }
     }
+    prevDiapositivaRef.current = diapositiva;
   }, [diapositiva]);
 
   const handleContainerScroll = (e) => {
@@ -67,12 +72,15 @@ export default function Carrusel() {
   const handleSwipe = (index) => {
     setCurrentSlide(index);
     setDiapositiva(index);
-    // console.log(`Diapositiva ${index + 1}`);
   };
 
   return (
     <div className="carruselContainer">
-      <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
+      <div
+        className="carrusel-wrapper"
+        onScroll={handleContainerScroll}
+        ref={carruselRef}
+      >
         <Header currentSlide={currentSlide} setDiapositiva={setDiapositiva} />
         {categorias.length && (
           <Swipe
