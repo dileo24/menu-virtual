@@ -52,13 +52,27 @@ export default function Carrusel() {
     }
     setPrevScrollPosition(scrollPosition);
   };
+
+  const handleSwipe = (index, element) => {
+    console.log(`Página ${index + 1} deslizada`);
+  };
+
   let prodsFilter = [];
+
   return (
     <div className="carruselContainer">
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
         <Header />
         {categorias.length && (
-          <Swipe className="swipe">
+          <Swipe
+            className="swipe"
+            swipeOptions={{
+              startSlide: 0,
+              speed: 400,
+              continuous: false,
+              callback: handleSwipe,
+            }}
+          >
             <div>
               <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
             </div>
