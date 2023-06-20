@@ -63,6 +63,20 @@ header {
         &:not(:last-child) {
           margin-right: 1rem;
         }
+        outline: none;
+      }
+      .active {
+        font-weight: 700;
+        border-bottom: 3.5px solid rgb(250, 178, 58);
+        transition: all 0.1s ease;
+        -webkit-transition: all 0.1s ease;
+        -moz-transition: all 0.1s ease;
+        -ms-transition: all 0.1s ease;
+        -o-transition: all 0.1s ease;
+
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

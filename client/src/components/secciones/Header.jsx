@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { cleanUserActual, searchXname } from "../../redux/actions";
@@ -6,11 +6,12 @@ import Filtros from "../recursos/Filtros";
 import { GiShoppingCart } from "react-icons/gi";
 import { HiUserCircle } from "react-icons/hi";
 
-export default function Header() {
+export default function Header({ currentSlide, setDiapositiva }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
   const categorias = useSelector((state) => state.categorias);
+  const scrollableRef = useRef(null);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
@@ -24,6 +25,27 @@ export default function Header() {
     dispatch(searchXname(""));
     navigate("/");
   };
+
+  const scrollToActiveCategory = () => {
+    if (scrollableRef.current) {
+      const activeCategory = scrollableRef.current.querySelector(".active");
+      if (activeCategory) {
+        const containerWidth = scrollableRef.current.offsetWidth;
+        const categoryWidth = activeCategory.offsetWidth;
+        const categoryLeft = activeCategory.offsetLeft;
+        const scrollLeft = categoryLeft - (containerWidth - categoryWidth) / 2;
+
+        scrollableRef.current.scrollTo({
+          left: scrollLeft,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    scrollToActiveCategory();
+  }, [currentSlide]);
 
   return (
     <header id="containerHeader" className="containerHeader">
@@ -88,21 +110,37 @@ export default function Header() {
             </button>
           )}
         </nav>
-        <div id="categorias" className="categorias px-5">
-          <a className="mr-4">Menú</a>
+        <div
+          id="categorias"
+          className="categorias px-5"
+          ref={scrollableRef}
+          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+        >
+          <button
+            className={`mr-4 ${currentSlide === 0 ? "active" : ""}`}
+            onClick={() => {
+              setDiapositiva(0);
+            }}
+          >
+            Menú
+          </button>
 
           {categorias &&
             categorias.map((categ) => (
-              <div key={categ.id} className="categoria">
+              <button
+                key={categ.id}
+                className={`categoria ${
+                  currentSlide === categ.id ? "active" : ""
+                }`}
+                onClick={() => {
+                  setDiapositiva(categ.id);
+                }}
+              >
                 {categ.nombre}
-              </div>
+              </button>
             ))}
         </div>
       </div>
-      {/* <div className="subCategorias">
-        Todo.....Pizzas..... Hamburguesas..... Lomitos..... Empanadas.....
-        Pastas
-      </div> */}
     </header>
   );
 }

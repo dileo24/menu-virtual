@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
@@ -8,14 +8,25 @@ import Swipe from "react-swipe";
 
 export default function Carrusel() {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [diapositiva, setDiapositiva] = useState(0);
+  const prevDiapositivaRef = useRef(diapositiva);
+
   const categorias = useSelector((state) => state.categorias);
   const home = useSelector((state) => state.home);
   const homeBusqueda = useSelector((state) => state.homeBusqueda);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProductos);
+    dispatch(getProductos());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (diapositiva !== prevDiapositivaRef) {
+      setCurrentSlide(diapositiva);
+    }
+  }, [diapositiva]);
 
   const handleContainerScroll = (e) => {
     const scrollPosition = e.target.scrollTop;
@@ -53,21 +64,21 @@ export default function Carrusel() {
     setPrevScrollPosition(scrollPosition);
   };
 
-  const handleSwipe = (index, element) => {
-    console.log(`Página ${index + 1} deslizada`);
+  const handleSwipe = (index) => {
+    setCurrentSlide(index);
+    setDiapositiva(index);
+    // console.log(`Diapositiva ${index + 1}`);
   };
-
-  let prodsFilter = [];
 
   return (
     <div className="carruselContainer">
       <div className="carrusel-wrapper" onScroll={handleContainerScroll}>
-        <Header />
+        <Header currentSlide={currentSlide} setDiapositiva={setDiapositiva} />
         {categorias.length && (
           <Swipe
             className="swipe"
             swipeOptions={{
-              startSlide: 0,
+              startSlide: currentSlide,
               speed: 400,
               continuous: false,
               callback: handleSwipe,
