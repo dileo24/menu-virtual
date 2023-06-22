@@ -1,15 +1,12 @@
 header {
   width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  @include centerCol;
   position: static !important;
 
   h1 {
     padding-top: 1vh;
     font-size: 6vw;
-    color: rgb(250, 178, 58);
+    color: $naranja;
     font-weight: 800;
   }
   .subHeader {
@@ -28,7 +25,7 @@ header {
         width: 12vw;
         height: 5vh;
         transform: scaleX(-1);
-        fill: rgb(250, 178, 58);
+        fill: $naranja;
       }
     }
     .categorias {
@@ -67,7 +64,7 @@ header {
       }
       .active {
         font-weight: 700;
-        border-bottom: 3.5px solid rgb(250, 178, 58);
+        border-bottom: 3.5px solid $naranja;
         transition: all 0.1s ease;
         -webkit-transition: all 0.1s ease;
         -moz-transition: all 0.1s ease;

@@ -1,5 +1,5 @@
 .menuContainer {
-  padding: 2vh 5%;
+  padding: 2vh 5% 10vh 5%;
 
   .cardsVisibles,
   .cardsNoVisibles {
@@ -35,5 +35,5 @@
 }
 
 .contador {
-  background-color: rgb(250, 178, 58);
+  background-color: $naranja;
 }

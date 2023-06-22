@@ -15,6 +15,7 @@ export default function Carrusel() {
   const categorias = useSelector((state) => state.categorias);
   const home = useSelector((state) => state.home);
   const homeBusqueda = useSelector((state) => state.homeBusqueda);
+  const carrito = useSelector((state) => state.carrito);
 
   const dispatch = useDispatch();
 
@@ -111,7 +112,8 @@ export default function Carrusel() {
           </Swipe>
         )}
       </div>
-      <Footer />
+
+      {carrito.length ? <Footer /> : ""}
     </div>
   );
 }

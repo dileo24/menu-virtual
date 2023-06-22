@@ -80,7 +80,7 @@ export default function Footer() {
       setMostrarMenu2(!MostrarMenu2);
     }
     if (verOcultar === "Ver mi pedido") {
-      setVerOcultar("Ocultar mi pedido");
+      setVerOcultar("Siguiente");
     } else {
       setVerOcultar("Ver mi pedido");
     }
@@ -90,6 +90,12 @@ export default function Footer() {
     if (carrito.length) {
       setMostrarMenu2(!MostrarMenu2);
       setMostrarMenu(MostrarMenu);
+      const desplegable1 = document.querySelector(".desplegable1");
+      if (!document.querySelector(".ocultar")) {
+        desplegable1.classList.add("ocultar");
+      } else {
+        desplegable1.classList.remove("ocultar");
+      }
     } else {
       alert("Tu carrito está vacío");
     }
@@ -97,6 +103,13 @@ export default function Footer() {
   const handleMostrarMenu1 = () => {
     if (MostrarMenu2) {
       setMostrarMenu2(!MostrarMenu2);
+      const desplegable1 = document.querySelector(".desplegable1");
+
+      if (!document.querySelector(".ocultar")) {
+        desplegable1.classList.add("ocultar");
+      } else {
+        desplegable1.classList.remove("ocultar");
+      }
     }
     setMostrarMenu(MostrarMenu);
   };
@@ -181,11 +194,12 @@ export default function Footer() {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
+
   return (
     <>
       {userActual ? null : (
         <>
-          <div className="footer">
+          <footer className="footer">
             <div className="precio">
               {preciosArray.length} producto
               {preciosArray.length === 1 ? "" : "s"}
@@ -194,29 +208,31 @@ export default function Footer() {
             <button className="botonFooter" onClick={handleMostrarMenu}>
               <b className="font-bold">{verOcultar}</b>
             </button>
-          </div>
+          </footer>
         </>
       )}
 
-      <div className="flex justify-center items-center">
+      <div className="desplegables">
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
-          <div className="fixed bottom-0 mb-12 w-full md:w-2/6 xl:w-2/6 py-2 bg-gray-300 rounded z-10 px-8">
-            <table className="text-center">
+          <div className="desplegable1">
+            <div className="linea"></div>
+
+            <table>
               <thead>
                 <tr>
-                  <th className="text-center px-4 py-2">Producto</th>
-                  <th className="text-center px-4 py-2">Precio</th>
-                  <th className="text-center px-4 py-2">Eliminar</th>
+                  <th>Producto</th>
+                  <th>Precio</th>
+                  <th>Eliminar</th>
                 </tr>
               </thead>
               <tbody>
                 {carrito &&
                   carrito.map((prod, id) => (
                     <tr key={id}>
-                      <td className="text-center px-4 py-2">{prod.nombre}</td>
-                      <td className="text-center px-4 py-2">${prod.precio}</td>
-                      <td className="text-center px-4 py-2">
+                      <td>{prod.nombre}</td>
+                      <td>${prod.precio}</td>
+                      <td>
                         <div
                           onClick={() => {
                             handleEliminarItemCarrito(prod.id);
@@ -228,18 +244,18 @@ export default function Footer() {
                       </td>
                     </tr>
                   ))}
-                <tr>
-                  <td className=" py-2" colSpan="2">
-                    Precio Final: ${precioFinal}
-                  </td>
-                </tr>
               </tbody>
             </table>
-            <div
-              className=" py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg cursor-pointer"
-              onClick={handleMostrarMenu2}
-            >
-              <div className="font-bold">Siguiente</div>
+
+            <div className="footer1">
+              <p className="precioFinal">Precio Final: ${precioFinal}</p>
+
+              <div
+                className=" py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg cursor-pointer"
+                onClick={handleMostrarMenu2}
+              >
+                Siguiente
+              </div>
             </div>
           </div>
         )}
