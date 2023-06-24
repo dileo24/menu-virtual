@@ -11,6 +11,7 @@ import Usuarios from "./components/secciones/Usuarios";
 import Pedidos from "./components/secciones/Pedidos";
 import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
+import Items from "./components/secciones/Items";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 
 // Local
@@ -30,6 +31,7 @@ function App() {
         <Route path="/login" element={<ModalLogin />} />
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />
+        <Route path="/items" element={<Items />} />
         {/* empleados */}
         {userActual && userActual.data.RolId === 3 && (
           <Route path="/pedidos" element={<Pedidos />} />

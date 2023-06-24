@@ -2,6 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { eliminarItemCarrito, agregarCarrito } from "../../redux/actions";
 import Button from "./Button";
+import { Link } from "react-router-dom";
+import { HiUserCircle } from "react-icons/hi";
 
 export default function Contador({
   nombre,
@@ -65,6 +67,18 @@ export default function Contador({
             cantidadPersonas,
           })
         }
+        // funcion={() =>
+        //   itemsExtra
+        //     ? (window.location.href = "/items")
+        //     : handleIncremento({
+        //         nombre,
+        //         descripcion,
+        //         precio,
+        //         id,
+        //         itemsExtra,
+        //         cantidadPersonas,
+        //       })
+        // }
       />
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
-import Footer from "../formularios/Footer";
+import Footer from "../secciones/Footer";
 import { getProductos } from "../../redux/actions";
 import Swipe from "react-swipe";
 
@@ -15,6 +15,7 @@ export default function Carrusel() {
   const categorias = useSelector((state) => state.categorias);
   const home = useSelector((state) => state.home);
   const homeBusqueda = useSelector((state) => state.homeBusqueda);
+  const carrito = useSelector((state) => state.carrito);
 
   const dispatch = useDispatch();
 
@@ -111,6 +112,7 @@ export default function Carrusel() {
           </Swipe>
         )}
       </div>
+
       <Footer />
     </div>
   );
