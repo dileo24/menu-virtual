@@ -11,11 +11,11 @@ $error: #ff6666;
 $success: #66ff66;
 $warning: #ffb366;
 $info: #66a3ff;
-$tituloSize: 2.5vw;
-$descrSize: 1.3vw;
-$descrSizeResp: 4.5vw;
-$descrLineHeight: 150%;
-$light: 300;
+// $tituloSize: 2.5vw;
+// $descrSize: 1.3vw;
+// $descrSizeResp: 4.5vw;
+// $descrLineHeight: 150%;
+// $light: 300;
 
 @mixin center {
   display: flex;
@@ -37,34 +37,34 @@ $light: 300;
   align-items: center;
 }
 
-@mixin botones {
-  padding: 0.75% 2.2%;
-  height: auto;
-  width: fit-content;
-  background-color: $magenta;
-  color: white;
-  font-size: 1.15vw;
-  text-decoration: none;
-  border-radius: 0.5rem;
-  -webkit-border-radius: 0.5rem;
-  -moz-border-radius: 0.5rem;
-  -ms-border-radius: 0.5rem;
-  -o-border-radius: 0.5rem;
-  text-decoration: none;
-  box-shadow: 0px 0px 0.8rem 0px rgba(0, 0, 0, 0.207);
-}
+// @mixin botones {
+//   padding: 0.75% 2.2%;
+//   height: auto;
+//   width: fit-content;
+//   background-color: $magenta;
+//   color: white;
+//   font-size: 1.15vw;
+//   text-decoration: none;
+//   border-radius: 0.5rem;
+//   -webkit-border-radius: 0.5rem;
+//   -moz-border-radius: 0.5rem;
+//   -ms-border-radius: 0.5rem;
+//   -o-border-radius: 0.5rem;
+//   text-decoration: none;
+//   box-shadow: 0px 0px 0.8rem 0px rgba(0, 0, 0, 0.207);
+// }
 
-@mixin tituloMediano {
-  width: 50%;
-  font-size: 3.5vw;
-  font-weight: 700;
-}
+// @mixin tituloMediano {
+//   width: 50%;
+//   font-size: 3.5vw;
+//   font-weight: 700;
+// }
 
-@mixin tituloMedianoResp {
-  width: 50%;
-  font-size: 8vw;
-  font-weight: 700;
-}
+// @mixin tituloMedianoResp {
+//   width: 50%;
+//   font-size: 8vw;
+//   font-weight: 700;
+// }
 
 html {
   scroll-behavior: smooth;

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
-import Footer from "../formularios/Footer";
+import Footer from "../secciones/Footer";
 import { getProductos } from "../../redux/actions";
 import Swipe from "react-swipe";
 

@@ -6,7 +6,10 @@ import {
   getTipoPago,
   limpiarCarrito,
 } from "../../redux/actions";
+import { Link } from "react-router-dom";
+
 import { createPedido } from "../../redux/actions";
+import { HiUserCircle } from "react-icons/hi";
 
 export default function Footer() {
   const carrito = useSelector((state) => state.carrito);
@@ -73,11 +76,26 @@ export default function Footer() {
   };
 
   // Mostrar u ocultar Menús desplegables
-  const handleMostrarMenu = () => {
-    setMostrarMenu(!MostrarMenu);
+  const handleOnClick = () => {
+    if (!MostrarMenu) {
+      setMostrarMenu(!MostrarMenu);
 
-    if (MostrarMenu2) {
-      setMostrarMenu2(!MostrarMenu2);
+      if (MostrarMenu2) {
+        setMostrarMenu2(!MostrarMenu2);
+      }
+    } else {
+      if (carrito.length) {
+        setMostrarMenu2(!MostrarMenu2);
+        setMostrarMenu(MostrarMenu);
+        const desplegable1 = document.querySelector(".desplegable1");
+        if (!document.querySelector(".ocultar")) {
+          desplegable1.classList.add("ocultar");
+        } else {
+          desplegable1.classList.remove("ocultar");
+        }
+      } else {
+        alert("Tu carrito está vacío");
+      }
     }
     if (verOcultar === "Ver mi pedido") {
       setVerOcultar("Siguiente");
@@ -86,25 +104,13 @@ export default function Footer() {
     }
   };
 
-  const handleMostrarMenu2 = () => {
-    if (carrito.length) {
-      setMostrarMenu2(!MostrarMenu2);
-      setMostrarMenu(MostrarMenu);
-      const desplegable1 = document.querySelector(".desplegable1");
-      if (!document.querySelector(".ocultar")) {
-        desplegable1.classList.add("ocultar");
-      } else {
-        desplegable1.classList.remove("ocultar");
-      }
-    } else {
-      alert("Tu carrito está vacío");
-    }
-  };
   const handleMostrarMenu1 = () => {
     if (MostrarMenu2) {
       setMostrarMenu2(!MostrarMenu2);
       const desplegable1 = document.querySelector(".desplegable1");
-
+      if (verOcultar === "Hacer pedido") {
+        setVerOcultar("Siguiente");
+      }
       if (!document.querySelector(".ocultar")) {
         desplegable1.classList.add("ocultar");
       } else {
@@ -112,17 +118,21 @@ export default function Footer() {
       }
     }
     setMostrarMenu(MostrarMenu);
+    setVerOcultar("Siguiente");
+  };
+
+  const handleOcultarMenu1 = () => {
+    setMostrarMenu(!MostrarMenu);
+    if (verOcultar === "Ver mi pedido") {
+      setVerOcultar("Siguiente");
+    } else {
+      setVerOcultar("Ver mi pedido");
+    }
   };
 
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-  };
-  const handleSelectItemExtra = (prodId, item) => {
-    setInput((prevInput) => ({
-      ...prevInput,
-      itemsExtra: [...prevInput.itemsExtra, item],
-    }));
   };
 
   const handleSelectTipo = (e) => {
@@ -136,7 +146,6 @@ export default function Footer() {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-
     if (carrito.length) {
       // Validación de longitud de aclaraciones
       if (input.aclaraciones.length > 50) {
@@ -194,19 +203,16 @@ export default function Footer() {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
-
+  console.log(carrito);
   return (
     <>
       {userActual ? null : (
         <>
           <footer className="footer">
-            <div className="precio">
-              {preciosArray.length} producto
-              {preciosArray.length === 1 ? "" : "s"}
-              <span>${precioFinal}</span>
-            </div>
-            <button className="botonFooter" onClick={handleMostrarMenu}>
-              <b className="font-bold">{verOcultar}</b>
+            <button className="botonFooter" onClick={handleOnClick}>
+              <div className="cantidad">{preciosArray.length}</div>
+              <b className="verPedido">{verOcultar}</b>
+              <div className="precio">${precioFinal}</div>
             </button>
           </footer>
         </>
@@ -216,23 +222,25 @@ export default function Footer() {
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
           <div className="desplegable1">
-            <div className="linea"></div>
+            <div className="ocultarBtnContainer">
+              <div className="ocultarBtn" onClick={handleOcultarMenu1}></div>
+            </div>
 
-            <table>
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Precio</th>
-                  <th>Eliminar</th>
-                </tr>
-              </thead>
-              <tbody>
-                {carrito &&
-                  carrito.map((prod, id) => (
-                    <tr key={id}>
-                      <td>{prod.nombre}</td>
-                      <td>${prod.precio}</td>
-                      <td>
+            <div>
+              {carrito &&
+                carrito.map((prod, id) => (
+                  <div key={id} className="cardProducto">
+                    <p className="nombre">{prod.nombre}</p>
+                    <p className="descripcion">{prod.descripcion}</p>
+                    <div className="precioAcciones">
+                      <p className="precio">${prod.precio}</p>
+                      <div className="acciones">
+                        {prod.itemsExtra && (
+                          <Link to="/items" className="editarItems">
+                            <HiUserCircle className="editarIcon" />
+                          </Link>
+                        )}
+
                         <div
                           onClick={() => {
                             handleEliminarItemCarrito(prod.id);
@@ -241,45 +249,29 @@ export default function Footer() {
                         >
                           X
                         </div>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-
-            <div className="footer1">
-              <p className="precioFinal">Precio Final: ${precioFinal}</p>
-
-              <div
-                className=" py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg cursor-pointer"
-                onClick={handleMostrarMenu2}
-              >
-                Siguiente
-              </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         )}
 
         {/* Menu desplegable 2*/}
         {MostrarMenu2 && (
-          <div className="fixed bottom-0 mb-12 md:w-4/5 xl:w-3/6  px-8 pb-8 pt-2 bg-gray-300 rounded z-10">
-            <button
-              className="py-2 mb-2 rounded bg-teal-600 text-center px-3 py-1 text-white block hover:bg-teal-900 mt-2 hover:text-yellow-400 text-sm leading-5 font-medium text-lg relative"
-              onClick={handleMostrarMenu1}
-            >
-              <b className="font-bold">Atrás</b>
+          <div className="desplegable2">
+            <button className="" onClick={handleMostrarMenu1}>
+              <b className="">Atrás</b>
             </button>
+
             <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
-              {/* ****************** MESA ****************** */}
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="mesa"
-                >
+              {/* ****** MESA ****** */}
+              <div className="">
+                <label className="" htmlFor="mesa">
                   Mesa
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className=""
                   id="nombre"
                   name="mesa"
                   type="number"
@@ -292,80 +284,13 @@ export default function Footer() {
                 />
               </div>
 
-              {/* ****************** ITEMS ****************** */}
-              <div className="mb-4">
-                <div className="flex">
-                  {carrito.length
-                    ? carrito.map(
-                        (prod, indexCarr) =>
-                          prod.itemsExtra && (
-                            <div key={indexCarr}>
-                              <label
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                                htmlFor="mesa"
-                              >
-                                Seleccione items para {prod.nombre}
-                              </label>
-                              {Array.from(
-                                { length: prod.cantidadPersonas },
-                                (_, index) => (
-                                  <div key={index}>
-                                    <p>Persona {index + 1}</p>
-                                    {prod.itemsExtra.map(
-                                      (categoria, categoriaIndex) => {
-                                        const itemsFiltrados =
-                                          itemsExtraArray.filter(
-                                            (item) =>
-                                              item.categoria.nombre ===
-                                              categoria
-                                          );
-                                        return (
-                                          <select
-                                            name={`itemsExtra-${categoriaIndex}`}
-                                            onChange={(e) =>
-                                              handleSelectItemExtra(
-                                                prod.id,
-                                                e.target.value
-                                              )
-                                            }
-                                            required
-                                            key={`${index}-${categoriaIndex}`}
-                                          >
-                                            <option hidden>{categoria}</option>
-                                            {itemsFiltrados.map(
-                                              (item, itemIndex) => (
-                                                <option
-                                                  key={itemIndex}
-                                                  value={item.nombre}
-                                                >
-                                                  {item.nombre}
-                                                </option>
-                                              )
-                                            )}
-                                          </select>
-                                        );
-                                      }
-                                    )}
-                                  </div>
-                                )
-                              )}
-                            </div>
-                          )
-                      )
-                    : ""}
-                </div>
-              </div>
-
-              {/* ****************** ACLARACIONES ****************** */}
-              <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="aclaraciones"
-                >
+              {/* ****** ACLARACIONES ****** */}
+              <div className="">
+                <label className="" htmlFor="aclaraciones">
                   Aclaraciones
                 </label>
                 <input
-                  className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className=""
                   id="aclaraciones"
                   name="aclaraciones"
                   type="text"
@@ -377,12 +302,9 @@ export default function Footer() {
                 />
               </div>
 
-              {/* ****************** MÉTODO DE PAGO ****************** */}
+              {/* ****** MÉTODO DE PAGO ****** */}
               <div className="mb-4">
-                <label
-                  className="block text-gray-700 text-sm font-bold mb-2"
-                  htmlFor="precio"
-                >
+                <label className="" htmlFor="precio">
                   Método de pago
                 </label>
                 <div className="flex">
@@ -393,11 +315,11 @@ export default function Footer() {
                         id={tipo.id}
                         name="metodoPago"
                         value={tipo.id}
-                        className="mr-2"
+                        className=""
                         onChange={(e) => handleSelectTipo(e)}
                         required
                       />
-                      <label htmlFor={tipo.id} className="mr-4">
+                      <label htmlFor={tipo.id} className="">
                         {tipo.tipo}
                       </label>
                     </div>
@@ -405,11 +327,17 @@ export default function Footer() {
                 </div>
               </div>
 
-              <input
-                type="submit"
-                className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer rounded"
-                value="Hacer pedido"
-              />
+              <div className="footer">
+                <div className="botonFooter">
+                  <div className="cantidad">{preciosArray.length}</div>
+                  <input
+                    type="submit"
+                    className="verPedido"
+                    value="Hacer pedido"
+                  />
+                  <div className="precio">${precioFinal}</div>
+                </div>
+              </div>
             </form>
           </div>
         )}
