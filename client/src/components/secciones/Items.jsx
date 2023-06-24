@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  eliminarItemCarrito,
-  getPedidos,
-  getTipoPago,
-  limpiarCarrito,
-} from "../../redux/actions";
-import { createPedido } from "../../redux/actions";
+import { getPedidos, getTipoPago } from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 export default function Items() {
@@ -149,11 +143,9 @@ export default function Items() {
             </div>
           </div>
 
-          <div className="footer">
-            <div className="botonFooter">
-              <div className="cantidad">{preciosArray.length}</div>
-              <input type="submit" className="verPedido" value="Hacer pedido" />
-              <div className="precio">${precioFinal}</div>
+          <div className="footerItems">
+            <div className="listoBtn">
+              <input type="submit" className="verPedido" value="Listo" />
             </div>
           </div>
         </form>

@@ -154,19 +154,19 @@ export default function Footer() {
       }
 
       // Validación de itemsExtra seleccionados
-      const totalItemsExtraRequired = carrito.reduce((total, prod) => {
-        if (prod.itemsExtra) {
-          return total + prod.cantidadPersonas * prod.itemsExtra.length;
-        }
-        return total;
-      }, 0);
-      if (
-        !input.itemsExtra ||
-        input.itemsExtra.length !== totalItemsExtraRequired
-      ) {
-        alert("Debes seleccionar todos los items extra requeridos");
-        return;
-      }
+      // const totalItemsExtraRequired = carrito.reduce((total, prod) => {
+      //   if (prod.itemsExtra) {
+      //     return total + prod.cantidadPersonas * prod.itemsExtra.length;
+      //   }
+      //   return total;
+      // }, 0);
+      // if (
+      //   !input.itemsExtra ||
+      //   input.itemsExtra.length !== totalItemsExtraRequired
+      // ) {
+      //   alert("Debes seleccionar todos los items extra requeridos");
+      //   return;
+      // }
 
       // Obtener la lista de inputs previamente almacenados
       let storedInputs = localStorage.getItem("inputs");
