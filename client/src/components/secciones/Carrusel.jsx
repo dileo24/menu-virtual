@@ -113,7 +113,7 @@ export default function Carrusel() {
         )}
       </div>
 
-      {carrito.length ? <Footer /> : ""}
+      <Footer />
     </div>
   );
 }

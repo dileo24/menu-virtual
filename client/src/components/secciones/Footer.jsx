@@ -13,6 +13,7 @@ import { HiUserCircle } from "react-icons/hi";
 
 export default function Footer() {
   const carrito = useSelector((state) => state.carrito);
+  let marginTop = carrito.length > 0 ? "" : "margen";
   const pedidos = useSelector((state) => state.pedidos);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
@@ -79,7 +80,6 @@ export default function Footer() {
   const handleOnClick = () => {
     if (!MostrarMenu) {
       setMostrarMenu(!MostrarMenu);
-
       if (MostrarMenu2) {
         setMostrarMenu2(!MostrarMenu2);
       }
@@ -87,47 +87,35 @@ export default function Footer() {
       if (carrito.length) {
         setMostrarMenu2(!MostrarMenu2);
         setMostrarMenu(MostrarMenu);
-        const desplegable1 = document.querySelector(".desplegable1");
-        if (!document.querySelector(".ocultar")) {
-          desplegable1.classList.add("ocultar");
-        } else {
-          desplegable1.classList.remove("ocultar");
-        }
       } else {
         alert("Tu carrito está vacío");
       }
     }
     if (verOcultar === "Ver mi pedido") {
       setVerOcultar("Siguiente");
-    } else {
-      setVerOcultar("Ver mi pedido");
     }
   };
 
   const handleMostrarMenu1 = () => {
     if (MostrarMenu2) {
       setMostrarMenu2(!MostrarMenu2);
-      const desplegable1 = document.querySelector(".desplegable1");
-      if (verOcultar === "Hacer pedido") {
-        setVerOcultar("Siguiente");
-      }
-      if (!document.querySelector(".ocultar")) {
-        desplegable1.classList.add("ocultar");
-      } else {
-        desplegable1.classList.remove("ocultar");
-      }
     }
     setMostrarMenu(MostrarMenu);
     setVerOcultar("Siguiente");
   };
 
   const handleOcultarMenu1 = () => {
-    setMostrarMenu(!MostrarMenu);
-    if (verOcultar === "Ver mi pedido") {
-      setVerOcultar("Siguiente");
-    } else {
-      setVerOcultar("Ver mi pedido");
-    }
+    const desplegable1 = document.querySelector(".desplegable1");
+    desplegable1.classList.add("animate-slide-down");
+    setTimeout(() => {
+      desplegable1.classList.remove("animate-slide-down");
+      setMostrarMenu(!MostrarMenu);
+      if (verOcultar === "Ver mi pedido") {
+        setVerOcultar("Siguiente");
+      } else {
+        setVerOcultar("Ver mi pedido");
+      }
+    }, 200); // Tiempo de duración de la animación en milisegundos (0.3 segundos en este caso)
   };
 
   //formulario
@@ -203,12 +191,12 @@ export default function Footer() {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
-  console.log(carrito);
+
   return (
     <>
       {userActual ? null : (
         <>
-          <footer className="footer">
+          <footer className={`footer ${marginTop}`}>
             <button className="botonFooter" onClick={handleOnClick}>
               <div className="cantidad">{preciosArray.length}</div>
               <b className="verPedido">{verOcultar}</b>
@@ -221,9 +209,11 @@ export default function Footer() {
       <div className="desplegables">
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
-          <div className="desplegable1">
+          <div className="desplegable1 animate-slide-up">
             <div className="ocultarBtnContainer">
-              <div className="ocultarBtn" onClick={handleOcultarMenu1}></div>
+              <div className="ocultarBtn" onClick={handleOcultarMenu1}>
+                <span className="arrow-down"></span>
+              </div>
             </div>
 
             <div>
