@@ -1,0 +1,32 @@
+.contador {
+  background-color: $naranja;
+  height: 30px;
+  width: 30px;
+  @include center;
+  font-size: 10vw;
+  border-radius: 100%;
+  outline: none;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  &:focus {
+    outline: none;
+  }
+  .signoMenos {
+    width: 20px;
+    height: 3px;
+    background-color: white;
+  }
+  .signoMas1 {
+    width: 20px;
+    height: 3px;
+    background-color: white;
+    @include center;
+    .signoMas2 {
+      width: 3px;
+      height: 20px;
+      background-color: white;
+    }
+  }
+}

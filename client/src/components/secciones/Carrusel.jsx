@@ -26,17 +26,6 @@ const Carrusel = () => {
     dispatch(getProductos());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (diapositiva !== prevDiapositivaRef.current) {
-      setCurrentSlide(diapositiva);
-      setPrevScrollPosition(0); // Reiniciar la posición de desplazamiento al cambiar de categoría
-      if (carruselRef.current) {
-        carruselRef.current.scrollTo(0, 0); // Desplazar el contenedor al top 0
-      }
-    }
-    prevDiapositivaRef.current = diapositiva;
-  }, [diapositiva]);
-
   const handleWindowScroll = useCallback(() => {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
     const subHeader = document.getElementById("subHeader");
@@ -44,7 +33,7 @@ const Carrusel = () => {
     const categoriasEl = document.getElementById("categorias");
     const marca = document.getElementById("marca");
 
-    if (scrollPosition >= 107) {
+    if (scrollPosition >= 110) {
       marca.style.marginBottom = "14vh";
       subHeader.style.position = "fixed";
       subHeader.style.top = "0";
@@ -83,12 +72,13 @@ const Carrusel = () => {
   const handleSwipe = useCallback((index) => {
     setCurrentSlide(index);
     setDiapositiva(index);
+    window.scrollTo({ top: 0 }); // Desplazar hacia arriba
   }, []);
 
   return (
     <div className="carruselContainer">
       <div className="carrusel-wrapper" ref={carruselRef}>
-        <Header currentSlide={currentSlide} setDiapositiva={setDiapositiva} />
+        <Header currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} />
         {categorias.length && (
           <Swipe
             className="swipe"

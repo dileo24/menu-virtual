@@ -6,7 +6,7 @@ import Filtros from "../recursos/Filtros";
 import { GiShoppingCart } from "react-icons/gi";
 import { HiUserCircle } from "react-icons/hi";
 
-export default function Header({ currentSlide, setDiapositiva }) {
+export default function Header({ currentSlide, setCurrentSlide }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
@@ -112,16 +112,14 @@ export default function Header({ currentSlide, setDiapositiva }) {
         </nav>
         <div
           id="categorias"
-          className="categorias px-5"
+          className="categorias"
           ref={scrollableRef}
           style={{ overflowX: "auto", whiteSpace: "nowrap" }}
         >
           <button
-            className={`outline-none focus:outline-none mr-4 ${
-              currentSlide === 0 ? "active" : ""
-            }`}
+            className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
             onClick={() => {
-              setDiapositiva(0);
+              setCurrentSlide(0);
             }}
           >
             Menú
@@ -135,7 +133,7 @@ export default function Header({ currentSlide, setDiapositiva }) {
                   currentSlide === categ.id ? "active" : ""
                 }`}
                 onClick={() => {
-                  setDiapositiva(categ.id);
+                  setCurrentSlide(categ.id);
                 }}
               >
                 {categ.nombre}
