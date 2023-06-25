@@ -216,7 +216,7 @@ export default function Footer() {
               </div>
             </div>
 
-            <div>
+            <div className="scrollable-content">
               {carrito &&
                 carrito.map((prod, id) => (
                   <div key={id} className="cardProducto">

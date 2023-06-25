@@ -32,7 +32,6 @@ export default function Menu({ categoria, prodsBuscados }) {
       <main className="menuContainer">
         {/* <Filtros /> */}
         <div className="cardsVisibles">
-          <p>{categoria}</p>
           {/********************* PRODUCTOS VISIBLES *********************/}
           {productosState
             .filter(

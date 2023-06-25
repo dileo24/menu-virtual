@@ -62,14 +62,18 @@
 }
 
 .desplegables {
+  height: 100%;
+
   .desplegable1 {
     z-index: 999;
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     width: 100vw;
     background-color: white;
-    position: absolute;
+    position: fixed;
     top: 0;
-    padding: 2vh 5% 10vh 5%;
+    // padding: 2vh 5% 10vh 5%;
+    padding: 2vh 5% 0 0;
     .ocultarBtnContainer {
       display: flex;
       justify-content: end;
@@ -96,36 +100,44 @@
         }
       }
     }
-
-    .cardProducto {
-      width: 90vw;
-      margin-bottom: 5%;
-      border-radius: 10px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      -ms-border-radius: 10px;
-      -o-border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      padding: 5%;
-      .nombre {
-        font-weight: 700;
-        font-size: 4.5vw;
-      }
-      /* .descripcion {
-      } */
-      .precioAcciones {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10%;
-        .precio {
+    .scrollable-content {
+      height: 100vh;
+      width: 100vw;
+      overflow-y: auto; /* Habilita la barra de desplazamiento vertical */
+      padding-bottom: 20vh;
+      @include centerCol;
+      justify-content: start;
+      .cardProducto {
+        // margin-left: 5%;
+        width: 85vw;
+        margin-bottom: 5%;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 5%;
+        .nombre {
           font-weight: 700;
-          font-size: 5vw;
+          font-size: 4.5vw;
         }
-        .acciones {
-          // border: 1px solid red;
-          width: 10vw;
-          @include center;
+        /* .descripcion {
+        } */
+        .precioAcciones {
+          display: flex;
           justify-content: space-between;
+          margin-top: 10%;
+          .precio {
+            font-weight: 700;
+            font-size: 5vw;
+          }
+          .acciones {
+            // border: 1px solid red;
+            width: 10vw;
+            @include center;
+            justify-content: space-between;
+          }
         }
       }
     }

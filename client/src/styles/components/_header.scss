@@ -37,7 +37,7 @@ header {
       width: 100vw;
       font-weight: 500;
       font-size: 4.5vw;
-      // padding-top: 3%;
+      padding: 0 7%;
       height: 7vh;
       overflow-x: auto;
       white-space: nowrap;
@@ -56,9 +56,13 @@ header {
       &::-ms-scrollbar {
         display: none;
       }
+      .menuBtn {
+        outline: none;
+        margin-right: 7%;
+      }
       .categoria {
         &:not(:last-child) {
-          margin-right: 1rem;
+          margin-right: 7%;
         }
         outline: none;
       }
