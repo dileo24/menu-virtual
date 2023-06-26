@@ -72,8 +72,19 @@ export default function Footer() {
     }));
   }, [carrito]);
 
+  useEffect(() => {
+    if (MostrarMenu) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+  }, [MostrarMenu]);
+
   const handleEliminarItemCarrito = (id) => {
     dispatch(eliminarItemCarrito(id));
+    if (carrito.length === 1) {
+      handleOcultarMenu1();
+    }
   };
 
   // Mostrar u ocultar Menús desplegables
@@ -115,7 +126,7 @@ export default function Footer() {
       } else {
         setVerOcultar("Ver mi pedido");
       }
-    }, 200); // Tiempo de duración de la animación en milisegundos (0.3 segundos en este caso)
+    }, 200);
   };
 
   //formulario

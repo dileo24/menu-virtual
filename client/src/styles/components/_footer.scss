@@ -157,6 +157,10 @@
   display: none !important;
 }
 
+.noScroll {
+  overflow-y: hidden;
+}
+
 .animate-slide-up {
   animation-name: slide-up;
   animation-duration: 0.3s;
