@@ -205,6 +205,7 @@ export default function Footer() {
 
   return (
     <>
+      {/* Botón del footer */}
       {userActual ? null : (
         <>
           <footer className={`footer ${marginTop}`}>
@@ -214,6 +215,23 @@ export default function Footer() {
               <div className="precio">${precioFinal}</div>
             </button>
           </footer>
+
+          {/* Footer con botón para vaciar pedido */}
+          {/* <footer className={`footer ${marginTop}`}>
+            <button className="botonFooter" onClick={handleOnClick}>
+              <div className="vaciarCantidad">
+                <VscTrash
+                  className="vaciarIcon"
+                  onClick={() => {
+                      handleVaciarCarrito();
+                    }} 
+                />
+                <div className="cantidad">{preciosArray.length}</div>
+              </div>
+              <b className="verPedido">{verOcultar}</b>
+              <div className="precio">${precioFinal}</div>
+            </button>
+          </footer> */}
         </>
       )}
 
@@ -221,7 +239,8 @@ export default function Footer() {
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
           <div className="desplegable1 animate-slide-up">
-            <div className="ocultarBtnContainer">
+            <div className="header1">
+              <div className="titleHeader1">Mi Pedido</div>
               <div className="ocultarBtn" onClick={handleOcultarMenu1}>
                 <span className="arrow-down"></span>
               </div>

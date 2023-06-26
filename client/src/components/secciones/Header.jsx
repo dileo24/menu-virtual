@@ -1,10 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { cleanUserActual, searchXname } from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
 import { GiShoppingCart } from "react-icons/gi";
 import { HiUserCircle } from "react-icons/hi";
+import { getPedidos } from "../../redux/actions";
 
 export default function Header({ currentSlide, setCurrentSlide }) {
   const navigate = useNavigate();
@@ -12,6 +13,41 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const userActual = useSelector((state) => state.userActual);
   const categorias = useSelector((state) => state.categorias);
   const scrollableRef = useRef(null);
+  const pedidos = useSelector((state) => state.pedidos);
+  const [inputData, setInputData] = useState([]);
+
+  useEffect(() => {
+    dispatch(getPedidos());
+
+    const handleStorageChange = () => {
+      const savedInputs = localStorage.getItem("inputs");
+      if (savedInputs) {
+        setInputData(JSON.parse(savedInputs));
+      }
+    };
+
+    // Llamar a la función de manejo del evento de cambio al cargar la página
+    handleStorageChange();
+
+    // Agregar el listener del evento de cambio en el localStorage usando useEffect
+    window.addEventListener("storage", handleStorageChange);
+
+    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [dispatch]);
+
+  let pedidosActuales = inputData.map((idPed) =>
+    pedidos.filter((ped) => {
+      if (ped.id === idPed.id) {
+        return ped.EstadoId !== 4 && ped.EstadoId !== 5;
+      }
+      return false;
+    })
+  );
+
+  const pedidosNoVacios = pedidosActuales.filter((array) => array.length !== 0);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
@@ -102,6 +138,11 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               <Filtros />
               <Link to="/carrito" className="carrito">
                 <GiShoppingCart className="carritoIcon" />
+                {pedidosNoVacios.length ? (
+                  <div className="pedidos">{pedidosNoVacios.length}</div>
+                ) : (
+                  ""
+                )}
               </Link>
             </>
           ) : (
