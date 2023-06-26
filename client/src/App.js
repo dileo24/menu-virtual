@@ -31,7 +31,7 @@ function App() {
         <Route path="/login" element={<ModalLogin />} />
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />
-        <Route path="/items" element={<Items />} />
+        <Route path="/items/:id" element={<Items />} />
         {/* empleados */}
         {userActual && userActual.data.RolId === 3 && (
           <Route path="/pedidos" element={<Pedidos />} />

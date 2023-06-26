@@ -6,7 +6,7 @@ import {
   getTipoPago,
   limpiarCarrito,
 } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
 import { TfiPencil } from "react-icons/tfi";
 import { VscTrash } from "react-icons/vsc";
@@ -142,6 +142,7 @@ export default function Footer() {
       });
     }
   };
+  const navigate = useNavigate();
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -197,11 +198,13 @@ export default function Footer() {
       alert(
         "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
       );
-      window.location.href = "/";
+      navigate("/carrito");
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
+
+  console.log(carrito);
 
   return (
     <>

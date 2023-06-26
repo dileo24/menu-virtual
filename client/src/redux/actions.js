@@ -250,7 +250,6 @@ export const getPedidos = () => {
 
 export const createPedido = (payload) => {
   return async function () {
-    console.log(payload);
     const response = await axios.post("/pedidos", payload);
     return response;
   };
@@ -264,18 +263,7 @@ export const updatePedido = (id, data, token) => {
       },
     };
 
-    // LocalStorage (no funciona)
-    // const storedInputs = JSON.parse(localStorage.getItem("inputs")) || [];
-    // const pedidoIndex = storedInputs.findIndex((p) => p.id === Number(id));
-    // if (pedidoIndex === -1) {
-    //   return;
-    // }
-    // data.estadoID && (storedInputs[pedidoIndex].estadoID = data.estadoID);
-    // data.tipoPagoID && (storedInputs[pedidoIndex].tipoPagoID = data.tipoPagoID);
-    // localStorage.setItem("inputs", JSON.stringify(storedInputs));
-
     await axios.put(`/pedidos/${id}`, data, config);
-    console.log(data);
     dispatch(getPedidos());
   };
 };

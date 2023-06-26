@@ -2,8 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { eliminarItemCarrito, agregarCarrito } from "../../redux/actions";
 import Button from "./Button";
-import { Link } from "react-router-dom";
-import { HiUserCircle } from "react-icons/hi";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Contador({
   nombre,
@@ -40,6 +39,10 @@ export default function Contador({
   const handleDecremento = (id) => {
     dispatch(eliminarItemCarrito(id));
   };
+  const navigate = useNavigate();
+  const handleRelocated = () => {
+    navigate(`/items/${id}`);
+  };
 
   return (
     <div className="flex">
@@ -58,27 +61,17 @@ export default function Contador({
       <Button
         signo="+"
         funcion={() =>
-          handleIncremento({
-            nombre,
-            descripcion,
-            precio,
-            id,
-            itemsExtra,
-            cantidadPersonas,
-          })
+          itemsExtra
+            ? handleRelocated()
+            : handleIncremento({
+                nombre,
+                descripcion,
+                precio,
+                id,
+                itemsExtra,
+                cantidadPersonas,
+              })
         }
-        // funcion={() =>
-        //   itemsExtra
-        //     ? (window.location.href = "/items")
-        //     : handleIncremento({
-        //         nombre,
-        //         descripcion,
-        //         precio,
-        //         id,
-        //         itemsExtra,
-        //         cantidadPersonas,
-        //       })
-        // }
       />
     </div>
   );
