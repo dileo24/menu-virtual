@@ -120,6 +120,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
             className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
             onClick={() => {
               setCurrentSlide(0);
+              window.scrollTo({ top: 0 });
             }}
           >
             Menú
@@ -134,6 +135,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
                 }`}
                 onClick={() => {
                   setCurrentSlide(categ.id);
+                  window.scrollTo({ top: 0 });
                 }}
               >
                 {categ.nombre}
