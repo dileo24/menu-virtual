@@ -52,7 +52,7 @@ export default function Menu({ categoria, prodsBuscados }) {
                 },
                 index
               ) => (
-                <div key={index} className="cardProducto">
+                <div key={id} className="cardProducto">
                   <p className="nombre">{nombre}</p>
                   <p className="descripcion">{descripcion}</p>
                   <div className="precioAcciones">
@@ -105,7 +105,7 @@ export default function Menu({ categoria, prodsBuscados }) {
                 },
                 index
               ) => (
-                <div key={index} className="cardItem">
+                <div key={id} className="cardItem">
                   <p className="nombre">{nombre}</p>
                   <p className="descripcion">{descripcion}</p>
                   <div className="precioAcciones">
@@ -128,7 +128,7 @@ export default function Menu({ categoria, prodsBuscados }) {
                         </>
                       ) : (
                         <Contador
-                          id={index}
+                          id={id}
                           nombre={nombre}
                           descripcion={descripcion}
                           precio={precio}
@@ -170,7 +170,7 @@ export default function Menu({ categoria, prodsBuscados }) {
                     },
                     index
                   ) => (
-                    <div key={index} className="cardItemNoVisible">
+                    <div key={id} className="cardItemNoVisible">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -193,7 +193,7 @@ export default function Menu({ categoria, prodsBuscados }) {
                             </>
                           ) : (
                             <Contador
-                              id={index}
+                              id={id}
                               nombre={nombre}
                               descripcion={descripcion}
                               precio={precio}
