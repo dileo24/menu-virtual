@@ -7,9 +7,9 @@ import {
   limpiarCarrito,
 } from "../../redux/actions";
 import { Link } from "react-router-dom";
-
 import { createPedido } from "../../redux/actions";
-import { HiUserCircle } from "react-icons/hi";
+import { TfiPencil } from "react-icons/tfi";
+import { VscTrash } from "react-icons/vsc";
 
 export default function Footer() {
   const carrito = useSelector((state) => state.carrito);
@@ -238,18 +238,16 @@ export default function Footer() {
                       <div className="acciones">
                         {prod.itemsExtra && (
                           <Link to="/items" className="editarItems">
-                            <HiUserCircle className="editarIcon" />
+                            <TfiPencil className="editarIcon" />
                           </Link>
                         )}
 
-                        <div
+                        <VscTrash
+                          className="eliminarIcon"
                           onClick={() => {
                             handleEliminarItemCarrito(prod.id);
                           }}
-                          className="cursor-pointer text-red-500"
-                        >
-                          X
-                        </div>
+                        />
                       </div>
                     </div>
                   </div>
