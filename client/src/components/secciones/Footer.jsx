@@ -221,7 +221,8 @@ export default function Footer() {
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
           <div className="desplegable1 animate-slide-up">
-            <div className="ocultarBtnContainer">
+            <div className="header1">
+              <div className="titleHeader1">Mi Pedido</div>
               <div className="ocultarBtn" onClick={handleOcultarMenu1}>
                 <span className="arrow-down"></span>
               </div>
