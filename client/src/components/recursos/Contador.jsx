@@ -25,7 +25,6 @@ export default function Contador({
     itemsExtra,
     cantidadPersonas,
   }) => {
-    console.log(id);
     dispatch(
       agregarCarrito({
         nombre,

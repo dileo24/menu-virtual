@@ -27,6 +27,28 @@ header {
         transform: scaleX(-1);
         fill: $naranja;
       }
+      .carrito {
+        position: relative;
+
+        .pedidos {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: white;
+          width: 5vw;
+          height: 5vw;
+          font-size: 3.5vw;
+          @include center;
+          font-weight: 500;
+          // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.341);
+          border: 2px solid $naranja;
+          border-radius: 100%;
+          -webkit-border-radius: 100%;
+          -moz-border-radius: 100%;
+          -ms-border-radius: 100%;
+          -o-border-radius: 100%;
+        }
+      }
     }
     .categorias {
       display: flex;
