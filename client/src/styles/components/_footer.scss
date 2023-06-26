@@ -13,7 +13,8 @@
   -o-transition: all 0.3s ease;
 
   .botonFooter {
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.249);
+    // box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.249);
+    box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
     @include center;
     justify-content: space-between;
     position: relative;
@@ -167,6 +168,10 @@
         -o-border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         padding: 5%;
+        height: 20vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         .nombre {
           font-weight: 700;
           font-size: 4.5vw;
