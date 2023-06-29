@@ -213,9 +213,11 @@ export default function HacerPedido() {
         <>
           <footer className={`footer ${marginTop}`}>
             <button className="botonFooter" onClick={handleOnClick}>
-              <div className="cantidad">{preciosArray.length}</div>
+              {!MostrarMenu && (
+                <div className="cantidad">{preciosArray.length}</div>
+              )}
               <b className="verPedido">{verOcultar}</b>
-              <div className="precio">${precioFinal}</div>
+              {!MostrarMenu && <div className="precio">${precioFinal}</div>}
             </button>
           </footer>
 
@@ -276,6 +278,10 @@ export default function HacerPedido() {
                     </div>
                   </div>
                 ))}
+            </div>
+            <div className="footer1">
+              <p>Total</p>
+              <p>${precioFinal}</p>
             </div>
           </div>
         )}

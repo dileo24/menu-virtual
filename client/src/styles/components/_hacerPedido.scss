@@ -19,7 +19,8 @@
     justify-content: space-between;
     position: relative;
     background-color: $naranja;
-    padding: 3.5% 10% 3.5% 15%;
+    height: 6vh;
+    padding: 0 10% 0 15%;
     width: 90vw;
     // height: 5.5vh;
     border-radius: 6px;
@@ -222,6 +223,20 @@
           }
         }
       }
+    }
+
+    .footer1 {
+      position: fixed;
+      bottom: 0;
+      width: 100vw;
+      height: 14vh;
+      box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      padding: 2.5% 5% 0 5%;
+      font-size: 4.8vw;
+      font-weight: 700;
+      background-color: white;
     }
   }
   .desplegable2 {
