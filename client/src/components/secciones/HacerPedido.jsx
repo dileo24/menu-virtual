@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions";
 import { Link, useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
-import { TfiPencil } from "react-icons/tfi";
+import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
 
 export default function HacerPedido() {
@@ -242,34 +242,36 @@ export default function HacerPedido() {
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
           <div className="desplegable1 animate-slide-up">
-            <div className="header1">
-              <div className="titleHeader1">Mi Pedido</div>
-              <div className="ocultarBtn" onClick={handleOcultarMenu1}>
-                <span className="arrow-down"></span>
-              </div>
-            </div>
-
             <div className="scrollable-content">
+              <div className="header1">
+                <div className="ocultarBtn" onClick={handleOcultarMenu1}>
+                  <span className="arrow-down"></span>
+                </div>
+                <div className="titleHeader1">Mi Pedido</div>
+              </div>
               {carrito &&
                 carrito.map((prod, id) => (
                   <div key={id} className="cardProducto">
                     <p className="nombre">{prod.nombre}</p>
-                    <p className="descripcion">{prod.descripcion}</p>
+                    {/* <p className="descripcion">{prod.descripcion}</p> */}
                     <div className="precioAcciones">
                       <p className="precio">${prod.precio}</p>
                       <div className="acciones">
                         {prod.itemsExtra && (
-                          <Link to="/items" className="editarItems">
-                            <TfiPencil className="editarIcon" />
-                          </Link>
+                          <div className="iconContainer1">
+                            <Link to="/items" className="editarItems">
+                              <HiOutlinePencil className="editarIcon" />
+                            </Link>
+                          </div>
                         )}
-
-                        <VscTrash
-                          className="eliminarIcon"
-                          onClick={() => {
-                            handleEliminarItemCarrito(prod.id);
-                          }}
-                        />
+                        <div className="iconContainer2">
+                          <VscTrash
+                            className="eliminarIcon"
+                            onClick={() => {
+                              handleEliminarItemCarrito(prod.id);
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>

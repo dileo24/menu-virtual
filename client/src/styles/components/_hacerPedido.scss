@@ -45,7 +45,8 @@
       font-size: 4vw;
     }
     .cantidad {
-      background-color: white;
+      // background-color: white;
+      border: 1px solid $paragraph;
       width: 6vw;
       @include center;
       border-radius: 100%;
@@ -119,19 +120,21 @@
     top: 0;
     .header1 {
       display: flex;
+      flex-direction: column;
+      align-items: start;
       justify-content: space-between;
+      height: auto;
+      width: 100vw;
       padding: 5%;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
       .titleHeader1 {
-        @include center;
+        margin-top: 4%;
         font-weight: 700;
-        font-size: 4.5vw;
+        font-size: 6vw;
       }
       .ocultarBtn {
         width: 8vw;
         height: 8vw;
-        border: 1px solid black;
+        border: 1px solid $paragraph;
         border-radius: 8px;
         @include center;
         .arrow-down {
@@ -155,7 +158,7 @@
       height: 100vh;
       width: 100vw;
       overflow-y: auto;
-      padding: 5% 0 35% 0;
+      padding-bottom: 35%;
       @include centerCol;
       justify-content: start;
       .cardProducto {
@@ -168,36 +171,53 @@
         -o-border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         padding: 5%;
-        height: 20vh;
+        height: auto;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
         .nombre {
           font-weight: 700;
           font-size: 4.5vw;
+          width: 50%;
+          padding-right: 6vw;
         }
         /* .descripcion {
         } */
         .precioAcciones {
-          display: flex;
+          width: 50%;
+          @include center;
           justify-content: space-between;
-          margin-top: 10%;
           .precio {
             font-weight: 700;
-            font-size: 5vw;
+            color: $paragraph;
+            font-size: 4vw;
           }
           .acciones {
-            min-width: 2vw;
+            min-width: 50%;
             @include center;
-            justify-content: space-between;
-            .editarIcon {
-              width: 2rem;
-              height: 2rem;
-              margin-right: 1rem;
+            justify-content: end;
+            .iconContainer1 {
+              width: 8vw;
+              height: 8vw;
+              border: 1px solid $paragraph;
+              border-radius: 8px;
+              @include center;
+              margin-right: 2vw;
+              .editarIcon {
+                width: 1.2rem;
+                height: 1.2rem;
+                @include center;
+              }
             }
-            .eliminarIcon {
-              width: 2rem;
-              height: 2rem;
+            .iconContainer2 {
+              width: 8vw;
+              height: 8vw;
+              border: 1px solid $paragraph;
+              border-radius: 8px;
+              @include center;
+              .eliminarIcon {
+                width: 1.2rem;
+                height: 1.2rem;
+                @include center;
+              }
             }
           }
         }
