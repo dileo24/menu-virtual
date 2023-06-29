@@ -11,7 +11,7 @@ import { createPedido } from "../../redux/actions";
 import { TfiPencil } from "react-icons/tfi";
 import { VscTrash } from "react-icons/vsc";
 
-export default function Footer() {
+export default function HacerPedido() {
   const carrito = useSelector((state) => state.carrito);
   let marginTop = carrito.length > 0 ? "" : "margen";
   const pedidos = useSelector((state) => state.pedidos);
