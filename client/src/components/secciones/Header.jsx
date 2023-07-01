@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { cleanUserActual, searchXname } from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
-import { HiUserCircle } from "react-icons/hi";
 import { getPedidos } from "../../redux/actions";
-import bandeja from "../../multmedia/bandeja.png";
-import login from "../../multmedia/login.png";
+import bandeja from "../../multmedia/bandeja.svg";
+import login from "../../multmedia/login.svg";
 
 export default function Header({ currentSlide, setCurrentSlide }) {
   const navigate = useNavigate();

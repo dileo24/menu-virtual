@@ -119,41 +119,6 @@
     background-color: white;
     position: fixed;
     top: 0;
-    .header1 {
-      display: flex;
-      flex-direction: column;
-      align-items: start;
-      justify-content: space-between;
-      height: auto;
-      width: 100vw;
-      padding: 5%;
-      .titleHeader1 {
-        margin-top: 4%;
-        font-weight: 700;
-        font-size: 6vw;
-      }
-      .ocultarBtn {
-        width: 8vw;
-        height: 8vw;
-        border: 1px solid $paragraph;
-        border-radius: 8px;
-        @include center;
-        .arrow-down {
-          position: relative;
-          display: block;
-          width: 12px;
-          height: 12px;
-          margin-top: -5px;
-          border-right: 3px solid black;
-          border-bottom: 3px solid black;
-          transform: rotate(45deg);
-          -webkit-transform: rotate(45deg);
-          -moz-transform: rotate(45deg);
-          -ms-transform: rotate(45deg);
-          -o-transform: rotate(45deg);
-        }
-      }
-    }
 
     .scrollable-content {
       height: 100vh;
@@ -162,6 +127,41 @@
       padding-bottom: 35%;
       @include centerCol;
       justify-content: start;
+      .header1 {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+        height: auto;
+        width: 100vw;
+        padding: 5%;
+        .titleHeader1 {
+          margin-top: 4%;
+          font-weight: 700;
+          font-size: 6vw;
+        }
+        .ocultarBtn {
+          width: 8vw;
+          height: 8vw;
+          border: 1px solid $paragraph;
+          border-radius: 8px;
+          @include center;
+          .arrow-down {
+            position: relative;
+            display: block;
+            width: 12px;
+            height: 12px;
+            margin-top: -5px;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+          }
+        }
+      }
       .cardProducto {
         width: 90vw;
         margin-bottom: 5%;
