@@ -117,7 +117,7 @@
     height: auto;
     min-height: 100vh;
     width: 100vw;
-    background-color: white;
+    background-color: rgb(247, 247, 247);
     position: fixed;
     top: 0;
 
@@ -125,7 +125,7 @@
       height: 100vh;
       width: 100vw;
       overflow-y: auto;
-      padding-bottom: 35%;
+      padding-bottom: 30%;
 
       // @include centerCol;
       justify-content: start;
@@ -147,6 +147,7 @@
           height: 8vw;
           border: 1px solid $paragraph;
           border-radius: 8px;
+          background-color: rgb(255, 255, 255);
           @include center;
           .arrow-down {
             position: relative;
@@ -179,6 +180,7 @@
         }
       }
       .cardProducto {
+        background-color: rgb(255, 255, 255);
         width: 90vw;
         margin-bottom: 5%;
         margin-left: 5%;
@@ -242,13 +244,15 @@
       }
       .formulario {
         .mesa,
-        .aclaraciones {
+        .aclaraciones,
+        .pago {
           display: flex;
           flex-direction: column;
           margin: 0 0 5% 5%;
 
           .mesaTitle,
-          .aclaracionesTitle {
+          .aclaracionesTitle,
+          .pagoTitle {
             font-weight: 700;
             font-size: 4.5vw;
             margin-bottom: 3%;
@@ -279,6 +283,49 @@
               color: grey;
             }
           }
+          .pagoInput {
+            font-weight: 700;
+            font-size: 3.8vw;
+            color: $paragraph;
+            background-color: white;
+            width: 90vw;
+            padding: 4%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            -webkit-transition: all 0.2s ease;
+            -moz-transition: all 0.2s ease;
+            -ms-transition: all 0.2s ease;
+            -o-transition: all 0.2s ease;
+            &:not(:last-child) {
+              margin-bottom: 5%;
+            }
+            &.selected {
+              border: 1px solid black;
+            }
+            .iconCheck {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              flex-direction: row-reverse;
+              // border: 1px solid red;
+              width: 18%;
+
+              .check {
+                // display: none;
+                width: 1.2rem;
+                height: 1.2rem;
+                padding: 20vw;
+              }
+              .icon {
+                width: 1.5rem;
+                height: 1.5rem;
+              }
+            }
+          }
         }
       }
     }
@@ -287,11 +334,11 @@
       position: fixed;
       bottom: 0;
       width: 100vw;
-      height: 14vh;
+      // height: 14vh;
       box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
       display: flex;
       justify-content: space-between;
-      padding: 2.5% 5% 0 5%;
+      padding: 2.5% 5% 20% 5%;
       font-size: 4.8vw;
       font-weight: 700;
       background-color: white;

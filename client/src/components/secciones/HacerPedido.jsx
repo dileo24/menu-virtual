@@ -10,8 +10,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
+import { AiOutlineBank } from "react-icons/ai";
+import { HiOutlineBanknotes } from "react-icons/hi2";
+import { AiOutlineCreditCard } from "react-icons/ai";
+import mercadoPago from "../../multmedia/mercadopago.svg";
 
 export default function HacerPedido() {
+  const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
   let marginTop = carrito.length > 0 ? "" : "margen";
   const pedidos = useSelector((state) => state.pedidos);
@@ -136,12 +141,14 @@ export default function HacerPedido() {
 
   const handleSelectTipo = (e) => {
     if (!input.tipoPagoID.includes(e.target.value)) {
+      setSelectedPayment(e.target.value);
       setInput({
         ...input,
         tipoPagoID: e.target.value,
       });
     }
   };
+
   const navigate = useNavigate();
 
   const handleSubmitForm = (e) => {
@@ -203,8 +210,6 @@ export default function HacerPedido() {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
-
-  console.log(carrito);
 
   return (
     <>
@@ -340,29 +345,51 @@ export default function HacerPedido() {
                 </div>
 
                 {/* ****** MÉTODO DE PAGO ****** */}
-                {/* <div className="mb-4">
-                  <label className="" htmlFor="precio">
+                <div className="pago">
+                  <label className="pagoTitle" htmlFor="precio">
                     Método de pago
                   </label>
-                  <div className="flex">
+                  <div>
                     {tipoPagos?.map((tipo) => (
-                      <div key={tipo.id}>
-                        <input
-                          type="radio"
-                          id={tipo.id}
-                          name="metodoPago"
-                          value={tipo.id}
-                          className=""
-                          onChange={(e) => handleSelectTipo(e)}
-                          required
-                        />
+                      <div
+                        key={tipo.id}
+                        className={`pagoInput ${
+                          selectedPayment == tipo.id ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedPayment(tipo.id)}
+                      >
+                        <div className="iconCheck">
+                          <input
+                            type="radio"
+                            id={tipo.id}
+                            name="metodoPago"
+                            value={tipo.id}
+                            className="check"
+                            onChange={(e) => handleSelectTipo(e)}
+                            checked={selectedPayment == tipo.id}
+                            required
+                          />
+                          {tipo.id === 1 && (
+                            <HiOutlineBanknotes className="icon" />
+                          )}
+                          {tipo.id === 2 && <AiOutlineBank className="icon" />}
+                          {tipo.id === 3 && (
+                            <AiOutlineCreditCard className="icon" />
+                          )}
+                          {tipo.id === 4 && (
+                            <img src={mercadoPago} className="icon" />
+                          )}
+                          {/* {tipo.id === 5 && <AiFillBank className="icon" />} */}
+                          {/* <p className="icon">{tipo.id}</p> */}
+                        </div>
+
                         <label htmlFor={tipo.id} className="">
                           {tipo.tipo}
                         </label>
                       </div>
                     ))}
                   </div>
-                </div> */}
+                </div>
 
                 {/* ****** FOOTER ****** */}
                 <div className="footer1">
@@ -371,13 +398,13 @@ export default function HacerPedido() {
                 </div>
                 <div className="footer">
                   <div className="botonFooter">
-                    <div className="cantidad">{preciosArray.length}</div>
+                    {/* <div className="cantidad">{preciosArray.length}</div> */}
                     <input
                       type="submit"
                       className="verPedido"
                       value="Hacer pedido"
                     />
-                    <div className="precio">${precioFinal}</div>
+                    {/* <div className="precio">${precioFinal}</div> */}
                   </div>
                 </div>
               </form>
