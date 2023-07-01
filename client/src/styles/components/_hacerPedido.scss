@@ -111,7 +111,8 @@
 .desplegables {
   height: 100%;
 
-  .desplegable1 {
+  .desplegable1,
+  .desplegable2 {
     z-index: 999;
     height: auto;
     min-height: 100vh;
@@ -125,7 +126,8 @@
       width: 100vw;
       overflow-y: auto;
       padding-bottom: 35%;
-      @include centerCol;
+
+      // @include centerCol;
       justify-content: start;
       .header1 {
         display: flex;
@@ -160,11 +162,26 @@
             -ms-transform: rotate(45deg);
             -o-transform: rotate(45deg);
           }
+          .arrow-left {
+            position: relative;
+            display: block;
+            width: 12px;
+            height: 12px;
+            margin-right: -5px;
+            border-right: 3px solid black;
+            border-bottom: 3px solid black;
+            transform: rotate(135deg);
+            -webkit-transform: rotate(135deg);
+            -moz-transform: rotate(135deg);
+            -ms-transform: rotate(135deg);
+            -o-transform: rotate(135deg);
+          }
         }
       }
       .cardProducto {
         width: 90vw;
         margin-bottom: 5%;
+        margin-left: 5%;
         border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
@@ -223,6 +240,47 @@
           }
         }
       }
+      .formulario {
+        .mesa,
+        .aclaraciones {
+          display: flex;
+          flex-direction: column;
+          margin: 0 0 5% 5%;
+
+          .mesaTitle,
+          .aclaracionesTitle {
+            font-weight: 700;
+            font-size: 4.5vw;
+            margin-bottom: 3%;
+          }
+          .mesaInput {
+            border: 1px solid grey;
+            border-radius: 8px;
+            width: 3.2rem;
+            height: 2.6rem;
+            text-align: center;
+            background-color: white;
+            font-weight: 700;
+            font-size: 3.8vw;
+            &::placeholder {
+              color: grey;
+            }
+          }
+          .aclaracionesInput {
+            width: 90vw;
+            padding: 3%;
+            height: 12vh;
+            background-color: white;
+            border: 1px solid grey;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 3.8vw;
+            &::placeholder {
+              color: grey;
+            }
+          }
+        }
+      }
     }
 
     .footer1 {
@@ -241,11 +299,11 @@
   }
   .desplegable2 {
     z-index: 9999;
-    height: 100vh;
-    width: 100vw;
-    background-color: white;
-    position: absolute;
-    top: 0;
+    // height: 100vh;
+    // width: 100vw;
+    // background-color: white;
+    // position: absolute;
+    // top: 0;
     // padding: 2vh 5% 10vh 5%;
   }
 }

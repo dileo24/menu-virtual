@@ -289,85 +289,99 @@ export default function HacerPedido() {
         {/* Menu desplegable 2*/}
         {MostrarMenu2 && (
           <div className="desplegable2">
-            <button className="" onClick={handleMostrarMenu1}>
-              <b className="">Atrás</b>
-            </button>
-
-            <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
-              {/* ****** MESA ****** */}
-              <div className="">
-                <label className="" htmlFor="mesa">
-                  Mesa
-                </label>
-                <input
-                  className=""
-                  id="nombre"
-                  name="mesa"
-                  type="number"
-                  placeholder="Número de mesa"
-                  value={input.mesa}
-                  min={1}
-                  max={20}
-                  required
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-
-              {/* ****** ACLARACIONES ****** */}
-              <div className="">
-                <label className="" htmlFor="aclaraciones">
-                  Aclaraciones
-                </label>
-                <input
-                  className=""
-                  id="aclaraciones"
-                  name="aclaraciones"
-                  type="text"
-                  placeholder="Personalizá tu pedido (no obligatorio)"
-                  min={0}
-                  max={3}
-                  value={input.aclaraciones}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-
-              {/* ****** MÉTODO DE PAGO ****** */}
-              <div className="mb-4">
-                <label className="" htmlFor="precio">
-                  Método de pago
-                </label>
-                <div className="flex">
-                  {tipoPagos?.map((tipo) => (
-                    <div key={tipo.id}>
-                      <input
-                        type="radio"
-                        id={tipo.id}
-                        name="metodoPago"
-                        value={tipo.id}
-                        className=""
-                        onChange={(e) => handleSelectTipo(e)}
-                        required
-                      />
-                      <label htmlFor={tipo.id} className="">
-                        {tipo.tipo}
-                      </label>
-                    </div>
-                  ))}
+            <div className="scrollable-content">
+              <div className="header1">
+                <div className="ocultarBtn" onClick={handleMostrarMenu1}>
+                  <span className="arrow-left"></span>
                 </div>
+                <div className="titleHeader1">Completar mi pedido</div>
               </div>
 
-              <div className="footer">
-                <div className="botonFooter">
-                  <div className="cantidad">{preciosArray.length}</div>
+              <form
+                id="formulario"
+                className="formulario"
+                onSubmit={(e) => handleSubmitForm(e)}
+              >
+                {/* ****** MESA ****** */}
+                <div className="mesa">
+                  <label className="mesaTitle" htmlFor="mesa">
+                    Indique su número de mesa
+                  </label>
                   <input
-                    type="submit"
-                    className="verPedido"
-                    value="Hacer pedido"
+                    className="mesaInput"
+                    id="nombre"
+                    name="mesa"
+                    type="number"
+                    placeholder="N°"
+                    value={input.mesa}
+                    min={1}
+                    max={20}
+                    required
+                    onChange={(e) => handleChange(e)}
                   />
-                  <div className="precio">${precioFinal}</div>
                 </div>
-              </div>
-            </form>
+
+                {/* ****** ACLARACIONES ****** */}
+                <div className="aclaraciones">
+                  <label className="aclaracionesTitle" htmlFor="aclaraciones">
+                    Aclaraciones
+                  </label>
+                  <textarea
+                    className="aclaracionesInput"
+                    id="aclaraciones"
+                    name="aclaraciones"
+                    type="text"
+                    placeholder="Si necesitás algo, avisanos!"
+                    min={0}
+                    max={3}
+                    value={input.aclaraciones}
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+
+                {/* ****** MÉTODO DE PAGO ****** */}
+                {/* <div className="mb-4">
+                  <label className="" htmlFor="precio">
+                    Método de pago
+                  </label>
+                  <div className="flex">
+                    {tipoPagos?.map((tipo) => (
+                      <div key={tipo.id}>
+                        <input
+                          type="radio"
+                          id={tipo.id}
+                          name="metodoPago"
+                          value={tipo.id}
+                          className=""
+                          onChange={(e) => handleSelectTipo(e)}
+                          required
+                        />
+                        <label htmlFor={tipo.id} className="">
+                          {tipo.tipo}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div> */}
+
+                {/* ****** FOOTER ****** */}
+                <div className="footer1">
+                  <p>Total</p>
+                  <p>${precioFinal}</p>
+                </div>
+                <div className="footer">
+                  <div className="botonFooter">
+                    <div className="cantidad">{preciosArray.length}</div>
+                    <input
+                      type="submit"
+                      className="verPedido"
+                      value="Hacer pedido"
+                    />
+                    <div className="precio">${precioFinal}</div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </div>
