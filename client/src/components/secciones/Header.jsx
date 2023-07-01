@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { cleanUserActual, searchXname } from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
-import { GiShoppingCart } from "react-icons/gi";
-import { HiUserCircle } from "react-icons/hi";
 import { getPedidos } from "../../redux/actions";
+import bandeja from "../../multmedia/bandeja.svg";
+import login from "../../multmedia/login.svg";
 
 export default function Header({ currentSlide, setCurrentSlide }) {
   const navigate = useNavigate();
@@ -133,11 +133,11 @@ export default function Header({ currentSlide, setCurrentSlide }) {
           {!userActual ? (
             <>
               <Link to="/login" className="iniciarSesion">
-                <HiUserCircle className="usuarioIcon" />
+                <img src={login} alt="login" className="usuarioIcon" />
               </Link>
               <Filtros />
               <Link to="/carrito" className="carrito">
-                <GiShoppingCart className="carritoIcon" />
+                <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
                   <div className="pedidos">{pedidosNoVacios.length}</div>
                 ) : (

@@ -6,12 +6,17 @@ import {
   getTipoPago,
   limpiarCarrito,
 } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
-import { TfiPencil } from "react-icons/tfi";
+import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
+import { AiOutlineBank } from "react-icons/ai";
+import { HiOutlineBanknotes } from "react-icons/hi2";
+import { AiOutlineCreditCard } from "react-icons/ai";
+import mercadoPago from "../../multmedia/mercadopago.svg";
 
-export default function Footer() {
+export default function HacerPedido() {
+  const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
   let marginTop = carrito.length > 0 ? "" : "margen";
   const pedidos = useSelector((state) => state.pedidos);
@@ -136,12 +141,15 @@ export default function Footer() {
 
   const handleSelectTipo = (e) => {
     if (!input.tipoPagoID.includes(e.target.value)) {
+      setSelectedPayment(e.target.value);
       setInput({
         ...input,
         tipoPagoID: e.target.value,
       });
     }
   };
+
+  const navigate = useNavigate();
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -197,7 +205,7 @@ export default function Footer() {
       alert(
         "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
       );
-      window.location.href = "/";
+      navigate("/carrito");
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
@@ -210,9 +218,11 @@ export default function Footer() {
         <>
           <footer className={`footer ${marginTop}`}>
             <button className="botonFooter" onClick={handleOnClick}>
-              <div className="cantidad">{preciosArray.length}</div>
+              {!MostrarMenu && (
+                <div className="cantidad">{preciosArray.length}</div>
+              )}
               <b className="verPedido">{verOcultar}</b>
-              <div className="precio">${precioFinal}</div>
+              {!MostrarMenu && <div className="precio">${precioFinal}</div>}
             </button>
           </footer>
 
@@ -239,38 +249,44 @@ export default function Footer() {
         {/* Menu desplegable 1*/}
         {MostrarMenu && (
           <div className="desplegable1 animate-slide-up">
-            <div className="header1">
-              <div className="titleHeader1">Mi Pedido</div>
-              <div className="ocultarBtn" onClick={handleOcultarMenu1}>
-                <span className="arrow-down"></span>
-              </div>
-            </div>
-
             <div className="scrollable-content">
+              <div className="header1">
+                <div className="ocultarBtn" onClick={handleOcultarMenu1}>
+                  <span className="arrow-down"></span>
+                </div>
+                <div className="titleHeader1">Mi Pedido</div>
+              </div>
               {carrito &&
                 carrito.map((prod, id) => (
                   <div key={id} className="cardProducto">
                     <p className="nombre">{prod.nombre}</p>
-                    <p className="descripcion">{prod.descripcion}</p>
+                    {/* <p className="descripcion">{prod.descripcion}</p> */}
                     <div className="precioAcciones">
                       <p className="precio">${prod.precio}</p>
                       <div className="acciones">
                         {prod.itemsExtra && (
-                          <Link to="/items" className="editarItems">
-                            <TfiPencil className="editarIcon" />
-                          </Link>
+                          <div className="iconContainer1">
+                            <Link to="/items" className="editarItems">
+                              <HiOutlinePencil className="editarIcon" />
+                            </Link>
+                          </div>
                         )}
-
-                        <VscTrash
-                          className="eliminarIcon"
-                          onClick={() => {
-                            handleEliminarItemCarrito(prod.id);
-                          }}
-                        />
+                        <div className="iconContainer2">
+                          <VscTrash
+                            className="eliminarIcon"
+                            onClick={() => {
+                              handleEliminarItemCarrito(prod.id);
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
                 ))}
+            </div>
+            <div className="footer1">
+              <p>Total</p>
+              <p>${precioFinal}</p>
             </div>
           </div>
         )}
@@ -278,85 +294,121 @@ export default function Footer() {
         {/* Menu desplegable 2*/}
         {MostrarMenu2 && (
           <div className="desplegable2">
-            <button className="" onClick={handleMostrarMenu1}>
-              <b className="">Atrás</b>
-            </button>
-
-            <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
-              {/* ****** MESA ****** */}
-              <div className="">
-                <label className="" htmlFor="mesa">
-                  Mesa
-                </label>
-                <input
-                  className=""
-                  id="nombre"
-                  name="mesa"
-                  type="number"
-                  placeholder="Número de mesa"
-                  value={input.mesa}
-                  min={1}
-                  max={20}
-                  required
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-
-              {/* ****** ACLARACIONES ****** */}
-              <div className="">
-                <label className="" htmlFor="aclaraciones">
-                  Aclaraciones
-                </label>
-                <input
-                  className=""
-                  id="aclaraciones"
-                  name="aclaraciones"
-                  type="text"
-                  placeholder="Personalizá tu pedido (no obligatorio)"
-                  min={0}
-                  max={3}
-                  value={input.aclaraciones}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-
-              {/* ****** MÉTODO DE PAGO ****** */}
-              <div className="mb-4">
-                <label className="" htmlFor="precio">
-                  Método de pago
-                </label>
-                <div className="flex">
-                  {tipoPagos?.map((tipo) => (
-                    <div key={tipo.id}>
-                      <input
-                        type="radio"
-                        id={tipo.id}
-                        name="metodoPago"
-                        value={tipo.id}
-                        className=""
-                        onChange={(e) => handleSelectTipo(e)}
-                        required
-                      />
-                      <label htmlFor={tipo.id} className="">
-                        {tipo.tipo}
-                      </label>
-                    </div>
-                  ))}
+            <div className="scrollable-content">
+              <div className="header1">
+                <div className="ocultarBtn" onClick={handleMostrarMenu1}>
+                  <span className="arrow-left"></span>
                 </div>
+                <div className="titleHeader1">Completar mi pedido</div>
               </div>
 
-              <div className="footer">
-                <div className="botonFooter">
-                  <div className="cantidad">{preciosArray.length}</div>
+              <form
+                id="formulario"
+                className="formulario"
+                onSubmit={(e) => handleSubmitForm(e)}
+              >
+                {/* ****** MESA ****** */}
+                <div className="mesa">
+                  <label className="mesaTitle" htmlFor="mesa">
+                    Indique su número de mesa
+                  </label>
                   <input
-                    type="submit"
-                    className="verPedido"
-                    value="Hacer pedido"
+                    className="mesaInput"
+                    id="nombre"
+                    name="mesa"
+                    type="number"
+                    placeholder="N°"
+                    value={input.mesa}
+                    min={1}
+                    max={20}
+                    required
+                    onChange={(e) => handleChange(e)}
                   />
-                  <div className="precio">${precioFinal}</div>
                 </div>
-              </div>
-            </form>
+
+                {/* ****** ACLARACIONES ****** */}
+                <div className="aclaraciones">
+                  <label className="aclaracionesTitle" htmlFor="aclaraciones">
+                    Aclaraciones
+                  </label>
+                  <textarea
+                    className="aclaracionesInput"
+                    id="aclaraciones"
+                    name="aclaraciones"
+                    type="text"
+                    placeholder="Si necesitás algo, avisanos!"
+                    min={0}
+                    max={3}
+                    value={input.aclaraciones}
+                    onChange={(e) => handleChange(e)}
+                  />
+                </div>
+
+                {/* ****** MÉTODO DE PAGO ****** */}
+                <div className="pago">
+                  <label className="pagoTitle" htmlFor="precio">
+                    Método de pago
+                  </label>
+                  <div>
+                    {tipoPagos?.map((tipo) => (
+                      <div
+                        key={tipo.id}
+                        className={`pagoInput ${
+                          selectedPayment == tipo.id ? "selected" : ""
+                        }`}
+                        onClick={() => setSelectedPayment(tipo.id)}
+                      >
+                        <div className="iconCheck">
+                          <input
+                            type="radio"
+                            id={tipo.id}
+                            name="metodoPago"
+                            value={tipo.id}
+                            className="check"
+                            onChange={(e) => handleSelectTipo(e)}
+                            checked={selectedPayment == tipo.id}
+                            required
+                          />
+                          {tipo.id === 1 && (
+                            <HiOutlineBanknotes className="icon" />
+                          )}
+                          {tipo.id === 2 && <AiOutlineBank className="icon" />}
+                          {tipo.id === 3 && (
+                            <AiOutlineCreditCard className="icon" />
+                          )}
+                          {tipo.id === 4 && (
+                            <img src={mercadoPago} className="icon" />
+                          )}
+                          {/* {tipo.id === 5 && <AiFillBank className="icon" />} */}
+                          {/* <p className="icon">{tipo.id}</p> */}
+                        </div>
+
+                        <label htmlFor={tipo.id} className="">
+                          {tipo.tipo}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ****** FOOTER ****** */}
+                <div className="footer1">
+                  <p>Total</p>
+                  <p>${precioFinal}</p>
+                </div>
+                <div className="footer">
+                  <div className="botonFooter">
+                    {/* <div className="cantidad">{preciosArray.length}</div> */}
+                    <input
+                      type="submit"
+                      className="verPedido"
+                      value="Hacer pedido"
+                    />
+                    {/* <div className="precio">${precioFinal}</div> */}
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         )}
       </div>

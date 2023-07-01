@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
-import Footer from "../secciones/Footer";
+import HacerPedido from "../secciones/HacerPedido";
 import { getProductos } from "../../redux/actions";
 import Swipe from "react-swipe";
 
@@ -102,7 +102,7 @@ const Carrusel = () => {
           </Swipe>
         )}
       </div>
-      <Footer />
+      <HacerPedido />
     </div>
   );
 };

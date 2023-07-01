@@ -1,78 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPedidos, getTipoPago } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { getProductos, agregarCarrito } from "../../redux/actions";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 export default function Items() {
-  const carrito = useSelector((state) => state.carrito);
-  const pedidos = useSelector((state) => state.pedidos);
-  const [preciosArray, setPreciosArray] = useState([]);
-  const [nombresProdArray, setNombresProdArray] = useState([]);
-  let precioFinal = 0;
-  for (let i = 0; i < preciosArray.length; i++) {
-    precioFinal += parseInt(preciosArray[i]);
-  }
-  const itemsExtraArray = useSelector((state) => state.itemsExtra);
+  const navigate = useNavigate();
+  const productosArray = useSelector((state) => state.home);
+  const itemsExtraState = useSelector((state) => state.itemsExtra);
   const dispatch = useDispatch();
+  const { id } = useParams();
+  let prod =
+    productosArray && productosArray.filter((p) => p.id === Number(id));
 
-  const [input, setInput] = useState({
-    productos: nombresProdArray,
-    precio: precioFinal,
-    mesa: "",
-    aclaraciones: "",
-    tipoPagoID: "",
-    estadoID: "1",
-    itemsExtra: [],
-  });
+  const [itemsExtraArray, setItemsExtraArray] = useState([]);
+
+  const handleIncremento = (prod, itemsExtraArray) => {
+    dispatch(
+      agregarCarrito({
+        nombre: prod[0].nombre,
+        descripcion: prod[0].descripcion,
+        precio: prod[0].precio,
+        id: prod[0].id,
+        itemsExtra: itemsExtraArray,
+        cantidadPersonas: prod[0].cantidadPersonas,
+      })
+    );
+  };
+
   useEffect(() => {
-    dispatch(getTipoPago());
-    dispatch(getPedidos());
+    dispatch(getProductos());
   }, [dispatch]);
-
-  useEffect(() => {
-    const precios = carrito.map((carritoItem) => carritoItem.precio);
-    setPreciosArray(precios);
-
-    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
-    setNombresProdArray(nombres);
-
-    setInput((prevInput) => ({
-      ...prevInput,
-      productos: nombres,
-      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    }));
-  }, [carrito]);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    if (carrito.length) {
-      // Validación de itemsExtra seleccionados
-      const totalItemsExtraRequired = carrito.reduce((total, prod) => {
-        if (prod.itemsExtra) {
-          return total + prod.cantidadPersonas * prod.itemsExtra.length;
-        }
-        return total;
-      }, 0);
-      if (
-        !input.itemsExtra ||
-        input.itemsExtra.length !== totalItemsExtraRequired
-      ) {
-        alert("Debes seleccionar todos los items extra requeridos");
-        return;
-      }
-      alert(
-        "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
-      );
-    } else {
-      alert("Error: No elegiste ningún producto del Menú");
+    const cantItems =
+      Number(prod && prod[0].cantidadPersonas) *
+      Number(prod[0].itemsExtra.length);
+    console.log();
+    // Validación de itemsExtra seleccionados
+    if (cantItems !== itemsExtraArray.length) {
+      alert("Debes seleccionar todos los items extra requeridos");
     }
+    handleIncremento(prod && prod, itemsExtraArray);
+    navigate("/");
   };
 
-  const handleSelectItemExtra = (prodId, item) => {
-    setInput((prevInput) => ({
-      ...prevInput,
-      itemsExtra: [...prevInput.itemsExtra, item],
-    }));
+  const handleSelectItemExtra = (item, personaIndex, categoriaIndex) => {
+    const newItem = item;
+
+    const updatedItemsExtraArray = [...itemsExtraArray];
+    updatedItemsExtraArray[personaIndex] = newItem;
+
+    setItemsExtraArray(updatedItemsExtraArray);
   };
 
   return (
@@ -81,65 +60,53 @@ export default function Items() {
         <Link to="/" className="editarItems">
           <b className="">Atrás</b>
         </Link>
-        ;
+
         <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
           {/* ****** ITEMS ****** */}
           <div className="">
             <div className="flex">
-              {carrito.length
-                ? carrito.map(
-                    (prod, indexCarr) =>
-                      prod.itemsExtra && (
-                        <div key={indexCarr}>
-                          <label className="" htmlFor="mesa">
-                            Seleccione items para {prod.nombre}
-                          </label>
-                          {Array.from(
-                            { length: prod.cantidadPersonas },
-                            (_, index) => (
-                              <div key={index}>
-                                <p>Persona {index + 1}</p>
-                                {prod.itemsExtra.map(
-                                  (categoria, categoriaIndex) => {
-                                    const itemsFiltrados =
-                                      itemsExtraArray.filter(
-                                        (item) =>
-                                          item.categoria.nombre === categoria
-                                      );
-                                    return (
-                                      <select
-                                        name={`itemsExtra-${categoriaIndex}`}
-                                        onChange={(e) =>
-                                          handleSelectItemExtra(
-                                            prod.id,
-                                            e.target.value
-                                          )
-                                        }
-                                        required
-                                        key={`${index}-${categoriaIndex}`}
-                                      >
-                                        <option hidden>{categoria}</option>
-                                        {itemsFiltrados.map(
-                                          (item, itemIndex) => (
-                                            <option
-                                              key={itemIndex}
-                                              value={item.nombre}
-                                            >
-                                              {item.nombre}
-                                            </option>
-                                          )
-                                        )}
-                                      </select>
-                                    );
-                                  }
-                                )}
-                              </div>
-                            )
-                          )}
-                        </div>
-                      )
-                  )
-                : ""}
+              {prod.length && (
+                <div key={prod[0].id}>
+                  <label className="" htmlFor="mesa">
+                    Seleccione items para {prod[0].nombre}
+                  </label>
+                  {Array.from(
+                    { length: prod[0].cantidadPersonas },
+                    (_, personaIndex) => (
+                      <div key={personaIndex}>
+                        <p>Persona {personaIndex + 1}</p>
+                        {prod[0].itemsExtra.map((categoria, categoriaIndex) => {
+                          const itemsFiltrados = itemsExtraState.filter(
+                            (item) => item.categoria.nombre === categoria
+                          );
+                          return (
+                            <select
+                              name={`itemsExtra-${personaIndex}-${categoriaIndex}`} // Cambio: Utilizar índices en el nombre del selector
+                              onChange={
+                                (e) =>
+                                  handleSelectItemExtra(
+                                    e.target.value,
+                                    personaIndex,
+                                    categoriaIndex
+                                  ) // Cambio: Pasar los índices del selector
+                              }
+                              required
+                              key={`${personaIndex}-${categoriaIndex}`}
+                            >
+                              <option hidden>{categoria}</option>
+                              {itemsFiltrados.map((item, itemIndex) => (
+                                <option key={itemIndex} value={item.nombre}>
+                                  {item.nombre}
+                                </option>
+                              ))}
+                            </select>
+                          );
+                        })}
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
