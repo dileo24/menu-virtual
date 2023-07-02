@@ -1,7 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { cleanUserActual, searchXname } from "../../redux/actions";
+import {
+  cleanUserActual,
+  getProductos,
+  searchXname,
+} from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
 import { getPedidos } from "../../redux/actions";
 import bandeja from "../../multmedia/bandeja.svg";
@@ -11,6 +15,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
+  const prods = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
@@ -18,6 +23,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
 
   useEffect(() => {
     dispatch(getPedidos());
+    dispatch(getProductos());
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -168,20 +174,26 @@ export default function Header({ currentSlide, setCurrentSlide }) {
           </button>
 
           {categorias &&
-            categorias.map((categ) => (
-              <button
-                key={categ.id}
-                className={`categoria ${
-                  currentSlide === categ.id ? "active" : ""
-                }`}
-                onClick={() => {
-                  setCurrentSlide(categ.id);
-                  window.scrollTo({ top: 0 });
-                }}
-              >
-                {categ.nombre}
-              </button>
-            ))}
+            categorias.map(
+              (categ) =>
+                prods.some(
+                  (prod) =>
+                    prod.categoria.id === categ.id && prod.listado === true
+                ) && (
+                  <button
+                    key={categ.id}
+                    className={`categoria ${
+                      currentSlide === categ.id ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setCurrentSlide(categ.id);
+                      window.scrollTo({ top: 0 });
+                    }}
+                  >
+                    {categ.nombre}
+                  </button>
+                )
+            )}
         </div>
       </div>
     </header>

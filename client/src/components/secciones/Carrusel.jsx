@@ -92,13 +92,19 @@ const Carrusel = () => {
             <div>
               <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
             </div>
-            {categorias.map((categ) => (
-              <div key={categ.id}>
-                <div>
-                  <Menu categoria={categ.nombre} />
-                </div>
-              </div>
-            ))}
+            {categorias.map(
+              (categ) =>
+                home.some(
+                  (prod) =>
+                    prod.categoria.id === categ.id && prod.listado === true
+                ) && (
+                  <div key={categ.id}>
+                    <div>
+                      <Menu categoria={categ.nombre} />
+                    </div>
+                  </div>
+                )
+            )}
           </Swipe>
         )}
       </div>
