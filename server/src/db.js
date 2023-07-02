@@ -84,6 +84,14 @@ Subcategoria.hasMany(Producto, {
   foreignKey: "subcategoriaID",
 });
 
+Categoria.hasMany(Subcategoria, {
+  foreignKey: "categID",
+});
+Subcategoria.belongsTo(Categoria, {
+  foreignKey: "categID",
+  as: "categoria",
+});
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importar la conexión { conn } = require('./db.js');

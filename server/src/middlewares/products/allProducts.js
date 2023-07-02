@@ -7,7 +7,7 @@ const allProducts = async (req, res, next) => {
       attributes: { exclude: ["categoriaID", "subcategoriaID"] },
       include: [
         { model: Categoria, as: "categoria" },
-        { model: Subcategoria, as: "subcategoria" }, // Agrega esta línea
+        { model: Subcategoria, as: "subcategoria" },
       ],
     });
     next();

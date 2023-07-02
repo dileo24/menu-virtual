@@ -1,11 +1,11 @@
-const { Subcategoria } = require("../../db");
+const { Categoria, Subcategoria } = require("../../db");
 
 const allSubcategory = async (req, res, next) => {
   try {
-    console.log("buscando subcategs");
     req.body.allSubcategories = await Subcategoria.findAll({
       attributes: ["id", "nombre"],
       order: [["id", "ASC"]],
+      include: [{ model: Categoria, as: "categoria" }],
     });
     next();
   } catch (error) {

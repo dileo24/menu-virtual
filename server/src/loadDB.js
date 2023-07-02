@@ -36,15 +36,19 @@ async function fnEstado() {
   }
 }
 
-async function fnSubcategorias() {
-  for (const subc of subcategoria) {
-    await Subcategoria.create(subc);
-  }
-}
-
 async function fnCategorias() {
   for (const cat of categoria) {
     await Categoria.create(cat);
+  }
+}
+
+async function fnSubcategorias() {
+  for (const subc of subcategoria) {
+    const newSubcateg = await Subcategoria.create({
+      nombre: subc.nombre,
+    });
+    let categoria = await Categoria.findByPk(subc.categID);
+    await categoria.addSubcategoria(newSubcateg);
   }
 }
 
