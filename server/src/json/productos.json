@@ -3,9 +3,11 @@
     "nombre": "Pizza Especial (8 porciones)",
     "descripcion": "Descripcion del producto",
     "precio": "3500",
-    "categoriaID": "2"
+    "categoriaID": "2",
+    "subcategoriaID": "1"
   },
   {
+    "subcategoriaID": "6",
     "nombre": "Papas Bravas con 2 Pintas",
     "descripcion": "Descripcion del producto",
     "precio": "1500",
@@ -14,30 +16,35 @@
     "cantidadPersonas": "2"
   },
   {
+    "subcategoriaID": "4",
     "nombre": "Lomito Completo Premium",
     "descripcion": "Descripcion del producto",
     "precio": "2000",
     "categoriaID": "2"
   },
   {
+    "subcategoriaID": "1",
     "nombre": "Pizza Fugazzeta (8 porciones)",
     "descripcion": "Descripcion del producto",
     "precio": "2500",
     "categoriaID": "2"
   },
   {
+    "subcategoriaID": "6",
     "nombre": "Papas a la Alemana (para 4)",
     "descripcion": "Descripcion del producto",
     "precio": "5300",
     "categoriaID": "2"
   },
   {
+    "subcategoriaID": "2",
     "nombre": "Hamburguesa Americana Doble",
     "descripcion": "Descripcion del producto",
     "precio": "1800",
     "categoriaID": "2"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Desayuno para 2",
     "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
@@ -46,6 +53,7 @@
     "cantidadPersonas": "2"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Merienda para 2",
     "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
@@ -54,6 +62,7 @@
     "cantidadPersonas": "2"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Desayuno para 4",
     "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
@@ -62,6 +71,7 @@
     "cantidadPersonas": "4"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Merienda para 4",
     "descripcion": "4 tostados con papas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
@@ -70,6 +80,7 @@
     "cantidadPersonas": "4"
   },
   {
+    "subcategoriaID": "7",
     "nombre": "Asado para 2 con bebida",
     "descripcion": "Vacío y Costilla con bebidas de 500ml",
     "precio": "5300",
@@ -79,6 +90,7 @@
   },
 
   {
+    "subcategoriaID": "",
     "nombre": "Café",
     "categoriaID": "3",
     "listado": false,
@@ -89,6 +101,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Café con leche",
     "categoriaID": "3",
     "listado": true,
@@ -99,6 +112,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Lágrima",
     "categoriaID": "3",
     "listado": true,
@@ -109,6 +123,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Licuado de banana",
     "categoriaID": "8",
     "listado": true,
@@ -119,6 +134,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Licuado de durazno",
     "categoriaID": "8",
     "listado": true,
@@ -129,6 +145,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Licuado de frutilla",
     "categoriaID": "8",
     "listado": true,
@@ -139,6 +156,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Té",
     "categoriaID": "3",
     "listado": false,
@@ -149,6 +167,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Té verde",
     "categoriaID": "3",
     "listado": false,
@@ -159,6 +178,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Fanta 500ml",
     "categoriaID": "7",
     "listado": true,
@@ -169,6 +189,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Coca Cola 500ml",
     "categoriaID": "7",
     "listado": true,
@@ -179,6 +200,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Agua sin gas 500ml",
     "categoriaID": "7",
     "listado": true,
@@ -189,6 +211,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Aquarius de Manzana 500ml",
     "categoriaID": "7",
     "listado": true,
@@ -199,6 +222,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Aquarius de Naranja 500ml",
     "categoriaID": "7",
     "listado": true,
@@ -209,6 +233,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Aquarius de Pomelo 500ml",
     "categoriaID": "7",
     "listado": true,
@@ -219,6 +244,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "6",
     "nombre": "Papas Fritas",
     "categoriaID": "5",
     "listado": false,
@@ -229,6 +255,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Papas al Horno",
     "categoriaID": "5",
     "listado": false,
@@ -239,6 +266,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Cheesecake",
     "categoriaID": "4",
     "listado": true,
@@ -249,6 +277,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Flan con Dulce de leche",
     "categoriaID": "4",
     "listado": true,
@@ -259,6 +288,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Golden Ale (rubia)",
     "categoriaID": "6",
     "listado": true,
@@ -269,6 +299,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Irish Red (roja)",
     "categoriaID": "6",
     "listado": true,
@@ -279,6 +310,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Blackwood (negra)",
     "categoriaID": "6",
     "listado": true,
@@ -289,6 +321,7 @@
     "descripcion": "Descripcion del producto"
   },
   {
+    "subcategoriaID": "",
     "nombre": "Orange Honey (rubia)",
     "categoriaID": "6",
     "listado": true,

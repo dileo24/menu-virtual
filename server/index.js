@@ -9,11 +9,13 @@ const {
   fnPagos,
   fnEstado,
   fnPedidos,
+  fnSubcategorias,
 } = require("./src/loadDB.js");
 
 conn.sync({ force: true }).then(async () => {
   server.listen(port, async () => {
     await fnCategorias();
+    await fnSubcategorias();
     await fnProducto();
     await fnRols();
     await fnUsuarios();
