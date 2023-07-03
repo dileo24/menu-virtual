@@ -23,6 +23,7 @@ export const nuevoProducto = (producto, token) => {
     console.log(error);
   }
 };
+
 // Obtener un producto por su ID
 export const obtenerProducto = async (id) => {
   try {
