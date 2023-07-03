@@ -36,10 +36,9 @@ export default function Items() {
     const cantItems =
       Number(prod && prod[0].cantidadPersonas) *
       Number(prod[0].itemsExtra.length);
-    console.log();
     // Validación de itemsExtra seleccionados
     if (cantItems !== itemsExtraArray.length) {
-      alert("Debes seleccionar todos los items extra requeridos");
+      return alert("Debes seleccionar todos los items extra requeridos");
     }
     handleIncremento(prod && prod, itemsExtraArray);
     navigate("/");
@@ -55,51 +54,63 @@ export default function Items() {
   };
 
   return (
-    <>
-      <div>
-        <Link to="/" className="editarItems">
-          <b className="">Atrás</b>
-        </Link>
+    <div className="elegirItemsCont">
+      <div className="scrollable-content">
+        <div className="headerItems">
+          <Link to="/" className="atrasBtn">
+            <span className="arrow-left"></span>
+          </Link>
+          <div className="titleHeaderItems">
+            {prod.length && <p>{prod[0].nombre}</p>}
+          </div>
+        </div>
 
-        <form id="formulario" onSubmit={(e) => handleSubmitForm(e)}>
+        <form
+          id="formulario"
+          className="formulario"
+          onSubmit={(e) => handleSubmitForm(e)}
+        >
           {/* ****** ITEMS ****** */}
           <div className="">
-            <div className="flex">
+            <div className="">
               {prod.length && (
                 <div key={prod[0].id}>
-                  <label className="" htmlFor="mesa">
-                    Seleccione items para {prod[0].nombre}
-                  </label>
+                  <div className="precio">${prod[0].precio}</div>
+                  <div className="descripcion">{prod[0].descripcion}</div>
                   {Array.from(
                     { length: prod[0].cantidadPersonas },
                     (_, personaIndex) => (
-                      <div key={personaIndex}>
-                        <p>Persona {personaIndex + 1}</p>
+                      <div key={personaIndex} className="cardItemCont">
+                        <p className="persona">Persona {personaIndex + 1}</p>
                         {prod[0].itemsExtra.map((categoria, categoriaIndex) => {
                           const itemsFiltrados = itemsExtraState.filter(
                             (item) => item.categoria.nombre === categoria
                           );
                           return (
-                            <select
-                              name={`itemsExtra-${personaIndex}-${categoriaIndex}`} // Cambio: Utilizar índices en el nombre del selector
-                              onChange={
-                                (e) =>
-                                  handleSelectItemExtra(
-                                    e.target.value,
-                                    personaIndex,
-                                    categoriaIndex
-                                  ) // Cambio: Pasar los índices del selector
-                              }
-                              required
-                              key={`${personaIndex}-${categoriaIndex}`}
-                            >
-                              <option hidden>{categoria}</option>
-                              {itemsFiltrados.map((item, itemIndex) => (
-                                <option key={itemIndex} value={item.nombre}>
-                                  {item.nombre}
-                                </option>
-                              ))}
-                            </select>
+                            <div className="cardItem">
+                              <p className="categItem">{categoria}</p>
+                              <select
+                                className="select"
+                                name={`itemsExtra-${personaIndex}-${categoriaIndex}`} // Cambio: Utilizar índices en el nombre del selector
+                                onChange={
+                                  (e) =>
+                                    handleSelectItemExtra(
+                                      e.target.value,
+                                      personaIndex,
+                                      categoriaIndex
+                                    ) // Cambio: Pasar los índices del selector
+                                }
+                                required
+                                key={`${personaIndex}-${categoriaIndex}`}
+                              >
+                                <option hidden>Seleccionar</option>
+                                {itemsFiltrados.map((item, itemIndex) => (
+                                  <option key={itemIndex} value={item.nombre}>
+                                    {item.nombre}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
                           );
                         })}
                       </div>
@@ -112,11 +123,11 @@ export default function Items() {
 
           <div className="footerItems">
             <div className="listoBtn">
-              <input type="submit" className="verPedido" value="Listo" />
+              <input type="submit" className="submit" value="Aceptar" />
             </div>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
