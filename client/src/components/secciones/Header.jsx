@@ -179,7 +179,9 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               <Link to="/carrito" className="carrito">
                 <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
-                  <div className="pedidos">{pedidosNoVacios.length}</div>
+                  <div className="cantidadPedidos">
+                    {pedidosNoVacios.length}
+                  </div>
                 ) : (
                   ""
                 )}
