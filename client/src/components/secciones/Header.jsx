@@ -1,13 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   cleanUserActual,
   getProductos,
   searchXname,
 } from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
-import { getPedidos } from "../../redux/actions";
+import { getPedidos, getSubcategorias } from "../../redux/actions";
 import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
 
@@ -17,6 +17,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const userActual = useSelector((state) => state.userActual);
   const prods = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
+  const subcategorias = useSelector((state) => state.subcategorias);
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
@@ -24,6 +25,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   useEffect(() => {
     dispatch(getPedidos());
     dispatch(getProductos());
+    dispatch(getSubcategorias());
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -89,6 +91,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
     categorias.filter((c) =>
       prods.some((prod) => prod.categoria.id === c.id && prod.listado === true)
     );
+
   return (
     <header id="containerHeader" className="containerHeader">
       <button onClick={reload}>
@@ -174,18 +177,41 @@ export default function Header({ currentSlide, setCurrentSlide }) {
           </button>
           {newCateg &&
             newCateg.map((categ, index) => (
-              <button
-                key={categ.id}
-                className={`categoria ${
-                  currentSlide === index + 1 ? "active" : ""
-                }`}
-                onClick={() => {
-                  setCurrentSlide(index + 1);
-                  window.scrollTo({ top: 0 });
-                }}
-              >
-                {categ.nombre}
-              </button>
+              <React.Fragment key={categ.id}>
+                <button
+                  className={`categoria ${
+                    currentSlide === index + 1 ? "active" : ""
+                  }`}
+                  onClick={() => {
+                    setCurrentSlide(index + 1);
+                    window.scrollTo({ top: 0 });
+                  }}
+                >
+                  {categ.nombre}
+                </button>
+              </React.Fragment>
+            ))}
+        </div>
+
+        <div
+          id="categorias"
+          className="categorias"
+          ref={scrollableRef}
+          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+        >
+          {newCateg &&
+            newCateg.map((categ) => (
+              <React.Fragment key={categ.id}>
+                {subcategorias.some(
+                  (subC) => subC.categoria.id === categ.id
+                ) && (
+                  <>
+                    {subcategorias
+                      .filter((subC) => subC.categoria.id === categ.id)
+                      .map((subC) => subC.nombre)}
+                  </>
+                )}
+              </React.Fragment>
             ))}
         </div>
       </div>
