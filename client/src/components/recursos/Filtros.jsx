@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getCategorias, getProductos, searchXname } from "../../redux/actions";
+import { useDispatch } from "react-redux";
+import { getCategorias, searchXname } from "../../redux/actions";
 // import { FaSistrix } from "react-icons/fa";
 
 export default function Filtros() {
@@ -10,10 +10,6 @@ export default function Filtros() {
   useEffect(() => {
     dispatch(getCategorias());
   }, [dispatch]);
-
-  const handleRecargar = () => {
-    dispatch(getProductos());
-  };
 
   const handleState = (e) => {
     setState(e.target.value);

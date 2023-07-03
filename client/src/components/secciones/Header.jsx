@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   cleanUserActual,
+  getCategorias,
   getProductos,
   searchXname,
 } from "../../redux/actions";
@@ -21,19 +22,17 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
-  let subCategs;
+  const subCategsRef = useRef(null);
 
   useEffect(() => {
-    dispatch(getPedidos());
-    dispatch(getProductos());
-    dispatch(getSubcategorias());
-
-    scrollToActiveCategory();
-
     const categActive = document.querySelector(".active");
-    if (subcategorias.some((subC) => subC.categoria.id == categActive.id)) {
-      subCategs = subcategorias
-        .filter((subC) => subC.categoria.id == categActive.id)
+    if (
+      subcategorias.some(
+        (subC) => Number(subC.categoria.id) === Number(categActive.id)
+      )
+    ) {
+      const subCategs = subcategorias
+        .filter((subC) => Number(subC.categoria.id) === Number(categActive.id))
         .map((subC) => subC.nombre);
 
       // Crear el elemento div
@@ -52,11 +51,23 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         };
         divElement.appendChild(buttonElement);
       });
+
+      subCategsRef.current = subCategs;
     } else {
       if (document.querySelector(".subCategorias")) {
         document.querySelector(".subCategorias").remove();
       }
+      subCategsRef.current = null;
     }
+  }, [subcategorias]);
+
+  useEffect(() => {
+    dispatch(getCategorias());
+    dispatch(getPedidos());
+    dispatch(getSubcategorias());
+    dispatch(getProductos());
+
+    scrollToActiveCategory();
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -174,7 +185,9 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               <Link to="/carrito" className="carrito">
                 <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
-                  <div className="pedidos">{pedidosNoVacios.length}</div>
+                  <div className="cantidadPedidos">
+                    {pedidosNoVacios.length}
+                  </div>
                 ) : (
                   ""
                 )}
@@ -220,28 +233,6 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               </React.Fragment>
             ))}
         </div>
-
-        {/* <div
-          id="categorias"
-          className="categorias"
-          ref={scrollableRef}
-          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-        >
-          {newCateg &&
-            newCateg.map((categ) => (
-              <React.Fragment key={categ.id}>
-                {subcategorias.some(
-                  (subC) => subC.categoria.id === categ.id
-                ) && (
-                  <>
-                    {subcategorias
-                      .filter((subC) => subC.categoria.id === categ.id)
-                      .map((subC) => subC.nombre)}
-                  </>
-                )}
-              </React.Fragment>
-            ))}
-        </div> */}
       </div>
     </header>
   );

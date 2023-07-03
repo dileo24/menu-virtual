@@ -18,24 +18,18 @@ header {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0 5%;
+      padding: 0 6%;
       align-items: center;
-      .carritoIcon {
+      .carritoIcon,
+      .usuarioIcon {
         width: 10vw;
         height: 10vw;
         transform: scaleX(-1);
-        fill: $naranja;
-      }
-      .usuarioIcon {
-        width: 9vw;
-        height: 9vw;
-        transform: scaleX(-1);
-        fill: $naranja;
       }
       .carrito {
         position: relative;
 
-        .pedidos {
+        .cantidadPedidos {
           position: absolute;
           top: 0;
           right: 0;

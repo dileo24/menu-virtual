@@ -128,11 +128,11 @@
       padding-bottom: 30%;
 
       // @include centerCol;
-      justify-content: start;
+      justify-content: flex-start;
       .header1 {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: flex-start;
         justify-content: space-between;
         height: auto;
         width: 100vw;
@@ -213,7 +213,7 @@
           .acciones {
             min-width: 50%;
             @include center;
-            justify-content: end;
+            justify-content: flex-end;
             .iconContainer1 {
               width: 8vw;
               height: 8vw;

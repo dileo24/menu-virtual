@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { eliminarItemCarrito, agregarCarrito } from "../../redux/actions";
 import Button from "./Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Contador({
   nombre,

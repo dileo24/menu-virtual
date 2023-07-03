@@ -9,18 +9,20 @@ import Swipe from "react-swipe";
 const Carrusel = () => {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [diapositiva, setDiapositiva] = useState(0);
-  const prevDiapositivaRef = useRef(diapositiva);
+  // const [diapositiva, setDiapositiva] = useState(0);
+  // const prevDiapositivaRef = useRef(diapositiva);
   const carruselRef = useRef(null); // Referencia al contenedor principal
 
   const dispatch = useDispatch();
 
-  const { categorias, home, homeBusqueda, carrito } = useSelector((state) => ({
-    categorias: state.categorias,
-    home: state.home,
-    homeBusqueda: state.homeBusqueda,
-    carrito: state.carrito,
-  }));
+  const { categorias, home, homeBusqueda /* , carrito */ } = useSelector(
+    (state) => ({
+      categorias: state.categorias,
+      home: state.home,
+      homeBusqueda: state.homeBusqueda,
+      /* carrito: state.carrito, */
+    })
+  );
 
   useEffect(() => {
     dispatch(getProductos());
@@ -71,7 +73,7 @@ const Carrusel = () => {
 
   const handleSwipe = useCallback((index) => {
     setCurrentSlide(index);
-    setDiapositiva(index);
+    // setDiapositiva(index);
     window.scrollTo({ top: 0 }); // Desplazar hacia arriba
   }, []);
 
@@ -116,10 +118,12 @@ const Carrusel = () => {
                       prod.categoria.id === categ.id && prod.listado === true
                   ) && (
                     <div key={categ.id} className="scrollable-content">
-                      <Menu
-                        categoria={categ.nombre}
-                        currentSlide={currentSlide}
-                      />
+                      {currentSlide !== 0 && (
+                        <Menu
+                          categoria={categ.nombre}
+                          currentSlide={currentSlide}
+                        />
+                      )}
                     </div>
                   )
               )}
