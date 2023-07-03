@@ -350,7 +350,7 @@ export default function HacerPedido() {
                           )}
                         </div>
 
-                        <label htmlFor={tipo.id} className="">
+                        <label htmlFor={tipo.id} className="nombrePago">
                           {tipo.tipo}
                         </label>
                       </div>

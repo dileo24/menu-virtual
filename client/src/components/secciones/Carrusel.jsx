@@ -73,11 +73,18 @@ const Carrusel = () => {
     setCurrentSlide(index);
     setDiapositiva(index);
     window.scrollTo({ top: 0 }); // Desplazar hacia arriba
+    // ajustarHeight();
+    const diapo = document.querySelector(
+      `.scrollable-content[data-index="${index}"]`
+    );
+    // const header = document.querySelector("header");
+    if (diapo) {
+      const menuContainer = diapo.querySelector(".menuContainer");
+      const menuContainerHeight = menuContainer.offsetHeight;
+      const swipe = document.querySelector(".swipe");
+      swipe.style.maxHeight = `${menuContainerHeight}px`;
+    }
   }, []);
-
-  // useEffect(() => {
-  //   document.body.classList.add("noScroll");
-  // }, []);
 
   return (
     <div>
@@ -86,7 +93,7 @@ const Carrusel = () => {
         <div className="carrusel-wrapper" ref={carruselRef}>
           {categorias.length && (
             <Swipe
-              /* className="swipe" */
+              className="swipe"
               swipeOptions={{
                 startSlide: currentSlide,
                 speed: 400,
@@ -95,7 +102,11 @@ const Carrusel = () => {
               }}
             >
               <div className="scrollable-content">
-                <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
+                <Menu
+                  categoria={"todas"}
+                  prodsBuscados={homeBusqueda}
+                  currentSlide={currentSlide}
+                />
               </div>
               {categorias.map(
                 (categ) =>
@@ -104,7 +115,10 @@ const Carrusel = () => {
                       prod.categoria.id === categ.id && prod.listado === true
                   ) && (
                     <div key={categ.id} className="scrollable-content">
-                      <Menu categoria={categ.nombre} />
+                      <Menu
+                        categoria={categ.nombre}
+                        currentSlide={currentSlide}
+                      />
                     </div>
                   )
               )}

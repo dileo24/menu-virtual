@@ -21,11 +21,42 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
+  let subCategs;
 
   useEffect(() => {
     dispatch(getPedidos());
     dispatch(getProductos());
     dispatch(getSubcategorias());
+
+    scrollToActiveCategory();
+
+    const categActive = document.querySelector(".active");
+    if (subcategorias.some((subC) => subC.categoria.id == categActive.id)) {
+      subCategs = subcategorias
+        .filter((subC) => subC.categoria.id == categActive.id)
+        .map((subC) => subC.nombre);
+
+      // Crear el elemento div
+      const divElement = document.createElement("div");
+      divElement.className = "subCategorias";
+      document.querySelector("header").appendChild(divElement);
+
+      // Recorrer el array subCategs
+      subCategs.forEach((subC) => {
+        const buttonElement = document.createElement("button");
+        buttonElement.className = "subCategoria";
+        buttonElement.textContent = subC;
+        buttonElement.onclick = function () {
+          // Código a ejecutar cuando se hace clic en el botón
+          console.log("Botón " + subC + " fue clickeado");
+        };
+        divElement.appendChild(buttonElement);
+      });
+    } else {
+      if (document.querySelector(".subCategorias")) {
+        document.querySelector(".subCategorias").remove();
+      }
+    }
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -33,13 +64,12 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         setInputData(JSON.parse(savedInputs));
       }
     };
-
     handleStorageChange();
     window.addEventListener("storage", handleStorageChange);
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch]);
+  }, [dispatch, currentSlide]);
 
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => {
@@ -81,10 +111,6 @@ export default function Header({ currentSlide, setCurrentSlide }) {
       }
     }
   };
-
-  useEffect(() => {
-    scrollToActiveCategory();
-  }, [currentSlide]);
 
   const newCateg =
     categorias &&
@@ -168,6 +194,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         >
           <button
             className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
+            id="0"
             onClick={() => {
               setCurrentSlide(0);
               window.scrollTo({ top: 0 });
@@ -182,6 +209,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
                   className={`categoria ${
                     currentSlide === index + 1 ? "active" : ""
                   }`}
+                  id={categ.id}
                   onClick={() => {
                     setCurrentSlide(index + 1);
                     window.scrollTo({ top: 0 });
@@ -193,7 +221,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
             ))}
         </div>
 
-        <div
+        {/* <div
           id="categorias"
           className="categorias"
           ref={scrollableRef}
@@ -213,7 +241,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
                 )}
               </React.Fragment>
             ))}
-        </div>
+        </div> */}
       </div>
     </header>
   );
