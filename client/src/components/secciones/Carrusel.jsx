@@ -116,10 +116,12 @@ const Carrusel = () => {
                       prod.categoria.id === categ.id && prod.listado === true
                   ) && (
                     <div key={categ.id} className="scrollable-content">
-                      <Menu
-                        categoria={categ.nombre}
-                        currentSlide={currentSlide}
-                      />
+                      {currentSlide !== 0 && (
+                        <Menu
+                          categoria={categ.nombre}
+                          currentSlide={currentSlide}
+                        />
+                      )}
                     </div>
                   )
               )}
