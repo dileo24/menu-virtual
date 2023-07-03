@@ -22,23 +22,16 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
-  let subCategs;
+  const subCategsRef = useRef(null);
 
   useEffect(() => {
-    dispatch(getCategorias());
-    dispatch(getPedidos());
-    dispatch(getSubcategorias());
-    dispatch(getProductos());
-
-    scrollToActiveCategory();
-
     const categActive = document.querySelector(".active");
     if (
       subcategorias.some(
         (subC) => Number(subC.categoria.id) === Number(categActive.id)
       )
     ) {
-      subCategs = subcategorias
+      const subCategs = subcategorias
         .filter((subC) => Number(subC.categoria.id) === Number(categActive.id))
         .map((subC) => subC.nombre);
 
@@ -58,11 +51,24 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         };
         divElement.appendChild(buttonElement);
       });
+
+      subCategsRef.current = subCategs;
     } else {
       if (document.querySelector(".subCategorias")) {
         document.querySelector(".subCategorias").remove();
       }
+      subCategsRef.current = null;
     }
+  }, [subcategorias]);
+
+  useEffect(() => {
+    dispatch(getCategorias());
+    dispatch(getPedidos());
+    dispatch(getSubcategorias());
+    dispatch(getProductos());
+
+    scrollToActiveCategory();
+
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
       if (savedInputs) {
@@ -179,7 +185,9 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               <Link to="/carrito" className="carrito">
                 <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
-                  <div className="pedidos">{pedidosNoVacios.length}</div>
+                  <div className="cantidadPedidos">
+                    {pedidosNoVacios.length}
+                  </div>
                 ) : (
                   ""
                 )}

@@ -26,7 +26,7 @@ export default function HacerPedido() {
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
-  const itemsExtraArray = useSelector((state) => state.itemsExtra);
+  // const itemsExtraArray = useSelector((state) => state.itemsExtra);
   const dispatch = useDispatch();
   const [MostrarMenu, setMostrarMenu] = useState(false);
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
@@ -321,7 +321,7 @@ export default function HacerPedido() {
                       <div
                         key={tipo.id}
                         className={`pagoInput ${
-                          selectedPayment == tipo.id ? "selected" : ""
+                          selectedPayment === Number(tipo.id) ? "selected" : ""
                         }`}
                         onClick={() =>
                           handleSelectTipo({ target: { value: tipo.id } })
@@ -335,7 +335,7 @@ export default function HacerPedido() {
                             value={tipo.id}
                             className="check"
                             onChange={(e) => handleSelectTipo(e)}
-                            checked={selectedPayment == tipo.id}
+                            checked={selectedPayment === Number(tipo.id)}
                             required
                           />
                           {tipo.id === 1 && (
@@ -346,7 +346,11 @@ export default function HacerPedido() {
                             <AiOutlineCreditCard className="icon" />
                           )}
                           {tipo.id === 4 && (
-                            <img src={mercadoPago} className="icon" />
+                            <img
+                              src={mercadoPago}
+                              className="icon"
+                              alt="mercadoPago"
+                            />
                           )}
                         </div>
 
