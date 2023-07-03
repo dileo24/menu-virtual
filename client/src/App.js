@@ -15,7 +15,7 @@ import ItemsCliente from "./components/secciones/ItemsCliente";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 
 // Local
-/* axios.defaults.baseURL = "http://localhost:3001"; */
+// axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
 axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";

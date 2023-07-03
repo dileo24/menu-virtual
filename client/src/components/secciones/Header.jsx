@@ -22,44 +22,46 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
-  const subCategsRef = useRef(null);
+  const categActive = document.querySelector(".active");
 
-  useEffect(() => {
-    const categActive = document.querySelector(".active");
-    if (
-      subcategorias.some(
-        (subC) => Number(subC.categoria.id) === Number(categActive.id)
-      )
-    ) {
-      const subCategs = subcategorias
-        .filter((subC) => Number(subC.categoria.id) === Number(categActive.id))
-        .map((subC) => subC.nombre);
+  // const subCategsRef = useRef(null);
 
-      // Crear el elemento div
-      const divElement = document.createElement("div");
-      divElement.className = "subCategorias";
-      document.querySelector("header").appendChild(divElement);
+  // useEffect(() => {
+  //   const categActive = document.querySelector(".active");
+  //   if (
+  //     subcategorias.some(
+  //       (subC) => Number(subC.categoria.id) === Number(categActive.id)
+  //     )
+  //   ) {
+  //     const subCategs = subcategorias
+  //       .filter((subC) => Number(subC.categoria.id) === Number(categActive.id))
+  //       .map((subC) => subC.nombre);
 
-      // Recorrer el array subCategs
-      subCategs.forEach((subC) => {
-        const buttonElement = document.createElement("button");
-        buttonElement.className = "subCategoria";
-        buttonElement.textContent = subC;
-        buttonElement.onclick = function () {
-          // Código a ejecutar cuando se hace clic en el botón
-          console.log("Botón " + subC + " fue clickeado");
-        };
-        divElement.appendChild(buttonElement);
-      });
+  //     // Crear el elemento div
+  //     const divElement = document.createElement("div");
+  //     divElement.className = "subCategorias";
+  //     document.getElementById("categorias").appendChild(divElement);
 
-      subCategsRef.current = subCategs;
-    } else {
-      if (document.querySelector(".subCategorias")) {
-        document.querySelector(".subCategorias").remove();
-      }
-      subCategsRef.current = null;
-    }
-  }, [subcategorias]);
+  //     // Recorrer el array subCategs
+  //     subCategs.forEach((subC) => {
+  //       const buttonElement = document.createElement("button");
+  //       buttonElement.className = "subCategoria";
+  //       buttonElement.textContent = subC;
+  //       buttonElement.onclick = function () {
+  //         // Código a ejecutar cuando se hace clic en el botón
+  //         console.log("Botón " + subC + " fue clickeado");
+  //       };
+  //       divElement.appendChild(buttonElement);
+  //     });
+
+  //     subCategsRef.current = subCategs;
+  //   } else {
+  //     if (document.querySelector(".subCategorias")) {
+  //       document.querySelector(".subCategorias").remove();
+  //     }
+  //     subCategsRef.current = null;
+  //   }
+  // }, [subcategorias]);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -199,39 +201,64 @@ export default function Header({ currentSlide, setCurrentSlide }) {
             </button>
           )}
         </nav>
-        <div
-          id="categorias"
-          className="categorias"
-          ref={scrollableRef}
-          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-        >
-          <button
-            className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
-            id="0"
-            onClick={() => {
-              setCurrentSlide(0);
-              window.scrollTo({ top: 0 });
-            }}
+
+        <div id="categorias">
+          <div
+            className="categorias"
+            ref={scrollableRef}
+            style={{ overflowX: "auto", whiteSpace: "nowrap" }}
           >
-            Menú
-          </button>
-          {newCateg &&
-            newCateg.map((categ, index) => (
-              <React.Fragment key={categ.id}>
-                <button
-                  className={`categoria ${
-                    currentSlide === index + 1 ? "active" : ""
-                  }`}
-                  id={categ.id}
-                  onClick={() => {
-                    setCurrentSlide(index + 1);
-                    window.scrollTo({ top: 0 });
-                  }}
-                >
-                  {categ.nombre}
-                </button>
-              </React.Fragment>
-            ))}
+            <button
+              className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
+              id="0"
+              onClick={() => {
+                setCurrentSlide(0);
+                window.scrollTo({ top: 0 });
+              }}
+            >
+              Menú
+            </button>
+            {newCateg &&
+              newCateg.map((categ, index) => (
+                <React.Fragment key={categ.id}>
+                  <button
+                    className={`categoria ${
+                      currentSlide === index + 1 ? "active" : ""
+                    }`}
+                    id={categ.id}
+                    onClick={() => {
+                      setCurrentSlide(index + 1);
+                      window.scrollTo({ top: 0 });
+                    }}
+                  >
+                    {categ.nombre}
+                  </button>
+                </React.Fragment>
+              ))}
+          </div>
+
+          {subcategorias.some(
+            (subC) => Number(subC.categoria.id) === Number(categActive.id)
+          ) ? (
+            <div className="subCategorias">
+              {subcategorias
+                .filter(
+                  (subC) => Number(subC.categoria.id) === Number(categActive.id)
+                )
+                .map((subC) => (
+                  <button
+                    className="subCategoria"
+                    key={subC.nombre}
+                    onClick={() => {
+                      // Código a ejecutar cuando se hace clic en la subcategoría
+                      console.log("Botón " + subC.nombre + " fue clickeado");
+                    }}
+                  >
+                    {subC.nombre}
+                  </button>
+                ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </header>
