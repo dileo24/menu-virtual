@@ -56,7 +56,6 @@ header {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-top: 1px solid rgba(0, 0, 0, 0.3);
       width: 100vw;
-      font-weight: 500;
       font-size: 4.5vw;
       padding: 0 7%;
       height: 7vh;
@@ -82,6 +81,8 @@ header {
         margin-right: 7%;
       }
       .categoria {
+        font-weight: 500;
+        color: $paragraph;
         &:not(:last-child) {
           margin-right: 7%;
         }
@@ -95,6 +96,7 @@ header {
         -moz-transition: all 0.1s ease;
         -ms-transition: all 0.1s ease;
         -o-transition: all 0.1s ease;
+        color: black;
 
         &:focus {
           outline: none;
@@ -110,7 +112,10 @@ header {
     font-size: 4.5vw;
     overflow-x: auto;
     white-space: nowrap;
-    padding: 5% 5% 0 5%;
+    height: 5vh;
+    padding: 0 5%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
 
     /* Ocultar la barra de desplazamiento */
     scrollbar-width: none;
@@ -130,13 +135,13 @@ header {
 
     /* botones */
     .subCategoria {
-      background-color: rgba(0, 0, 0, 0.079);
-      border-radius: 7px;
-      -webkit-border-radius: 7px;
-      -moz-border-radius: 7px;
-      -ms-border-radius: 7px;
-      -o-border-radius: 7px;
-      padding: 2% 3%;
+      // background-color: rgba(0, 0, 0, 0.079);
+      // border-radius: 7px;
+      // -webkit-border-radius: 7px;
+      // -moz-border-radius: 7px;
+      // -ms-border-radius: 7px;
+      // -o-border-radius: 7px;
+      // padding: 2% 3%;
       &:not(:last-child) {
         margin-right: 5%;
       }

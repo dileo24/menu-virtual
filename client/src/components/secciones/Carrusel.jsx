@@ -33,10 +33,15 @@ const Carrusel = () => {
     const subHeader = document.getElementById("subHeader");
     const nav = document.getElementById("nav");
     const categoriasEl = document.getElementById("categorias");
+    const subCategoriasEl = document.querySelector(".subCategorias");
     const marca = document.getElementById("marca");
 
     if (scrollPosition >= 110) {
-      marca.style.marginBottom = "14vh";
+      if (subCategoriasEl) {
+        marca.style.marginBottom = "20vh";
+      } else {
+        marca.style.marginBottom = "14vh";
+      }
       subHeader.style.position = "fixed";
       subHeader.style.top = "0";
       if (scrollPosition > prevScrollPosition) {
@@ -44,6 +49,7 @@ const Carrusel = () => {
           nav.style.visibility = "hidden";
           categoriasEl.style.position = "relative";
           categoriasEl.style.top = "-7vh";
+          // subCategoriasEl.style.top = "-7vh";
         }
       } else {
         if (nav.style.visibility === "hidden") {
