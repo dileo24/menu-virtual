@@ -73,18 +73,19 @@ const Carrusel = () => {
     setCurrentSlide(index);
     setDiapositiva(index);
     window.scrollTo({ top: 0 }); // Desplazar hacia arriba
-    // ajustarHeight();
+  }, []);
+
+  useEffect(() => {
     const diapo = document.querySelector(
-      `.scrollable-content[data-index="${index}"]`
+      `.scrollable-content[data-index="${currentSlide}"]`
     );
-    // const header = document.querySelector("header");
     if (diapo) {
       const menuContainer = diapo.querySelector(".menuContainer");
       const menuContainerHeight = menuContainer.offsetHeight;
       const swipe = document.querySelector(".swipe");
       swipe.style.maxHeight = `${menuContainerHeight}px`;
     }
-  }, []);
+  }, [currentSlide]);
 
   return (
     <div>
