@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
   cleanUserActual,
+  getCategorias,
   getProductos,
   searchXname,
 } from "../../redux/actions";
@@ -24,16 +25,21 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   let subCategs;
 
   useEffect(() => {
+    dispatch(getCategorias());
     dispatch(getPedidos());
-    dispatch(getProductos());
     dispatch(getSubcategorias());
+    dispatch(getProductos());
 
     scrollToActiveCategory();
 
     const categActive = document.querySelector(".active");
-    if (subcategorias.some((subC) => subC.categoria.id == categActive.id)) {
+    if (
+      subcategorias.some(
+        (subC) => Number(subC.categoria.id) === Number(categActive.id)
+      )
+    ) {
       subCategs = subcategorias
-        .filter((subC) => subC.categoria.id == categActive.id)
+        .filter((subC) => Number(subC.categoria.id) === Number(categActive.id))
         .map((subC) => subC.nombre);
 
       // Crear el elemento div
@@ -57,7 +63,6 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         document.querySelector(".subCategorias").remove();
       }
     }
-
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
       if (savedInputs) {
@@ -220,28 +225,6 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               </React.Fragment>
             ))}
         </div>
-
-        {/* <div
-          id="categorias"
-          className="categorias"
-          ref={scrollableRef}
-          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-        >
-          {newCateg &&
-            newCateg.map((categ) => (
-              <React.Fragment key={categ.id}>
-                {subcategorias.some(
-                  (subC) => subC.categoria.id === categ.id
-                ) && (
-                  <>
-                    {subcategorias
-                      .filter((subC) => subC.categoria.id === categ.id)
-                      .map((subC) => subC.nombre)}
-                  </>
-                )}
-              </React.Fragment>
-            ))}
-        </div> */}
       </div>
     </header>
   );
