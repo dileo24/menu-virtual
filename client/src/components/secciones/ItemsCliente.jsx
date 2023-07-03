@@ -87,21 +87,24 @@ export default function Items() {
                             (item) => item.categoria.nombre === categoria
                           );
                           return (
-                            <div className="cardItem">
+                            <div
+                              className="cardItem"
+                              key={`${personaIndex}-${categoriaIndex}`}
+                            >
+                              {" "}
+                              {/* Agregar key */}
                               <p className="categItem">{categoria}</p>
                               <select
                                 className="select"
-                                name={`itemsExtra-${personaIndex}-${categoriaIndex}`} // Cambio: Utilizar índices en el nombre del selector
-                                onChange={
-                                  (e) =>
-                                    handleSelectItemExtra(
-                                      e.target.value,
-                                      personaIndex,
-                                      categoriaIndex
-                                    ) // Cambio: Pasar los índices del selector
+                                name={`itemsExtra-${personaIndex}-${categoriaIndex}`}
+                                onChange={(e) =>
+                                  handleSelectItemExtra(
+                                    e.target.value,
+                                    personaIndex,
+                                    categoriaIndex
+                                  )
                                 }
                                 required
-                                key={`${personaIndex}-${categoriaIndex}`}
                               >
                                 <option hidden>Seleccionar</option>
                                 {itemsFiltrados.map((item, itemIndex) => (
