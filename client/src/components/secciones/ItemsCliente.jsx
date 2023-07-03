@@ -36,10 +36,9 @@ export default function Items() {
     const cantItems =
       Number(prod && prod[0].cantidadPersonas) *
       Number(prod[0].itemsExtra.length);
-    console.log();
     // Validación de itemsExtra seleccionados
     if (cantItems !== itemsExtraArray.length) {
-      alert("Debes seleccionar todos los items extra requeridos");
+      return alert("Debes seleccionar todos los items extra requeridos");
     }
     handleIncremento(prod && prod, itemsExtraArray);
     navigate("/");
