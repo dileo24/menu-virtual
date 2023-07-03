@@ -1,0 +1,30 @@
+[
+  {
+    "nombre": "Pizzas",
+    "categID": "2"
+  },
+  {
+    "nombre": "Hamburguesas",
+    "categID": "2"
+  },
+  {
+    "nombre": "Pastas",
+    "categID": "2"
+  },
+  {
+    "nombre": "Lomitos",
+    "categID": "2"
+  },
+  {
+    "nombre": "Empanadas",
+    "categID": "2"
+  },
+  {
+    "nombre": "Papas",
+    "categID": "2"
+  },
+  {
+    "nombre": "Carne",
+    "categID": "2"
+  }
+]

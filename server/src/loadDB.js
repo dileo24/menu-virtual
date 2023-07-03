@@ -4,12 +4,14 @@ const usuario = require("./json/usuarios.json");
 const pagos = require("./json/pagos.json");
 const estados = require("./json/estados.json");
 const pedidos = require("./json/pedidos.json");
+const subcategoria = require("./json/subcategorias.json");
 const { encrypt } = require("./helpers/handleCrypt");
 const {
   Producto,
   Usuario,
   Rol,
   Categoria,
+  Subcategoria,
   Pago,
   Pedido,
   Estado,
@@ -33,9 +35,20 @@ async function fnEstado() {
     await Estado.create(e);
   }
 }
+
 async function fnCategorias() {
   for (const cat of categoria) {
     await Categoria.create(cat);
+  }
+}
+
+async function fnSubcategorias() {
+  for (const subc of subcategoria) {
+    const newSubcateg = await Subcategoria.create({
+      nombre: subc.nombre,
+    });
+    let categoria = await Categoria.findByPk(subc.categID);
+    await categoria.addSubcategoria(newSubcateg);
   }
 }
 
@@ -52,21 +65,12 @@ async function fnProducto() {
       mostrarPersonaItem: p.mostrarPersonaItem,
       mostrarOtroCheckbox: p.mostrarOtroCheckbox,
     });
-
     const categoria = await Categoria.findByPk(p.categoriaID);
+    if (p.subcategoriaID !== "") {
+      let subcategoria = await Subcategoria.findByPk(p.subcategoriaID);
+      await subcategoria.addProducto(newProduct);
+    }
     await categoria.addProducto(newProduct);
-    /* console.log(p.itemExtraID);
-    const itemExtras = await ItemExtra.findAll({
-      where: {
-        id: p.itemExtraID,
-      },
-    });
-    console.log("Cantidad de itemExtras encontrados:", itemExtras.length);
-
-    for (const itemExtra of itemExtras) {
-      console.log(itemExtra);
-      await itemExtra.addProducto(newProduct);
-    } */
   }
 }
 
@@ -110,4 +114,5 @@ module.exports = {
   fnPagos,
   fnEstado,
   fnPedidos,
+  fnSubcategorias,
 };

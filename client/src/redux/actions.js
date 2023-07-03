@@ -14,6 +14,7 @@ export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 export const DELETE_CATEG = "DELETE_CATEG";
+export const GET_SUBCATEGORIAS = "GET_SUBCATEGORIAS"
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -89,6 +90,18 @@ export const searchXcategoria = (categoria) => {
   return {
     type: SEARCHxCATEGORIA,
     payload: categoria,
+  };
+};
+
+/****************** SUBCATEGORIAS ******************/
+
+export const getSubcategorias = () => {
+  return async function (dispatch) {
+    const response = await axios.get("/subcategorias");
+    return dispatch({
+      type: GET_SUBCATEGORIAS,
+      payload: response.data,
+    });
   };
 };
 

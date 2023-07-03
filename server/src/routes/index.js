@@ -7,6 +7,7 @@ const Pagos = require("./pago");
 const Estados = require("./estado");
 const Pedidos = require("./pedido");
 const Categorias = require("./categorias");
+const Subcategorias = require("./subcategorias");
 const router = express();
 router.use(express.json());
 
@@ -20,6 +21,7 @@ router.use("/pedidos", Pedidos);
 router.use("/pagos", Pagos);
 router.use("/estados", Estados);
 router.use("/categorias", Categorias);
+router.use("/subcategorias", Subcategorias);
 router.all("*", (req, res) => {
   res.redirect("/");
 });

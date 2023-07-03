@@ -140,7 +140,7 @@ export default function HacerPedido() {
   };
 
   const handleSelectTipo = (e) => {
-    if (!input.tipoPagoID.includes(e.target.value)) {
+    if (input.tipoPagoID !== e.target.value) {
       setSelectedPayment(e.target.value);
       setInput({
         ...input,
@@ -160,21 +160,6 @@ export default function HacerPedido() {
         return;
       }
 
-      // Validación de itemsExtra seleccionados
-      // const totalItemsExtraRequired = carrito.reduce((total, prod) => {
-      //   if (prod.itemsExtra) {
-      //     return total + prod.cantidadPersonas * prod.itemsExtra.length;
-      //   }
-      //   return total;
-      // }, 0);
-      // if (
-      //   !input.itemsExtra ||
-      //   input.itemsExtra.length !== totalItemsExtraRequired
-      // ) {
-      //   alert("Debes seleccionar todos los items extra requeridos");
-      //   return;
-      // }
-
       // Obtener la lista de inputs previamente almacenados
       let storedInputs = localStorage.getItem("inputs");
       if (storedInputs) {
@@ -188,7 +173,7 @@ export default function HacerPedido() {
 
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
-
+      console.log(input);
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -225,23 +210,6 @@ export default function HacerPedido() {
               {!MostrarMenu && <div className="precio">${precioFinal}</div>}
             </button>
           </footer>
-
-          {/* Footer con botón para vaciar pedido */}
-          {/* <footer className={`footer ${marginTop}`}>
-            <button className="botonFooter" onClick={handleOnClick}>
-              <div className="vaciarCantidad">
-                <VscTrash
-                  className="vaciarIcon"
-                  onClick={() => {
-                      handleVaciarCarrito();
-                    }} 
-                />
-                <div className="cantidad">{preciosArray.length}</div>
-              </div>
-              <b className="verPedido">{verOcultar}</b>
-              <div className="precio">${precioFinal}</div>
-            </button>
-          </footer> */}
         </>
       )}
 
@@ -260,7 +228,6 @@ export default function HacerPedido() {
                 carrito.map((prod, id) => (
                   <div key={id} className="cardProducto">
                     <p className="nombre">{prod.nombre}</p>
-                    {/* <p className="descripcion">{prod.descripcion}</p> */}
                     <div className="precioAcciones">
                       <p className="precio">${prod.precio}</p>
                       <div className="acciones">
@@ -356,7 +323,9 @@ export default function HacerPedido() {
                         className={`pagoInput ${
                           selectedPayment == tipo.id ? "selected" : ""
                         }`}
-                        onClick={() => setSelectedPayment(tipo.id)}
+                        onClick={() =>
+                          handleSelectTipo({ target: { value: tipo.id } })
+                        }
                       >
                         <div className="iconCheck">
                           <input
@@ -379,11 +348,9 @@ export default function HacerPedido() {
                           {tipo.id === 4 && (
                             <img src={mercadoPago} className="icon" />
                           )}
-                          {/* {tipo.id === 5 && <AiFillBank className="icon" />} */}
-                          {/* <p className="icon">{tipo.id}</p> */}
                         </div>
 
-                        <label htmlFor={tipo.id} className="">
+                        <label htmlFor={tipo.id} className="nombrePago">
                           {tipo.tipo}
                         </label>
                       </div>
@@ -398,13 +365,11 @@ export default function HacerPedido() {
                 </div>
                 <div className="footer">
                   <div className="botonFooter">
-                    {/* <div className="cantidad">{preciosArray.length}</div> */}
                     <input
                       type="submit"
                       className="verPedido"
                       value="Hacer pedido"
                     />
-                    {/* <div className="precio">${precioFinal}</div> */}
                   </div>
                 </div>
               </form>

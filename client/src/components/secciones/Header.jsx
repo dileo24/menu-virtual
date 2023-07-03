@@ -1,9 +1,13 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { cleanUserActual, searchXname } from "../../redux/actions";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  cleanUserActual,
+  getProductos,
+  searchXname,
+} from "../../redux/actions";
 import Filtros from "../recursos/Filtros";
-import { getPedidos } from "../../redux/actions";
+import { getPedidos, getSubcategorias } from "../../redux/actions";
 import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
 
@@ -11,13 +15,48 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
+  const prods = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
+  const subcategorias = useSelector((state) => state.subcategorias);
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
+  let subCategs;
 
   useEffect(() => {
     dispatch(getPedidos());
+    dispatch(getProductos());
+    dispatch(getSubcategorias());
+
+    scrollToActiveCategory();
+
+    const categActive = document.querySelector(".active");
+    if (subcategorias.some((subC) => subC.categoria.id == categActive.id)) {
+      subCategs = subcategorias
+        .filter((subC) => subC.categoria.id == categActive.id)
+        .map((subC) => subC.nombre);
+
+      // Crear el elemento div
+      const divElement = document.createElement("div");
+      divElement.className = "subCategorias";
+      document.querySelector("header").appendChild(divElement);
+
+      // Recorrer el array subCategs
+      subCategs.forEach((subC) => {
+        const buttonElement = document.createElement("button");
+        buttonElement.className = "subCategoria";
+        buttonElement.textContent = subC;
+        buttonElement.onclick = function () {
+          // Código a ejecutar cuando se hace clic en el botón
+          console.log("Botón " + subC + " fue clickeado");
+        };
+        divElement.appendChild(buttonElement);
+      });
+    } else {
+      if (document.querySelector(".subCategorias")) {
+        document.querySelector(".subCategorias").remove();
+      }
+    }
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -25,18 +64,12 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         setInputData(JSON.parse(savedInputs));
       }
     };
-
-    // Llamar a la función de manejo del evento de cambio al cargar la página
     handleStorageChange();
-
-    // Agregar el listener del evento de cambio en el localStorage usando useEffect
     window.addEventListener("storage", handleStorageChange);
-
-    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch]);
+  }, [dispatch, currentSlide]);
 
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => {
@@ -79,9 +112,11 @@ export default function Header({ currentSlide, setCurrentSlide }) {
     }
   };
 
-  useEffect(() => {
-    scrollToActiveCategory();
-  }, [currentSlide]);
+  const newCateg =
+    categorias &&
+    categorias.filter((c) =>
+      prods.some((prod) => prod.categoria.id === c.id && prod.listado === true)
+    );
 
   return (
     <header id="containerHeader" className="containerHeader">
@@ -159,6 +194,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
         >
           <button
             className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
+            id="0"
             onClick={() => {
               setCurrentSlide(0);
               window.scrollTo({ top: 0 });
@@ -166,23 +202,46 @@ export default function Header({ currentSlide, setCurrentSlide }) {
           >
             Menú
           </button>
-
-          {categorias &&
-            categorias.map((categ) => (
-              <button
-                key={categ.id}
-                className={`categoria ${
-                  currentSlide === categ.id ? "active" : ""
-                }`}
-                onClick={() => {
-                  setCurrentSlide(categ.id);
-                  window.scrollTo({ top: 0 });
-                }}
-              >
-                {categ.nombre}
-              </button>
+          {newCateg &&
+            newCateg.map((categ, index) => (
+              <React.Fragment key={categ.id}>
+                <button
+                  className={`categoria ${
+                    currentSlide === index + 1 ? "active" : ""
+                  }`}
+                  id={categ.id}
+                  onClick={() => {
+                    setCurrentSlide(index + 1);
+                    window.scrollTo({ top: 0 });
+                  }}
+                >
+                  {categ.nombre}
+                </button>
+              </React.Fragment>
             ))}
         </div>
+
+        {/* <div
+          id="categorias"
+          className="categorias"
+          ref={scrollableRef}
+          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+        >
+          {newCateg &&
+            newCateg.map((categ) => (
+              <React.Fragment key={categ.id}>
+                {subcategorias.some(
+                  (subC) => subC.categoria.id === categ.id
+                ) && (
+                  <>
+                    {subcategorias
+                      .filter((subC) => subC.categoria.id === categ.id)
+                      .map((subC) => subC.nombre)}
+                  </>
+                )}
+              </React.Fragment>
+            ))}
+        </div> */}
       </div>
     </header>
   );

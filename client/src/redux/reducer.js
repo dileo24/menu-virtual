@@ -12,6 +12,7 @@ import {
   SEARCHxNOMBRE,
   GET_PEDIDOS,
   GET_ESTADOS,
+  GET_SUBCATEGORIAS,
   GET_TIPOPAGOS,
   DELETE_CATEG,
 } from "./actions.js";
@@ -24,6 +25,7 @@ const initialState = {
   homeBusqueda: [],
   carrito: [],
   categorias: [],
+  subcategorias: [],
   pedidos: [],
   estados: [],
   tipoPagos: [],
@@ -93,6 +95,13 @@ function rootReducer(state = initialState, action) {
         categorias: state.categorias.filter(
           (categ) => categ.id !== action.payload
         ),
+      };
+
+    /****************** SUBCATEGORIAS ******************/
+    case GET_SUBCATEGORIAS:
+      return {
+        ...state,
+        subcategorias: [...action.payload],
       };
 
     /****************** USUARIOS ******************/
