@@ -24,45 +24,6 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const [inputData, setInputData] = useState([]);
   const categActive = document.querySelector(".active");
 
-  // const subCategsRef = useRef(null);
-
-  // useEffect(() => {
-  //   const categActive = document.querySelector(".active");
-  //   if (
-  //     subcategorias.some(
-  //       (subC) => Number(subC.categoria.id) === Number(categActive.id)
-  //     )
-  //   ) {
-  //     const subCategs = subcategorias
-  //       .filter((subC) => Number(subC.categoria.id) === Number(categActive.id))
-  //       .map((subC) => subC.nombre);
-
-  //     // Crear el elemento div
-  //     const divElement = document.createElement("div");
-  //     divElement.className = "subCategorias";
-  //     document.getElementById("categorias").appendChild(divElement);
-
-  //     // Recorrer el array subCategs
-  //     subCategs.forEach((subC) => {
-  //       const buttonElement = document.createElement("button");
-  //       buttonElement.className = "subCategoria";
-  //       buttonElement.textContent = subC;
-  //       buttonElement.onclick = function () {
-  //         // Código a ejecutar cuando se hace clic en el botón
-  //         console.log("Botón " + subC + " fue clickeado");
-  //       };
-  //       divElement.appendChild(buttonElement);
-  //     });
-
-  //     subCategsRef.current = subCategs;
-  //   } else {
-  //     if (document.querySelector(".subCategorias")) {
-  //       document.querySelector(".subCategorias").remove();
-  //     }
-  //     subCategsRef.current = null;
-  //   }
-  // }, [subcategorias]);
-
   useEffect(() => {
     dispatch(getCategorias());
     dispatch(getPedidos());
@@ -237,7 +198,8 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               ))}
           </div>
 
-          {subcategorias.some(
+          {categActive &&
+          subcategorias.some(
             (subC) => Number(subC.categoria.id) === Number(categActive.id)
           ) ? (
             <div className="subCategorias">
