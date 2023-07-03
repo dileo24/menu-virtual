@@ -75,40 +75,44 @@ const Carrusel = () => {
     window.scrollTo({ top: 0 }); // Desplazar hacia arriba
   }, []);
 
+  // useEffect(() => {
+  //   document.body.classList.add("noScroll");
+  // }, []);
+
   return (
-    <div className="carruselContainer">
-      <div className="carrusel-wrapper" ref={carruselRef}>
-        <Header currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} />
-        {categorias.length && (
-          <Swipe
-            className="swipe"
-            swipeOptions={{
-              startSlide: currentSlide,
-              speed: 400,
-              continuous: false,
-              callback: handleSwipe,
-            }}
-          >
-            <div>
-              <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
-            </div>
-            {categorias.map(
-              (categ) =>
-                home.some(
-                  (prod) =>
-                    prod.categoria.id === categ.id && prod.listado === true
-                ) && (
-                  <div key={categ.id}>
-                    <div>
+    <div>
+      <Header currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} />
+      <div className="carruselContainer">
+        <div className="carrusel-wrapper" ref={carruselRef}>
+          {categorias.length && (
+            <Swipe
+              /* className="swipe" */
+              swipeOptions={{
+                startSlide: currentSlide,
+                speed: 400,
+                continuous: false,
+                callback: handleSwipe,
+              }}
+            >
+              <div className="scrollable-content">
+                <Menu categoria={"todas"} prodsBuscados={homeBusqueda} />
+              </div>
+              {categorias.map(
+                (categ) =>
+                  home.some(
+                    (prod) =>
+                      prod.categoria.id === categ.id && prod.listado === true
+                  ) && (
+                    <div key={categ.id} className="scrollable-content">
                       <Menu categoria={categ.nombre} />
                     </div>
-                  </div>
-                )
-            )}
-          </Swipe>
-        )}
+                  )
+              )}
+            </Swipe>
+          )}
+        </div>
+        <HacerPedido />
       </div>
-      <HacerPedido />
     </div>
   );
 };

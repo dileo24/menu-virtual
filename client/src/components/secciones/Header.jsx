@@ -32,13 +32,8 @@ export default function Header({ currentSlide, setCurrentSlide }) {
       }
     };
 
-    // Llamar a la función de manejo del evento de cambio al cargar la página
     handleStorageChange();
-
-    // Agregar el listener del evento de cambio en el localStorage usando useEffect
     window.addEventListener("storage", handleStorageChange);
-
-    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
@@ -89,6 +84,11 @@ export default function Header({ currentSlide, setCurrentSlide }) {
     scrollToActiveCategory();
   }, [currentSlide]);
 
+  const newCateg =
+    categorias &&
+    categorias.filter((c) =>
+      prods.some((prod) => prod.categoria.id === c.id && prod.listado === true)
+    );
   return (
     <header id="containerHeader" className="containerHeader">
       <button onClick={reload}>
@@ -172,28 +172,21 @@ export default function Header({ currentSlide, setCurrentSlide }) {
           >
             Menú
           </button>
-
-          {categorias &&
-            categorias.map(
-              (categ) =>
-                prods.some(
-                  (prod) =>
-                    prod.categoria.id === categ.id && prod.listado === true
-                ) && (
-                  <button
-                    key={categ.id}
-                    className={`categoria ${
-                      currentSlide === categ.id ? "active" : ""
-                    }`}
-                    onClick={() => {
-                      setCurrentSlide(categ.id);
-                      window.scrollTo({ top: 0 });
-                    }}
-                  >
-                    {categ.nombre}
-                  </button>
-                )
-            )}
+          {newCateg &&
+            newCateg.map((categ, index) => (
+              <button
+                key={categ.id}
+                className={`categoria ${
+                  currentSlide === index + 1 ? "active" : ""
+                }`}
+                onClick={() => {
+                  setCurrentSlide(index + 1);
+                  window.scrollTo({ top: 0 });
+                }}
+              >
+                {categ.nombre}
+              </button>
+            ))}
         </div>
       </div>
     </header>
