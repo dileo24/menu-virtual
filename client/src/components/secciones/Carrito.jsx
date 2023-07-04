@@ -78,6 +78,10 @@ export default function Carrito() {
                                       <b>{pedido[0].productos}</b>
                                     </p>
                                     <p className="text-gray-700 mt-2">
+                                      <b>Extra:</b>{" "}
+                                      {pedido[0].itemsExtra.join(", ")}
+                                    </p>
+                                    <p className="text-gray-700 mt-2">
                                       <b>Fecha: </b>
                                       {pedido[0].creacionFecha} <b>Hora: </b>
                                       {pedido[0].creacionHora}
