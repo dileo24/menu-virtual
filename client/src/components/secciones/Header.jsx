@@ -45,22 +45,17 @@ export default function Header({ currentSlide, setCurrentSlide }) {
     };
   }, [dispatch, currentSlide]);
 
-  let pedidosActuales = inputData.map((idPed) =>
-    pedidos.filter((ped) => {
-      if (ped.id === idPed.id) {
-        return ped.EstadoId !== 4 && ped.EstadoId !== 5;
-      }
-      return false;
-    })
+  let pedidosActuales = inputData.filter((idPed) =>
+    pedidos.some(
+      (ped) => ped.id === idPed.id && ped.EstadoId !== 4 && ped.EstadoId !== 5
+    )
   );
 
   const pedidosNoVacios = pedidosActuales.filter((array) => array.length !== 0);
 
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
-    if (res === true) {
-      dispatch(cleanUserActual(userActual.data.id));
-    }
+    res && dispatch(cleanUserActual(userActual.data.id));
     navigate("/");
   };
 
@@ -91,6 +86,12 @@ export default function Header({ currentSlide, setCurrentSlide }) {
     categorias.filter((c) =>
       prods.some((prod) => prod.categoria.id === c.id && prod.listado === true)
     );
+
+  const newSubCategs = subcategorias.filter((subcategoria) =>
+    prods.some(
+      (prod) => prod.subcategoria && prod.subcategoria.id === subcategoria.id
+    )
+  );
 
   return (
     <header id="containerHeader" className="containerHeader">
@@ -199,28 +200,28 @@ export default function Header({ currentSlide, setCurrentSlide }) {
           </div>
 
           {categActive &&
-          subcategorias.some(
-            (subC) => Number(subC.categoria.id) === Number(categActive.id)
-          ) ? (
-            <div className="subCategorias">
-              {subcategorias
-                .filter(
-                  (subC) => Number(subC.categoria.id) === Number(categActive.id)
-                )
-                .map((subC) => (
-                  <button
-                    className="subCategoria"
-                    key={subC.nombre}
-                    onClick={() => {
-                      // Código a ejecutar cuando se hace clic en la subcategoría
-                      console.log("Botón " + subC.nombre + " fue clickeado");
-                    }}
-                  >
-                    {subC.nombre}
-                  </button>
-                ))}
-            </div>
-          ) : null}
+            newSubCategs.some(
+              (subC) => subC.categoria.id === Number(categActive.id)
+            ) && (
+              <div className="subCategorias">
+                {newSubCategs
+                  .filter(
+                    (subC) => subC.categoria.id === Number(categActive.id)
+                  )
+                  .map((subC) => (
+                    <button
+                      className="subCategoria"
+                      key={subC.nombre}
+                      onClick={() => {
+                        // Código a ejecutar cuando se hace clic en la subcategoría
+                        console.log("Botón " + subC.nombre + " fue clickeado");
+                      }}
+                    >
+                      {subC.nombre}
+                    </button>
+                  ))}
+              </div>
+            )}
         </div>
       </div>
     </header>
