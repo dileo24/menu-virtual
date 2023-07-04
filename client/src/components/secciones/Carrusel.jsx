@@ -105,7 +105,7 @@ const Carrusel = () => {
               className="swipe"
               swipeOptions={{
                 startSlide: currentSlide,
-                speed: 400,
+                speed: 200,
                 continuous: false,
                 callback: handleSwipe,
               }}
