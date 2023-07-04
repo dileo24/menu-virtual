@@ -46,6 +46,9 @@ export default function HacerPedido() {
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
   let id = pedidos.length + 1;
+  const itemsDelCarrito =
+    carrito &&
+    carrito.map((prod) => prod.itemsExtra && prod.itemsExtra.join(", "));
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -54,7 +57,7 @@ export default function HacerPedido() {
     aclaraciones: "",
     tipoPagoID: "",
     estadoID: "1",
-    itemsExtra: [],
+    itemsExtra: itemsDelCarrito.length > 0 ? itemsDelCarrito : [],
     creacionFecha: formattedDate,
     creacionHora: formattedTime,
   });
@@ -150,7 +153,6 @@ export default function HacerPedido() {
   };
 
   const navigate = useNavigate();
-
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (carrito.length) {

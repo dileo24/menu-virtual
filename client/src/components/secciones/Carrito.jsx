@@ -79,7 +79,9 @@ export default function Carrito() {
                                     </p>
                                     <p className="text-gray-700 mt-2">
                                       <b>Extra:</b>{" "}
-                                      {pedido[0].itemsExtra.join(", ")}
+                                      {pedido[0].itemsExtra
+                                        .filter((item) => item !== null)
+                                        .join(", ")}
                                     </p>
                                     <p className="text-gray-700 mt-2">
                                       <b>Fecha: </b>
