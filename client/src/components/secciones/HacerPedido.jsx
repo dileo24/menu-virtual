@@ -198,6 +198,10 @@ export default function HacerPedido() {
     }
   };
 
+  const handleVaciar = () => {
+    dispatch(limpiarCarrito());
+  };
+
   return (
     <>
       {/* Botón del footer */}
@@ -226,32 +230,36 @@ export default function HacerPedido() {
                 </div>
                 <div className="titleHeader1">Mi Pedido</div>
               </div>
-              {carrito &&
-                carrito.map((prod, id) => (
-                  <div key={id} className="cardProducto">
-                    <p className="nombre">{prod.nombre}</p>
-                    <div className="precioAcciones">
-                      <p className="precio">${prod.precio}</p>
-                      <div className="acciones">
-                        {prod.itemsExtra && (
-                          <div className="iconContainer1">
-                            <Link to="/items" className="editarItems">
-                              <HiOutlinePencil className="editarIcon" />
-                            </Link>
+              {carrito.length > 0 && (
+                <>
+                  {carrito.map((prod, id) => (
+                    <div key={id} className="cardProducto">
+                      <p className="nombre">{prod.nombre}</p>
+                      <div className="precioAcciones">
+                        <p className="precio">${prod.precio}</p>
+                        <div className="acciones">
+                          {prod.itemsExtra && (
+                            <div className="iconContainer1">
+                              <Link to="/items" className="editarItems">
+                                <HiOutlinePencil className="editarIcon" />
+                              </Link>
+                            </div>
+                          )}
+                          <div className="iconContainer2">
+                            <VscTrash
+                              className="eliminarIcon"
+                              onClick={() => {
+                                handleEliminarItemCarrito(prod.id);
+                              }}
+                            />
                           </div>
-                        )}
-                        <div className="iconContainer2">
-                          <VscTrash
-                            className="eliminarIcon"
-                            onClick={() => {
-                              handleEliminarItemCarrito(prod.id);
-                            }}
-                          />
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                  <button onClick={handleVaciar}>Vaciar Pedido</button>
+                </>
+              )}
             </div>
             <div className="footer1">
               <p>Total</p>
