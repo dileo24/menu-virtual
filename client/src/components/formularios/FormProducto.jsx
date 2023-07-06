@@ -22,6 +22,8 @@ export default function FormProducto({
   setNumItemsExtra,
   categoriaID,
   setCategoriaID,
+  subcategoriaID,
+  setSubcategoriaID,
   listado,
   setListado,
   mostrarPersonaItem,
@@ -158,7 +160,10 @@ export default function FormProducto({
                     </div>
                   ) : (
                     categoriaID >= 1 && (
-                      <select>
+                      <select
+                        className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        onChange={(e) => setSubcategoriaID(e.target.value)}
+                      >
                         <option hidden>Seleccionar subcategoria</option>
                         {subcategorias &&
                           subcategorias.map(

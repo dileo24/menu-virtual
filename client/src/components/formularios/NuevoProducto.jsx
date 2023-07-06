@@ -9,6 +9,7 @@ export default function NuevoProducto() {
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
   const [categoriaID, setCategoriaID] = useState("");
+  const [subcategoriaID, setSubcategoriaID] = useState("");
   const [itemsExtra, setItemsExtra] = useState([]);
   const [numItemsExtra, setNumItemsExtra] = useState(0);
   const [cantidadPersonas, setCantidadPersonas] = useState("1");
@@ -28,6 +29,7 @@ export default function NuevoProducto() {
       precio,
       itemsExtra,
       categoriaID,
+      subcategoriaID,
       cantidadPersonas,
       listado,
       mostrarPersonaItem,
@@ -75,6 +77,8 @@ export default function NuevoProducto() {
       setNumItemsExtra={setNumItemsExtra}
       categoriaID={categoriaID}
       setCategoriaID={setCategoriaID}
+      subcategoriaID={subcategoriaID}
+      setSubcategoriaID={setSubcategoriaID}
       listado={listado}
       setListado={setListado}
       mostrarPersonaItem={mostrarPersonaItem}
