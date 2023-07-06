@@ -232,15 +232,21 @@ export default function HacerPedido() {
               </div>
               {carrito.length > 0 && (
                 <>
-                  {carrito.map((prod, id) => (
-                    <div key={id} className="cardProducto">
+                  {carrito.map((prod, index) => (
+                    <div key={index} className="cardProducto">
                       <p className="nombre">{prod.nombre}</p>
+                      <p className="">
+                        {prod && prod.itemsExtra && prod.itemsExtra.join(", ")}
+                      </p>
                       <div className="precioAcciones">
                         <p className="precio">${prod.precio}</p>
                         <div className="acciones">
                           {prod.itemsExtra && (
                             <div className="iconContainer1">
-                              <Link to="/items" className="editarItems">
+                              <Link
+                                to={`/updateItems/${prod.id}/${index}`}
+                                className="editarItems"
+                              >
                                 <HiOutlinePencil className="editarIcon" />
                               </Link>
                             </div>

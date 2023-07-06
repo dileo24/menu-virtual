@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductos, agregarCarrito } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-export default function Items() {
+export default function UpdateItemsCliente() {
   const navigate = useNavigate();
   const productosArray = useSelector((state) => state.home);
   const itemsExtraState = useSelector((state) => state.itemsExtra);
