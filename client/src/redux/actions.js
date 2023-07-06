@@ -14,7 +14,8 @@ export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 export const DELETE_CATEG = "DELETE_CATEG";
-export const GET_SUBCATEGORIAS = "GET_SUBCATEGORIAS"
+export const GET_SUBCATEGORIAS = "GET_SUBCATEGORIAS";
+export const EDITAR_ITEMS_EXTRA = "EDITAR_ITEMS_EXTRA";
 
 /****************** PRODUCTOS ******************/
 export const getProductos = () => {
@@ -230,6 +231,25 @@ export const eliminarItemCarrito = (id) => {
 
     dispatch({
       type: ELIMINAR_ITEM_CARRITO,
+      payload: carrito,
+    });
+  };
+};
+
+export const editarItemsExtra = (index, nuevosItems) => {
+  return (dispatch) => {
+    const storedCart = localStorage.getItem("carrito");
+    let carrito = storedCart ? JSON.parse(storedCart) : [];
+
+    if (index >= 0 && index < carrito.length) {
+      const producto = carrito[index];
+      producto.itemsExtra = nuevosItems;
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    dispatch({
+      type: EDITAR_ITEMS_EXTRA,
       payload: carrito,
     });
   };
