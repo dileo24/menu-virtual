@@ -15,6 +15,7 @@ export default function EditarProductos() {
   const [precio, setPrecio] = useState("");
   const [id, setId] = useState("");
   const [categoriaID, setCategoriaID] = useState("");
+  const [subcategoriaID, setSubcategoriaID] = useState("");
   const [itemsExtra, setItemsExtra] = useState([]);
   const [numItemsExtra, setNumItemsExtra] = useState(0);
   const [cantidadPersonas, setCantidadPersonas] = useState("1");
@@ -54,6 +55,7 @@ export default function EditarProductos() {
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
     setCategoriaID(producto.categoriaID);
+    setSubcategoriaID(producto.subcategoriaID);
     setNombre(producto.nombre);
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
@@ -69,6 +71,7 @@ export default function EditarProductos() {
   // Mostrar los datos del item en el formulario
   function mostrarItem(item) {
     setCategoriaID(item.categoriaID);
+    setSubcategoriaID(item.subcategoriaID);
     setNombre(item.nombre);
     setDescripcion(item.descripcion);
     setPrecio(item.precio);
@@ -87,6 +90,7 @@ export default function EditarProductos() {
 
     const producto = {
       categoriaID,
+      subcategoriaID,
       nombre,
       descripcion,
       precio,
@@ -128,6 +132,8 @@ export default function EditarProductos() {
       setNumItemsExtra={setNumItemsExtra}
       categoriaID={categoriaID}
       setCategoriaID={setCategoriaID}
+      subcategoriaID={subcategoriaID}
+      setSubcategoriaID={setSubcategoriaID}
       listado={listado}
       setListado={setListado}
       mostrarPersonaItem={mostrarPersonaItem}
