@@ -1,4 +1,4 @@
-const { Producto, Categoria } = require("../../db");
+const { Producto, Categoria, Subcategoria } = require("../../db");
 
 const createProduct = async (req, res, next) => {
   try {
@@ -10,6 +10,7 @@ const createProduct = async (req, res, next) => {
       listado,
       itemsExtra,
       categoriaID,
+      subcategoriaID,
       imagen,
       cantidadPersonas,
       mostrarPersonaItem,
@@ -23,6 +24,7 @@ const createProduct = async (req, res, next) => {
       );
     }
     const categoria = await Categoria.findByPk(categoriaID);
+    const subcategoria = await Subcategoria.findByPk(subcategoriaID);
     const newProduct = await Producto.create({
       nombre,
       descripcion,
@@ -36,6 +38,7 @@ const createProduct = async (req, res, next) => {
       mostrarOtroCheckbox,
     });
     await categoria.addProducto(newProduct);
+    await subcategoria.addProducto(newProduct);
     req.body.resultado = {
       status: "200",
       respuesta: `el Producto ${nombre} se ha creado exitosamente`,

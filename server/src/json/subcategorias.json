@@ -26,5 +26,13 @@
   {
     "nombre": "Carne",
     "categID": "2"
+  },
+  {
+    "nombre": "Tostadas",
+    "categID": "1"
+  },
+  {
+    "nombre": "Facturas",
+    "categID": "1"
   }
 ]
