@@ -1,31 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductos, agregarCarrito } from "../../redux/actions";
+import { getProductos, editarItemsExtra } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
-export default function Items() {
+export default function UpdateItemsCliente() {
   const navigate = useNavigate();
   const productosArray = useSelector((state) => state.home);
+  const carrito = useSelector((state) => state.carrito);
   const itemsExtraState = useSelector((state) => state.itemsExtra);
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { id, index } = useParams();
+  const itemActual = carrito[index];
   let prod =
     productosArray && productosArray.filter((p) => p.id === Number(id));
 
-  const [itemsExtraArray, setItemsExtraArray] = useState([]);
-
-  const handleIncremento = (prod, itemsExtraArray) => {
-    dispatch(
-      agregarCarrito({
-        nombre: prod[0].nombre,
-        descripcion: prod[0].descripcion,
-        precio: prod[0].precio,
-        id: prod[0].id,
-        itemsExtra: itemsExtraArray,
-        cantidadPersonas: prod[0].cantidadPersonas,
-      })
-    );
-  };
+  const [itemsExtraArray, setItemsExtraArray] = useState(itemActual.itemsExtra);
 
   useEffect(() => {
     dispatch(getProductos());
@@ -40,7 +29,8 @@ export default function Items() {
     if (cantItems !== itemsExtraArray.length) {
       return alert("Debes seleccionar todos los items extra requeridos");
     }
-    handleIncremento(prod && prod, itemsExtraArray);
+    console.log(itemsExtraArray);
+    dispatch(editarItemsExtra(index, itemsExtraArray));
     navigate("/");
   };
 
@@ -48,12 +38,9 @@ export default function Items() {
     const arrayItems = [...itemsExtraArray];
     const index = personaIndex * prod[0].itemsExtra.length + categoriaIndex;
     arrayItems[index] = item;
-
-    console.log(arrayItems);
-
     setItemsExtraArray(arrayItems);
   };
-
+  console.log(index);
   return (
     <div className="elegirItemsCont">
       <div className="scrollable-content">
@@ -92,8 +79,6 @@ export default function Items() {
                               className="cardItem"
                               key={`${personaIndex}-${categoriaIndex}`}
                             >
-                              {" "}
-                              {/* Agregar key */}
                               <p className="categItem">{categoria}</p>
                               <select
                                 className="select"
@@ -106,6 +91,12 @@ export default function Items() {
                                   )
                                 }
                                 required
+                                value={
+                                  itemsExtraArray[
+                                    categoriaIndex +
+                                      personaIndex * prod[0].itemsExtra.length
+                                  ]
+                                }
                               >
                                 <option hidden>Seleccionar</option>
                                 {itemsFiltrados.map((item, itemIndex) => (

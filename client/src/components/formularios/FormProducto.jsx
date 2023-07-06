@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Header from "../secciones/Header";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategorias } from "../../redux/actions";
+import { getCategorias, getSubcategorias } from "../../redux/actions";
 // import { func } from "prop-types";
 
 export default function FormProducto({
@@ -22,6 +22,8 @@ export default function FormProducto({
   setNumItemsExtra,
   categoriaID,
   setCategoriaID,
+  subcategoriaID,
+  setSubcategoriaID,
   listado,
   setListado,
   mostrarPersonaItem,
@@ -37,10 +39,12 @@ export default function FormProducto({
 
   const itemsExtraArray = useSelector((state) => state.itemsExtra);
   const categorias = useSelector((state) => state.categorias);
+  const subcategorias = useSelector((state) => state.subcategorias);
   // const categActual = categorias.filter((categ) => categ.id === categoriaID);
 
   useEffect(() => {
     dispatch(getCategorias());
+    dispatch(getSubcategorias());
     if (categoriaID === "2" || categoriaID === "1") {
       setListado(true);
       setMostrarOtroCheckbox(false);
@@ -76,7 +80,9 @@ export default function FormProducto({
                       value={categoriaID} // Establece el valor seleccionado en base a la variable de estado categoriaID
                       required
                     >
-                      <option value="">Elegí una categoría</option>
+                      <option value="" hidden>
+                        Elegí una categoría
+                      </option>
 
                       {categorias.map((categoria) => (
                         <option key={categoria.id} value={categoria.id}>
@@ -86,7 +92,7 @@ export default function FormProducto({
                     </select>
                   </div>
 
-                  {categoriaID >= "3" && (
+                  {categoriaID >= 3 ? (
                     <div className="flex mb-4">
                       <label
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -152,8 +158,27 @@ export default function FormProducto({
                         </>
                       )}
                     </div>
+                  ) : (
+                    categoriaID >= 1 && (
+                      <select
+                        className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        onChange={(e) => setSubcategoriaID(e.target.value)}
+                        value={subcategoriaID}
+                      >
+                        <option hidden>Seleccionar subcategoria</option>
+                        {subcategorias &&
+                          subcategorias.map(
+                            (subC) =>
+                              Number(subC.categoria.id) ===
+                                Number(categoriaID) && (
+                                <option key={subC.id} value={subC.id}>
+                                  {subC.nombre}
+                                </option>
+                              )
+                          )}
+                      </select>
+                    )
                   )}
-
                   <div className="mb-4">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"

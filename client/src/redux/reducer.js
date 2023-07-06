@@ -15,6 +15,7 @@ import {
   GET_SUBCATEGORIAS,
   GET_TIPOPAGOS,
   DELETE_CATEG,
+  EDITAR_ITEMS_EXTRA,
 } from "./actions.js";
 
 const initialState = {
@@ -82,8 +83,8 @@ function rootReducer(state = initialState, action) {
         action.payload === "todas"
           ? state.productos
           : state.productos.filter(
-            (prod) => prod.categoria.nombre === action.payload
-          );
+              (prod) => prod.categoria.nombre === action.payload
+            );
       return {
         ...state,
         home: prodFilter,
@@ -142,6 +143,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         carrito: [],
+      };
+
+    case EDITAR_ITEMS_EXTRA:
+      return {
+        ...state,
+        carrito: action.payload,
       };
 
     case ELIMINAR_ITEM_CARRITO:

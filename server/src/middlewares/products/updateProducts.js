@@ -11,6 +11,7 @@ const updateProduct = async (req, res, next) => {
       listado,
       item,
       categoriaID,
+      subcategoriaID,
       cantidadPersonas,
     } = req.body;
     const id = req.params.id;
@@ -26,6 +27,7 @@ const updateProduct = async (req, res, next) => {
           item: item || producto.item,
           listado: typeof listado !== "undefined" ? listado : producto.listado,
           categoriaID: categoriaID || producto.categoriaID,
+          subcategoriaID: subcategoriaID || producto.subcategoriaID,
           cantidadPersonas: cantidadPersonas || producto.cantidadPersonas,
         },
         { where: { id: id } }

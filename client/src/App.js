@@ -12,11 +12,12 @@ import Pedidos from "./components/secciones/Pedidos";
 import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
 import ItemsCliente from "./components/secciones/ItemsCliente";
+import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 
 // Local
-// axios.defaults.baseURL = "http://localhost:3001";
-
+/* axios.defaults.baseURL = "http://localhost:3001";
+ */
 // Deploy
 axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
 
@@ -32,6 +33,11 @@ function App() {
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/items/:id" element={<ItemsCliente />} />
+        <Route
+          path="/updateItems/:id/:index"
+          element={<UpdateItemsCliente />}
+        />
+
         {/* empleados */}
         {userActual && userActual.data.RolId === 3 && (
           <Route path="/pedidos" element={<Pedidos />} />
