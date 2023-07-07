@@ -5,17 +5,17 @@ import { getPedidos } from "../../redux/actions";
 import io from "socket.io-client";
 
 export default function Historial() {
-  const savedInputs = localStorage.getItem("inputs");
+  /* const savedInputs = localStorage.getItem("inputs"); */
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
-  const [socket, setSocket] = useState(null); // Agrega el estado para la instancia de Socket.io
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     dispatch(getPedidos());
-    if (savedInputs) {
+    /* if (savedInputs) {
       setInputData(JSON.parse(savedInputs));
-    }
+    } */
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -24,20 +24,17 @@ export default function Historial() {
       }
     };
 
-    // Llamar a la función de manejo del evento de cambio al cargar la página
     handleStorageChange();
 
-    // Agregar el listener del evento de cambio en el localStorage usando useEffect
     window.addEventListener("storage", handleStorageChange);
 
-    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch, savedInputs]);
+  }, [dispatch]);
 
   useEffect(() => {
-    const socket = io("http://localhost:3001"); // Reemplaza con la URL de tu servidor Socket.io
+    const socket = io("http://localhost:3001");
     setSocket(socket);
 
     return () => {
@@ -48,15 +45,24 @@ export default function Historial() {
   useEffect(() => {
     if (socket) {
       socket.on("estadoPedidoActualizado", (pedidoId, nuevoEstado) => {
-        console.log("Estado del pedido actualizado en tiempo real");
         dispatch(getPedidos());
       });
     }
   }, [socket, dispatch]);
 
+  console.log(inputData);
+  /* useEffect(() => {
+    // Actualizar inputData cuando cambie la variable pedidos
+    if (pedidos) {
+      const newInputData = pedidos.map((pedido) => ({ id: pedido.id }));
+      setInputData(newInputData);
+    }
+  }, [pedidos]); */
+
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => ped.id === idPed.id)
   );
+  console.log(pedidosActuales);
 
   return (
     pedidos &&
@@ -82,6 +88,12 @@ export default function Historial() {
                     </thead>
                     <tbody className="bg-white rounded">
                       {pedidosActuales
+                        .filter(
+                          (pedido) =>
+                            pedido[0] &&
+                            pedido[0].Estado.id !== 4 &&
+                            pedido[0].Estado.id !== 5
+                        )
                         .map(
                           (pedido, index) =>
                             pedido[0] && (
@@ -94,6 +106,12 @@ export default function Historial() {
                                     <>
                                       <p className="text-gray-700 mt-2">
                                         <b>{pedido[0].productos}</b>
+                                      </p>
+                                      <p className="text-gray-700 mt-2">
+                                        <b>Extra:</b>{" "}
+                                        {pedido[0].itemsExtra
+                                          .filter((item) => item !== null)
+                                          .join(", ")}
                                       </p>
                                       <p className="text-gray-700 mt-2">
                                         <b>Fecha: </b>

@@ -16,30 +16,19 @@ export default function Pedidos() {
   const tipoPagos = useSelector((state) => state.tipoPagos);
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
-  const [socket, setSocket] = useState(null); // Agrega el estado para la instancia de Socket.io
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     const socket = io("http://localhost:3001");
-    setSocket(socket); // Guarda la instancia de Socket.io en el estado
+    setSocket(socket);
 
     dispatch(getPedidos());
     dispatch(getEstados());
     dispatch(getTipoPago());
 
-    // Cambiarle el background del botón del Header
     const pedidosButton = document.querySelector(".pedidos");
     pedidosButton.classList.add("bg-teal-700");
 
-    // Actualizar en tiempo real el servidor (sin necesidad de recargar la página)
-    /*  const pollServer = async () => {
-      while (true) {
-        await dispatch(getPedidos());
-        await new Promise((resolve) => setTimeout(resolve, 90000));
-      }
-    };
-    pollServer(); */
-
-    // Desconectar el socket cuando el componente se desmonte
     return () => {
       socket.disconnect();
     };
@@ -48,14 +37,18 @@ export default function Pedidos() {
   const handleSelectChange = (e, id, atributo) => {
     const value = e.target.value;
     const data = { [atributo]: value };
-    let res = window.confirm(`Está seguro de querer modificar este pedido"?`);
+    let res = window.confirm("Está seguro de querer modificar este pedido?");
     if (res === true) {
-      dispatch(updatePedido(id, data, token));
-      if (socket) {
-        // Emitir el evento hacia el servidor si el socket está disponible
-        socket.emit("cambiarEstadoPedido", id, data.estadoID); // Enviar solo el ID y el nuevo estado
-      }
-      console.log(data);
+      dispatch(updatePedido(id, data, token))
+        .then(() => {
+          dispatch(getPedidos()); // Obtener los pedidos actualizados después de la actualización
+          if (socket) {
+            socket.emit("cambiarEstadoPedido", id, data.estadoID);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 

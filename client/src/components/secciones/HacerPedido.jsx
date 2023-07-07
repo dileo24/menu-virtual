@@ -192,7 +192,7 @@ export default function HacerPedido() {
       alert(
         "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
       );
-      navigate("/carrito");
+      navigate("/historial");
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
