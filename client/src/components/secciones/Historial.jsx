@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos } from "../../redux/actions";
+import io from "socket.io-client";
 
 export default function Historial() {
   const savedInputs = localStorage.getItem("inputs");
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
+  const [socket, setSocket] = useState(null); // Agrega el estado para la instancia de Socket.io
 
   useEffect(() => {
     dispatch(getPedidos());
@@ -33,6 +35,25 @@ export default function Historial() {
       window.removeEventListener("storage", handleStorageChange);
     };
   }, [dispatch, savedInputs]);
+
+  useEffect(() => {
+    const socket = io("http://localhost:3001"); // Reemplaza con la URL de tu servidor Socket.io
+    setSocket(socket);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("estadoPedidoActualizado", (pedidoId, nuevoEstado) => {
+        console.log("Estado del pedido actualizado en tiempo real");
+        dispatch(getPedidos());
+      });
+    }
+  }, [socket, dispatch]);
+
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => ped.id === idPed.id)
   );

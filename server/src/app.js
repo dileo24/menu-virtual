@@ -10,6 +10,8 @@ require("./db.js");
 const app = express();
 app.use(cors());
 
+app.use("/", routes);
+
 app.name = "API";
 
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
