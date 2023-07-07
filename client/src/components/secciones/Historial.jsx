@@ -5,7 +5,6 @@ import { getPedidos } from "../../redux/actions";
 import io from "socket.io-client";
 
 export default function Historial() {
-  /* const savedInputs = localStorage.getItem("inputs"); */
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
@@ -13,9 +12,6 @@ export default function Historial() {
 
   useEffect(() => {
     dispatch(getPedidos());
-    /* if (savedInputs) {
-      setInputData(JSON.parse(savedInputs));
-    } */
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -50,19 +46,9 @@ export default function Historial() {
     }
   }, [socket, dispatch]);
 
-  console.log(inputData);
-  /* useEffect(() => {
-    // Actualizar inputData cuando cambie la variable pedidos
-    if (pedidos) {
-      const newInputData = pedidos.map((pedido) => ({ id: pedido.id }));
-      setInputData(newInputData);
-    }
-  }, [pedidos]); */
-
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => ped.id === idPed.id)
   );
-  console.log(pedidosActuales);
 
   return (
     pedidos &&
@@ -75,7 +61,6 @@ export default function Historial() {
               Mis pedidos realizados
             </h2>
             <div className="px-5 flex flex-col mt-10">
-              {/* <Filtros /> */}
               <div className="py-2 overflow-x-auto">
                 <div className="align-middle inline-block min-w-full overflow-hidden sm:rounded-lg flex justify-center">
                   <table className="text-center shadow-b">

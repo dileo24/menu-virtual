@@ -17,28 +17,26 @@ const http = require("http");
 const socketIO = require("socket.io");
 
 app.use(cors());
-const server = http.createServer(app); // Crear servidor con app
+const server = http.createServer(app); 
 const io = socketIO(server, {
   cors: {
-    origin: "*", // O cambia "*" por la URL de tu cliente React
+    origin: "*", 
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
-// Configura la comunicación con los clientes
 io.on("connection", (socket) => {
   console.log("Cliente conectado");
 
-  // Maneja eventos personalizados enviados desde el cliente
+  // eventos desde el cliente
   socket.on("cambiarEstadoPedido", (pedidoId, nuevoEstadoId) => {
-    // Realiza las operaciones necesarias para cambiar el estado del pedido en la base de datos
-
-    // Emitir el nuevo estado a todos los clientes conectados
+    
+    // nuevo estado
     io.emit("estadoPedidoActualizado", pedidoId, nuevoEstadoId);
   });
 
-  // Maneja la desconexión de un cliente
+  // desconexión de un cliente
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
   });
