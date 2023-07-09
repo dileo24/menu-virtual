@@ -64,7 +64,6 @@
 
 .desplegables {
   height: 100%;
-
   .desplegable1,
   .desplegable2 {
     z-index: 999;
@@ -400,4 +399,17 @@
 
 .margen {
   margin-bottom: -10vh;
+}
+
+.animate-slide-right {
+  animation: slideRight 0.3s;
+}
+
+@keyframes slideRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }

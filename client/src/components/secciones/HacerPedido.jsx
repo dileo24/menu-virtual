@@ -22,6 +22,8 @@ export default function HacerPedido() {
   const pedidos = useSelector((state) => state.pedidos);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
+  const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
+
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
@@ -90,8 +92,12 @@ export default function HacerPedido() {
     }
   }, [carrito, MostrarMenu]);
 
-  const handleEliminarItemCarrito = (id) => {
-    dispatch(eliminarItemCarrito(id));
+  const handleEliminarItemCarrito = (id, index) => {
+    setIndiceItemEliminar(index);
+    setTimeout(() => {
+      dispatch(eliminarItemCarrito(id));
+      setIndiceItemEliminar(null);
+    }, 200);
   };
 
   // Mostrar u ocultar Menús desplegables
@@ -232,7 +238,14 @@ export default function HacerPedido() {
               {carrito.length > 0 && (
                 <>
                   {carrito.map((prod, index) => (
-                    <div key={index} className="cardProducto">
+                    <div
+                      key={index}
+                      className={`cardProducto ${
+                        index === indiceItemEliminar
+                          ? "animate-slide-right"
+                          : ""
+                      }`}
+                    >
                       <div className="nombreItemsPrecio">
                         <div className="nombrePrecio">
                           <p className="nombre">{prod.nombre}</p>
@@ -266,7 +279,7 @@ export default function HacerPedido() {
                             <VscTrash
                               className="eliminarIcon"
                               onClick={() => {
-                                handleEliminarItemCarrito(prod.id);
+                                handleEliminarItemCarrito(prod.id, index);
                               }}
                             />
                           </div>

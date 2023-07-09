@@ -51,9 +51,8 @@ export default function Historial() {
     pedidos.filter((ped) => ped.id === idPed.id)
   );
 
-  return (
-    pedidos &&
-    pedidosActuales.length > 0 && (
+  return pedidos && pedidosActuales.length > 0 ? (
+    pedidos && pedidosActuales.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <div className="md:flex min-h-screen md:align-top">
           {/* <Header /> */}
@@ -137,5 +136,12 @@ export default function Historial() {
         </div>
       </div>
     )
+  ) : (
+    <>
+      <Link to="/" className="">
+        Atrás
+      </Link>
+      <div className="">No hay pedidos hechos</div>
+    </>
   );
 }
