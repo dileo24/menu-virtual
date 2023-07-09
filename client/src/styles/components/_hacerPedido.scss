@@ -45,6 +45,7 @@
     .cantidad {
       border: 1px solid $paragraph;
       width: 6vw;
+      height: 6vw;
       @include center;
       border-radius: 100%;
       -webkit-border-radius: 100%;
