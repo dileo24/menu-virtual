@@ -23,6 +23,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const categActive = document.querySelector(".active");
+  const [focusedSubcategory, setFocusedSubcategory] = useState(null);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -95,7 +96,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
 
   return (
     <header id="containerHeader" className="containerHeader">
-      <button onClick={reload}>
+      <button className="quickBites" onClick={reload}>
         <h1 id="marca">QuickBites</h1>
       </button>
       <div id="subHeader" className="subHeader">
@@ -210,10 +211,13 @@ export default function Header({ currentSlide, setCurrentSlide }) {
                   )
                   .map((subC) => (
                     <button
-                      className="subCategoria"
+                      className={`subCategoria ${
+                        subC === focusedSubcategory ? "focused" : ""
+                      }`}
                       key={subC.nombre}
                       onClick={() => {
                         // Código a ejecutar cuando se hace clic en la subcategoría
+                        setFocusedSubcategory(subC);
                         console.log("Botón " + subC.nombre + " fue clickeado");
                       }}
                     >

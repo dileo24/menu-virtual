@@ -78,21 +78,20 @@ export default function HacerPedido() {
       productos: nombres,
       precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
     }));
-  }, [carrito]);
 
-  useEffect(() => {
+    if (MostrarMenu && carrito.length === 0) {
+      handleOcultarMenu1();
+    }
+
     if (MostrarMenu) {
       document.body.classList.add("noScroll");
     } else {
       document.body.classList.remove("noScroll");
     }
-  }, [MostrarMenu]);
+  }, [carrito, MostrarMenu]);
 
   const handleEliminarItemCarrito = (id) => {
     dispatch(eliminarItemCarrito(id));
-    if (carrito.length === 1) {
-      handleOcultarMenu1();
-    }
   };
 
   // Mostrar u ocultar Menús desplegables
@@ -234,12 +233,24 @@ export default function HacerPedido() {
                 <>
                   {carrito.map((prod, index) => (
                     <div key={index} className="cardProducto">
-                      <p className="nombre">{prod.nombre}</p>
-                      <p className="">
-                        {prod && prod.itemsExtra && prod.itemsExtra.join(", ")}
-                      </p>
-                      <div className="precioAcciones">
-                        <p className="precio">${prod.precio}</p>
+                      <div className="nombreItemsPrecio">
+                        <div className="nombrePrecio">
+                          <p className="nombre">{prod.nombre}</p>
+                          <p className="precio">${prod.precio}</p>
+                        </div>
+                        {prod && prod.itemsExtra && (
+                          <ul className="itemsExtra">
+                            {prod.itemsExtra.map((item, index) => (
+                              <li key={index} className="list-item">
+                                <span className="list-item-circle"></span>
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+
+                      <div className="accionesCont">
                         <div className="acciones">
                           {prod.itemsExtra && (
                             <div className="iconContainer1">
@@ -263,7 +274,11 @@ export default function HacerPedido() {
                       </div>
                     </div>
                   ))}
-                  <button onClick={handleVaciar}>Vaciar Pedido</button>
+                  <div className="vaciarCont">
+                    <button className="vaciarBtn" onClick={handleVaciar}>
+                      Vaciar Pedido
+                    </button>
+                  </div>
                 </>
               )}
             </div>

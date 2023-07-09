@@ -40,7 +40,7 @@ const Carrusel = () => {
       if (subCategoriasEl) {
         marca.style.marginBottom = "20vh";
       } else {
-        marca.style.marginBottom = "14vh";
+        marca.style.marginBottom = "30vw";
       }
       subHeader.style.position = "fixed";
       subHeader.style.top = "0";
@@ -48,8 +48,7 @@ const Carrusel = () => {
         if (nav.style.visibility !== "hidden") {
           nav.style.visibility = "hidden";
           categoriasEl.style.position = "relative";
-          categoriasEl.style.top = "-7vh";
-          // subCategoriasEl.style.top = "-7vh";
+          categoriasEl.style.top = "-15vw";
         }
       } else {
         if (nav.style.visibility === "hidden") {

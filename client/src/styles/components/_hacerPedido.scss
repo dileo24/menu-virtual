@@ -13,23 +13,20 @@
   -o-transition: all 0.3s ease;
 
   .botonFooter {
-    // box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.249);
     box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
     @include center;
     justify-content: space-between;
     position: relative;
     background-color: $naranja;
-    height: 6vh;
+    height: 12vw;
     padding: 0 10% 0 15%;
     width: 90vw;
-    // height: 5.5vh;
     border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     -ms-border-radius: 6px;
     -o-border-radius: 6px;
     .verPedido {
-      padding: 3.5% 10% 3.5% 13%;
       width: 90vw;
       position: absolute;
       left: 50%;
@@ -46,7 +43,6 @@
       font-size: 4vw;
     }
     .cantidad {
-      // background-color: white;
       border: 1px solid $paragraph;
       width: 6vw;
       @include center;
@@ -63,49 +59,6 @@
       outline: none;
     }
   }
-
-  /* Footer con botón para vaciar pedido */
-  /* .botonFooter {
-    box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.249);
-    @include center;
-    justify-content: space-between;
-    position: relative;
-    background-color: $naranja;
-    padding: 3.5% 10% 3.5% 3.5%;
-    width: 90vw;
-    // height: 5.5vh;
-    border-radius: 6px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
-    .vaciarCantidad {
-      @include center;
-      // border: 1px solid red;
-      width: 20vw;
-      justify-content: space-between;
-      .vaciarIcon {
-        width: 1.8rem;
-        height: 1.8rem;
-      }
-      .cantidad {
-        background-color: white;
-        width: 6vw;
-        @include center;
-        border-radius: 100%;
-        -webkit-border-radius: 100%;
-        -moz-border-radius: 100%;
-        -ms-border-radius: 100%;
-        -o-border-radius: 100%;
-      }
-      .precio {
-        font-size: 4.5vw;
-      }
-      &:focus {
-        outline: none;
-      }
-    }
-  } */
 }
 
 .desplegables {
@@ -191,23 +144,49 @@
         padding: 5%;
         height: auto;
         display: flex;
-        .nombre {
-          font-weight: 700;
-          font-size: 4.5vw;
-          width: 50%;
-          padding-right: 6vw;
-        }
-        /* .descripcion {
-        } */
-        .precioAcciones {
-          width: 50%;
-          @include center;
-          justify-content: space-between;
-          .precio {
-            font-weight: 700;
-            color: $paragraph;
-            font-size: 4vw;
+        .nombreItemsPrecio {
+          width: 80%;
+          .nombrePrecio {
+            display: flex;
+            justify-content: space-between;
+            .nombre {
+              font-weight: 700;
+              font-size: 4vw;
+              width: 60%;
+            }
+            .precio {
+              font-weight: 700;
+              color: $paragraph;
+              font-size: 4vw;
+            }
           }
+          .itemsExtra {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            list-style: none;
+            padding: 5% 0 0 5%;
+            line-height: 1;
+
+            .list-item {
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+              .list-item-circle {
+                display: inline-block;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: black;
+                margin-right: 5px;
+              }
+            }
+          }
+        }
+
+        .accionesCont {
+          width: 50%;
+
           .acciones {
             min-width: 50%;
             @include center;
@@ -218,7 +197,7 @@
               border: 1px solid $paragraph;
               border-radius: 8px;
               @include center;
-              margin-right: 2vw;
+              margin-right: 4vw;
               .editarIcon {
                 width: 1.2rem;
                 height: 1.2rem;
@@ -240,6 +219,18 @@
           }
         }
       }
+      .vaciarCont {
+        @include center;
+        margin: 10% 0;
+        .vaciarBtn {
+          font-weight: 700;
+          font-size: 4vw;
+          line-height: 1;
+          // text-decoration: underline;
+          border-bottom: 1px solid black;
+        }
+      }
+
       .formulario {
         .mesa,
         .aclaraciones,
@@ -347,12 +338,6 @@
   }
   .desplegable2 {
     z-index: 9999;
-    // height: 100vh;
-    // width: 100vw;
-    // background-color: white;
-    // position: absolute;
-    // top: 0;
-    // padding: 2vh 5% 10vh 5%;
   }
 }
 

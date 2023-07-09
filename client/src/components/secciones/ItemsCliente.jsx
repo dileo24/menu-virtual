@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductos, agregarCarrito } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { VscTrash } from "react-icons/vsc";
 
 export default function Items() {
   const navigate = useNavigate();
@@ -48,9 +49,6 @@ export default function Items() {
     const arrayItems = [...itemsExtraArray];
     const index = personaIndex * prod[0].itemsExtra.length + categoriaIndex;
     arrayItems[index] = item;
-
-    console.log(arrayItems);
-
     setItemsExtraArray(arrayItems);
   };
 
@@ -59,8 +57,9 @@ export default function Items() {
       <div className="scrollable-content">
         <div className="headerItems">
           <Link to="/" className="atrasBtn">
-            <span className="arrow-left"></span>
+            <VscTrash className="eliminarIcon" />
           </Link>
+
           <div className="titleHeaderItems">
             {prod.length && <p>{prod[0].nombre}</p>}
           </div>

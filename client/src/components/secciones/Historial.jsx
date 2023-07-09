@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos } from "../../redux/actions";
 import io from "socket.io-client";
+import { Link } from "react-router-dom";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -55,7 +56,10 @@ export default function Historial() {
     pedidosActuales.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <div className="md:flex min-h-screen md:align-top">
-          <Header />
+          {/* <Header /> */}
+          <Link to="/" className="">
+            Atrás
+          </Link>
           <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
             <h2 className="text-3xl font-light text-center">
               Mis pedidos realizados
