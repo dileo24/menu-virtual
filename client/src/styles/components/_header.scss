@@ -65,8 +65,7 @@ header {
       width: 100vw;
       font-size: 4.5vw;
       padding: 0 7%;
-      // height: 7vh;
-      // height: 15vw;
+      height: 15vw;
       overflow-x: auto;
       white-space: nowrap;
 
@@ -92,7 +91,6 @@ header {
       .categoria {
         font-weight: 500;
         color: $paragraph;
-        padding: 2% 0; // nuevo
         &:not(:last-child) {
           margin-right: 7%;
         }
@@ -122,7 +120,7 @@ header {
     font-size: 4.5vw;
     overflow-x: auto;
     white-space: nowrap;
-    // height: 48px;
+    height: 12vw;
     padding: 0 5%;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-top: 1px solid rgba(0, 0, 0, 0.3);
@@ -145,8 +143,6 @@ header {
 
     /* cada botón de las sub categorías */
     .subCategoria {
-      padding: 1% 0; // nuevo
-
       &:focus {
         outline: none;
       }
