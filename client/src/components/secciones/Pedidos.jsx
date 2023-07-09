@@ -19,7 +19,12 @@ export default function Pedidos() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:3001");
+    // Local
+    // const socket = io("http://localhost:3001");
+
+    // Deploy
+    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+
     setSocket(socket);
 
     dispatch(getPedidos());
