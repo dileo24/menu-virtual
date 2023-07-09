@@ -29,7 +29,6 @@ export default function UpdateItemsCliente() {
     if (cantItems !== itemsExtraArray.length) {
       return alert("Debes seleccionar todos los items extra requeridos");
     }
-    console.log(itemsExtraArray);
     dispatch(editarItemsExtra(index, itemsExtraArray));
     navigate("/");
   };
@@ -40,7 +39,6 @@ export default function UpdateItemsCliente() {
     arrayItems[index] = item;
     setItemsExtraArray(arrayItems);
   };
-  console.log(index);
   return (
     <div className="elegirItemsCont">
       <div className="scrollable-content">

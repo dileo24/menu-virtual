@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "../recursos/Filtros";
@@ -8,6 +8,7 @@ import {
   getTipoPago,
   updatePedido,
 } from "../../redux/actions";
+import io from "socket.io-client";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -15,38 +16,42 @@ export default function Pedidos() {
   const tipoPagos = useSelector((state) => state.tipoPagos);
   const token = useSelector((state) => state.userActual.tokenSession);
   const dispatch = useDispatch();
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
+    const socket = io("http://localhost:3001");
+    setSocket(socket);
+
     dispatch(getPedidos());
     dispatch(getEstados());
     dispatch(getTipoPago());
-    // Cambiarle el background del botón del Header
-    const pedidos = document.querySelector(".pedidos");
-    pedidos.classList.add("bg-teal-700");
 
-    // Actualizar en tiempo real el servidor (sin necesidad de recargar la página)
-    const pollServer = async () => {
-      while (true) {
-        // Realizar la petición al servidor para obtener los pedidos actualizados
-        await dispatch(getPedidos());
-        // Esperar un tiempo antes de hacer la siguiente petición (por ejemplo, cada 5 segundos)
-        await new Promise((resolve) => setTimeout(resolve, 90000));
-      }
-    };
-    pollServer();
+    const pedidosButton = document.querySelector(".pedidos");
+    pedidosButton.classList.add("bg-teal-700");
+
     return () => {
-      // Código para detener el polling si es necesario
+      socket.disconnect();
     };
   }, [dispatch]);
 
   const handleSelectChange = (e, id, atributo) => {
     const value = e.target.value;
     const data = { [atributo]: value };
-    let res = window.confirm(`Está seguro de querer modificar este pedido"?`);
+    let res = window.confirm("Está seguro de querer modificar este pedido?");
     if (res === true) {
-      dispatch(updatePedido(id, data, token));
+      dispatch(updatePedido(id, data, token))
+        .then(() => {
+          dispatch(getPedidos()); // Obtener los pedidos actualizados después de la actualización
+          if (socket) {
+            socket.emit("cambiarEstadoPedido", id, data.estadoID);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
+
   return (
     pedidos && (
       <div id="productos" className="min-h-100 bg-gray-200">

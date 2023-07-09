@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos } from "../../redux/actions";
+import io from "socket.io-client";
+import { Link } from "react-router-dom";
 
 export default function Historial() {
-  const savedInputs = localStorage.getItem("inputs");
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     dispatch(getPedidos());
-    if (savedInputs) {
-      setInputData(JSON.parse(savedInputs));
-    }
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -22,17 +21,32 @@ export default function Historial() {
       }
     };
 
-    // Llamar a la función de manejo del evento de cambio al cargar la página
     handleStorageChange();
 
-    // Agregar el listener del evento de cambio en el localStorage usando useEffect
     window.addEventListener("storage", handleStorageChange);
 
-    // Eliminar el listener del evento de cambio en el localStorage al desmontar el componente
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch, savedInputs]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    const socket = io("http://localhost:3001");
+    setSocket(socket);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("estadoPedidoActualizado", (pedidoId, nuevoEstado) => {
+        dispatch(getPedidos());
+      });
+    }
+  }, [socket, dispatch]);
+
   let pedidosActuales = inputData.map((idPed) =>
     pedidos.filter((ped) => ped.id === idPed.id)
   );
@@ -42,13 +56,15 @@ export default function Historial() {
     pedidosActuales.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <div className="md:flex min-h-screen md:align-top">
-          <Header />
+          {/* <Header /> */}
+          <Link to="/" className="">
+            Atrás
+          </Link>
           <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
             <h2 className="text-3xl font-light text-center">
               Mis pedidos realizados
             </h2>
             <div className="px-5 flex flex-col mt-10">
-              {/* <Filtros /> */}
               <div className="py-2 overflow-x-auto">
                 <div className="align-middle inline-block min-w-full overflow-hidden sm:rounded-lg flex justify-center">
                   <table className="text-center shadow-b">
@@ -61,6 +77,12 @@ export default function Historial() {
                     </thead>
                     <tbody className="bg-white rounded">
                       {pedidosActuales
+                        .filter(
+                          (pedido) =>
+                            pedido[0] &&
+                            pedido[0].Estado.id !== 4 &&
+                            pedido[0].Estado.id !== 5
+                        )
                         .map(
                           (pedido, index) =>
                             pedido[0] && (
@@ -73,6 +95,12 @@ export default function Historial() {
                                     <>
                                       <p className="text-gray-700 mt-2">
                                         <b>{pedido[0].productos}</b>
+                                      </p>
+                                      <p className="text-gray-700 mt-2">
+                                        <b>Extra:</b>{" "}
+                                        {pedido[0].itemsExtra
+                                          .filter((item) => item !== null)
+                                          .join(", ")}
                                       </p>
                                       <p className="text-gray-700 mt-2">
                                         <b>Fecha: </b>

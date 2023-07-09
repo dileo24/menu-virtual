@@ -28,6 +28,11 @@
         border-radius: 8px;
         background-color: rgb(255, 255, 255);
         @include center;
+        .eliminarIcon {
+          width: 1.2rem;
+          height: 1.2rem;
+          @include center;
+        }
         .arrow-left {
           position: relative;
           display: block;

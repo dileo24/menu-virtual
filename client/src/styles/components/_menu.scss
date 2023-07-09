@@ -17,7 +17,12 @@
       -o-border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       padding: 5%;
-      min-height: 20vh;
+
+      min-height: 12rem;
+      @media only screen and (max-height: 700px) {
+        min-height: 25vh;
+      }
+      max-height: fit-content;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -25,8 +30,9 @@
         font-weight: 700;
         font-size: 4.5vw;
       }
-      /* .descripcion {
-      } */
+      .descripcion {
+        font-size: 4.2vw;
+      }
       .precioAcciones {
         display: flex;
         justify-content: space-between;
