@@ -183,7 +183,7 @@ export default function FormProducto({
                             setListado(true);
                             // Mostrar precio
                             setMostrarPrecio(true);
-                            setPrecio("");
+                            setPrecio(1);
                           }}
                         />
                       </>
@@ -228,7 +228,7 @@ export default function FormProducto({
                     />
                   </div>
 
-                  {mostrarPrecio && (
+                  {mostrarPrecio && listado && (
                     <div className="mb-4">
                       <label
                         className="block text-gray-700 text-sm font-bold mb-2"
