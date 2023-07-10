@@ -183,7 +183,7 @@ export default function FormProducto({
                             setListado(true);
                             // Mostrar precio
                             setMostrarPrecio(true);
-                            setPrecio(1);
+                            setPrecio("");
                           }}
                         />
                       </>
