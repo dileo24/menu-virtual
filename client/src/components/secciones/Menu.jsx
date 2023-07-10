@@ -41,15 +41,18 @@ export default function Menu({ categ, prodsBuscados }) {
               categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
-              ({
-                nombre,
-                descripcion,
-                precio,
-                itemsExtra,
-                id,
-                cantidadPersonas,
-                categoria,
-              }) => {
+              (
+                {
+                  nombre,
+                  descripcion,
+                  precio,
+                  itemsExtra,
+                  id,
+                  cantidadPersonas,
+                  categoria,
+                },
+                index
+              ) => {
                 // Verificar si la categoría actual es diferente a la última categoría impresa
                 const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
 
@@ -59,9 +62,9 @@ export default function Menu({ categ, prodsBuscados }) {
                 }
 
                 return (
-                  <>
+                  <div key={index}>
                     {categ === "todas" && esNuevaCategoria && (
-                      <h1>{categoria.nombre}</h1>
+                      <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div key={id} className="cardProducto">
                       <p className="nombre">{nombre}</p>
@@ -97,7 +100,7 @@ export default function Menu({ categ, prodsBuscados }) {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </div>
                 );
               }
             )}
@@ -111,15 +114,18 @@ export default function Menu({ categ, prodsBuscados }) {
               categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
-              ({
-                nombre,
-                descripcion,
-                precio,
-                itemsExtra,
-                id,
-                cantidadPersonas,
-                categoria,
-              }) => {
+              (
+                {
+                  nombre,
+                  descripcion,
+                  precio,
+                  itemsExtra,
+                  id,
+                  cantidadPersonas,
+                  categoria,
+                },
+                index
+              ) => {
                 // Verificar si la categoría actual es diferente a la última categoría impresa
                 const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
 
@@ -129,9 +135,9 @@ export default function Menu({ categ, prodsBuscados }) {
                 }
 
                 return (
-                  <>
+                  <div key={index}>
                     {categ === "todas" && esNuevaCategoria && (
-                      <h1>{categoria.nombre}</h1>
+                      <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div key={id} className="cardItem">
                       <p className="nombre">{nombre}</p>
@@ -167,7 +173,7 @@ export default function Menu({ categ, prodsBuscados }) {
                         </div>
                       </div>
                     </div>
-                  </>
+                  </div>
                 );
               }
             )}
@@ -187,15 +193,18 @@ export default function Menu({ categ, prodsBuscados }) {
                   categ !== "todas" ? prod.categoria.nombre === categ : prod
                 )
                 .map(
-                  ({
-                    nombre,
-                    descripcion,
-                    precio,
-                    itemsExtra,
-                    id,
-                    cantidadPersonas,
-                    categoria,
-                  }) => {
+                  (
+                    {
+                      nombre,
+                      descripcion,
+                      precio,
+                      itemsExtra,
+                      id,
+                      cantidadPersonas,
+                      categoria,
+                    },
+                    index
+                  ) => {
                     // Verificar si la categoría actual es diferente a la última categoría impresa
                     const esNuevaCategoria =
                       categoria.nombre !== ultimaCategoria;
@@ -206,9 +215,9 @@ export default function Menu({ categ, prodsBuscados }) {
                     }
 
                     return (
-                      <>
+                      <div key={index}>
                         {categ === "todas" && esNuevaCategoria && (
-                          <h1>{categoria.nombre}</h1>
+                          <h1 className="nombreCateg">{categoria.nombre}</h1>
                         )}
                         <div key={id} className="cardItemNoVisible">
                           <p className="nombre">{nombre}</p>
@@ -244,7 +253,7 @@ export default function Menu({ categ, prodsBuscados }) {
                             </div>
                           </div>
                         </div>
-                      </>
+                      </div>
                     );
                   }
                 )}

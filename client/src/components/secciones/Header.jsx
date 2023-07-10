@@ -179,7 +179,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
                 window.scrollTo({ top: 0 });
               }}
             >
-              Menú
+              Menú completo
             </button>
             {newCateg &&
               newCateg.map((categ, index) => (
