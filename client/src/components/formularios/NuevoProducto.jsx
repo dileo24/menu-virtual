@@ -16,6 +16,7 @@ export default function NuevoProducto() {
   const [listado, setListado] = useState(true);
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(true);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
+  const [mostrarPrecio, setMostrarPrecio] = useState(true);
   const [item, setItem] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
 
@@ -50,9 +51,6 @@ export default function NuevoProducto() {
     setItemsExtra([]);
     setNumItemsExtra(0);
   }
-  console.log("mostrarOtroCheckbox: " + mostrarOtroCheckbox);
-  console.log("mostrarPersonaItem: " + mostrarPersonaItem);
-  console.log("listado: " + listado);
   useEffect(() => {
     // Cambiarle el background del botón del Header
     const nuevoProducto = document.querySelector(".nuevoProducto");
@@ -85,6 +83,8 @@ export default function NuevoProducto() {
       setMostrarPersonaItem={setMostrarPersonaItem}
       mostrarOtroCheckbox={mostrarOtroCheckbox}
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
+      mostrarPrecio={mostrarPrecio}
+      setMostrarPrecio={setMostrarPrecio}
       item={item}
       setItem={setItem}
     />

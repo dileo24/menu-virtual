@@ -1,16 +1,18 @@
 .menuContainer {
-  padding: 2vh 5% 10vh 5%;
-  // border: 10px solid rgb(255, 170, 0);
-  height: 100%;
-  background-color: rgb(247, 247, 247);
+  padding: 0 5% 28vw 5%;
 
   .cardsVisibles,
   .cardsNoVisibles {
+    .nombreCateg {
+      font-weight: 700;
+      font-size: 5vw;
+      margin-bottom: 5%;
+      margin-top: 10%;
+    }
     .cardProducto,
     .cardItem,
     .cardItemNoVisible {
-      //background-color: gray;
-      margin-bottom: 5%;
+      background-color: white;
       border-radius: 10px;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -18,8 +20,11 @@
       -o-border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       padding: 5%;
-
+      // margin-bottom: 5%;
       min-height: 12rem;
+      &:first-child {
+        margin-top: 5%;
+      }
       @media only screen and (max-height: 700px) {
         min-height: 25vh;
       }

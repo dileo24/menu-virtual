@@ -22,6 +22,8 @@ export default function EditarProductos() {
   const [listado, setListado] = useState(true);
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(false);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(true);
+  const [mostrarPrecio, setMostrarPrecio] = useState(true);
+
   const [item, setItem] = useState(false);
   // const [checkListadoTrue, setCheckListadoTrue] = useState("");
   // const [checkListadoFalse, setCheckListadoFalse] = useState("");
@@ -142,6 +144,8 @@ export default function EditarProductos() {
       setMostrarOtroCheckbox={setMostrarOtroCheckbox}
       item={item}
       setItem={setItem}
+      mostrarPrecio={mostrarPrecio}
+      setMostrarPrecio={setMostrarPrecio}
       // checkListadoTrue={checkListadoTrue}
       // setCheckListadoTrue={setCheckListadoTrue}
       // checkListadoFalse={checkListadoFalse}

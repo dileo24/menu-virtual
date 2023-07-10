@@ -111,5 +111,11 @@ export function mostrarAlerta(texto, tipo) {
 }
 
 export function ningunInputVacio(obj) {
-  return Object.values(obj).every((input) => input !== ""); // es true cuando todos los inputs son diferentes a ''.
+  return Object.entries(obj).every(([key, value]) => {
+    if (key === 'subcategoriaID') {
+      return true; // Skip validation for 'subcategoriaID'
+    }
+    return value !== '';
+  });
 }
+

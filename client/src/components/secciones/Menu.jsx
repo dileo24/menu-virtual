@@ -58,7 +58,7 @@ export default function Menu({ categ, prodsBuscados }) {
                 return (
                   <div key={id}>
                     {categ === "todas" && esNuevaCategoria && (
-                      <h1>{categoria.nombre}</h1>
+                      <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div className="cardProducto">
                       <p className="nombre">{nombre}</p>
@@ -124,7 +124,7 @@ export default function Menu({ categ, prodsBuscados }) {
                 return (
                   <div key={id}>
                     {categ === "todas" && esNuevaCategoria && (
-                      <h1>{categoria.nombre}</h1>
+                      <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div className="cardItem">
                       <p className="nombre">{nombre}</p>
@@ -198,7 +198,7 @@ export default function Menu({ categ, prodsBuscados }) {
                     return (
                       <div key={id}>
                         {categ === "todas" && esNuevaCategoria && (
-                          <h1>{categoria.nombre}</h1>
+                          <h1 className="nombreCateg">{categoria.nombre}</h1>
                         )}
                         <div className="cardItemNoVisible">
                           <p className="nombre">{nombre}</p>
