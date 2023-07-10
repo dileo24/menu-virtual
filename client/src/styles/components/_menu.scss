@@ -42,6 +42,7 @@
       .precioAcciones {
         display: flex;
         justify-content: space-between;
+        flex-direction: row-reverse;
         margin-top: 10%;
         .precio {
           font-weight: 700;

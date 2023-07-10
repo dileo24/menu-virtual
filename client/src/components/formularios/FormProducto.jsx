@@ -83,7 +83,7 @@ export default function FormProducto({
                         setMostrarPrecio(true);
                         setPrecio("");
                       }}
-                      value={categoriaID} // Establece el valor seleccionado en base a la variable de estado categoriaID
+                      value={categoriaID || ""} // Establece el valor seleccionado en base a la variable de estado categoriaID
                     >
                       <option value="" hidden>
                         Elegí una categoría
