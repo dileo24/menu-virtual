@@ -32,7 +32,7 @@ export default function HacerPedido() {
   const dispatch = useDispatch();
   const [MostrarMenu, setMostrarMenu] = useState(false);
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
-  const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
+  const [verOcultar, setVerOcultar] = useState("Mi Pedido");
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
 
@@ -115,7 +115,7 @@ export default function HacerPedido() {
         alert("Tu carrito está vacío");
       }
     }
-    if (verOcultar === "Ver mi pedido") {
+    if (verOcultar === "Mi Pedido") {
       setVerOcultar("Siguiente");
     }
   };
@@ -134,10 +134,10 @@ export default function HacerPedido() {
     setTimeout(() => {
       desplegable1.classList.remove("animate-slide-down");
       setMostrarMenu(!MostrarMenu);
-      if (verOcultar === "Ver mi pedido") {
+      if (verOcultar === "Mi Pedido") {
         setVerOcultar("Siguiente");
       } else {
-        setVerOcultar("Ver mi pedido");
+        setVerOcultar("Mi Pedido");
       }
     }, 200);
   };
@@ -321,7 +321,7 @@ export default function HacerPedido() {
                 {/* ****** MESA ****** */}
                 <div className="mesa">
                   <label className="mesaTitle" htmlFor="mesa">
-                    Indique su número de mesa
+                    Número de mesa
                   </label>
                   <input
                     className="mesaInput"
