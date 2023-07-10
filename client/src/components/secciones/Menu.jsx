@@ -41,32 +41,26 @@ export default function Menu({ categ, prodsBuscados }) {
               categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
-              (
-                {
-                  nombre,
-                  descripcion,
-                  precio,
-                  itemsExtra,
-                  id,
-                  cantidadPersonas,
-                  categoria,
-                },
-                index
-              ) => {
-                // Verificar si la categoría actual es diferente a la última categoría impresa
+              ({
+                nombre,
+                descripcion,
+                precio,
+                itemsExtra,
+                id,
+                cantidadPersonas,
+                categoria,
+              }) => {
                 const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
-
-                // Actualizar la última categoría impresa si es una nueva categoría
                 if (esNuevaCategoria) {
                   ultimaCategoria = categoria.nombre;
                 }
 
                 return (
-                  <div key={index}>
+                  <div key={id}>
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div key={id} className="cardProducto">
+                    <div className="cardProducto">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -114,32 +108,25 @@ export default function Menu({ categ, prodsBuscados }) {
               categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
-              (
-                {
-                  nombre,
-                  descripcion,
-                  precio,
-                  itemsExtra,
-                  id,
-                  cantidadPersonas,
-                  categoria,
-                },
-                index
-              ) => {
-                // Verificar si la categoría actual es diferente a la última categoría impresa
+              ({
+                nombre,
+                descripcion,
+                precio,
+                itemsExtra,
+                id,
+                cantidadPersonas,
+                categoria,
+              }) => {
                 const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
-
-                // Actualizar la última categoría impresa si es una nueva categoría
                 if (esNuevaCategoria) {
                   ultimaCategoria = categoria.nombre;
                 }
-
                 return (
-                  <div key={index}>
+                  <div key={id}>
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div key={id} className="cardItem">
+                    <div className="cardItem">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -193,33 +180,27 @@ export default function Menu({ categ, prodsBuscados }) {
                   categ !== "todas" ? prod.categoria.nombre === categ : prod
                 )
                 .map(
-                  (
-                    {
-                      nombre,
-                      descripcion,
-                      precio,
-                      itemsExtra,
-                      id,
-                      cantidadPersonas,
-                      categoria,
-                    },
-                    index
-                  ) => {
-                    // Verificar si la categoría actual es diferente a la última categoría impresa
+                  ({
+                    nombre,
+                    descripcion,
+                    precio,
+                    itemsExtra,
+                    id,
+                    cantidadPersonas,
+                    categoria,
+                  }) => {
                     const esNuevaCategoria =
                       categoria.nombre !== ultimaCategoria;
-
-                    // Actualizar la última categoría impresa si es una nueva categoría
                     if (esNuevaCategoria) {
                       ultimaCategoria = categoria.nombre;
                     }
 
                     return (
-                      <div key={index}>
+                      <div key={id}>
                         {categ === "todas" && esNuevaCategoria && (
                           <h1 className="nombreCateg">{categoria.nombre}</h1>
                         )}
-                        <div key={id} className="cardItemNoVisible">
+                        <div className="cardItemNoVisible">
                           <p className="nombre">{nombre}</p>
                           <p className="descripcion">{descripcion}</p>
                           <div className="precioAcciones">
