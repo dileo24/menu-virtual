@@ -107,7 +107,7 @@ export default function FormProducto({
                         onChange={(e) => setSubcategoriaID(e.target.value)}
                         value={subcategoriaID}
                       >
-                        <option hidden>Seleccionar subcategoria</option>
+                        <option hidden>Subcategoria (no obligatorio)</option>
                         {subcategorias.map(
                           (subC) =>
                             Number(subC.categoria.id) ===
