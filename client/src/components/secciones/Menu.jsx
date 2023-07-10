@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
 
-export default function Menu({ categoria, prodsBuscados }) {
+export default function Menu({ categ, prodsBuscados }) {
   const userActual = useSelector((state) => state.userActual);
   // const itemsNoListados = useSelector((state) => state.itemsNoListados);
   const token = userActual && userActual.tokenSession;
@@ -26,11 +26,11 @@ export default function Menu({ categoria, prodsBuscados }) {
       });
     }
   };
+  let ultimaCategoria = "";
 
   return (
     productosState && (
       <main className="menuContainer">
-        {/* <Filtros /> */}
         <div className="cardsVisibles">
           {/********************* PRODUCTOS VISIBLES *********************/}
           {productosState
@@ -38,139 +38,102 @@ export default function Menu({ categoria, prodsBuscados }) {
               (producto) => producto.listado === true && producto.item === false
             )
             .filter((prod) =>
-              categoria !== "todas" ? prod.categoria.nombre === categoria : prod
+              categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
-              (
-                {
-                  nombre,
-                  descripcion,
-                  precio,
-                  itemsExtra,
-                  id,
-                  cantidadPersonas,
-                },
-                index
-              ) => (
-                <div key={id} className="cardProducto">
-                  <p className="nombre">{nombre}</p>
-                  <p className="descripcion">{descripcion}</p>
-                  <div className="precioAcciones">
-                    <p className="precio">${precio}</p>
-                    <div className="acciones">
-                      {userActual ? (
-                        <>
-                          <Link to={`/editarProducto?id=${id}`} className="">
-                            Editar
-                          </Link>
-                          <button
-                            onClick={() => handleEliminarProducto(id)}
-                            className=""
-                          >
-                            Eliminar
-                          </button>
-                        </>
-                      ) : (
-                        <Contador
-                          id={id}
-                          nombre={nombre}
-                          descripcion={descripcion}
-                          precio={precio}
-                          itemsExtra={itemsExtra}
-                          cantidadPersonas={cantidadPersonas}
-                        />
-                      )}
+              ({
+                nombre,
+                descripcion,
+                precio,
+                itemsExtra,
+                id,
+                cantidadPersonas,
+                categoria,
+              }) => {
+                // Verificar si la categoría actual es diferente a la última categoría impresa
+                const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
+
+                // Actualizar la última categoría impresa si es una nueva categoría
+                if (esNuevaCategoria) {
+                  ultimaCategoria = categoria.nombre;
+                }
+
+                return (
+                  <>
+                    {categ === "todas" && esNuevaCategoria && (
+                      <h1>{categoria.nombre}</h1>
+                    )}
+                    <div key={id} className="cardProducto">
+                      <p className="nombre">{nombre}</p>
+                      <p className="descripcion">{descripcion}</p>
+                      <div className="precioAcciones">
+                        <p className="precio">${precio}</p>
+                        <div className="acciones">
+                          {userActual ? (
+                            <>
+                              <Link
+                                to={`/editarProducto?id=${id}`}
+                                className=""
+                              >
+                                Editar
+                              </Link>
+                              <button
+                                onClick={() => handleEliminarProducto(id)}
+                                className=""
+                              >
+                                Eliminar
+                              </button>
+                            </>
+                          ) : (
+                            <Contador
+                              id={id}
+                              nombre={nombre}
+                              descripcion={descripcion}
+                              precio={precio}
+                              itemsExtra={itemsExtra}
+                              cantidadPersonas={cantidadPersonas}
+                            />
+                          )}
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              )
+                  </>
+                );
+              }
             )}
+
           {/********************* ITEMS VISIBLES *********************/}
           {productosState
             .filter(
               (producto) => producto.listado === true && producto.item === true
             )
             .filter((prod) =>
-              categoria !== "todas" ? prod.categoria.nombre === categoria : prod
+              categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
-              (
-                {
-                  nombre,
-                  descripcion,
-                  precio,
-                  itemsExtra,
-                  id,
-                  cantidadPersonas,
-                },
-                index
-              ) => (
-                <div key={id} className="cardItem">
-                  <p className="nombre">{nombre}</p>
-                  <p className="descripcion">{descripcion}</p>
-                  <div className="precioAcciones">
-                    <p className="precio">${precio}</p>
-                    <div className="acciones">
-                      {userActual ? (
-                        <>
-                          <Link
-                            to={`/editarProducto?idItem=${id}`}
-                            className=""
-                          >
-                            Editar
-                          </Link>
-                          <button
-                            onClick={() => handleEliminarProducto(id)}
-                            className=""
-                          >
-                            Eliminar
-                          </button>
-                        </>
-                      ) : (
-                        <Contador
-                          id={id}
-                          nombre={nombre}
-                          descripcion={descripcion}
-                          precio={precio}
-                          itemsExtra={itemsExtra}
-                          cantidadPersonas={cantidadPersonas}
-                        />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
-        </div>
-        {/********************* ITEMS NO VISIBLES *********************/}
-        <div>
-          {userActual && (
-            <div className="cardsNoVisibles">
-              <p>Items no visibles</p>
+              ({
+                nombre,
+                descripcion,
+                precio,
+                itemsExtra,
+                id,
+                cantidadPersonas,
+                categoria,
+              }) => {
+                // Verificar si la categoría actual es diferente a la última categoría impresa
+                const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
 
-              {productosState
-                .filter(
-                  (producto) =>
-                    producto.listado === false && producto.item === true
-                )
-                .filter((prod) =>
-                  categoria !== "todas"
-                    ? prod.categoria.nombre === categoria
-                    : prod
-                )
-                .map(
-                  (
-                    {
-                      nombre,
-                      descripcion,
-                      precio,
-                      itemsExtra,
-                      id,
-                      cantidadPersonas,
-                    },
-                    index
-                  ) => (
-                    <div key={id} className="cardItemNoVisible">
+                // Actualizar la última categoría impresa si es una nueva categoría
+                if (esNuevaCategoria) {
+                  ultimaCategoria = categoria.nombre;
+                }
+
+                return (
+                  <>
+                    {categ === "todas" && esNuevaCategoria && (
+                      <h1>{categoria.nombre}</h1>
+                    )}
+                    <div key={id} className="cardItem">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -204,7 +167,86 @@ export default function Menu({ categoria, prodsBuscados }) {
                         </div>
                       </div>
                     </div>
-                  )
+                  </>
+                );
+              }
+            )}
+        </div>
+        {/********************* ITEMS NO VISIBLES *********************/}
+        <div>
+          {userActual && (
+            <div className="cardsNoVisibles">
+              <p>Items no visibles</p>
+
+              {productosState
+                .filter(
+                  (producto) =>
+                    producto.listado === false && producto.item === true
+                )
+                .filter((prod) =>
+                  categ !== "todas" ? prod.categoria.nombre === categ : prod
+                )
+                .map(
+                  ({
+                    nombre,
+                    descripcion,
+                    precio,
+                    itemsExtra,
+                    id,
+                    cantidadPersonas,
+                    categoria,
+                  }) => {
+                    // Verificar si la categoría actual es diferente a la última categoría impresa
+                    const esNuevaCategoria =
+                      categoria.nombre !== ultimaCategoria;
+
+                    // Actualizar la última categoría impresa si es una nueva categoría
+                    if (esNuevaCategoria) {
+                      ultimaCategoria = categoria.nombre;
+                    }
+
+                    return (
+                      <>
+                        {categ === "todas" && esNuevaCategoria && (
+                          <h1>{categoria.nombre}</h1>
+                        )}
+                        <div key={id} className="cardItemNoVisible">
+                          <p className="nombre">{nombre}</p>
+                          <p className="descripcion">{descripcion}</p>
+                          <div className="precioAcciones">
+                            <p className="precio">${precio}</p>
+                            <div className="acciones">
+                              {userActual ? (
+                                <>
+                                  <Link
+                                    to={`/editarProducto?idItem=${id}`}
+                                    className=""
+                                  >
+                                    Editar
+                                  </Link>
+                                  <button
+                                    onClick={() => handleEliminarProducto(id)}
+                                    className=""
+                                  >
+                                    Eliminar
+                                  </button>
+                                </>
+                              ) : (
+                                <Contador
+                                  id={id}
+                                  nombre={nombre}
+                                  descripcion={descripcion}
+                                  precio={precio}
+                                  itemsExtra={itemsExtra}
+                                  cantidadPersonas={cantidadPersonas}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  }
                 )}
             </div>
           )}

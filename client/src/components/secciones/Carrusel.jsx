@@ -111,7 +111,7 @@ const Carrusel = () => {
             >
               <div className="scrollable-content">
                 <Menu
-                  categoria={"todas"}
+                  categ={"todas"}
                   prodsBuscados={homeBusqueda}
                   currentSlide={currentSlide}
                 />
@@ -125,7 +125,7 @@ const Carrusel = () => {
                     <div key={categ.id} className="scrollable-content">
                       {currentSlide !== 0 && (
                         <Menu
-                          categoria={categ.nombre}
+                          categ={categ.nombre}
                           currentSlide={currentSlide}
                         />
                       )}
