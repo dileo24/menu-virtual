@@ -50,9 +50,6 @@ export default function NuevoProducto() {
     setItemsExtra([]);
     setNumItemsExtra(0);
   }
-  console.log("mostrarOtroCheckbox: " + mostrarOtroCheckbox);
-  console.log("mostrarPersonaItem: " + mostrarPersonaItem);
-  console.log("listado: " + listado);
   useEffect(() => {
     // Cambiarle el background del botón del Header
     const nuevoProducto = document.querySelector(".nuevoProducto");
