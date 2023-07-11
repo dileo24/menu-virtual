@@ -229,12 +229,12 @@ export default function HacerPedido() {
         {MostrarMenu && (
           <div className="desplegable1 animate-slide-up">
             <div className="scrollable-content">
-              <div className="header1">
+              <header className="header1">
                 <div className="ocultarBtn" onClick={handleOcultarMenu1}>
                   <span className="arrow-down"></span>
                 </div>
                 <div className="titleHeader1">Mi Pedido</div>
-              </div>
+              </header>
               {carrito.length > 0 && (
                 <>
                   {carrito.map((prod, index) => (
@@ -306,12 +306,12 @@ export default function HacerPedido() {
         {MostrarMenu2 && (
           <div className="desplegable2">
             <div className="scrollable-content">
-              <div className="header1">
+              <header className="header1">
                 <div className="ocultarBtn" onClick={handleMostrarMenu1}>
                   <span className="arrow-left"></span>
                 </div>
                 <div className="titleHeader1">Completar mi pedido</div>
-              </div>
+              </header>
 
               <form
                 id="formulario"
