@@ -57,6 +57,8 @@ export default function Historial() {
   );
 
   console.log(pedidosActuales);
+  console.log(inputData);
+  console.log(pedidos);
 
   return pedidos &&
     pedidosActuales.length > 0 &&
@@ -84,20 +86,20 @@ export default function Historial() {
               pedido[0] && (
                 <div className="cardPedido" key={index}>
                   <div className="nombreItemsPrecio">
-                    <div className="nombrePrecio">
+                    <div className="nombreItems">
                       <p className="nombre">{pedido[0].productos}</p>
-                      <p className="precio">${pedido[0].precio}</p>
+                      {pedido && pedido[0].itemsExtra && (
+                        <ul className="itemsExtra">
+                          {pedido[0].itemsExtra.map((item, index) => (
+                            <li key={index} className="list-item">
+                              <span className="list-item-circle"></span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
-                    {pedido && pedido[0].itemsExtra && (
-                      <ul className="itemsExtra">
-                        {pedido[0].itemsExtra.map((item, index) => (
-                          <li key={index} className="list-item">
-                            <span className="list-item-circle"></span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                    <p className="precio">${pedido[0].precio}</p>
                   </div>
 
                   {/* <p className="metodoDePago">{pedido[0].Pago.tipo}</p> */}
@@ -116,7 +118,7 @@ export default function Historial() {
         </Link>
         <div className="titleHeader1">Mis Pedidos Realizados</div>
       </header>
-      <p>No hay pedidos pendientes</p>
+      <p className="alerta">No hay pedidos pendientes</p>
     </div>
   );
 }

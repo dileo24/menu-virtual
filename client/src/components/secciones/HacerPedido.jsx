@@ -51,7 +51,7 @@ export default function HacerPedido() {
   } ${ampm}`;
   let id = pedidos.length + 1;
   const itemsDelCarrito =
-    carrito && carrito.map((prod) => prod.itemsExtra && prod.itemsExtra);
+    carrito && carrito.map((prod) => (prod.itemsExtra ? prod.itemsExtra : ""));
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -60,7 +60,7 @@ export default function HacerPedido() {
     aclaraciones: "",
     tipoPagoID: "",
     estadoID: "1",
-    itemsExtra: itemsDelCarrito.length > 0 ? itemsDelCarrito[0] : [],
+    itemsExtra: itemsDelCarrito.length > 0 ? itemsDelCarrito : [],
     creacionFecha: formattedDate,
     creacionHora: formattedTime,
   });
@@ -166,7 +166,7 @@ export default function HacerPedido() {
       });
     }
   };
-
+  console.log(input.itemsExtra);
   const navigate = useNavigate();
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -190,11 +190,13 @@ export default function HacerPedido() {
 
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
+      console.log(input);
 
       dispatch(createPedido(input));
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
+
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
@@ -219,8 +221,6 @@ export default function HacerPedido() {
   const handleVaciar = () => {
     dispatch(limpiarCarrito());
   };
-
-  console.log(carrito);
 
   return (
     <>
