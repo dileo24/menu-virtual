@@ -64,7 +64,6 @@ export default function Menu({ categ, prodsBuscados }) {
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
-                        <p className="precio">${precio}</p>
                         <div className="acciones">
                           {userActual ? (
                             <>
@@ -92,6 +91,7 @@ export default function Menu({ categ, prodsBuscados }) {
                             />
                           )}
                         </div>
+                        <p className="precio">${precio}</p>
                       </div>
                     </div>
                   </div>
@@ -130,7 +130,6 @@ export default function Menu({ categ, prodsBuscados }) {
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
-                        <p className="precio">${precio}</p>
                         <div className="acciones">
                           {userActual ? (
                             <>
@@ -158,6 +157,7 @@ export default function Menu({ categ, prodsBuscados }) {
                             />
                           )}
                         </div>
+                        <p className="precio">${precio}</p>
                       </div>
                     </div>
                   </div>
@@ -183,7 +183,6 @@ export default function Menu({ categ, prodsBuscados }) {
                   ({
                     nombre,
                     descripcion,
-                    precio,
                     itemsExtra,
                     id,
                     cantidadPersonas,
@@ -204,7 +203,6 @@ export default function Menu({ categ, prodsBuscados }) {
                           <p className="nombre">{nombre}</p>
                           <p className="descripcion">{descripcion}</p>
                           <div className="precioAcciones">
-                            <p className="precio">${precio}</p>
                             <div className="acciones">
                               {userActual ? (
                                 <>
@@ -226,7 +224,6 @@ export default function Menu({ categ, prodsBuscados }) {
                                   id={id}
                                   nombre={nombre}
                                   descripcion={descripcion}
-                                  precio={precio}
                                   itemsExtra={itemsExtra}
                                   cantidadPersonas={cantidadPersonas}
                                 />

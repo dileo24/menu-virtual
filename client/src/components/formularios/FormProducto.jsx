@@ -83,7 +83,7 @@ export default function FormProducto({
                         setMostrarPrecio(true);
                         setPrecio("");
                       }}
-                      value={categoriaID} // Establece el valor seleccionado en base a la variable de estado categoriaID
+                      value={categoriaID || ""} // Establece el valor seleccionado en base a la variable de estado categoriaID
                     >
                       <option value="" hidden>
                         Elegí una categoría
@@ -107,7 +107,7 @@ export default function FormProducto({
                         onChange={(e) => setSubcategoriaID(e.target.value)}
                         value={subcategoriaID}
                       >
-                        <option hidden>Seleccionar subcategoria</option>
+                        <option hidden>Subcategoria (no obligatorio)</option>
                         {subcategorias.map(
                           (subC) =>
                             Number(subC.categoria.id) ===
@@ -228,7 +228,7 @@ export default function FormProducto({
                     />
                   </div>
 
-                  {mostrarPrecio && (
+                  {mostrarPrecio && listado && (
                     <div className="mb-4">
                       <label
                         className="block text-gray-700 text-sm font-bold mb-2"

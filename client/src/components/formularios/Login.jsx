@@ -49,11 +49,11 @@ export default function ModalLogin({ onClose }) {
 
   return (
     <div className="loginContainer">
-      <div className="header1">
+      <header className="header1">
         <Link to="/" className="ocultarBtn">
           <span className="arrow-left"></span>
         </Link>
-      </div>
+      </header>
       <h1 className="">QuickBites</h1>
       <div className="cardContainer">
         <div className="cardLogin">

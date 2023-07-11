@@ -118,4 +118,3 @@ export function ningunInputVacio(obj) {
     return value !== '';
   });
 }
-
