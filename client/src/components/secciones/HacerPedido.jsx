@@ -180,7 +180,6 @@ export default function HacerPedido() {
 
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
-      console.log(input);
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -206,6 +205,8 @@ export default function HacerPedido() {
   const handleVaciar = () => {
     dispatch(limpiarCarrito());
   };
+
+  console.log(carrito);
 
   return (
     <>
