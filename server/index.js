@@ -27,10 +27,7 @@ const io = socketIO(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Cliente conectado");
-
   socket.on("nuevoPedido", (pedido) => {
-    console.log("Nuevo pedido recibido:", pedido);
     socket.broadcast.emit("nuevoPedidoRecibido", pedido);
   });
 
@@ -38,9 +35,7 @@ io.on("connection", (socket) => {
     io.emit("estadoPedidoActualizado", pedidoId, nuevoEstadoId);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado");
-  });
+  socket.on("disconnect", () => {});
 });
 
 conn.sync({ force: true }).then(async () => {
