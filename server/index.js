@@ -17,10 +17,10 @@ const http = require("http");
 const socketIO = require("socket.io");
 
 app.use(cors());
-const server = http.createServer(app); 
+const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: "*", 
+    origin: "*",
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -29,14 +29,15 @@ const io = socketIO(server, {
 io.on("connection", (socket) => {
   console.log("Cliente conectado");
 
-  // eventos desde el cliente
+  socket.on("nuevoPedido", (pedido) => {
+    console.log("Nuevo pedido recibido:", pedido);
+    socket.broadcast.emit("nuevoPedidoRecibido", pedido);
+  });
+
   socket.on("cambiarEstadoPedido", (pedidoId, nuevoEstadoId) => {
-    
-    // nuevo estado
     io.emit("estadoPedidoActualizado", pedidoId, nuevoEstadoId);
   });
 
-  // desconexión de un cliente
   socket.on("disconnect", () => {
     console.log("Cliente desconectado");
   });

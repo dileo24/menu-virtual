@@ -14,6 +14,7 @@ import { AiOutlineBank } from "react-icons/ai";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { AiOutlineCreditCard } from "react-icons/ai";
 import mercadoPago from "../../multmedia/mercadopago.svg";
+import { io } from "socket.io-client";
 
 export default function HacerPedido() {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -23,6 +24,7 @@ export default function HacerPedido() {
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
+  const [socket, setSocket] = useState(null);
 
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
@@ -67,6 +69,15 @@ export default function HacerPedido() {
     dispatch(getTipoPago());
     dispatch(getPedidos());
   }, [dispatch]);
+
+  useEffect(() => {
+    const socket = io("http://localhost:3001");
+    setSocket(socket);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);
@@ -182,6 +193,9 @@ export default function HacerPedido() {
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
       console.log(input);
       dispatch(createPedido(input));
+      if (socket) {
+        socket.emit("nuevoPedido", input);
+      }
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
