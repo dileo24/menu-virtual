@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Header from "../secciones/Header";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorias, getSubcategorias } from "../../redux/actions";
+import { Link } from "react-router-dom";
 // import { func } from "prop-types";
 
 export default function FormProducto({
@@ -63,7 +63,8 @@ export default function FormProducto({
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
-        <Header />
+        {/*  <Header /> */}
+        <Link to="/">Atrás</Link>
         <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="titulo -mt-16 text-3xl font-light text-center">
             {!titulo ? "Editar Producto" : titulo}
