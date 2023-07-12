@@ -37,7 +37,7 @@
       }
     }
   }
-  p {
+  .alerta {
     padding-left: 5%;
   }
   .cardPedido {
@@ -55,42 +55,46 @@
     height: auto;
     display: flex;
     .nombreItemsPrecio {
-      width: 80%;
-      .nombrePrecio {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .nombreItems {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        width: 80%;
         .nombre {
           font-weight: 700;
           font-size: 4vw;
           width: 60%;
         }
-        .precio {
-          font-weight: 700;
-          color: $paragraph;
-          font-size: 4vw;
-        }
-      }
-      .itemsExtra {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        list-style: none;
-        padding: 5% 0 0 5%;
-        line-height: 1;
-
-        .list-item {
+        .itemsExtra {
           display: flex;
-          align-items: center;
-          margin-bottom: 10px;
-          .list-item-circle {
-            display: inline-block;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background-color: black;
-            margin-right: 5px;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          padding: 5% 0 0 5%;
+          line-height: 1;
+
+          .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .list-item-circle {
+              display: inline-block;
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: black;
+              margin-right: 5px;
+            }
           }
         }
+      }
+      .precio {
+        font-weight: 700;
+        color: $paragraph;
+        font-size: 4vw;
       }
     }
   }
