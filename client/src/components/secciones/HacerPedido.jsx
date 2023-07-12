@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
@@ -77,30 +77,6 @@ export default function HacerPedido() {
     };
   }, []);
 
-  useEffect(() => {
-    const precios = carrito.map((carritoItem) => carritoItem.precio);
-    setPreciosArray(precios);
-
-    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
-    setNombresProdArray(nombres);
-
-    setInput((prevInput) => ({
-      ...prevInput,
-      productos: nombres,
-      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    }));
-
-    if (MostrarMenu && carrito.length === 0) {
-      handleOcultarMenu1();
-    }
-
-    if (MostrarMenu) {
-      document.body.classList.add("noScroll");
-    } else {
-      document.body.classList.remove("noScroll");
-    }
-  }, [carrito, MostrarMenu]);
-
   const handleEliminarItemCarrito = (id, index) => {
     setIndiceItemEliminar(index);
     setTimeout(() => {
@@ -137,7 +113,7 @@ export default function HacerPedido() {
     setVerOcultar("Siguiente");
   };
 
-  const handleOcultarMenu1 = () => {
+  const handleOcultarMenu1 = useCallback(() => {
     const desplegable1 = document.querySelector(".desplegable1");
     desplegable1.classList.add("animate-slide-down");
     setTimeout(() => {
@@ -149,8 +125,30 @@ export default function HacerPedido() {
         setVerOcultar("Mi Pedido");
       }
     }, 200);
-  };
+  }, [MostrarMenu, verOcultar]);
+  useEffect(() => {
+    const precios = carrito.map((carritoItem) => carritoItem.precio);
+    setPreciosArray(precios);
 
+    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
+    setNombresProdArray(nombres);
+
+    setInput((prevInput) => ({
+      ...prevInput,
+      productos: nombres,
+      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
+    }));
+
+    if (MostrarMenu && carrito.length === 0) {
+      handleOcultarMenu1();
+    }
+
+    if (MostrarMenu) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+  }, [carrito, MostrarMenu, handleOcultarMenu1]);
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -165,9 +163,9 @@ export default function HacerPedido() {
       });
     }
   };
-  console.log(input.itemsExtra);
+  /* console.log(input.itemsExtra);
   console.log(input);
-  console.log(itemsDelCarrito);
+  console.log(itemsDelCarrito); */
 
   const navigate = useNavigate();
   const handleSubmitForm = (e) => {
