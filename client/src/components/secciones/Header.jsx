@@ -130,100 +130,105 @@ export default function Header({
         </button>
       )}
       <div id="subHeader" className="subHeader">
-        <nav id="nav" className="nav">
-          {/* Empleados: No tienen header, solo sección de pedidos */}
-          {userActual && userActual.data.RolId === 3 && (
-            <button onClick={cerrarSesion} className="cerrarSesion">
-              Cerrar sesión
-            </button>
-          )}
-          {userActual && userActual.data.RolId <= 2 && (
-            <>
-              <div
-                className="burgerBtn"
-                onClick={() =>
-                  !navSideOpen ? setNavSideOpen(true) : setNavSideOpen(false)
-                }
-              ></div>
-            </>
-          )}
-          {navSideOpen && (
-            <div className="navSide animate-right">
-              <div className="cerrarBtn" onClick={() => ocultarNavSide()}></div>
-              {/* Admin */}
-              {userActual && userActual.data.RolId === 2 && (
-                <>
-                  <Link to="/pedidos" className="pedidos">
-                    Pedidos
-                  </Link>
-                  <Link to="/nuevoProducto" className="nuevoProducto">
-                    Nuevo producto
-                  </Link>
-                  <Link to="/nuevaCateg" className="nuevaCateg">
-                    Administrar categorias
-                  </Link>
-                  <button onClick={cerrarSesion} className="cerrarSesion">
-                    Cerrar sesión
-                  </button>
-                </>
-              )}
-              {/* superAdmin */}
-              {userActual && userActual.data.RolId === 1 && (
-                <>
-                  <Link to="/pedidos" className="pedidos">
-                    Pedidos
-                  </Link>
-                  <Link to="/nuevoProducto" className="nuevoProducto">
-                    Nuevo producto
-                  </Link>
-                  <Link to="/nuevaCateg" className="nuevaCateg">
-                    Administrar categorias
-                  </Link>
-                  <Link to="/register" className="registrar">
-                    Crear cuenta para empleado
-                  </Link>
-                  <Link to="/usuarios" className="administrar">
-                    Administrar usuarios
-                  </Link>
-                  <Link to="/estadisticas" className="estadisticas">
-                    Estadisticas
-                  </Link>
-                  <button onClick={cerrarSesion} className="cerrarSesion">
-                    Cerrar sesión
-                  </button>
-                </>
-              )}
-            </div>
-          )}
-
-          {/* Clientes */}
-          {!userActual && (
-            <>
-              <Link to="/login" className="iniciarSesion">
-                <img src={login} alt="login" className="usuarioIcon" />
-              </Link>
-              <Filtros handleSearch={handleSearch} />
-              <Link to="/historial" className="carrito">
-                <img src={bandeja} alt="bandeja" className="carritoIcon" />
-                {pedidosNoVacios.length ? (
-                  <div className="cantidadPedidos">
-                    {pedidosNoVacios.length}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </Link>
-            </>
-          )}
-        </nav>
-
-        {isHomePage && (
-          <div>
+        {userActual && (
+          <div id="nav" className="headerUsuarios">
+            {/* Empleados: No tienen header, solo sección de pedidos */}
+            {userActual && userActual.data.RolId === 3 && (
+              <button onClick={cerrarSesion} className="cerrarSesion">
+                Cerrar sesión
+              </button>
+            )}
             {userActual && userActual.data.RolId <= 2 && (
               <>
-                <div>Administrar Menú</div>
-                <Filtros handleSearch={handleSearch} />
+                <div
+                  className="burgerBtn"
+                  onClick={() =>
+                    !navSideOpen ? setNavSideOpen(true) : setNavSideOpen(false)
+                  }
+                ></div>
               </>
+            )}
+            {navSideOpen && (
+              <div className="navSide animate-right">
+                <div
+                  className="cerrarBtn"
+                  onClick={() => ocultarNavSide()}
+                ></div>
+                {/* Admin */}
+                {userActual && userActual.data.RolId === 2 && (
+                  <>
+                    <Link to="/pedidos" className="pedidos">
+                      Pedidos
+                    </Link>
+                    <Link to="/nuevoProducto" className="nuevoProducto">
+                      Nuevo producto
+                    </Link>
+                    <Link to="/nuevaCateg" className="nuevaCateg">
+                      Administrar categorias
+                    </Link>
+                    <button onClick={cerrarSesion} className="cerrarSesion">
+                      Cerrar sesión
+                    </button>
+                  </>
+                )}
+                {/* superAdmin */}
+                {userActual && userActual.data.RolId === 1 && (
+                  <>
+                    <Link to="/pedidos" className="pedidos">
+                      Pedidos
+                    </Link>
+                    <Link to="/nuevoProducto" className="nuevoProducto">
+                      Nuevo producto
+                    </Link>
+                    <Link to="/nuevaCateg" className="nuevaCateg">
+                      Administrar categorias
+                    </Link>
+                    <Link to="/register" className="registrar">
+                      Crear cuenta para empleado
+                    </Link>
+                    <Link to="/usuarios" className="administrar">
+                      Administrar usuarios
+                    </Link>
+                    <Link to="/estadisticas" className="estadisticas">
+                      Estadisticas
+                    </Link>
+                    <button onClick={cerrarSesion} className="cerrarSesion">
+                      Cerrar sesión
+                    </button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Clientes */}
+        {!userActual && (
+          <nav id="nav" className="nav headerClientes">
+            <Link to="/login" className="iniciarSesion">
+              <img src={login} alt="login" className="usuarioIcon" />
+            </Link>
+            <div className="navbarCont">
+              <Filtros handleSearch={handleSearch} />
+            </div>
+            <Link to="/historial" className="carrito">
+              <img src={bandeja} alt="bandeja" className="carritoIcon" />
+              {pedidosNoVacios.length ? (
+                <div className="cantidadPedidos">{pedidosNoVacios.length}</div>
+              ) : (
+                ""
+              )}
+            </Link>
+          </nav>
+        )}
+
+        {isHomePage && (
+          <>
+            {userActual && userActual.data.RolId <= 2 && (
+              <div className="headerHomeUsuarios">
+                <h1>Administrar Menú</h1>
+                <Filtros handleSearch={handleSearch} />
+              </div>
             )}
             <div id="categorias">
               <div
@@ -289,7 +294,7 @@ export default function Header({
                   </div>
                 )}
             </div>
-          </div>
+          </>
         )}
       </div>
     </header>

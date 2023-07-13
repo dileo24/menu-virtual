@@ -18,14 +18,12 @@ header {
   .subHeader {
     z-index: 999;
 
-    nav {
+    .headerUsuarios {
       background-color: white;
-      // height: 7vh;
-      height: 15vw;
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 0 6%;
+      padding: 5%;
       align-items: center;
       .burgerBtn {
         width: 8vw;
@@ -41,7 +39,7 @@ header {
         z-index: 99999;
         top: 0;
         left: 0;
-        width: 50vw;
+        width: 70vw;
         height: 100%;
         background-color: white;
         .cerrarBtn {
@@ -53,11 +51,35 @@ header {
           @include center;
         }
       }
+    }
+
+    .headerHomeUsuarios {
+      width: 100vw;
+      padding: 5%;
+      padding-top: 0;
+
+      h1 {
+        font-weight: 700;
+        font-size: 6vw;
+        padding-bottom: 5%;
+      }
+    }
+
+    .headerClientes {
+      background-color: white;
+      height: 15vw;
+      width: 100vw;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 6%;
+      align-items: center;
       .carritoIcon,
       .usuarioIcon {
         width: 10vw;
         height: 10vw;
-        transform: scaleX(-1);
+      }
+      .navbarCont {
+        width: 55vw;
       }
       .carrito {
         position: relative;
@@ -82,6 +104,7 @@ header {
         }
       }
     }
+
     .categorias {
       display: flex;
       align-items: center;
