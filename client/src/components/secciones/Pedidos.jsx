@@ -18,6 +18,7 @@ export default function Pedidos() {
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
+  let allPedidos = [...pedidos, ...nuevosPedidos];
 
   useEffect(() => {
     // Local
@@ -26,10 +27,11 @@ export default function Pedidos() {
     // Deploy
     // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
+    setSocket(socket);
+
     socket.on("nuevoPedidoRecibido", (pedido) => {
       setNuevosPedidos((prevPedidos) => [...prevPedidos, pedido]);
     });
-    setSocket(socket);
 
     dispatch(getPedidos());
     dispatch(getEstados());
@@ -57,9 +59,10 @@ export default function Pedidos() {
         });
     }
   };
-
+  console.log(nuevosPedidos);
+  console.log(allPedidos);
   return (
-    pedidos && (
+    allPedidos.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <div className="md:flex min-h-screen md:align-top">
           <Header />
@@ -92,82 +95,80 @@ export default function Pedidos() {
                       </tr>
                     </thead>
                     <tbody className="bg-white">
-                      {pedidos
-                        .concat(nuevosPedidos)
-                        .map(
-                          ({
-                            productos,
-                            mesa,
-                            aclaraciones,
-                            precio,
-                            Estado,
-                            itemsExtra,
-                            creacionFecha,
-                            creacionHora,
-                            Pago,
-                            id,
-                          }) => (
-                            <tr key={id}>
-                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
-                                  {productos.join(", ")}
-                                </p>
-                                {itemsExtra && (
-                                  <p className="text-gray-700 mt-2">
-                                    <b>Extra:</b> {itemsExtra.join(", ")}
-                                  </p>
-                                )}
+                      {allPedidos.map(
+                        ({
+                          productos,
+                          mesa,
+                          aclaraciones,
+                          precio,
+                          Estado,
+                          itemsExtra,
+                          creacionFecha,
+                          creacionHora,
+                          Pago,
+                          id,
+                        }) => (
+                          <tr key={id}>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                              <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
+                                {productos.join(", ")}
+                              </p>
+                              {itemsExtra && (
                                 <p className="text-gray-700 mt-2">
-                                  <b> Aclaraciones:</b> {aclaraciones}
+                                  <b>Extra:</b> {itemsExtra.join(", ")}
                                 </p>
-                                <p className="text-gray-700 mt-2">
-                                  <b> Realizado el:</b>{" "}
-                                  {creacionFecha + " a las " + creacionHora}
-                                </p>
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <p className="text-gray-700">{mesa}</p>
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
-                                <p className="text-gray-600">${precio}</p>
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                                {Estado && (
-                                  <select
-                                    id=""
-                                    value={Estado.id}
-                                    onChange={(e) =>
-                                      handleSelectChange(e, id, "estadoID")
-                                    }
-                                  >
-                                    {estados.map((est) => (
-                                      <option key={est.id} value={est.id}>
-                                        {est.tipo}
-                                      </option>
-                                    ))}
-                                  </select>
-                                )}
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                                {Pago && (
-                                  <select
-                                    id=""
-                                    value={Pago.id}
-                                    onChange={(e) =>
-                                      handleSelectChange(e, id, "tipoPagoID")
-                                    }
-                                  >
-                                    {tipoPagos.map((pag) => (
-                                      <option key={pag.id} value={pag.id}>
-                                        {pag.tipo}
-                                      </option>
-                                    ))}
-                                  </select>
-                                )}
-                              </td>
-                            </tr>
-                          )
-                        )}
+                              )}
+                              <p className="text-gray-700 mt-2">
+                                <b> Aclaraciones:</b> {aclaraciones}
+                              </p>
+                              <p className="text-gray-700 mt-2">
+                                <b> Realizado el:</b>{" "}
+                                {creacionFecha + " a las " + creacionHora}
+                              </p>
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                              <p className="text-gray-700">{mesa}</p>
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
+                              <p className="text-gray-600">${precio}</p>
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              {Estado && (
+                                <select
+                                  id=""
+                                  value={Estado.id}
+                                  onChange={(e) =>
+                                    handleSelectChange(e, id, "estadoID")
+                                  }
+                                >
+                                  {estados.map((est) => (
+                                    <option key={est.id} value={est.id}>
+                                      {est.tipo}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+                            </td>
+                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
+                              {Pago && (
+                                <select
+                                  id=""
+                                  value={Pago.id}
+                                  onChange={(e) =>
+                                    handleSelectChange(e, id, "tipoPagoID")
+                                  }
+                                >
+                                  {tipoPagos.map((pag) => (
+                                    <option key={pag.id} value={pag.id}>
+                                      {pag.tipo}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+                            </td>
+                          </tr>
+                        )
+                      )}
                     </tbody>
                   </table>
                 </div>

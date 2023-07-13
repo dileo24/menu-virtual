@@ -87,17 +87,22 @@ export default function Historial() {
                 <div className="cardPedido" key={index}>
                   <div className="nombreItemsPrecio">
                     <div className="nombreItems">
-                      <p className="nombre">{pedido[0].productos}</p>
-                      {pedido && pedido[0].itemsExtra && (
-                        <ul className="itemsExtra">
-                          {pedido[0].itemsExtra.map((item, index) => (
-                            <li key={index} className="list-item">
-                              <span className="list-item-circle"></span>
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
+                      {pedido[0].productos.map((producto, i) => (
+                        <div key={i}>
+                          <p className="nombre">{producto}</p>
+                          {pedido[0].itemsExtra[i] &&
+                            pedido[0].itemsExtra[i].length > 0 && (
+                              <ul className="itemsExtra">
+                                {pedido[0].itemsExtra[i].map((item, j) => (
+                                  <li key={j} className="list-item">
+                                    <span className="list-item-circle"></span>
+                                    {item}
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                        </div>
+                      ))}
                     </div>
                     <p className="precio">${pedido[0].precio}</p>
                   </div>

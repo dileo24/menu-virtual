@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
@@ -50,8 +50,7 @@ export default function HacerPedido() {
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
   let id = pedidos.length + 1;
-  const itemsDelCarrito =
-    carrito && carrito.map((prod) => (prod.itemsExtra ? prod.itemsExtra : ""));
+  const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? [["vacio"]]);
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -60,7 +59,7 @@ export default function HacerPedido() {
     aclaraciones: "",
     tipoPagoID: "",
     estadoID: "1",
-    itemsExtra: itemsDelCarrito.length > 0 ? itemsDelCarrito : [],
+    itemsExtra: itemsDelCarrito,
     creacionFecha: formattedDate,
     creacionHora: formattedTime,
   });
@@ -77,30 +76,6 @@ export default function HacerPedido() {
       socket.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    const precios = carrito.map((carritoItem) => carritoItem.precio);
-    setPreciosArray(precios);
-
-    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
-    setNombresProdArray(nombres);
-
-    setInput((prevInput) => ({
-      ...prevInput,
-      productos: nombres,
-      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    }));
-
-    if (MostrarMenu && carrito.length === 0) {
-      handleOcultarMenu1();
-    }
-
-    if (MostrarMenu) {
-      document.body.classList.add("noScroll");
-    } else {
-      document.body.classList.remove("noScroll");
-    }
-  }, [carrito, MostrarMenu]);
 
   const handleEliminarItemCarrito = (id, index) => {
     setIndiceItemEliminar(index);
@@ -138,7 +113,7 @@ export default function HacerPedido() {
     setVerOcultar("Siguiente");
   };
 
-  const handleOcultarMenu1 = () => {
+  const handleOcultarMenu1 = useCallback(() => {
     const desplegable1 = document.querySelector(".desplegable1");
     desplegable1.classList.add("animate-slide-down");
     setTimeout(() => {
@@ -150,8 +125,30 @@ export default function HacerPedido() {
         setVerOcultar("Mi Pedido");
       }
     }, 200);
-  };
+  }, [MostrarMenu, verOcultar]);
+  useEffect(() => {
+    const precios = carrito.map((carritoItem) => carritoItem.precio);
+    setPreciosArray(precios);
 
+    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
+    setNombresProdArray(nombres);
+
+    setInput((prevInput) => ({
+      ...prevInput,
+      productos: nombres,
+      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
+    }));
+
+    if (MostrarMenu && carrito.length === 0) {
+      handleOcultarMenu1();
+    }
+
+    if (MostrarMenu) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+  }, [carrito, MostrarMenu, handleOcultarMenu1]);
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -166,7 +163,10 @@ export default function HacerPedido() {
       });
     }
   };
-  console.log(input.itemsExtra);
+  /* console.log(input.itemsExtra);
+  console.log(input);
+  console.log(itemsDelCarrito); */
+
   const navigate = useNavigate();
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -192,11 +192,10 @@ export default function HacerPedido() {
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
       console.log(input);
 
-      dispatch(createPedido(input));
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
-
+      dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
