@@ -50,7 +50,7 @@ export default function Header({
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch]);
+  }, [dispatch, currentSlide]);
 
   let pedidosActuales = inputData.filter((idPed) =>
     pedidos.some(
