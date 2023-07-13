@@ -36,35 +36,38 @@ const Carrusel = () => {
     const subCategoriasEl = document.querySelector(".subCategorias");
     const marca = document.getElementById("marca");
 
-    if (scrollPosition >= 110) {
-      if (subCategoriasEl) {
-        marca.style.marginBottom = "20vh";
-      } else {
-        marca.style.marginBottom = "30vw";
-      }
-      subHeader.style.position = "fixed";
-      subHeader.style.top = "0";
-      if (scrollPosition > prevScrollPosition) {
-        if (nav.style.visibility !== "hidden") {
-          nav.style.visibility = "hidden";
-          categoriasEl.style.position = "relative";
-          categoriasEl.style.top = "-15vw";
+    if (marca) {
+      if (scrollPosition >= 110) {
+        if (subCategoriasEl) {
+          marca.style.marginBottom = "20vh";
+        } else {
+          marca.style.marginBottom = "30vw";
+        }
+        subHeader.style.position = "fixed";
+        subHeader.style.top = "0";
+        if (scrollPosition > prevScrollPosition) {
+          if (nav.style.visibility !== "hidden") {
+            nav.style.visibility = "hidden";
+            categoriasEl.style.position = "relative";
+            categoriasEl.style.top = "-15vw";
+          }
+        } else {
+          if (nav.style.visibility === "hidden") {
+            nav.style.visibility = "visible";
+            categoriasEl.style.position = "static";
+            categoriasEl.style.top = "";
+          }
         }
       } else {
-        if (nav.style.visibility === "hidden") {
-          nav.style.visibility = "visible";
-          categoriasEl.style.position = "static";
-          categoriasEl.style.top = "";
-        }
+        marca.style.marginBottom = "";
+        subHeader.style.position = "static";
+        subHeader.style.top = "";
+        nav.style.visibility = "visible";
+        categoriasEl.style.position = "static";
+        categoriasEl.style.top = "";
       }
-    } else {
-      marca.style.marginBottom = "";
-      subHeader.style.position = "static";
-      subHeader.style.top = "";
-      nav.style.visibility = "visible";
-      categoriasEl.style.position = "static";
-      categoriasEl.style.top = "";
     }
+
     setPrevScrollPosition(scrollPosition);
   }, [prevScrollPosition]);
 
