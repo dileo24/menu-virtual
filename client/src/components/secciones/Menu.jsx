@@ -49,6 +49,7 @@ export default function Menu({ categ, prodsBuscados }) {
                 id,
                 cantidadPersonas,
                 categoria,
+                subcategoria,
               }) => {
                 const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
                 if (esNuevaCategoria) {
@@ -59,6 +60,9 @@ export default function Menu({ categ, prodsBuscados }) {
                   <div key={id}>
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
+                    )}
+                    {categ === "Almuerzo/Cena" && (
+                      <h1 className="nombreCateg">{subcategoria.nombre}</h1>
                     )}
                     <div className="cardProducto">
                       <p className="nombre">{nombre}</p>

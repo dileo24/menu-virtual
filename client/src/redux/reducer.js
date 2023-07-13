@@ -47,14 +47,28 @@ function rootReducer(state = initialState, action) {
           : itemsNoListados.push(item)
       );
 
+      const productosOrdenados = [...action.payload].sort((a, b) => {
+        if (a.subcategoria === null && b.subcategoria === null) {
+          return 0;
+        }
+        if (a.subcategoria === null) {
+          return 1;
+        }
+        if (b.subcategoria === null) {
+          return -1;
+        }
+        return a.subcategoria.nombre.localeCompare(b.subcategoria.nombre);
+      });
+
       return {
         ...state,
         productos: [...action.payload],
-        home: [...action.payload],
+        home: productosOrdenados,
         homeBusqueda: [...action.payload],
         itemsExtra: [...items],
         itemsNoListados: [...itemsNoListados],
       };
+
     case SEARCHxNOMBRE: {
       let removeAccents = (str) => {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
