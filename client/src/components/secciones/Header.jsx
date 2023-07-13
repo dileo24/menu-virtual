@@ -130,16 +130,11 @@ export default function Header({
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
           {/* Empleados: No tienen header, solo sección de pedidos */}
-          {/* {userActual && userActual.data.RolId === 3 && (
-            <div>
-              <Link to="/pedidos" className="pedidos">
-                Pedidos
-              </Link>
-              <button onClick={cerrarSesion} className="cerrarSesion">
-                Cerrar sesión
-              </button>
-            </div>
-          )} */}
+          {userActual && userActual.data.RolId === 3 && (
+            <button onClick={cerrarSesion} className="cerrarSesion">
+              Cerrar sesión
+            </button>
+          )}
           {userActual && userActual.data.RolId <= 2 && (
             <>
               <div
@@ -148,7 +143,6 @@ export default function Header({
                   !navSideOpen ? setNavSideOpen(true) : setNavSideOpen(false)
                 }
               ></div>
-              <Filtros />
             </>
           )}
           {navSideOpen && (
@@ -222,69 +216,77 @@ export default function Header({
         </nav>
 
         {isHomePage && (
-          <div id="categorias">
-            <div
-              className="categorias"
-              ref={scrollableRef}
-              style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-            >
-              <button
-                className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
-                id="0"
-                onClick={() => {
-                  setCurrentSlide(0);
-                  window.scrollTo({ top: 0 });
-                }}
+          <div>
+            {userActual && userActual.data.RolId <= 2 && (
+              <>
+                <div>Administrar Menú</div>
+                <Filtros handleSearch={handleSearch} />
+              </>
+            )}
+            <div id="categorias">
+              <div
+                className="categorias"
+                ref={scrollableRef}
+                style={{ overflowX: "auto", whiteSpace: "nowrap" }}
               >
-                Menú completo
-              </button>
-              {newCateg &&
-                newCateg.map((categ, index) => (
-                  <React.Fragment key={categ.id}>
-                    <button
-                      className={`categoria ${
-                        currentSlide === index + 1 ? "active" : ""
-                      }`}
-                      id={categ.id}
-                      onClick={() => {
-                        setCurrentSlide(index + 1);
-                        window.scrollTo({ top: 0 });
-                      }}
-                    >
-                      {categ.nombre}
-                    </button>
-                  </React.Fragment>
-                ))}
-            </div>
-
-            {categActive &&
-              newSubCategs.some(
-                (subC) => subC.categoria.id === Number(categActive.id)
-              ) && (
-                <div className="subCategorias">
-                  {newSubCategs
-                    .filter(
-                      (subC) => subC.categoria.id === Number(categActive.id)
-                    )
-                    .map((subC) => (
+                <button
+                  className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
+                  id="0"
+                  onClick={() => {
+                    setCurrentSlide(0);
+                    window.scrollTo({ top: 0 });
+                  }}
+                >
+                  Menú completo
+                </button>
+                {newCateg &&
+                  newCateg.map((categ, index) => (
+                    <React.Fragment key={categ.id}>
                       <button
-                        className={`subCategoria ${
-                          subC === focusedSubcategory ? "focused" : ""
+                        className={`categoria ${
+                          currentSlide === index + 1 ? "active" : ""
                         }`}
-                        key={subC.nombre}
+                        id={categ.id}
                         onClick={() => {
-                          // Código a ejecutar cuando se hace clic en la subcategoría
-                          setFocusedSubcategory(subC);
-                          console.log(
-                            "Botón " + subC.nombre + " fue clickeado"
-                          );
+                          setCurrentSlide(index + 1);
+                          window.scrollTo({ top: 0 });
                         }}
                       >
-                        {subC.nombre}
+                        {categ.nombre}
                       </button>
-                    ))}
-                </div>
-              )}
+                    </React.Fragment>
+                  ))}
+              </div>
+
+              {categActive &&
+                newSubCategs.some(
+                  (subC) => subC.categoria.id === Number(categActive.id)
+                ) && (
+                  <div className="subCategorias">
+                    {newSubCategs
+                      .filter(
+                        (subC) => subC.categoria.id === Number(categActive.id)
+                      )
+                      .map((subC) => (
+                        <button
+                          className={`subCategoria ${
+                            subC === focusedSubcategory ? "focused" : ""
+                          }`}
+                          key={subC.nombre}
+                          onClick={() => {
+                            // Código a ejecutar cuando se hace clic en la subcategoría
+                            setFocusedSubcategory(subC);
+                            console.log(
+                              "Botón " + subC.nombre + " fue clickeado"
+                            );
+                          }}
+                        >
+                          {subC.nombre}
+                        </button>
+                      ))}
+                  </div>
+                )}
+            </div>
           </div>
         )}
       </div>
