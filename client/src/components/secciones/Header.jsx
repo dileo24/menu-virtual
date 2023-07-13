@@ -36,7 +36,9 @@ export default function Header({
     dispatch(getPedidos());
     dispatch(getSubcategorias());
     dispatch(getProductos());
+  }, [dispatch]);
 
+  useEffect(() => {
     scrollToActiveCategory();
 
     const handleStorageChange = () => {
@@ -50,7 +52,7 @@ export default function Header({
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch, currentSlide]);
+  }, [currentSlide]);
 
   let pedidosActuales = inputData.filter((idPed) =>
     pedidos.some(
