@@ -78,8 +78,12 @@ const Carrusel = () => {
 
   const handleSwipe = useCallback((index) => {
     setCurrentSlide(index);
-    // setDiapositiva(index);
-    window.scrollTo({ top: 0 }); // Desplazar hacia arriba
+    window.scrollTo({ top: 0 });
+  }, []);
+
+  const handleSearch = useCallback(() => {
+    console.log("pasando el current a 0");
+    setCurrentSlide(0);
   }, []);
 
   useEffect(() => {
@@ -93,10 +97,14 @@ const Carrusel = () => {
       swipe.style.maxHeight = `${menuContainerHeight}px`;
     }
   }, [currentSlide]);
-
+  console.log(currentSlide);
   return (
     <div>
-      <Header currentSlide={currentSlide} setCurrentSlide={setCurrentSlide} />
+      <Header
+        currentSlide={currentSlide}
+        setCurrentSlide={setCurrentSlide}
+        handleSearch={handleSearch}
+      />
       <div className="carruselContainer">
         <div className="carrusel-wrapper" ref={carruselRef}>
           {categorias.length && (

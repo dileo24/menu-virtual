@@ -12,7 +12,11 @@ import { getPedidos, getSubcategorias } from "../../redux/actions";
 import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
 
-export default function Header({ currentSlide, setCurrentSlide }) {
+export default function Header({
+  currentSlide,
+  setCurrentSlide,
+  handleSearch,
+}) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userActual = useSelector((state) => state.userActual);
@@ -44,7 +48,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [dispatch, currentSlide]);
+  }, [dispatch]);
 
   let pedidosActuales = inputData.filter((idPed) =>
     pedidos.some(
@@ -93,7 +97,6 @@ export default function Header({ currentSlide, setCurrentSlide }) {
       (prod) => prod.subcategoria && prod.subcategoria.id === subcategoria.id
     )
   );
-
   return (
     <header id="containerHeader" className="containerHeader">
       <button className="quickBites" onClick={reload}>
@@ -146,7 +149,7 @@ export default function Header({ currentSlide, setCurrentSlide }) {
               <Link to="/login" className="iniciarSesion">
                 <img src={login} alt="login" className="usuarioIcon" />
               </Link>
-              <Filtros />
+              <Filtros handleSearch={handleSearch} />
               <Link to="/historial" className="carrito">
                 <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
