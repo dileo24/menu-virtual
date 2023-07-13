@@ -61,56 +61,58 @@ export default function ModalLogin({ onClose }) {
           <span className="arrow-left"></span>
         </Link>
       </header>
-      <h1 className="">QuickBites</h1>
-      <div className="cardContainer">
-        <div className="cardLogin">
-          <form onSubmit={handleSubmit} className="formLogin">
-            <div className="email">
-              <label className="emailLabel" htmlFor="email">
-                Correo electrónico
-              </label>
-              <input
-                className="emailInput"
-                type="email"
-                name="email"
-                placeholder="Escribe tu email"
-                value={input.email}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-            </div>
-            <div className="clave">
-              <label className="claveLabel" htmlFor="clave">
-                Contraseña
-              </label>
-              <input
-                className="claveInput"
-                type={showPassword ? "text" : "password"}
-                name="clave"
-                placeholder="Escribe tu contraseña"
-                value={input.clave}
-                onChange={(e) => handleChange(e)}
-                required
-              />
-              {showPassword ? (
-                <RiEyeOffLine
-                  className="ojoCerrado"
-                  onClick={handleShowPassword}
+      <div className="marcaCardCont">
+        <h1 className="">QuickBites</h1>
+        <div className="cardContainer contenedor">
+          <div className="cardLogin ">
+            <form onSubmit={handleSubmit} className="formLogin">
+              <div className="email">
+                <label className="emailLabel" htmlFor="email">
+                  Correo electrónico
+                </label>
+                <input
+                  className="emailInput"
+                  type="email"
+                  name="email"
+                  placeholder="Escribe tu email"
+                  value={input.email}
+                  onChange={(e) => handleChange(e)}
+                  required
                 />
-              ) : (
-                <RiEyeLine
-                  className="ojoAbierto"
-                  onClick={handleShowPassword}
+              </div>
+              <div className="clave">
+                <label className="claveLabel" htmlFor="clave">
+                  Contraseña
+                </label>
+                <input
+                  className="claveInput"
+                  type={showPassword ? "text" : "password"}
+                  name="clave"
+                  placeholder="Escribe tu contraseña"
+                  value={input.clave}
+                  onChange={(e) => handleChange(e)}
+                  required
                 />
-              )}
+                {showPassword ? (
+                  <RiEyeOffLine
+                    className="ojoCerrado"
+                    onClick={handleShowPassword}
+                  />
+                ) : (
+                  <RiEyeLine
+                    className="ojoAbierto"
+                    onClick={handleShowPassword}
+                  />
+                )}
+              </div>
+              <button type="submit" className="submitBtn">
+                Iniciar Sesión
+              </button>
+            </form>
+            <div className="aviso">
+              <GrCircleAlert className="avisoIcon"></GrCircleAlert>
+              <p>Solo para uso administrativo</p>
             </div>
-            <button type="submit" className="submitBtn">
-              Iniciar Sesión
-            </button>
-          </form>
-          <div className="aviso">
-            <GrCircleAlert className="avisoIcon"></GrCircleAlert>
-            <p>Solo para uso administrativo</p>
           </div>
         </div>
       </div>
