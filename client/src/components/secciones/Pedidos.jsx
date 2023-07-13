@@ -35,9 +35,6 @@ export default function Pedidos() {
     dispatch(getEstados());
     dispatch(getTipoPago());
 
-    const pedidosButton = document.querySelector(".pedidos");
-    pedidosButton.classList.add("bg-teal-700");
-
     return () => {
       socket.disconnect();
     };

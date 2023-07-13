@@ -27,6 +27,32 @@ header {
       justify-content: space-between;
       padding: 0 6%;
       align-items: center;
+      .burgerBtn {
+        width: 8vw;
+        height: 8vw;
+        border: 1px solid $paragraph;
+        border-radius: 8px;
+        background-color: rgb(255, 255, 255);
+        @include center;
+      }
+      .navSide {
+        border: 1px solid red;
+        position: fixed;
+        z-index: 99999;
+        top: 0;
+        left: 0;
+        width: 50vw;
+        height: 100%;
+        background-color: white;
+        .cerrarBtn {
+          width: 8vw;
+          height: 8vw;
+          border: 1px solid $paragraph;
+          border-radius: 8px;
+          background-color: rgb(255, 255, 255);
+          @include center;
+        }
+      }
       .carritoIcon,
       .usuarioIcon {
         width: 10vw;
@@ -157,5 +183,49 @@ header {
         color: black;
       }
     }
+  }
+}
+
+.animate-right {
+  animation: animate-right 0.3s;
+  -webkit-animation: animate-right 0.3s;
+}
+
+@keyframes animate-right {
+  0% {
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+}
+
+.animate-left {
+  animation: slideLeft 0.3s;
+  -webkit-animation: slideLeft 0.3s;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
   }
 }
