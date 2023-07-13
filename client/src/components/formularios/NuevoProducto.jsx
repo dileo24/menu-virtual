@@ -51,11 +51,6 @@ export default function NuevoProducto() {
     setItemsExtra([]);
     setNumItemsExtra(0);
   }
-  useEffect(() => {
-    // Cambiarle el background del botón del Header
-    /* const nuevoProducto = document.querySelector(".nuevoProducto");
-    nuevoProducto.classList.add("bg-teal-700"); */
-  }, []);
 
   return (
     <FormProducto

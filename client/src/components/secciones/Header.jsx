@@ -28,6 +28,8 @@ export default function Header({
   const [inputData, setInputData] = useState([]);
   const categActive = document.querySelector(".active");
   const [focusedSubcategory, setFocusedSubcategory] = useState(null);
+  const [navSideOpen, setNavSideOpen] = useState(false);
+  const isHomePage = window.location.pathname === "/";
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -61,6 +63,7 @@ export default function Header({
   const cerrarSesion = () => {
     let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
     res && dispatch(cleanUserActual(userActual.data.id));
+    setNavSideOpen(false);
     navigate("/");
   };
 
@@ -97,54 +100,108 @@ export default function Header({
       (prod) => prod.subcategoria && prod.subcategoria.id === subcategoria.id
     )
   );
+
+  useEffect(() => {
+    if (navSideOpen) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+  }, [navSideOpen]);
+
+  const ocultarNavSide = () => {
+    const navSide = document.querySelector(".navSide");
+    if (navSide) {
+      navSide.classList.add("animate-left");
+      setTimeout(() => {
+        navSide.classList.remove("animate-left");
+        setNavSideOpen(false);
+      }, 200);
+    }
+  };
+
   return (
     <header id="containerHeader" className="containerHeader">
-      <button className="quickBites" onClick={reload}>
-        <h1 id="marca">QuickBites</h1>
-      </button>
+      {!userActual && (
+        <button className="quickBites" onClick={reload}>
+          <h1 id="marca">QuickBites</h1>
+        </button>
+      )}
       <div id="subHeader" className="subHeader">
         <nav id="nav" className="nav">
-          {userActual && userActual.data.RolId === 3 && (
-            <Link to="/pedidos" className="pedidos">
-              Pedidos
-            </Link>
-          )}
-          {userActual && userActual.data.RolId === 1 && (
-            <>
-              <Link to="/nuevoProducto" className="nuevoProducto">
-                Nuevo producto
-              </Link>
-              <Link to="/nuevaCateg" className="nuevaCateg">
-                Administrar categorias
-              </Link>
+          {/* Empleados: No tienen header, solo sección de pedidos */}
+          {/* {userActual && userActual.data.RolId === 3 && (
+            <div>
               <Link to="/pedidos" className="pedidos">
                 Pedidos
               </Link>
-              <Link to="/register" className="registrar">
-                Crear cuenta para empleado
-              </Link>
-              <Link to="/usuarios" className="administrar">
-                Administrar usuarios
-              </Link>
-              <Link to="/estadisticas" className="estadisticas">
-                Estadisticas
-              </Link>
-            </>
-          )}
-          {userActual && userActual.data.RolId === 2 && (
+              <button onClick={cerrarSesion} className="cerrarSesion">
+                Cerrar sesión
+              </button>
+            </div>
+          )} */}
+          {userActual && userActual.data.RolId <= 2 && (
             <>
-              <Link to="/nuevoProducto" className="nuevoProducto">
-                Nuevo producto
-              </Link>
-              <Link to="/nuevaCateg" className="nuevaCateg">
-                Administrar categorias
-              </Link>
-              <Link to="/pedidos" className="pedidos">
-                Pedidos
-              </Link>
+              <div
+                className="burgerBtn"
+                onClick={() =>
+                  !navSideOpen ? setNavSideOpen(true) : setNavSideOpen(false)
+                }
+              ></div>
+              <Filtros />
             </>
           )}
-          {!userActual ? (
+          {navSideOpen && (
+            <div className="navSide animate-right">
+              <div className="cerrarBtn" onClick={() => ocultarNavSide()}></div>
+              {/* Admin */}
+              {userActual && userActual.data.RolId === 2 && (
+                <>
+                  <Link to="/pedidos" className="pedidos">
+                    Pedidos
+                  </Link>
+                  <Link to="/nuevoProducto" className="nuevoProducto">
+                    Nuevo producto
+                  </Link>
+                  <Link to="/nuevaCateg" className="nuevaCateg">
+                    Administrar categorias
+                  </Link>
+                  <button onClick={cerrarSesion} className="cerrarSesion">
+                    Cerrar sesión
+                  </button>
+                </>
+              )}
+              {/* superAdmin */}
+              {userActual && userActual.data.RolId === 1 && (
+                <>
+                  <Link to="/pedidos" className="pedidos">
+                    Pedidos
+                  </Link>
+                  <Link to="/nuevoProducto" className="nuevoProducto">
+                    Nuevo producto
+                  </Link>
+                  <Link to="/nuevaCateg" className="nuevaCateg">
+                    Administrar categorias
+                  </Link>
+                  <Link to="/register" className="registrar">
+                    Crear cuenta para empleado
+                  </Link>
+                  <Link to="/usuarios" className="administrar">
+                    Administrar usuarios
+                  </Link>
+                  <Link to="/estadisticas" className="estadisticas">
+                    Estadisticas
+                  </Link>
+                  <button onClick={cerrarSesion} className="cerrarSesion">
+                    Cerrar sesión
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* Clientes */}
+          {!userActual && (
             <>
               <Link to="/login" className="iniciarSesion">
                 <img src={login} alt="login" className="usuarioIcon" />
@@ -161,75 +218,75 @@ export default function Header({
                 )}
               </Link>
             </>
-          ) : (
-            <button onClick={cerrarSesion} className="cerrarSesion">
-              Cerrar sesión
-            </button>
           )}
         </nav>
 
-        <div id="categorias">
-          <div
-            className="categorias"
-            ref={scrollableRef}
-            style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-          >
-            <button
-              className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
-              id="0"
-              onClick={() => {
-                setCurrentSlide(0);
-                window.scrollTo({ top: 0 });
-              }}
+        {isHomePage && (
+          <div id="categorias">
+            <div
+              className="categorias"
+              ref={scrollableRef}
+              style={{ overflowX: "auto", whiteSpace: "nowrap" }}
             >
-              Menú completo
-            </button>
-            {newCateg &&
-              newCateg.map((categ, index) => (
-                <React.Fragment key={categ.id}>
-                  <button
-                    className={`categoria ${
-                      currentSlide === index + 1 ? "active" : ""
-                    }`}
-                    id={categ.id}
-                    onClick={() => {
-                      setCurrentSlide(index + 1);
-                      window.scrollTo({ top: 0 });
-                    }}
-                  >
-                    {categ.nombre}
-                  </button>
-                </React.Fragment>
-              ))}
-          </div>
-
-          {categActive &&
-            newSubCategs.some(
-              (subC) => subC.categoria.id === Number(categActive.id)
-            ) && (
-              <div className="subCategorias">
-                {newSubCategs
-                  .filter(
-                    (subC) => subC.categoria.id === Number(categActive.id)
-                  )
-                  .map((subC) => (
+              <button
+                className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
+                id="0"
+                onClick={() => {
+                  setCurrentSlide(0);
+                  window.scrollTo({ top: 0 });
+                }}
+              >
+                Menú completo
+              </button>
+              {newCateg &&
+                newCateg.map((categ, index) => (
+                  <React.Fragment key={categ.id}>
                     <button
-                      className={`subCategoria ${
-                        subC === focusedSubcategory ? "focused" : ""
+                      className={`categoria ${
+                        currentSlide === index + 1 ? "active" : ""
                       }`}
-                      key={subC.nombre}
+                      id={categ.id}
                       onClick={() => {
-                        // Código a ejecutar cuando se hace clic en la subcategoría
-                        setFocusedSubcategory(subC);
-                        console.log("Botón " + subC.nombre + " fue clickeado");
+                        setCurrentSlide(index + 1);
+                        window.scrollTo({ top: 0 });
                       }}
                     >
-                      {subC.nombre}
+                      {categ.nombre}
                     </button>
-                  ))}
-              </div>
-            )}
-        </div>
+                  </React.Fragment>
+                ))}
+            </div>
+
+            {categActive &&
+              newSubCategs.some(
+                (subC) => subC.categoria.id === Number(categActive.id)
+              ) && (
+                <div className="subCategorias">
+                  {newSubCategs
+                    .filter(
+                      (subC) => subC.categoria.id === Number(categActive.id)
+                    )
+                    .map((subC) => (
+                      <button
+                        className={`subCategoria ${
+                          subC === focusedSubcategory ? "focused" : ""
+                        }`}
+                        key={subC.nombre}
+                        onClick={() => {
+                          // Código a ejecutar cuando se hace clic en la subcategoría
+                          setFocusedSubcategory(subC);
+                          console.log(
+                            "Botón " + subC.nombre + " fue clickeado"
+                          );
+                        }}
+                      >
+                        {subC.nombre}
+                      </button>
+                    ))}
+                </div>
+              )}
+          </div>
+        )}
       </div>
     </header>
   );

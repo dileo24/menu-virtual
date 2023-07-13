@@ -82,7 +82,6 @@ const Carrusel = () => {
   }, []);
 
   const handleSearch = useCallback(() => {
-    console.log("pasando el current a 0");
     setCurrentSlide(0);
   }, []);
 
@@ -97,7 +96,7 @@ const Carrusel = () => {
       swipe.style.maxHeight = `${menuContainerHeight}px`;
     }
   }, [currentSlide]);
-  console.log(currentSlide);
+
   return (
     <div>
       <Header
