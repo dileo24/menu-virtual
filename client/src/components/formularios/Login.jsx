@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getUserActual, getUsuarios } from "../../redux/actions";
+import { getUserActual, getUsuarios, searchXname } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta } from "../../helpers";
@@ -29,11 +29,18 @@ export default function ModalLogin({ onClose }) {
     e.preventDefault();
 
     const userEmail = usuarios.find((user) => user.email === input.email);
-
     if (userEmail) {
       dispatch(getUserActual({ email: input.email, clave: input.clave }))
         .then(() => {
-          navigate("/");
+          dispatch(searchXname(""));
+          switch (userEmail.Rol.id) {
+            case 3:
+              navigate("/pedidos");
+              break;
+
+            default:
+              navigate("/");
+          }
         })
         .catch(() => {
           mostrarAlerta("Contraseña incorrecta. Pruebe de nuevo", "error");
