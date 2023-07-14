@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { deleteProducto, getProductos } from "../../redux/actions";
 import Contador from "../recursos/Contador";
+import { HiOutlinePencil } from "react-icons/hi2";
+import { VscTrash } from "react-icons/vsc";
 
 export default function Menu({ categ, prodsBuscados }) {
   const userActual = useSelector((state) => state.userActual);
@@ -11,6 +13,7 @@ export default function Menu({ categ, prodsBuscados }) {
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
   prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
+  const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
 
   useEffect(() => {
     dispatch(getProductos());
@@ -21,11 +24,17 @@ export default function Menu({ categ, prodsBuscados }) {
       "¿Está seguro de querer borrar el producto?"
     );
     if (confirmarBorrado) {
-      dispatch(deleteProducto(id, token)).then(() => {
-        dispatch(getProductos());
-      });
+      setIndiceItemEliminar(id);
+
+      setTimeout(() => {
+        dispatch(deleteProducto(id, token)).then(() => {
+          dispatch(getProductos());
+        });
+        setIndiceItemEliminar(null);
+      }, 200);
     }
   };
+
   let ultimaCategoria = "";
 
   return (
@@ -64,7 +73,11 @@ export default function Menu({ categ, prodsBuscados }) {
                     {categ === "Almuerzo/Cena" && (
                       <h1 className="nombreCateg">{subcategoria.nombre}</h1>
                     )}
-                    <div className="cardProducto">
+                    <div
+                      className={`cardProducto ${
+                        id === indiceItemEliminar ? "animate-slide-right" : ""
+                      }`}
+                    >
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -73,15 +86,16 @@ export default function Menu({ categ, prodsBuscados }) {
                             <>
                               <Link
                                 to={`/editarProducto?id=${id}`}
-                                className=""
+                                className="iconContainer1"
                               >
-                                Editar
+                                <HiOutlinePencil className="editarIcon" />
                               </Link>
+
                               <button
                                 onClick={() => handleEliminarProducto(id)}
-                                className=""
+                                className="iconContainer2"
                               >
-                                Eliminar
+                                <VscTrash className="eliminarIcon" />
                               </button>
                             </>
                           ) : (
@@ -130,7 +144,11 @@ export default function Menu({ categ, prodsBuscados }) {
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div className="cardItem">
+                    <div
+                      className={`cardItem ${
+                        id === indiceItemEliminar ? "animate-slide-right" : ""
+                      }`}
+                    >
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -139,15 +157,15 @@ export default function Menu({ categ, prodsBuscados }) {
                             <>
                               <Link
                                 to={`/editarProducto?idItem=${id}`}
-                                className=""
+                                className="iconContainer1"
                               >
-                                Editar
+                                <HiOutlinePencil className="editarIcon" />
                               </Link>
                               <button
                                 onClick={() => handleEliminarProducto(id)}
-                                className=""
+                                className="iconContainer2"
                               >
-                                Eliminar
+                                <VscTrash className="eliminarIcon" />
                               </button>
                             </>
                           ) : (
@@ -172,9 +190,7 @@ export default function Menu({ categ, prodsBuscados }) {
         {/********************* ITEMS NO VISIBLES *********************/}
         <div>
           {userActual && (
-            <div className="cardsNoVisibles">
-              <p>Items no visibles</p>
-
+            <div>
               {productosState
                 .filter(
                   (producto) =>
@@ -183,62 +199,132 @@ export default function Menu({ categ, prodsBuscados }) {
                 .filter((prod) =>
                   categ !== "todas" ? prod.categoria.nombre === categ : prod
                 )
-                .map(
-                  ({
-                    nombre,
-                    descripcion,
-                    itemsExtra,
-                    id,
-                    cantidadPersonas,
-                    categoria,
-                  }) => {
-                    const esNuevaCategoria =
-                      categoria.nombre !== ultimaCategoria;
-                    if (esNuevaCategoria) {
-                      ultimaCategoria = categoria.nombre;
-                    }
-
-                    return (
-                      <div key={id}>
-                        {categ === "todas" && esNuevaCategoria && (
-                          <h1 className="nombreCateg">{categoria.nombre}</h1>
-                        )}
-                        <div className="cardItemNoVisible">
-                          <p className="nombre">{nombre}</p>
-                          <p className="descripcion">{descripcion}</p>
-                          <div className="precioAcciones">
-                            <div className="acciones">
-                              {userActual ? (
-                                <>
-                                  <Link
-                                    to={`/editarProducto?idItem=${id}`}
-                                    className=""
-                                  >
-                                    Editar
-                                  </Link>
-                                  <button
-                                    onClick={() => handleEliminarProducto(id)}
-                                    className=""
-                                  >
-                                    Eliminar
-                                  </button>
-                                </>
-                              ) : (
-                                <Contador
-                                  id={id}
-                                  nombre={nombre}
-                                  descripcion={descripcion}
-                                  itemsExtra={itemsExtra}
-                                  cantidadPersonas={cantidadPersonas}
-                                />
-                              )}
-                            </div>
+                .some((productoFiltrado) => {
+                  return (
+                    <div key={productoFiltrado.id}>
+                      {categ === "todas" && (
+                        <h1 className="nombreCateg">
+                          {productoFiltrado.categoria.nombre}
+                        </h1>
+                      )}
+                      <div className="cardItemNoVisible">
+                        <p className="nombre">{productoFiltrado.nombre}</p>
+                        <p className="descripcion">
+                          {productoFiltrado.descripcion}
+                        </p>
+                        <div className="precioAcciones">
+                          <div className="acciones">
+                            {userActual ? (
+                              <>
+                                <Link
+                                  to={`/editarProducto?idItem=${productoFiltrado.id}`}
+                                  className="iconContainer1"
+                                >
+                                  <HiOutlinePencil className="editarIcon" />
+                                </Link>
+                                <button
+                                  onClick={() =>
+                                    handleEliminarProducto(productoFiltrado.id)
+                                  }
+                                  className="iconContainer2"
+                                >
+                                  <VscTrash className="eliminarIcon" />
+                                </button>
+                              </>
+                            ) : (
+                              <Contador
+                                id={productoFiltrado.id}
+                                nombre={productoFiltrado.nombre}
+                                descripcion={productoFiltrado.descripcion}
+                                itemsExtra={productoFiltrado.itemsExtra}
+                                cantidadPersonas={
+                                  productoFiltrado.cantidadPersonas
+                                }
+                              />
+                            )}
                           </div>
                         </div>
                       </div>
-                    );
-                  }
-                )}
+                    </div>
+                  );
+                }) ? (
+                <div className="cardsNoVisibles">
+                  <p className="nombreCateg">Items no visibles</p>
+                  {productosState
+                    .filter(
+                      (producto) =>
+                        producto.listado === false && producto.item === true
+                    )
+                    .filter((prod) =>
+                      categ !== "todas" ? prod.categoria.nombre === categ : prod
+                    )
+                    .map(
+                      ({
+                        nombre,
+                        descripcion,
+                        itemsExtra,
+                        id,
+                        cantidadPersonas,
+                        categoria,
+                      }) => {
+                        const esNuevaCategoria =
+                          categoria.nombre !== ultimaCategoria;
+                        if (esNuevaCategoria) {
+                          ultimaCategoria = categoria.nombre;
+                        }
+                        return (
+                          <div key={id}>
+                            {categ === "todas" && esNuevaCategoria && (
+                              <h1 className="nombreCateg">
+                                {categoria.nombre}
+                              </h1>
+                            )}
+                            <div
+                              className={`cardItemNoVisible ${
+                                id === indiceItemEliminar
+                                  ? "animate-slide-right"
+                                  : ""
+                              }`}
+                            >
+                              <p className="nombre">{nombre}</p>
+                              <p className="descripcion">{descripcion}</p>
+                              <div className="precioAcciones">
+                                <div className="acciones">
+                                  {userActual ? (
+                                    <>
+                                      <Link
+                                        to={`/editarProducto?idItem=${id}`}
+                                        className="iconContainer1"
+                                      >
+                                        <HiOutlinePencil className="editarIcon" />
+                                      </Link>
+                                      <button
+                                        onClick={() =>
+                                          handleEliminarProducto(id)
+                                        }
+                                        className="iconContainer2"
+                                      >
+                                        <VscTrash className="eliminarIcon" />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <Contador
+                                      id={id}
+                                      nombre={nombre}
+                                      descripcion={descripcion}
+                                      itemsExtra={itemsExtra}
+                                      cantidadPersonas={cantidadPersonas}
+                                    />
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )}
+                </div>
+              ) : null}
             </div>
           )}
         </div>
