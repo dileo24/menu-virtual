@@ -32,8 +32,8 @@
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      font-size: 4.5vw;
-      font-weight: 700;
+      font-size: $subtSize;
+      font-weight: $titleWeight;
       background: none;
     }
     .cantidad,
@@ -54,7 +54,7 @@
       -o-border-radius: 100%;
     }
     .precio {
-      font-size: 4.5vw;
+      font-size: $subtSize;
     }
     &:focus {
       outline: none;
@@ -90,8 +90,8 @@
         padding: 5%;
         .titleHeader1 {
           margin-top: 4%;
-          font-weight: 700;
-          font-size: 6vw;
+          font-weight: $titleWeight;
+          font-size: $titleSize;
         }
         .ocultarBtn {
           width: 8vw;
@@ -150,12 +150,12 @@
             display: flex;
             justify-content: space-between;
             .nombre {
-              font-weight: 700;
+              font-weight: $titleWeight;
               font-size: 4vw;
               width: 60%;
             }
             .precio {
-              font-weight: 700;
+              font-weight: $titleWeight;
               color: $paragraph;
               font-size: 4vw;
             }
@@ -223,7 +223,7 @@
         @include center;
         margin: 10% 0;
         .vaciarBtn {
-          font-weight: 700;
+          font-weight: $titleWeight;
           font-size: 4vw;
           line-height: 1;
           // text-decoration: underline;
@@ -242,8 +242,8 @@
           .mesaTitle,
           .aclaracionesTitle,
           .pagoTitle {
-            font-weight: 700;
-            font-size: 4.5vw;
+            font-weight: $titleWeight;
+            font-size: $subtSize;
             margin-bottom: 3%;
           }
           .mesaInput {
@@ -253,7 +253,7 @@
             height: 2.6rem;
             text-align: center;
             background-color: white;
-            font-weight: 700;
+            font-weight: $titleWeight;
             font-size: 3.8vw;
             &::placeholder {
               color: grey;
@@ -266,14 +266,14 @@
             background-color: white;
             border: 1px solid grey;
             border-radius: 8px;
-            font-weight: 700;
+            font-weight: $titleWeight;
             font-size: 3.8vw;
             &::placeholder {
               color: grey;
             }
           }
           .pagoInput {
-            font-weight: 700;
+            font-weight: $titleWeight;
             font-size: 3.8vw;
             color: $paragraph;
             background-color: white;
@@ -332,7 +332,7 @@
       justify-content: space-between;
       padding: 2.5% 5% 20% 5%;
       font-size: 4.8vw;
-      font-weight: 700;
+      font-weight: $titleWeight;
       background-color: white;
     }
   }

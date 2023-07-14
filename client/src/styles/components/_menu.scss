@@ -4,8 +4,8 @@
   .cardsVisibles,
   .cardsNoVisibles {
     .nombreCateg {
-      font-weight: 700;
-      font-size: 5vw;
+      font-weight: $titleWeight;
+      font-size: $titleSize;
       margin-bottom: 5%;
       margin-top: 10%;
     }
@@ -20,7 +20,6 @@
       -o-border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       padding: 5%;
-      // margin-bottom: 5%;
       min-height: 12rem;
       &:first-child {
         margin-top: 5%;
@@ -33,8 +32,8 @@
       flex-direction: column;
       justify-content: space-between;
       .nombre {
-        font-weight: 700;
-        font-size: 4.5vw;
+        font-weight: $titleWeight;
+        font-size: $subtSize;
       }
       .descripcion {
         font-size: 4.2vw;
@@ -45,7 +44,7 @@
         flex-direction: row-reverse;
         margin-top: 10%;
         .precio {
-          font-weight: 700;
+          font-weight: $titleWeight;
           font-size: 5vw;
         }
       }

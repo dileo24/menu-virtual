@@ -11,6 +11,8 @@ import Filtros from "../recursos/Filtros";
 import { getPedidos, getSubcategorias } from "../../redux/actions";
 import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { GrClose } from "react-icons/gr";
 
 export default function Header({
   currentSlide,
@@ -118,7 +120,7 @@ export default function Header({
       setTimeout(() => {
         navSide.classList.remove("animate-left");
         setNavSideOpen(false);
-      }, 200);
+      }, 100);
     }
   };
 
@@ -145,58 +147,67 @@ export default function Header({
                   onClick={() =>
                     !navSideOpen ? setNavSideOpen(true) : setNavSideOpen(false)
                   }
-                ></div>
+                >
+                  <RxHamburgerMenu className="burgerIcon" />
+                </div>
               </>
             )}
             {navSideOpen && (
-              <div className="navSide animate-right">
-                <div
-                  className="cerrarBtn"
-                  onClick={() => ocultarNavSide()}
-                ></div>
-                {/* Admin */}
-                {userActual && userActual.data.RolId === 2 && (
-                  <>
-                    <Link to="/pedidos" className="pedidos">
-                      Pedidos
-                    </Link>
-                    <Link to="/nuevoProducto" className="nuevoProducto">
-                      Nuevo producto
-                    </Link>
-                    <Link to="/nuevaCateg" className="nuevaCateg">
-                      Administrar categorias
-                    </Link>
-                    <button onClick={cerrarSesion} className="cerrarSesion">
-                      Cerrar sesión
-                    </button>
-                  </>
-                )}
-                {/* superAdmin */}
-                {userActual && userActual.data.RolId === 1 && (
-                  <>
-                    <Link to="/pedidos" className="pedidos">
-                      Pedidos
-                    </Link>
-                    <Link to="/nuevoProducto" className="nuevoProducto">
-                      Nuevo producto
-                    </Link>
-                    <Link to="/nuevaCateg" className="nuevaCateg">
-                      Administrar categorias
-                    </Link>
-                    <Link to="/register" className="registrar">
-                      Crear cuenta para empleado
-                    </Link>
-                    <Link to="/usuarios" className="administrar">
-                      Administrar usuarios
-                    </Link>
-                    <Link to="/estadisticas" className="estadisticas">
-                      Estadisticas
-                    </Link>
-                    <button onClick={cerrarSesion} className="cerrarSesion">
-                      Cerrar sesión
-                    </button>
-                  </>
-                )}
+              <div className="navSideCont">
+                <div className="navSide animate-right">
+                  <div className="navSideHeader">
+                    <div className="cerrarBtn" onClick={() => ocultarNavSide()}>
+                      <GrClose className="closeIcon" />
+                    </div>
+                  </div>
+                  {/* Admin */}
+                  {userActual && userActual.data.RolId === 2 && (
+                    <div className="navSideContent">
+                      <p className="navSideTitles">Principal</p>
+                      <Link to="/pedidos" className="pedidos">
+                        Pedidos
+                      </Link>
+                      <p className="navSideTitles">Administrar</p>
+                      <Link to="/nuevoProducto" className="nuevoProducto">
+                        Menú
+                      </Link>
+                      <Link to="/nuevaCateg" className="nuevaCateg">
+                        Categorias
+                      </Link>
+                      <button onClick={cerrarSesion} className="cerrarSesion">
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  )}
+                  {/* superAdmin */}
+                  {userActual && userActual.data.RolId === 1 && (
+                    <div className="navSideContent">
+                      <p className="navSideTitles">Principal</p>
+                      <Link to="/pedidos" className="pedidos">
+                        Pedidos
+                      </Link>
+                      <p className="navSideTitles">Administrar</p>
+                      <Link to="/nuevoProducto" className="nuevoProducto">
+                        Menú
+                      </Link>
+                      <Link to="/nuevaCateg" className="nuevaCateg">
+                        Categorias
+                      </Link>
+                      <Link to="/register" className="registrar">
+                        Crear cuenta para empleado
+                      </Link>
+                      <Link to="/usuarios" className="administrar">
+                        Administrar usuarios
+                      </Link>
+                      <Link to="/estadisticas" className="estadisticas">
+                        Estadisticas
+                      </Link>
+                      <button onClick={cerrarSesion} className="cerrarSesion">
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             )}
           </div>

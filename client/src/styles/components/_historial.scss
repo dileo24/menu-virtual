@@ -11,8 +11,8 @@
     padding: 5%;
     .titleHeader1 {
       margin-top: 4%;
-      font-weight: 700;
-      font-size: 6vw;
+      font-weight: $titleWeight;
+      font-size: $titleSize;
     }
     .ocultarBtn {
       width: 8vw;
@@ -64,7 +64,7 @@
         flex-direction: column;
         width: 80%;
         .nombre {
-          font-weight: 700;
+          font-weight: $titleWeight;
           font-size: 4vw;
           width: 60%;
         }
@@ -92,7 +92,7 @@
         }
       }
       .precio {
-        font-weight: 700;
+        font-weight: $titleWeight;
         color: $paragraph;
         font-size: 4vw;
       }

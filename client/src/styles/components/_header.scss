@@ -9,7 +9,7 @@ header {
     }
     h1 {
       padding-top: 1vh;
-      font-size: 6vw;
+      font-size: $titleSize;
       color: $naranja;
       font-weight: 800;
     }
@@ -32,23 +32,50 @@ header {
         border-radius: 8px;
         background-color: rgb(255, 255, 255);
         @include center;
+        .burgerIcon {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
       }
-      .navSide {
-        border: 1px solid red;
+      .navSideCont {
+        background-color: rgba(0, 0, 0, 0.5);
         position: fixed;
         z-index: 99999;
         top: 0;
         left: 0;
-        width: 70vw;
+        width: 100vw;
         height: 100%;
-        background-color: white;
-        .cerrarBtn {
-          width: 8vw;
-          height: 8vw;
-          border: 1px solid $paragraph;
-          border-radius: 8px;
-          background-color: rgb(255, 255, 255);
-          @include center;
+        .navSide {
+          background-color: white;
+          width: 70vw;
+          height: 100%;
+          .navSideHeader {
+            padding: 5%;
+            display: flex;
+            justify-content: end;
+            .cerrarBtn {
+              width: 8vw;
+              height: 8vw;
+              border: 1px solid $paragraph;
+              border-radius: 8px;
+              background-color: rgb(255, 255, 255);
+              @include center;
+              .closeIcon {
+                width: 1.2rem;
+                height: 1.2rem;
+              }
+            }
+          }
+          .navSideContent {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            .navSideTitles {
+            }
+            .cerrarSesion {
+              text-align: start;
+            }
+          }
         }
       }
     }
@@ -59,8 +86,8 @@ header {
       padding-top: 0;
 
       h1 {
-        font-weight: 700;
-        font-size: 6vw;
+        font-weight: $titleWeight;
+        font-size: $titleSize;
         padding-bottom: 5%;
       }
     }
@@ -112,7 +139,7 @@ header {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border-top: 1px solid rgba(0, 0, 0, 0.3);
       width: 100vw;
-      font-size: 4.5vw;
+      font-size: $subtSize;
       padding: 0 7%;
       height: 15vw;
       overflow-x: auto;
@@ -146,7 +173,7 @@ header {
         outline: none;
       }
       .active {
-        font-weight: 700;
+        font-weight: $titleWeight;
         border-bottom: 3.5px solid $naranja;
         transition: all 0.1s ease;
         -webkit-transition: all 0.1s ease;
@@ -166,7 +193,7 @@ header {
     align-items: center;
     background-color: white;
     width: 100vw;
-    font-size: 4.5vw;
+    font-size: $subtSize;
     overflow-x: auto;
     white-space: nowrap;
     height: 12vw;
@@ -210,8 +237,8 @@ header {
 }
 
 .animate-right {
-  animation: animate-right 0.3s;
-  -webkit-animation: animate-right 0.3s;
+  animation: animate-right 0.2s;
+  -webkit-animation: animate-right 0.2s;
 }
 
 @keyframes animate-right {
@@ -232,8 +259,8 @@ header {
 }
 
 .animate-left {
-  animation: slideLeft 0.3s;
-  -webkit-animation: slideLeft 0.3s;
+  animation: slideLeft 0.2s;
+  -webkit-animation: slideLeft 0.2s;
 }
 
 @keyframes slideLeft {

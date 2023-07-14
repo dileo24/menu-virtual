@@ -96,7 +96,7 @@
             margin-top: 5%;
             width: 100%;
             padding: 3.5% 0;
-            font-weight: 700;
+            font-weight: $titleWeight;
             background-color: $naranja;
             border-radius: 8px;
             -webkit-border-radius: 8px;
@@ -114,7 +114,7 @@
             margin-right: 2.5%;
           }
           p {
-            font-weight: 700;
+            font-weight: $titleWeight;
             font-size: 3.8vw;
           }
         }
