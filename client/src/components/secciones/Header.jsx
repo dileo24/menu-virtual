@@ -307,6 +307,7 @@ export default function Header({
                         Estadisticas
                       </Link>
                       <button onClick={cerrarSesion} className="cerrarSesion">
+                        <RxExit className="linkIcon" />
                         Cerrar sesión
                       </button>
                     </div>

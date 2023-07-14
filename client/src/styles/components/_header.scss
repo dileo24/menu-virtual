@@ -73,17 +73,17 @@ header {
             padding: 5%;
 
             .navSideTitles {
-              font-size: $subtSize;
+              font-size: 4vw;
               font-weight: $titleWeight;
               color: $paragraph;
-              margin-top: 8vw;
+              margin-top: 6vw;
             }
             .links {
-              font-size: $subtSize;
+              font-size: 4vw;
               font-weight: $titleWeight;
-              padding: 5%;
+              padding: 3vw;
               width: 100%;
-              margin-top: 6vw;
+              margin-top: 2vw;
               border-radius: 8px;
               -webkit-border-radius: 8px;
               -moz-border-radius: 8px;
@@ -109,11 +109,11 @@ header {
               position: absolute;
               bottom: 8vw;
               text-align: start;
-              font-size: $subtSize;
+              font-size: 4vw;
               color: red;
               display: flex;
               align-items: center;
-              padding-left: 5%;
+              padding-left: 3vw;
               .linkIcon {
                 margin-right: 2vw;
               }
