@@ -70,10 +70,53 @@ header {
             display: flex;
             flex-direction: column;
             justify-content: start;
+            padding: 5%;
+
             .navSideTitles {
+              font-size: $subtSize;
+              font-weight: $titleWeight;
+              color: $paragraph;
+              margin-top: 8vw;
+            }
+            .links {
+              font-size: $subtSize;
+              font-weight: $titleWeight;
+              padding: 5%;
+              width: 100%;
+              margin-top: 6vw;
+              border-radius: 8px;
+              -webkit-border-radius: 8px;
+              -moz-border-radius: 8px;
+              -ms-border-radius: 8px;
+              -o-border-radius: 8px;
+              display: flex;
+              align-items: center;
+              &.linkActual {
+                background-color: $naranja;
+              }
+              .linkIconPedidos {
+                filter: saturate(0);
+                filter: brightness(0);
+                width: 1.2rem;
+                height: 1.2rem;
+                margin-right: 2vw;
+              }
+              .linkIcon {
+                margin-right: 2vw;
+              }
             }
             .cerrarSesion {
+              position: absolute;
+              bottom: 8vw;
               text-align: start;
+              font-size: $subtSize;
+              color: red;
+              display: flex;
+              align-items: center;
+              padding-left: 5%;
+              .linkIcon {
+                margin-right: 2vw;
+              }
             }
           }
         }

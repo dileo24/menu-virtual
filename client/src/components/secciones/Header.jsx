@@ -13,6 +13,9 @@ import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrClose } from "react-icons/gr";
+import { CiForkAndKnife, CiFolderOn } from "react-icons/ci";
+import { RxExit } from "react-icons/rx";
+import { BiFoodMenu } from "react-icons/bi";
 
 export default function Header({
   currentSlide,
@@ -164,17 +167,57 @@ export default function Header({
                   {userActual && userActual.data.RolId === 2 && (
                     <div className="navSideContent">
                       <p className="navSideTitles">Principal</p>
-                      <Link to="/pedidos" className="pedidos">
+
+                      <Link
+                        to="/pedidos"
+                        className={`pedidos links ${
+                          window.location.href.includes("pedidos")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src={bandeja}
+                          alt="bandeja"
+                          className="linkIconPedidos"
+                        />
                         Pedidos
                       </Link>
+
                       <p className="navSideTitles">Administrar</p>
-                      <Link to="/nuevoProducto" className="nuevoProducto">
+                      <Link
+                        to="/"
+                        className={`links ${
+                          window.location.pathname === "/" ? "linkActual" : ""
+                        }`}
+                      >
+                        <BiFoodMenu className="linkIcon" />
                         Menú
                       </Link>
-                      <Link to="/nuevaCateg" className="nuevaCateg">
+                      <Link
+                        to="/nuevoProducto"
+                        className={`nuevoProducto links ${
+                          window.location.href.includes("nuevoProducto")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <CiForkAndKnife className="linkIcon" />
+                        Nuevo Producto
+                      </Link>
+                      <Link
+                        to="/nuevaCateg"
+                        className={`nuevaCateg links ${
+                          window.location.href.includes("nuevaCateg")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <CiFolderOn className="linkIcon" />
                         Categorias
                       </Link>
                       <button onClick={cerrarSesion} className="cerrarSesion">
+                        <RxExit className="linkIcon" />
                         Cerrar sesión
                       </button>
                     </div>
