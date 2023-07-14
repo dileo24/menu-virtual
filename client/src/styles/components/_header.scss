@@ -45,6 +45,7 @@ header {
         left: 0;
         width: 100vw;
         height: 100%;
+        display: flex;
         .navSide {
           background-color: white;
           width: 70vw;
@@ -71,7 +72,34 @@ header {
             flex-direction: column;
             justify-content: start;
             padding: 5%;
-
+            padding-top: 0;
+            .userData {
+              padding-bottom: 8vw;
+              margin-bottom: 2vw;
+              border-bottom: 1px solid rgb(187, 187, 187);
+              .userNameRol {
+                width: 100%;
+                font-size: 4vw;
+                font-weight: $titleWeight;
+                color: $paragraph;
+                display: flex;
+                line-height: 1.2;
+                flex-wrap: wrap;
+                p {
+                  margin-right: 1.5vw;
+                }
+                .rol {
+                  line-height: 1.2;
+                  color: rgb(170, 170, 170);
+                  font-weight: 500;
+                }
+              }
+              .userEmail {
+                margin-top: 3vw;
+                line-height: 1;
+                font-size: 4vw;
+              }
+            }
             .navSideTitles {
               font-size: 4vw;
               font-weight: $titleWeight;
@@ -107,7 +135,7 @@ header {
             }
             .cerrarSesion {
               position: absolute;
-              bottom: 8vw;
+              bottom: 5vw;
               text-align: start;
               font-size: 4vw;
               color: red;
@@ -119,6 +147,11 @@ header {
               }
             }
           }
+        }
+        .navSideOut {
+          right: 0;
+          width: 30vw;
+          height: 100%;
         }
       }
     }

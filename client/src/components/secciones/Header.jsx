@@ -146,6 +146,7 @@ export default function Header({
                 Cerrar sesión
               </button>
             )}
+            {/* Admins y superAdmin */}
             {userActual && userActual.data.RolId <= 2 && (
               <>
                 <div
@@ -166,68 +167,19 @@ export default function Header({
                       <GrClose className="closeIcon" />
                     </div>
                   </div>
-                  {/* Admin */}
-                  {userActual && userActual.data.RolId === 2 && (
-                    <div className="navSideContent">
-                      <p className="navSideTitles">Principal</p>
-
-                      <Link
-                        to="/pedidos"
-                        className={`pedidos links ${
-                          window.location.href.includes("pedidos")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <img
-                          src={bandeja}
-                          alt="bandeja"
-                          className="linkIconPedidos"
-                        />
-                        Pedidos
-                      </Link>
-
-                      <p className="navSideTitles">Administrar</p>
-                      <Link
-                        to="/"
-                        className={`links ${
-                          window.location.pathname === "/" ? "linkActual" : ""
-                        }`}
-                      >
-                        <BiFoodMenu className="linkIcon" />
-                        Menú
-                      </Link>
-                      <Link
-                        to="/nuevoProducto"
-                        className={`nuevoProducto links ${
-                          window.location.href.includes("nuevoProducto")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <CiForkAndKnife className="linkIcon" />
-                        Nuevo Producto
-                      </Link>
-                      <Link
-                        to="/nuevaCateg"
-                        className={`nuevaCateg links ${
-                          window.location.href.includes("nuevaCateg")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <BsTags className="linkIcon" />
-                        Categorias
-                      </Link>
-                      <button onClick={cerrarSesion} className="cerrarSesion">
-                        <RxExit className="linkIcon" />
-                        Cerrar sesión
-                      </button>
-                    </div>
-                  )}
                   {/* superAdmin */}
                   {userActual && userActual.data.RolId === 1 && (
                     <div className="navSideContent">
+                      <div className="userData">
+                        <div className="userNameRol">
+                          <p>
+                            {userActual.data.nombre} {userActual.data.apellido}
+                          </p>
+                          <div className="rol">• Súper Admin</div>
+                        </div>
+                        <p className="userEmail">{userActual.data.email}</p>
+                      </div>
+
                       <p className="navSideTitles">Principal</p>
 
                       <Link
@@ -312,7 +264,81 @@ export default function Header({
                       </button>
                     </div>
                   )}
+
+                  {/* Admin */}
+                  {userActual && userActual.data.RolId === 2 && (
+                    <div className="navSideContent">
+                      <div className="userData">
+                        <div className="userNameRol">
+                          <p>
+                            {userActual.data.nombre} {userActual.data.apellido}
+                          </p>
+                          <div className="rol">• Admin</div>
+                        </div>
+                        <p className="userEmail">{userActual.data.email}</p>
+                      </div>
+
+                      <p className="navSideTitles">Principal</p>
+
+                      <Link
+                        to="/pedidos"
+                        className={`pedidos links ${
+                          window.location.href.includes("pedidos")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src={bandeja}
+                          alt="bandeja"
+                          className="linkIconPedidos"
+                        />
+                        Pedidos
+                      </Link>
+
+                      <p className="navSideTitles">Administrar</p>
+                      <Link
+                        to="/"
+                        className={`links ${
+                          window.location.pathname === "/" ? "linkActual" : ""
+                        }`}
+                      >
+                        <BiFoodMenu className="linkIcon" />
+                        Menú
+                      </Link>
+                      <Link
+                        to="/nuevoProducto"
+                        className={`nuevoProducto links ${
+                          window.location.href.includes("nuevoProducto")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <CiForkAndKnife className="linkIcon" />
+                        Nuevo Producto
+                      </Link>
+                      <Link
+                        to="/nuevaCateg"
+                        className={`nuevaCateg links ${
+                          window.location.href.includes("nuevaCateg")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <BsTags className="linkIcon" />
+                        Categorias
+                      </Link>
+                      <button onClick={cerrarSesion} className="cerrarSesion">
+                        <RxExit className="linkIcon" />
+                        Cerrar sesión
+                      </button>
+                    </div>
+                  )}
                 </div>
+                <div
+                  className="navSideOut"
+                  onClick={() => ocultarNavSide()}
+                ></div>
               </div>
             )}
           </div>
