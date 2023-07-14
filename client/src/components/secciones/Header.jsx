@@ -13,9 +13,12 @@ import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { GrClose } from "react-icons/gr";
-import { CiForkAndKnife, CiFolderOn } from "react-icons/ci";
+import { CiForkAndKnife } from "react-icons/ci";
+import { BsTags } from "react-icons/bs";
 import { RxExit } from "react-icons/rx";
 import { BiFoodMenu } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
+import { IoIosStats } from "react-icons/io";
 
 export default function Header({
   currentSlide,
@@ -213,7 +216,7 @@ export default function Header({
                             : ""
                         }`}
                       >
-                        <CiFolderOn className="linkIcon" />
+                        <BsTags className="linkIcon" />
                         Categorias
                       </Link>
                       <button onClick={cerrarSesion} className="cerrarSesion">
@@ -226,23 +229,81 @@ export default function Header({
                   {userActual && userActual.data.RolId === 1 && (
                     <div className="navSideContent">
                       <p className="navSideTitles">Principal</p>
-                      <Link to="/pedidos" className="pedidos">
+
+                      <Link
+                        to="/pedidos"
+                        className={`pedidos links ${
+                          window.location.href.includes("pedidos")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <img
+                          src={bandeja}
+                          alt="bandeja"
+                          className="linkIconPedidos"
+                        />
                         Pedidos
                       </Link>
+
                       <p className="navSideTitles">Administrar</p>
-                      <Link to="/nuevoProducto" className="nuevoProducto">
+                      <Link
+                        to="/"
+                        className={`links ${
+                          window.location.pathname === "/" ? "linkActual" : ""
+                        }`}
+                      >
+                        <BiFoodMenu className="linkIcon" />
                         Menú
                       </Link>
-                      <Link to="/nuevaCateg" className="nuevaCateg">
+                      <Link
+                        to="/nuevoProducto"
+                        className={`nuevoProducto links ${
+                          window.location.href.includes("nuevoProducto")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <CiForkAndKnife className="linkIcon" />
+                        Nuevo Producto
+                      </Link>
+                      <Link
+                        to="/nuevaCateg"
+                        className={`nuevaCateg links ${
+                          window.location.href.includes("nuevaCateg")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <BsTags className="linkIcon" />
                         Categorias
                       </Link>
-                      <Link to="/register" className="registrar">
+                      {/* <Link to="/register" className="registrar">
                         Crear cuenta para empleado
+                      </Link> */}
+                      <Link
+                        to="/usuarios"
+                        className={`usuarios links ${
+                          window.location.href.includes("usuarios")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <FiUsers className="linkIcon" />
+                        Usuarios
                       </Link>
-                      <Link to="/usuarios" className="administrar">
-                        Administrar usuarios
-                      </Link>
-                      <Link to="/estadisticas" className="estadisticas">
+
+                      <p className="navSideTitles">Reportes</p>
+
+                      <Link
+                        to="/estadisticas"
+                        className={`estadisticas links ${
+                          window.location.href.includes("estadisticas")
+                            ? "linkActual"
+                            : ""
+                        }`}
+                      >
+                        <IoIosStats className="linkIcon" />
                         Estadisticas
                       </Link>
                       <button onClick={cerrarSesion} className="cerrarSesion">
