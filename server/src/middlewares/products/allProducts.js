@@ -3,8 +3,8 @@ const { Producto, Categoria, Subcategoria } = require("../../db");
 const allProducts = async (req, res, next) => {
   try {
     req.body.allProducts = await Producto.findAll({
-      order: [["id", "asc"]],
-      attributes: { exclude: ["categoriaID", "subcategoriaID"] },
+      order: [["categoriaID", "asc"]],
+      attributes: { exclude: ["subcategoriaID"] },
       include: [
         { model: Categoria, as: "categoria" },
         { model: Subcategoria, as: "subcategoria" },

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategorias, searchXname } from "../../redux/actions";
-// import { FaSistrix } from "react-icons/fa";
 
-export default function Filtros() {
+export default function Filtros({ handleSearch }) {
   const [state, setState] = useState("");
   const dispatch = useDispatch();
 
@@ -18,6 +17,7 @@ export default function Filtros() {
   const limpiarState = () => {
     if (state !== "") {
       dispatch(searchXname(state));
+      handleSearch();
       setState("");
     }
   };
@@ -38,23 +38,7 @@ export default function Filtros() {
           onKeyDown={handleKeyDown}
           value={state}
         />
-        {/* <button onClick={limpiarState}>
-          <FaSistrix className="lupa" />
-        </button> */}
       </div>
-      {/* <button style={{ backgroundColor: "grey" }} onClick={handleRecargar}>
-        Limpiar filtros/búsquedas
-      </button>
-      <select value={filtroCategoria} onChange={(e) => handleFilterCateg(e)}>
-        <option value="todas" hidden>
-          Todos los Productos
-        </option>
-        {categorias.map((categ) => (
-          <option key={categ.id} value={categ.nombre}>
-            {categ.nombre}
-          </option>
-        ))}
-      </select> */}
     </div>
   );
 }

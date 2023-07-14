@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   eliminarItemCarrito,
@@ -14,6 +14,7 @@ import { AiOutlineBank } from "react-icons/ai";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { AiOutlineCreditCard } from "react-icons/ai";
 import mercadoPago from "../../multmedia/mercadopago.svg";
+import { io } from "socket.io-client";
 
 export default function HacerPedido() {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -23,6 +24,7 @@ export default function HacerPedido() {
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
+  const [socket, setSocket] = useState(null);
 
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
@@ -32,7 +34,7 @@ export default function HacerPedido() {
   const dispatch = useDispatch();
   const [MostrarMenu, setMostrarMenu] = useState(false);
   const [MostrarMenu2, setMostrarMenu2] = useState(false);
-  const [verOcultar, setVerOcultar] = useState("Ver mi pedido");
+  const [verOcultar, setVerOcultar] = useState("Mi Pedido");
   const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
 
@@ -48,9 +50,7 @@ export default function HacerPedido() {
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
   let id = pedidos.length + 1;
-  const itemsDelCarrito =
-    carrito &&
-    carrito.map((prod) => prod.itemsExtra && prod.itemsExtra.join(", "));
+  const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? [["vacio"]]);
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -59,7 +59,7 @@ export default function HacerPedido() {
     aclaraciones: "",
     tipoPagoID: "",
     estadoID: "1",
-    itemsExtra: itemsDelCarrito.length > 0 ? itemsDelCarrito : [],
+    itemsExtra: itemsDelCarrito,
     creacionFecha: formattedDate,
     creacionHora: formattedTime,
   });
@@ -69,28 +69,13 @@ export default function HacerPedido() {
   }, [dispatch]);
 
   useEffect(() => {
-    const precios = carrito.map((carritoItem) => carritoItem.precio);
-    setPreciosArray(precios);
+    const socket = io("http://localhost:3001");
+    setSocket(socket);
 
-    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
-    setNombresProdArray(nombres);
-
-    setInput((prevInput) => ({
-      ...prevInput,
-      productos: nombres,
-      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    }));
-
-    if (MostrarMenu && carrito.length === 0) {
-      handleOcultarMenu1();
-    }
-
-    if (MostrarMenu) {
-      document.body.classList.add("noScroll");
-    } else {
-      document.body.classList.remove("noScroll");
-    }
-  }, [carrito, MostrarMenu]);
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const handleEliminarItemCarrito = (id, index) => {
     setIndiceItemEliminar(index);
@@ -115,7 +100,7 @@ export default function HacerPedido() {
         alert("Tu carrito está vacío");
       }
     }
-    if (verOcultar === "Ver mi pedido") {
+    if (verOcultar === "Mi Pedido") {
       setVerOcultar("Siguiente");
     }
   };
@@ -128,20 +113,42 @@ export default function HacerPedido() {
     setVerOcultar("Siguiente");
   };
 
-  const handleOcultarMenu1 = () => {
+  const handleOcultarMenu1 = useCallback(() => {
     const desplegable1 = document.querySelector(".desplegable1");
     desplegable1.classList.add("animate-slide-down");
     setTimeout(() => {
       desplegable1.classList.remove("animate-slide-down");
       setMostrarMenu(!MostrarMenu);
-      if (verOcultar === "Ver mi pedido") {
+      if (verOcultar === "Mi Pedido") {
         setVerOcultar("Siguiente");
       } else {
-        setVerOcultar("Ver mi pedido");
+        setVerOcultar("Mi Pedido");
       }
     }, 200);
-  };
+  }, [MostrarMenu, verOcultar]);
+  useEffect(() => {
+    const precios = carrito.map((carritoItem) => carritoItem.precio);
+    setPreciosArray(precios);
 
+    const nombres = carrito.map((carritoItem) => carritoItem.nombre);
+    setNombresProdArray(nombres);
+
+    setInput((prevInput) => ({
+      ...prevInput,
+      productos: nombres,
+      precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
+    }));
+
+    if (MostrarMenu && carrito.length === 0) {
+      handleOcultarMenu1();
+    }
+
+    if (MostrarMenu) {
+      document.body.classList.add("noScroll");
+    } else {
+      document.body.classList.remove("noScroll");
+    }
+  }, [carrito, MostrarMenu, handleOcultarMenu1]);
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -156,6 +163,9 @@ export default function HacerPedido() {
       });
     }
   };
+  /* console.log(input.itemsExtra);
+  console.log(input);
+  console.log(itemsDelCarrito); */
 
   const navigate = useNavigate();
   const handleSubmitForm = (e) => {
@@ -181,6 +191,10 @@ export default function HacerPedido() {
       // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
       console.log(input);
+
+      if (socket) {
+        socket.emit("nuevoPedido", input);
+      }
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -229,12 +243,12 @@ export default function HacerPedido() {
         {MostrarMenu && (
           <div className="desplegable1 animate-slide-up">
             <div className="scrollable-content">
-              <div className="header1">
+              <header className="header1">
                 <div className="ocultarBtn" onClick={handleOcultarMenu1}>
                   <span className="arrow-down"></span>
                 </div>
                 <div className="titleHeader1">Mi Pedido</div>
-              </div>
+              </header>
               {carrito.length > 0 && (
                 <>
                   {carrito.map((prod, index) => (
@@ -306,12 +320,12 @@ export default function HacerPedido() {
         {MostrarMenu2 && (
           <div className="desplegable2">
             <div className="scrollable-content">
-              <div className="header1">
+              <header className="header1">
                 <div className="ocultarBtn" onClick={handleMostrarMenu1}>
                   <span className="arrow-left"></span>
                 </div>
                 <div className="titleHeader1">Completar mi pedido</div>
-              </div>
+              </header>
 
               <form
                 id="formulario"
@@ -321,7 +335,7 @@ export default function HacerPedido() {
                 {/* ****** MESA ****** */}
                 <div className="mesa">
                   <label className="mesaTitle" htmlFor="mesa">
-                    Indique su número de mesa
+                    Número de mesa
                   </label>
                   <input
                     className="mesaInput"

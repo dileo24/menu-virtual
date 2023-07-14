@@ -16,15 +16,16 @@ const createProduct = async (req, res, next) => {
       mostrarPersonaItem,
       mostrarOtroCheckbox,
     } = req.body;
+
     if (typeof nombre !== "string" || nombre === undefined) {
       throw new Error(
-        `El Nombre del Producto debe ser unicamente texto, y has insertado ${
-          nombre === undefined ? "texto vacio" : nombre
+        `El Nombre del Producto debe ser únicamente texto, y has insertado ${
+          nombre === undefined ? "texto vacío" : nombre
         }`
       );
     }
+
     const categoria = await Categoria.findByPk(categoriaID);
-    const subcategoria = await Subcategoria.findByPk(subcategoriaID);
     const newProduct = await Producto.create({
       nombre,
       descripcion,
@@ -37,16 +38,22 @@ const createProduct = async (req, res, next) => {
       mostrarPersonaItem,
       mostrarOtroCheckbox,
     });
+
     await categoria.addProducto(newProduct);
-    await subcategoria.addProducto(newProduct);
+
+    if (subcategoriaID) {
+      const subcategoria = await Subcategoria.findByPk(subcategoriaID);
+      await subcategoria.addProducto(newProduct);
+    }
+
     req.body.resultado = {
       status: "200",
-      respuesta: `el Producto ${nombre} se ha creado exitosamente`,
+      respuesta: `El producto ${nombre} se ha creado exitosamente`,
     };
 
     next();
   } catch (err) {
-    console.log("error en createProduct");
+    console.log("Error en createProduct");
     console.log(err.message);
     req.body.resultado = { status: "404", respuesta: err.message };
     console.log(req.body.resultado);

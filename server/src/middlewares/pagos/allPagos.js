@@ -6,7 +6,6 @@ const allPagos = async (req, res, next) => {
       include: Pedido,
       order: [["id", "ASC"]],
     });
-    console.log("All pagos");
     next();
   } catch (err) {
     console.log("error en allPagos");

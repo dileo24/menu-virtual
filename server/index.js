@@ -17,29 +17,25 @@ const http = require("http");
 const socketIO = require("socket.io");
 
 app.use(cors());
-const server = http.createServer(app); 
+const server = http.createServer(app);
 const io = socketIO(server, {
   cors: {
-    origin: "*", 
+    origin: "*",
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
 
 io.on("connection", (socket) => {
-  console.log("Cliente conectado");
+  socket.on("nuevoPedido", (pedido) => {
+    socket.broadcast.emit("nuevoPedidoRecibido", pedido);
+  });
 
-  // eventos desde el cliente
   socket.on("cambiarEstadoPedido", (pedidoId, nuevoEstadoId) => {
-    
-    // nuevo estado
     io.emit("estadoPedidoActualizado", pedidoId, nuevoEstadoId);
   });
 
-  // desconexión de un cliente
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado");
-  });
+  socket.on("disconnect", () => {});
 });
 
 conn.sync({ force: true }).then(async () => {

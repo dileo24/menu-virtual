@@ -14,13 +14,6 @@ export default function Usuarios() {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUsuarios());
-    // Cambiarle el background del botón del Header
-    const administrar = document.querySelector(".administrar");
-    administrar.classList.add("bg-teal-700");
-  }, [dispatch]);
-
   const handleEliminar = (id) => {
     dispatch(deleteUsuario(id, userActual.tokenSession));
   };

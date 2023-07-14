@@ -1,0 +1,124 @@
+.loginContainer {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(247, 247, 247);
+
+  .header1 {
+    display: flex;
+    align-items: flex-start;
+    height: auto;
+    width: 100vw;
+    padding-left: 5%;
+    height: 8.5vh;
+    .ocultarBtn {
+      width: 8vw;
+      height: 8vw;
+      border: 1px solid $paragraph;
+      border-radius: 8px;
+      background-color: rgb(255, 255, 255);
+      @include center;
+      .arrow-left {
+        position: relative;
+        display: block;
+        width: 12px;
+        height: 12px;
+        margin-right: -5px;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        -o-transform: rotate(135deg);
+      }
+    }
+  }
+  .marcaCardCont {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    h1 {
+      font-size: 7vw;
+      color: $naranja;
+      font-weight: 800;
+      // @include center:;
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .cardContainer {
+      .cardLogin {
+        background-color: rgb(255, 255, 255);
+        width: 90vw;
+        margin-bottom: 5%;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 8% 5% 5% 5%;
+        height: auto;
+        .formLogin {
+          .email,
+          .clave {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5%;
+            position: relative;
+            .emailLabel,
+            .claveLabel {
+              font-weight: 800;
+            }
+            .emailInput,
+            .claveInput {
+              border: 0.5px solid #99999999;
+              padding: 2.5%;
+              margin-top: 2.5%;
+              &::placeholder {
+                color: #999;
+              }
+            }
+            .ojoCerrado,
+            .ojoAbierto {
+              position: absolute;
+              top: 58%;
+              right: 3%;
+              color: #999;
+              width: 5vw;
+              height: 5vw;
+            }
+          }
+          .submitBtn {
+            margin-top: 5%;
+            width: 100%;
+            padding: 3.5% 0;
+            font-weight: $titleWeight;
+            background-color: $naranja;
+            border-radius: 8px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            -ms-border-radius: 8px;
+            -o-border-radius: 8px;
+          }
+        }
+        .aviso {
+          @include center;
+          margin: 10% 0 5% 0;
+          .avisoIcon {
+            width: 5vw;
+            height: 5vw;
+            margin-right: 2.5%;
+          }
+          p {
+            font-weight: $titleWeight;
+            font-size: 3.8vw;
+          }
+        }
+      }
+    }
+  }
+}

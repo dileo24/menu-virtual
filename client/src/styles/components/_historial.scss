@@ -1,0 +1,101 @@
+.historialContainer {
+  background-color: rgb(247, 247, 247);
+
+  .header1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: auto;
+    width: 100vw;
+    padding: 5%;
+    .titleHeader1 {
+      margin-top: 4%;
+      font-weight: $titleWeight;
+      font-size: $titleSize;
+    }
+    .ocultarBtn {
+      width: 8vw;
+      height: 8vw;
+      border: 1px solid $paragraph;
+      border-radius: 8px;
+      background-color: rgb(255, 255, 255);
+      @include center;
+      .arrow-left {
+        position: relative;
+        display: block;
+        width: 12px;
+        height: 12px;
+        margin-right: -5px;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        -o-transform: rotate(135deg);
+      }
+    }
+  }
+  .alerta {
+    padding-left: 5%;
+  }
+  .cardPedido {
+    background-color: rgb(255, 255, 255);
+    width: 90vw;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    height: auto;
+    display: flex;
+    .nombreItemsPrecio {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .nombreItems {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        .nombre {
+          font-weight: $titleWeight;
+          font-size: 4vw;
+          width: 60%;
+        }
+        .itemsExtra {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          padding: 5% 0 0 5%;
+          line-height: 1;
+
+          .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .list-item-circle {
+              display: inline-block;
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: black;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+      .precio {
+        font-weight: $titleWeight;
+        color: $paragraph;
+        font-size: 4vw;
+      }
+    }
+  }
+}

@@ -1,15 +1,18 @@
 .menuContainer {
-  padding: 2vh 5% 10vh 5%;
-  // border: 10px solid rgb(255, 170, 0);
-  height: 100%;
+  padding: 0 5% 28vw 5%;
 
   .cardsVisibles,
   .cardsNoVisibles {
+    .nombreCateg {
+      font-weight: $titleWeight;
+      font-size: $titleSize;
+      margin-bottom: 5%;
+      margin-top: 10%;
+    }
     .cardProducto,
     .cardItem,
     .cardItemNoVisible {
-      //background-color: gray;
-      margin-bottom: 5%;
+      background-color: white;
       border-radius: 10px;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
@@ -17,8 +20,10 @@
       -o-border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       padding: 5%;
-
       min-height: 12rem;
+      &:first-child {
+        margin-top: 5%;
+      }
       @media only screen and (max-height: 700px) {
         min-height: 25vh;
       }
@@ -27,8 +32,8 @@
       flex-direction: column;
       justify-content: space-between;
       .nombre {
-        font-weight: 700;
-        font-size: 4.5vw;
+        font-weight: $titleWeight;
+        font-size: $subtSize;
       }
       .descripcion {
         font-size: 4.2vw;
@@ -36,10 +41,39 @@
       .precioAcciones {
         display: flex;
         justify-content: space-between;
+        flex-direction: row-reverse;
         margin-top: 10%;
         .precio {
-          font-weight: 700;
+          font-weight: $titleWeight;
           font-size: 5vw;
+        }
+        .acciones {
+          min-width: 50%;
+          @include center;
+          justify-content: flex-end;
+          .iconContainer1 {
+            width: 8vw;
+            height: 8vw;
+            border: 1px solid $paragraph;
+            border-radius: 8px;
+            @include center;
+            margin-right: 4vw;
+            .editarIcon {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
+          .iconContainer2 {
+            width: 8vw;
+            height: 8vw;
+            border: 1px solid $paragraph;
+            border-radius: 8px;
+            @include center;
+            .eliminarIcon {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
         }
       }
     }

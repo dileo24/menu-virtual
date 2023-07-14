@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import Header from "../secciones/Header";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorias, getSubcategorias } from "../../redux/actions";
+import { Link } from "react-router-dom";
 // import { func } from "prop-types";
 
 export default function FormProducto({
@@ -30,6 +30,8 @@ export default function FormProducto({
   setMostrarPersonaItem,
   mostrarOtroCheckbox,
   setMostrarOtroCheckbox,
+  mostrarPrecio,
+  setMostrarPrecio,
   item,
   setItem,
   // checkListadoTrue,
@@ -61,7 +63,8 @@ export default function FormProducto({
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">
-        <Header />
+        {/*  <Header /> */}
+        <Link to="/">Atrás</Link>
         <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
           <h2 className="titulo -mt-16 text-3xl font-light text-center">
             {!titulo ? "Editar Producto" : titulo}
@@ -76,9 +79,12 @@ export default function FormProducto({
                     </label>
                     <select
                       className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => setCategoriaID(e.target.value)}
-                      value={categoriaID} // Establece el valor seleccionado en base a la variable de estado categoriaID
-                      required
+                      onChange={(e) => {
+                        setCategoriaID(e.target.value);
+                        setMostrarPrecio(true);
+                        setPrecio("");
+                      }}
+                      value={categoriaID || ""} // Establece el valor seleccionado en base a la variable de estado categoriaID
                     >
                       <option value="" hidden>
                         Elegí una categoría
@@ -92,93 +98,99 @@ export default function FormProducto({
                     </select>
                   </div>
 
-                  {categoriaID >= 3 ? (
-                    <div className="flex mb-4">
-                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="nombre"
-                      >
-                        Guardar como ítem
-                      </label>
-                      <p className="ml-2 mr-1">No</p>
-                      <input
-                        className="mr-2 leading-tight"
-                        type="checkbox"
-                        checked={mostrarPersonaItem}
-                        onChange={() => {
-                          setMostrarPersonaItem(true);
-                          console.log(
-                            "Ahora se muestra el input de Personas y el de Items"
-                          );
-                          setMostrarOtroCheckbox(false);
-                          setListado(true);
-                          setItem(false);
-                        }}
-                      />
-                      <p className="mr-1">Sí</p>
-                      <input
-                        className="mr-2 leading-tight"
-                        type="checkbox"
-                        checked={mostrarOtroCheckbox}
-                        onChange={() => {
-                          setMostrarOtroCheckbox(true);
-                          setCantidadPersonas(1);
-                          setMostrarPersonaItem(false);
-                          console.log(
-                            "Ahora NO se muestra el input de Personas y el de Items"
-                          );
-                          setNumItemsExtra(0);
-                          setItemsExtra([]);
-                          setItem(true);
-                        }}
-                      />
-
-                      {mostrarOtroCheckbox && (
-                        <>
-                          <label
-                            className="block text-gray-700 text-sm font-bold mb-2 ml-5"
-                            htmlFor="nombre"
-                          >
-                            Mostrar en el Menú
-                          </label>
-                          <p className="ml-2 mr-1">No</p>
-                          <input
-                            className="mr-2 leading-tight"
-                            type="checkbox"
-                            checked={listado === false ? true : false}
-                            onChange={() => setListado(false)}
-                          />
-                          <p className=" mr-1">Sí</p>
-                          <input
-                            className="mr-2 leading-tight"
-                            type="checkbox"
-                            checked={listado === true ? true : false}
-                            onChange={() => setListado(true)}
-                          />
-                        </>
-                      )}
-                    </div>
-                  ) : (
-                    categoriaID >= 1 && (
+                  {subcategorias &&
+                    subcategorias.some(
+                      (subC) =>
+                        Number(subC.categoria.id) === Number(categoriaID)
+                    ) && (
                       <select
                         className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                         onChange={(e) => setSubcategoriaID(e.target.value)}
                         value={subcategoriaID}
                       >
-                        <option hidden>Seleccionar subcategoria</option>
-                        {subcategorias &&
-                          subcategorias.map(
-                            (subC) =>
-                              Number(subC.categoria.id) ===
-                                Number(categoriaID) && (
-                                <option key={subC.id} value={subC.id}>
-                                  {subC.nombre}
-                                </option>
-                              )
-                          )}
+                        <option hidden>Subcategoria (no obligatorio)</option>
+                        {subcategorias.map(
+                          (subC) =>
+                            Number(subC.categoria.id) ===
+                              Number(categoriaID) && (
+                              <option key={subC.id} value={subC.id}>
+                                {subC.nombre}
+                              </option>
+                            )
+                        )}
                       </select>
-                    )
-                  )}
+                    )}
+
+                  <div className="flex mb-4">
+                    <label
+                      className="block text-gray-700 text-sm font-bold mb-2"
+                      htmlFor="nombre"
+                    >
+                      Guardar como ítem
+                    </label>
+                    <p className="ml-2 mr-1">No</p>
+                    <input
+                      className="mr-2 leading-tight"
+                      type="checkbox"
+                      checked={mostrarPersonaItem}
+                      onChange={() => {
+                        setMostrarPersonaItem(true);
+                        setMostrarOtroCheckbox(false);
+                        setListado(true);
+                        setItem(false);
+                      }}
+                    />
+                    <p className="mr-1">Sí</p>
+                    <input
+                      className="mr-2 leading-tight"
+                      type="checkbox"
+                      checked={mostrarOtroCheckbox}
+                      onChange={() => {
+                        setMostrarOtroCheckbox(true);
+                        setCantidadPersonas(1);
+                        setMostrarPersonaItem(false);
+                        setNumItemsExtra(0);
+                        setItemsExtra([]);
+                        setItem(true);
+                      }}
+                    />
+
+                    {mostrarOtroCheckbox && (
+                      <>
+                        <label
+                          className="block text-gray-700 text-sm font-bold mb-2 ml-5"
+                          htmlFor="nombre"
+                        >
+                          Mostrar en el Menú
+                        </label>
+                        <p className="ml-2 mr-1">No</p>
+                        <input
+                          className="mr-2 leading-tight"
+                          type="checkbox"
+                          checked={listado === false ? true : false}
+                          onChange={() => {
+                            setListado(false);
+                            // Ocultar precio:
+                            setMostrarPrecio(false);
+                            setPrecio(0);
+                          }}
+                        />
+                        <p className=" mr-1">Sí</p>
+                        <input
+                          className="mr-2 leading-tight"
+                          type="checkbox"
+                          checked={listado === true ? true : false}
+                          onChange={() => {
+                            setListado(true);
+                            // Mostrar precio
+                            setMostrarPrecio(true);
+                            setPrecio("");
+                          }}
+                        />
+                      </>
+                    )}
+                  </div>
+
                   <div className="mb-4">
                     <label
                       className="block text-gray-700 text-sm font-bold mb-2"
@@ -217,23 +229,25 @@ export default function FormProducto({
                     />
                   </div>
 
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="precio"
-                    >
-                      Precio
-                    </label>
-                    <input
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="precio"
-                      name="precio"
-                      type="number"
-                      placeholder="Precio del producto"
-                      value={precio}
-                      onChange={(e) => setPrecio(e.target.value)}
-                    />
-                  </div>
+                  {mostrarPrecio && listado && (
+                    <div className="mb-4">
+                      <label
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                        htmlFor="precio"
+                      >
+                        Precio
+                      </label>
+                      <input
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="precio"
+                        name="precio"
+                        type="number"
+                        placeholder="Precio del producto"
+                        value={precio}
+                        onChange={(e) => setPrecio(e.target.value)}
+                      />
+                    </div>
+                  )}
 
                   <input type="hidden" name="id" id="id" value="" />
 
