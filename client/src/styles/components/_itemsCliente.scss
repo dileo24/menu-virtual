@@ -50,15 +50,15 @@
       }
       .titleHeaderItems {
         margin-top: 4%;
-        font-weight: 700;
-        font-size: 6vw;
+        font-weight: $titleWeight;
+        font-size: $titleSize;
       }
     }
     .precio {
       margin-left: 5%;
       color: $paragraph;
       padding: 2% 0;
-      font-weight: 700;
+      font-weight: $titleWeight;
       font-size: 5.5vw;
     }
     .descripcion {
@@ -72,7 +72,7 @@
       padding-bottom: 10%;
 
       .persona {
-        font-weight: 700;
+        font-weight: $titleWeight;
         font-size: 5vw;
         padding-bottom: 2%;
       }
@@ -86,7 +86,7 @@
         -o-border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         font-size: 4vw;
-        font-weight: 700;
+        font-weight: $titleWeight;
         background-color: white;
         @include center;
         justify-content: space-between;
@@ -100,7 +100,7 @@
           font-size: 4vw;
           text-align: right;
           padding-right: 5%;
-          font-weight: 700;
+          font-weight: $titleWeight;
           width: 95% !important;
           position: absolute;
           padding-right: 5%;
@@ -133,8 +133,8 @@
         -ms-border-radius: 6px;
         -o-border-radius: 6px;
         .submit {
-          font-size: 4.5vw;
-          font-weight: 700;
+          font-size: $subtSize;
+          font-weight: $titleWeight;
           background: none;
         }
         &:focus {

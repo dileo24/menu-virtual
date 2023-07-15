@@ -1,11 +1,11 @@
 .menuContainer {
   padding: 0 5% 28vw 5%;
-
+  min-height: 90vh;
   .cardsVisibles,
   .cardsNoVisibles {
     .nombreCateg {
-      font-weight: 700;
-      font-size: 5vw;
+      font-weight: $titleWeight;
+      font-size: $titleSize;
       margin-bottom: 5%;
       margin-top: 10%;
     }
@@ -20,7 +20,6 @@
       -o-border-radius: 10px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       padding: 5%;
-      // margin-bottom: 5%;
       min-height: 12rem;
       &:first-child {
         margin-top: 5%;
@@ -33,8 +32,8 @@
       flex-direction: column;
       justify-content: space-between;
       .nombre {
-        font-weight: 700;
-        font-size: 4.5vw;
+        font-weight: $titleWeight;
+        font-size: $subtSize;
       }
       .descripcion {
         font-size: 4.2vw;
@@ -45,10 +44,40 @@
         flex-direction: row-reverse;
         margin-top: 10%;
         .precio {
-          font-weight: 700;
+          font-weight: $titleWeight;
           font-size: 5vw;
+        }
+        .acciones {
+          min-width: 50%;
+          @include center;
+          justify-content: flex-end;
+          .iconContainer1 {
+            width: 8vw;
+            height: 8vw;
+            border: 1px solid $paragraph;
+            border-radius: 8px;
+            @include center;
+            margin-right: 4vw;
+            .editarIcon {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
+          .iconContainer2 {
+            width: 8vw;
+            height: 8vw;
+            border: 1px solid $paragraph;
+            border-radius: 8px;
+            @include center;
+            .eliminarIcon {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
         }
       }
     }
   }
 }
+
+// .animate-slide-right Está en el archivo _hacerPedido.scss

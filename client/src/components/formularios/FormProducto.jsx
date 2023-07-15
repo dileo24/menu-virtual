@@ -47,11 +47,9 @@ export default function FormProducto({
   useEffect(() => {
     dispatch(getCategorias());
     dispatch(getSubcategorias());
-    if (categoriaID === "2" || categoriaID === "1") {
-      setListado(true);
-      setMostrarOtroCheckbox(false);
-      setMostrarPersonaItem(true);
-    }
+    setListado(true);
+    setMostrarOtroCheckbox(false);
+    setMostrarPersonaItem(true);
   }, [
     dispatch,
     categoriaID,
