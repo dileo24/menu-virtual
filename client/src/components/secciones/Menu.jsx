@@ -31,7 +31,7 @@ export default function Menu({ categ, prodsBuscados }) {
           dispatch(getProductos());
         });
         setIndiceItemEliminar(null);
-      }, 200);
+      }, 120);
     }
   };
 
