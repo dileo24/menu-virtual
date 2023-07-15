@@ -1,0 +1,121 @@
+.categContainer {
+  padding: 0 5% 20% 5%;
+  .categTitle {
+    font-size: $titleSize;
+    font-weight: $titleWeight;
+    margin-bottom: 5%;
+  }
+  .cardCateg {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    margin-bottom: 5%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+    .categName {
+      font-weight: $titleWeight;
+      font-size: 4vw;
+    }
+    .administrarCateg {
+      margin-top: 5%;
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      .editCrearSubcateg {
+        @include center;
+        .iconContainer1 {
+          width: 8vw;
+          height: 8vw;
+          border: 1px solid $naranja;
+          border-radius: 8px;
+          @include center;
+          background-color: #fef5e6;
+          .editarIcon {
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+        }
+        .btnContainer {
+          margin-left: 4vw;
+          padding: 0 2vw;
+          height: 8vw;
+          border: 1px solid $naranja;
+          border-radius: 8px;
+          background-color: #fef5e6;
+          @include center;
+          .crearSubcateg {
+            @include center;
+            .signoMas1 {
+              width: 18px;
+              height: 1px;
+              background-color: black;
+              @include center;
+              margin-right: 2vw;
+              .signoMas2 {
+                width: 1px;
+                height: 18px;
+                background-color: black;
+              }
+            }
+            font-weight: $titleWeight;
+            font-size: 4vw;
+          }
+        }
+      }
+      .iconContainer2 {
+        width: 8vw;
+        height: 8vw;
+        background-color: #ffe5e5;
+        border: 1px solid #ff3d3d;
+        border-radius: 8px;
+        @include center;
+        .eliminarIcon {
+          width: 1.2rem;
+          height: 1.2rem;
+        }
+      }
+    }
+  }
+  footer {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 5%;
+    z-index: 9999;
+    .botonFooter {
+      box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+      @include center;
+      position: relative;
+      background-color: $naranja;
+      height: 12vw;
+      width: 90vw;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      font-weight: $titleWeight;
+      font-size: 4vw;
+      .signoMas1 {
+        width: 18px;
+        height: 1px;
+        background-color: black;
+        @include center;
+        margin-right: 2vw;
+        .signoMas2 {
+          width: 1px;
+          height: 18px;
+          background-color: black;
+        }
+      }
+    }
+  }
+}
