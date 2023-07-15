@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { deleteCateg, getCategorias, postCateg } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
+import { useNavigate } from "react-router-dom";
 
 export default function NuevaCateg() {
   const dispatch = useDispatch();
   const categorias = useSelector((state) => state.categorias);
   const token = useSelector((state) => state.userActual.tokenSession);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -34,6 +36,7 @@ export default function NuevaCateg() {
       alert("Categoria creada con éxito!");
       setInput({ nombre: "" });
     });
+    navigate("/adminCateg");
   };
 
   console.log(categorias);
