@@ -220,9 +220,9 @@ export default function Header({
                         Nuevo Producto
                       </Link>
                       <Link
-                        to="/nuevaCateg"
-                        className={`nuevaCateg links ${
-                          window.location.href.includes("nuevaCateg")
+                        to="/adminCateg"
+                        className={`adminCateg links ${
+                          window.location.href.includes("adminCateg")
                             ? "linkActual"
                             : ""
                         }`}
@@ -318,9 +318,9 @@ export default function Header({
                         Nuevo Producto
                       </Link>
                       <Link
-                        to="/nuevaCateg"
-                        className={`nuevaCateg links ${
-                          window.location.href.includes("nuevaCateg")
+                        to="/adminCateg"
+                        className={`adminCateg links ${
+                          window.location.href.includes("adminCateg")
                             ? "linkActual"
                             : ""
                         }`}

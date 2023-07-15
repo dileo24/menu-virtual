@@ -1,6 +1,7 @@
 header {
   width: 100vw;
   @include centerCol;
+  align-items: start;
   position: static !important;
 
   .quickBites {
@@ -8,10 +9,12 @@ header {
       outline: none;
     }
     h1 {
+      width: 100vw;
       padding-top: 1vh;
       font-size: $titleSize;
       color: $naranja;
       font-weight: 800;
+      text-align: center;
     }
   }
 
@@ -23,9 +26,9 @@ header {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      padding: 5%;
       align-items: center;
       .burgerBtn {
+        margin: 5vw;
         width: 8vw;
         height: 8vw;
         border: 1px solid $paragraph;
