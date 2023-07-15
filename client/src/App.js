@@ -17,10 +17,10 @@ import AdminCateg from "./components/secciones/AdminCateg";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 
 // Local
-// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
-axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
+// axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
 
 function App() {
   const userActual = useSelector((state) => state.userActual);
