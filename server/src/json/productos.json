@@ -12,9 +12,7 @@
     "descripcion": "Descripcion del producto",
     "precio": "1500",
     "categoriaID": "2",
-    "itemsExtra": [
-      "Cervezas"
-    ],
+    "itemsExtra": ["Cervezas"],
     "cantidadPersonas": "2"
   },
   {
@@ -46,51 +44,39 @@
     "categoriaID": "2"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "8",
     "nombre": "Desayuno para 2",
     "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Infusiones",
-      "Postres"
-    ],
+    "itemsExtra": ["Infusiones", "Postres"],
     "cantidadPersonas": "2"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "8",
     "nombre": "Merienda para 2",
     "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Licuados",
-      "Postres"
-    ],
+    "itemsExtra": ["Licuados", "Postres"],
     "cantidadPersonas": "2"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "8",
     "nombre": "Desayuno para 4",
     "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Infusiones",
-      "Postres"
-    ],
+    "itemsExtra": ["Infusiones", "Postres"],
     "cantidadPersonas": "4"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "9",
     "nombre": "Merienda para 4",
-    "descripcion": "4 tostados con papas, queso crema, palta, 4 infusiones y jugo de naranja",
+    "descripcion": "4 facturas, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Licuados",
-      "Postres"
-    ],
+    "itemsExtra": ["Licuados", "Postres"],
     "cantidadPersonas": "4"
   },
   {
@@ -99,10 +85,7 @@
     "descripcion": "Vacío y Costilla con bebidas de 500ml",
     "precio": "5300",
     "categoriaID": "2",
-    "itemsExtra": [
-      "Bebidas sin alcohol",
-      "Guarniciones"
-    ],
+    "itemsExtra": ["Bebidas sin alcohol", "Guarniciones"],
     "cantidadPersonas": "2"
   },
   {

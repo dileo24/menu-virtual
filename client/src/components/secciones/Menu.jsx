@@ -1,7 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProducto, getProductos } from "../../redux/actions";
+import {
+  deleteProducto,
+  getProductos,
+  getSubcategorias,
+} from "../../redux/actions";
 import Contador from "../recursos/Contador";
 
 export default function Menu({ categ, prodsBuscados }) {
@@ -10,10 +14,12 @@ export default function Menu({ categ, prodsBuscados }) {
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
+  let subcategorias = useSelector((state) => state.subcategorias);
   prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
 
   useEffect(() => {
     dispatch(getProductos());
+    dispatch(getSubcategorias());
   }, [dispatch]);
 
   const handleEliminarProducto = (id) => {
@@ -56,13 +62,20 @@ export default function Menu({ categ, prodsBuscados }) {
                   ultimaCategoria = categoria.nombre;
                 }
 
+                const subcategoriasFiltradas = subcategorias.filter(
+                  (subC) => subC.categoria.nombre === categ
+                );
+
                 return (
                   <div key={id}>
-                    {categ === "todas" && esNuevaCategoria && (
+                    {categ === "todas" && esNuevaCategoria ? (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
-                    )}
-                    {categ === "Almuerzo/Cena" && (
-                      <h1 className="nombreCateg">{subcategoria.nombre}</h1>
+                    ) : (
+                      subcategoriasFiltradas.map((subC, index) => (
+                        <div key={index}>
+                          <h1 className="nombreCateg">{subC.nombre}</h1>
+                        </div>
+                      ))
                     )}
                     <div className="cardProducto">
                       <p className="nombre">{nombre}</p>
