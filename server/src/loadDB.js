@@ -60,9 +60,6 @@ async function SubcategEnCateg() {
       for (const subcategID of cat.subcategID) {
         let subcategoria = await Subcategoria.findByPk(subcategID);
         if (subcategoria) {
-          console.log(
-            "agregando " + categoria.nombre + " a " + subcategoria.nombre
-          );
           await categoria.addSubcategoria(subcategoria);
         } else {
           console.warn(`Subcategoria con ID ${subcategID} no encontrada.`);

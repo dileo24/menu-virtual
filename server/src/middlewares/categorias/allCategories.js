@@ -5,7 +5,7 @@ const allCategory = async (req, res, next) => {
     req.body.allCategories = await Categoria.findAll({
       attributes: ["id", "nombre"],
       order: [["id", "ASC"]],
-      include: [{ model: Subcategoria, as: "subcategoria" }],
+      include: [{ model: Subcategoria, as: "subcategorias" }],
     });
     next();
   } catch (error) {

@@ -43,7 +43,9 @@ export default function AdminCateg() {
           {categorias &&
             categorias.map((categ) => (
               <div key={categ.id} className="cardCateg">
-                <p className="categName">{categ.nombre}</p>
+                <p className="categName">{categ.nombre}</p>{" "}
+                {categ.subcategorias &&
+                  categ.subcategorias.map((subC) => <p>{subC.nombre}</p>)}
                 <div className="administrarCateg">
                   <div className="editCrearSubcateg">
                     <div className="iconContainer1">
