@@ -130,6 +130,16 @@ export default function Header({
     }
   };
 
+  const handleButtonClick = (subC) => {
+    setFocusedSubcategory(subC);
+    console.log("Botón " + subC.nombre + " fue clickeado");
+    const element = document.getElementById(subC.nombre);
+    console.log(element);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header id="containerHeader" className="containerHeader">
       {!userActual && (
@@ -423,11 +433,8 @@ export default function Header({
                           }`}
                           key={subC.nombre}
                           onClick={() => {
-                            // Código a ejecutar cuando se hace clic en la subcategoría
                             setFocusedSubcategory(subC);
-                            console.log(
-                              "Botón " + subC.nombre + " fue clickeado"
-                            );
+                            handleButtonClick(subC);
                           }}
                         >
                           {subC.nombre}

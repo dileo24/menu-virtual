@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteCateg, getCategorias, postCateg } from "../../redux/actions";
+import { getCategorias, postCateg } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
 import { useNavigate } from "react-router-dom";
@@ -18,13 +18,6 @@ export default function NuevaCateg() {
     nombre: "",
   });
 
-  const handleDelete = (id) => {
-    const categDel = categorias.find((categ) => categ.id === id);
-    window.confirm(
-      `¿Seguro de querer borrar la categoría ${categDel && categDel.nombre}?`
-    ) && dispatch(deleteCateg(id, token));
-  };
-
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
@@ -38,8 +31,6 @@ export default function NuevaCateg() {
     });
     navigate("/adminCateg");
   };
-
-  console.log(categorias);
 
   return (
     <>

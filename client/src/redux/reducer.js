@@ -57,7 +57,7 @@ function rootReducer(state = initialState, action) {
         if (b.subcategoria === null) {
           return -1;
         }
-        return a.subcategoria.nombre.localeCompare(b.subcategoria.nombre);
+        return b.subcategoria.nombre.localeCompare(a.subcategoria.nombre);
       });
 
       return {

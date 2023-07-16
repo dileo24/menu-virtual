@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProducto, getProductos } from "../../redux/actions";
+import {
+  deleteProducto,
+  getProductos,
+  getSubcategorias,
+} from "../../redux/actions";
 import Contador from "../recursos/Contador";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
@@ -12,16 +16,25 @@ export default function Menu({ categ, prodsBuscados }) {
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
+  let subcategorias = useSelector((state) => state.subcategorias);
   prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
   const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
 
+  let productos = productosState.filter((prod) =>
+    categ !== "todas" ? prod.categoria.nombre === categ : prod
+  );
+
   useEffect(() => {
     dispatch(getProductos());
+    dispatch(getSubcategorias());
   }, [dispatch]);
 
-  const handleEliminarProducto = (id) => {
+  /*  const handleEliminarProducto = (id) => {
+    const producto = productosState.find((prod) => prod.id === id);
     const confirmarBorrado = window.confirm(
-      "¿Está seguro de querer borrar el producto?"
+      `¿Está seguro de querer borrar el producto ${
+        producto ? producto.nombre : ""
+      }? Esto es irreversible.`
     );
     if (confirmarBorrado) {
       setIndiceItemEliminar(id);
@@ -31,7 +44,28 @@ export default function Menu({ categ, prodsBuscados }) {
           dispatch(getProductos());
         });
         setIndiceItemEliminar(null);
-      }, 120);
+      }, 200);
+    }
+  }; */
+
+  const handleEliminarProducto = (id) => {
+    const producto = productosState.find((prod) => prod.id === id);
+    const confirmarBorrado = window.confirm(
+      `¿Está seguro de querer borrar el producto ${
+        producto ? producto.nombre : ""
+      }? Esto es irreversible.`
+    );
+    if (confirmarBorrado) {
+      setIndiceItemEliminar(id);
+      setTimeout(() => {
+        dispatch(deleteProducto(id, token))
+          .then(() => {
+            dispatch(getProductos());
+          })
+          .finally(() => {
+            setIndiceItemEliminar(null);
+          });
+      }, 200);
     }
   };
 
@@ -42,12 +76,10 @@ export default function Menu({ categ, prodsBuscados }) {
       <main className="menuContainer">
         <div className="cardsVisibles">
           {/********************* PRODUCTOS VISIBLES *********************/}
-          {productosState
+
+          {productos
             .filter(
               (producto) => producto.listado === true && producto.item === false
-            )
-            .filter((prod) =>
-              categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
               ({
@@ -64,16 +96,13 @@ export default function Menu({ categ, prodsBuscados }) {
                 if (esNuevaCategoria) {
                   ultimaCategoria = categoria.nombre;
                 }
-
                 return (
                   <div key={id}>
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    {categ === "Almuerzo/Cena" && (
-                      <h1 className="nombreCateg">{subcategoria.nombre}</h1>
-                    )}
                     <div
+                      id={subcategoria.nombre}
                       className={`cardProducto ${
                         id === indiceItemEliminar ? "animate-slide-right" : ""
                       }`}
@@ -118,12 +147,9 @@ export default function Menu({ categ, prodsBuscados }) {
             )}
 
           {/********************* ITEMS VISIBLES *********************/}
-          {productosState
+          {productos
             .filter(
               (producto) => producto.listado === true && producto.item === true
-            )
-            .filter((prod) =>
-              categ !== "todas" ? prod.categoria.nombre === categ : prod
             )
             .map(
               ({
@@ -191,13 +217,10 @@ export default function Menu({ categ, prodsBuscados }) {
         <div>
           {userActual && (
             <div>
-              {productosState
+              {productos
                 .filter(
                   (producto) =>
                     producto.listado === false && producto.item === true
-                )
-                .filter((prod) =>
-                  categ !== "todas" ? prod.categoria.nombre === categ : prod
                 )
                 .some((productoFiltrado) => {
                   return (
