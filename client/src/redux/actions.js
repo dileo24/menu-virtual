@@ -61,7 +61,7 @@ export const getCategorias = () => {
   };
 };
 
-export const postCateg = (nombre, token) => {
+export const postCateg = (data, token) => {
   return async function () {
     const config = {
       headers: {
@@ -69,7 +69,7 @@ export const postCateg = (nombre, token) => {
       },
     };
 
-    const response = await axios.post("/categorias", nombre, config);
+    const response = await axios.post("/categorias", data, config);
     return response;
   };
 };
@@ -106,7 +106,7 @@ export const getSubcategorias = () => {
   };
 };
 
-export const postSubcateg = (nombre, token) => {
+export const postSubcateg = (data, token) => {
   return async function () {
     const config = {
       headers: {
@@ -114,7 +114,7 @@ export const postSubcateg = (nombre, token) => {
       },
     };
 
-    const response = await axios.post("/categorias", nombre, config);
+    const response = await axios.post("/categorias", data, config);
     return response;
   };
 };
