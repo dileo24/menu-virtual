@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect /* , useState */ } from "react";
 import { deleteCateg, getCategorias } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";

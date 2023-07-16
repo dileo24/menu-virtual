@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function NuevaCateg() {
   const dispatch = useDispatch();
-  const categorias = useSelector((state) => state.categorias);
+  // const categorias = useSelector((state) => state.categorias);
   const token = useSelector((state) => state.userActual.tokenSession);
   const navigate = useNavigate();
 

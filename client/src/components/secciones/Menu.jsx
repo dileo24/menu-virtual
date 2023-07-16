@@ -16,7 +16,7 @@ export default function Menu({ categ, prodsBuscados }) {
   const token = userActual && userActual.tokenSession;
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
-  let subcategorias = useSelector((state) => state.subcategorias);
+  // let subcategorias = useSelector((state) => state.subcategorias);
   prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
   const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
 
