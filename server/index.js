@@ -11,6 +11,7 @@ const {
   fnEstado,
   fnPedidos,
   fnSubcategorias,
+  SubcategEnCateg,
 } = require("./src/loadDB.js");
 
 const http = require("http");
@@ -42,6 +43,7 @@ conn.sync({ force: true }).then(async () => {
   server.listen(port, async () => {
     await fnCategorias();
     await fnSubcategorias();
+    await SubcategEnCateg();
     await fnProducto();
     await fnRols();
     await fnUsuarios();
