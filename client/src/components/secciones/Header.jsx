@@ -136,7 +136,11 @@ export default function Header({
     const element = document.getElementById(subC.nombre);
     console.log(element);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      const offsetTop = element.offsetTop;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
     }
   };
 
