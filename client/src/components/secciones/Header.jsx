@@ -133,8 +133,8 @@ export default function Header({
   const handleButtonClick = (subC) => {
     setFocusedSubcategory(subC);
     console.log("Botón " + subC.nombre + " fue clickeado");
-    // Aquí puedes buscar el elemento con el mismo ID y desplazarte a él
     const element = document.getElementById(subC.nombre);
+    console.log(element);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -427,23 +427,18 @@ export default function Header({
                         (subC) => subC.categoria.id === Number(categActive.id)
                       )
                       .map((subC) => (
-                        <Link to={`#${subC.nombre}`} key={subC.id}>
-                          <button
-                            className={`subCategoria ${
-                              subC === focusedSubcategory ? "focused" : ""
-                            }`}
-                            key={subC.nombre}
-                            onClick={() => {
-                              // Código a ejecutar cuando se hace clic en la subcategoría
-                              setFocusedSubcategory(subC);
-                              console.log(
-                                "Botón " + subC.nombre + " fue clickeado"
-                              );
-                            }}
-                          >
-                            {subC.nombre}
-                          </button>
-                        </Link>
+                        <button
+                          className={`subCategoria ${
+                            subC === focusedSubcategory ? "focused" : ""
+                          }`}
+                          key={subC.nombre}
+                          onClick={() => {
+                            setFocusedSubcategory(subC);
+                            handleButtonClick(subC);
+                          }}
+                        >
+                          {subC.nombre}
+                        </button>
                       ))}
                   </div>
                 )}
