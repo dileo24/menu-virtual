@@ -1,35 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { getCategorias, postCateg } from "../../redux/actions";
+import {
+  getCategorias,
+  getSubcategorias,
+  postSubcateg,
+} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
-import { useNavigate } from "react-router-dom";
 
 export default function Subcategs() {
   const dispatch = useDispatch();
-  // const categorias = useSelector((state) => state.categorias);
   const token = useSelector((state) => state.userActual.tokenSession);
-  const navigate = useNavigate();
+  const subcategs = useSelector((state) => state.subcategorias);
+  const categs = useSelector((state) => state.categorias);
 
   useEffect(() => {
     dispatch(getCategorias());
+    dispatch(getSubcategorias());
   }, [dispatch]);
 
   const [input, setInput] = useState({
     nombre: "",
+    categID: "",
   });
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+  const handleCateg = (e) => {
+    setInput({ ...input, categID: e.target.value });
+  };
+
   const handleSubmit = (e) => {
+    console.log(input);
     e.preventDefault();
-    dispatch(postCateg(input, token)).then(() => {
-      dispatch(getCategorias());
-      alert("Categoria creada con éxito!");
-      setInput({ nombre: "" });
+    dispatch(postSubcateg(input, token)).then(() => {
+      dispatch(getSubcategorias());
+      alert("Subcategoría creada con éxito!");
+      setInput({ nombre: "", categID: "" });
     });
-    navigate("/adminCateg");
   };
 
   return (
@@ -41,7 +50,7 @@ export default function Subcategs() {
         <div>
           <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="email">Nombre de subcategoria nueva</label>
+              <label htmlFor="email">Nombre de subcategoría nueva</label>
               <input
                 type="text"
                 name="nombre"
@@ -51,11 +60,27 @@ export default function Subcategs() {
                 required
               />
             </div>
+            <select value={input.categID} onChange={handleCateg}>
+              <option hidden>Selecciona categorías..</option>
+              {categs.map((categ) => (
+                <option key={categ.id} value={categ.id}>
+                  {categ.nombre}
+                </option>
+              ))}
+            </select>
             <div>
               <button type="submit">Crear</button>
             </div>
           </form>
         </div>
+        <br />
+        <br />
+        <p>subcategs existentes</p>
+        {subcategs.map((subC) => (
+          <div key={subC.id}>
+            <p>{subC.nombre} X</p>
+          </div>
+        ))}
       </div>
     </>
   );

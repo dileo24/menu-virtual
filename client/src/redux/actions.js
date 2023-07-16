@@ -14,6 +14,7 @@ export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 export const DELETE_CATEG = "DELETE_CATEG";
+export const DELETE_SUBCATEG = "DELETE_SUBCATEG";
 export const GET_SUBCATEGORIAS = "GET_SUBCATEGORIAS";
 export const EDITAR_ITEMS_EXTRA = "EDITAR_ITEMS_EXTRA";
 
@@ -113,8 +114,7 @@ export const postSubcateg = (data, token) => {
         Authorization: `Bearer ${token}`,
       },
     };
-
-    const response = await axios.post("/categorias", data, config);
+    const response = await axios.post("/subcategorias", data, config);
     return response;
   };
 };
@@ -125,9 +125,9 @@ export const deleteSubcateg = (id, token) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    await axios.delete(`/categorias/${id}`, config);
+    await axios.delete(`/subcategorias/${id}`, config);
     dispatch({
-      type: DELETE_CATEG,
+      type: DELETE_SUBCATEG,
       payload: id,
     });
   };
