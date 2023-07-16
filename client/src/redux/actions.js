@@ -106,6 +106,33 @@ export const getSubcategorias = () => {
   };
 };
 
+export const postSubcateg = (nombre, token) => {
+  return async function () {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const response = await axios.post("/categorias", nombre, config);
+    return response;
+  };
+};
+export const deleteSubcateg = (id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`/categorias/${id}`, config);
+    dispatch({
+      type: DELETE_CATEG,
+      payload: id,
+    });
+  };
+};
+
 /****************** USUARIOS ******************/
 
 export const getUsuarios = () => {

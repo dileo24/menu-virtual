@@ -15,6 +15,7 @@ import ItemsCliente from "./components/secciones/ItemsCliente";
 import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import AdminCateg from "./components/secciones/AdminCateg";
 import NuevaCateg from "./components/formularios/NuevaCateg";
+import Subcategs from "./components/formularios/Subcategs";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -52,6 +53,7 @@ function App() {
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
             <Route path="/nuevaCateg" element={<NuevaCateg />} />
+            <Route path="/subcategs" element={<Subcategs />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
           </>
