@@ -130,6 +130,16 @@ export default function Header({
     }
   };
 
+  const handleButtonClick = (subC) => {
+    setFocusedSubcategory(subC);
+    console.log("Botón " + subC.nombre + " fue clickeado");
+    // Aquí puedes buscar el elemento con el mismo ID y desplazarte a él
+    const element = document.getElementById(subC.nombre);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <header id="containerHeader" className="containerHeader">
       {!userActual && (
@@ -417,21 +427,23 @@ export default function Header({
                         (subC) => subC.categoria.id === Number(categActive.id)
                       )
                       .map((subC) => (
-                        <button
-                          className={`subCategoria ${
-                            subC === focusedSubcategory ? "focused" : ""
-                          }`}
-                          key={subC.nombre}
-                          onClick={() => {
-                            // Código a ejecutar cuando se hace clic en la subcategoría
-                            setFocusedSubcategory(subC);
-                            console.log(
-                              "Botón " + subC.nombre + " fue clickeado"
-                            );
-                          }}
-                        >
-                          {subC.nombre}
-                        </button>
+                        <Link to={`#${subC.nombre}`} key={subC.id}>
+                          <button
+                            className={`subCategoria ${
+                              subC === focusedSubcategory ? "focused" : ""
+                            }`}
+                            key={subC.nombre}
+                            onClick={() => {
+                              // Código a ejecutar cuando se hace clic en la subcategoría
+                              setFocusedSubcategory(subC);
+                              console.log(
+                                "Botón " + subC.nombre + " fue clickeado"
+                              );
+                            }}
+                          >
+                            {subC.nombre}
+                          </button>
+                        </Link>
                       ))}
                   </div>
                 )}
