@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { deleteCateg, getCategorias, postCateg } from "../../redux/actions";
+import { deleteCateg, getCategorias } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
 import { Link } from "react-router-dom";
@@ -10,36 +10,28 @@ export default function AdminCateg() {
   const dispatch = useDispatch();
   const categorias = useSelector((state) => state.categorias);
   const token = useSelector((state) => state.userActual.tokenSession);
+  let productosState = useSelector((state) => state.home);
 
   useEffect(() => {
     dispatch(getCategorias());
   }, [dispatch]);
 
-  const [input, setInput] = useState({
-    nombre: "",
-  });
-
   const handleDelete = (id) => {
     const categDel = categorias.find((categ) => categ.id === id);
-    window.confirm(
-      `¿Seguro de querer borrar la categoría ${categDel && categDel.nombre}?`
-    ) && dispatch(deleteCateg(id, token));
-  };
 
-  const handleChange = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+    const matchingProduct = productosState.find(
+      (producto) => producto.categoriaID === id
+    );
+    if (matchingProduct) {
+      alert(
+        `Error: No se puede eliminar una categoría que tenga productos asociados. Primero debes editar la Categoría de los productos que pertenezcan a ${categDel.nombre}, o eliminarlos.`
+      );
+    } else {
+      window.confirm(
+        `¿Seguro de querer borrar la categoría ${categDel && categDel.nombre}?`
+      ) && dispatch(deleteCateg(id, token));
+    }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postCateg(input, token)).then(() => {
-      dispatch(getCategorias());
-      alert("Categoria creada con éxito!");
-      setInput({ nombre: "" });
-    });
-  };
-
-  console.log(categorias);
 
   return (
     <>
