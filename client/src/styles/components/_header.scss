@@ -1,7 +1,7 @@
 header {
   width: 100vw;
   @include centerCol;
-  align-items: start;
+  align-items: flex-start;
   position: static !important;
 
   .quickBites {
@@ -56,7 +56,7 @@ header {
           .navSideHeader {
             padding: 5%;
             display: flex;
-            justify-content: end;
+            justify-content: flex-end;
             .cerrarBtn {
               width: 8vw;
               height: 8vw;
@@ -73,7 +73,7 @@ header {
           .navSideContent {
             display: flex;
             flex-direction: column;
-            justify-content: start;
+            justify-content: flex-start;
             padding: 5%;
             padding-top: 0;
             .userData {
@@ -139,7 +139,7 @@ header {
             .cerrarSesion {
               position: absolute;
               bottom: 5vw;
-              text-align: start;
+              text-align: flex-start;
               font-size: 4vw;
               color: red;
               display: flex;
