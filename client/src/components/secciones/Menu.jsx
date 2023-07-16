@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect /* , useState */ } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -18,7 +18,6 @@ export default function Menu({ categ, prodsBuscados }) {
   let productosState = useSelector((state) => state.home);
   // let subcategorias = useSelector((state) => state.subcategorias);
   prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
-  const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
 
   let productos = productosState.filter((prod) =>
     categ !== "todas" ? prod.categoria.nombre === categ : prod
@@ -29,43 +28,18 @@ export default function Menu({ categ, prodsBuscados }) {
     dispatch(getSubcategorias());
   }, [dispatch]);
 
-  /*  const handleEliminarProducto = (id) => {
-    const producto = productosState.find((prod) => prod.id === id);
-    const confirmarBorrado = window.confirm(
-      `¿Está seguro de querer borrar el producto ${
-        producto ? producto.nombre : ""
-      }? Esto es irreversible.`
-    );
-    if (confirmarBorrado) {
-      setIndiceItemEliminar(id);
-
-      setTimeout(() => {
-        dispatch(deleteProducto(id, token)).then(() => {
-          dispatch(getProductos());
-        });
-        setIndiceItemEliminar(null);
-      }, 200);
-    }
-  }; */
-
   const handleEliminarProducto = (id) => {
     const producto = productosState.find((prod) => prod.id === id);
     const confirmarBorrado = window.confirm(
-      `¿Está seguro de querer borrar el producto ${
+      `¿Está seguro de querer borrar el producto "${
         producto ? producto.nombre : ""
-      }? Esto es irreversible.`
+      }"? Esto es irreversible.`
     );
     if (confirmarBorrado) {
-      setIndiceItemEliminar(id);
-      setTimeout(() => {
-        dispatch(deleteProducto(id, token))
-          .then(() => {
-            dispatch(getProductos());
-          })
-          .finally(() => {
-            setIndiceItemEliminar(null);
-          });
-      }, 200);
+      dispatch(deleteProducto(id, token)).then(() => {
+        dispatch(getProductos());
+      });
+      alert(`"${producto ? producto.nombre : ""}" eliminado con éxito.`);
     }
   };
 
@@ -101,12 +75,7 @@ export default function Menu({ categ, prodsBuscados }) {
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div
-                      id={subcategoria.nombre}
-                      className={`cardProducto ${
-                        id === indiceItemEliminar ? "animate-slide-right" : ""
-                      }`}
-                    >
+                    <div id={subcategoria.nombre} className="cardProducto">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -170,11 +139,7 @@ export default function Menu({ categ, prodsBuscados }) {
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div
-                      className={`cardItem ${
-                        id === indiceItemEliminar ? "animate-slide-right" : ""
-                      }`}
-                    >
+                    <div className="cardItem">
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -302,13 +267,7 @@ export default function Menu({ categ, prodsBuscados }) {
                                 {categoria.nombre}
                               </h1>
                             )}
-                            <div
-                              className={`cardItemNoVisible ${
-                                id === indiceItemEliminar
-                                  ? "animate-slide-right"
-                                  : ""
-                              }`}
-                            >
+                            <div className="cardItemNoVisible">
                               <p className="nombre">{nombre}</p>
                               <p className="descripcion">{descripcion}</p>
                               <div className="precioAcciones">
