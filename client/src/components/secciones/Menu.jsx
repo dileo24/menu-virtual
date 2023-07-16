@@ -29,9 +29,12 @@ export default function Menu({ categ, prodsBuscados }) {
     dispatch(getSubcategorias());
   }, [dispatch]);
 
-  const handleEliminarProducto = (id) => {
+  /*  const handleEliminarProducto = (id) => {
+    const producto = productosState.find((prod) => prod.id === id);
     const confirmarBorrado = window.confirm(
-      "¿Está seguro de querer borrar el producto?"
+      `¿Está seguro de querer borrar el producto ${
+        producto ? producto.nombre : ""
+      }? Esto es irreversible.`
     );
     if (confirmarBorrado) {
       setIndiceItemEliminar(id);
@@ -41,7 +44,28 @@ export default function Menu({ categ, prodsBuscados }) {
           dispatch(getProductos());
         });
         setIndiceItemEliminar(null);
-      }, 120);
+      }, 200);
+    }
+  }; */
+
+  const handleEliminarProducto = (id) => {
+    const producto = productosState.find((prod) => prod.id === id);
+    const confirmarBorrado = window.confirm(
+      `¿Está seguro de querer borrar el producto ${
+        producto ? producto.nombre : ""
+      }? Esto es irreversible.`
+    );
+    if (confirmarBorrado) {
+      setIndiceItemEliminar(id);
+      setTimeout(() => {
+        dispatch(deleteProducto(id, token))
+          .then(() => {
+            dispatch(getProductos());
+          })
+          .finally(() => {
+            setIndiceItemEliminar(null);
+          });
+      }, 200);
     }
   };
 
