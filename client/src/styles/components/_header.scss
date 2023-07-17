@@ -311,9 +311,19 @@ header {
         border-bottom: 2.5px solid $naranja;
         transition: all 0.1s ease;
         color: black;
+        -webkit-transition: all 0.1s ease;
+        -moz-transition: all 0.1s ease;
+        -ms-transition: all 0.1s ease;
+        -o-transition: all 0.1s ease;
       }
     }
   }
+}
+
+// Clases funcionales
+
+.temp-class {
+  border: 2.5px solid $naranja;
 }
 
 .animate-right {

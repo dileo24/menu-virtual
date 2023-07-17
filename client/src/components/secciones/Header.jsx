@@ -134,15 +134,38 @@ export default function Header({
 
   const handleButtonClick = (subC) => {
     setFocusedSubcategory(subC);
-    console.log("Botón " + subC.nombre + " fue clickeado");
-    const element = document.getElementById(subC.nombre);
-    console.log(element);
-    if (element) {
-      const offsetTop = element.offsetTop;
+
+    // Obtener el elemento con el atributo "data-index" igual a "currentSlide"
+    const currentSlideElement = document.querySelector(
+      `[data-index='${currentSlide}']`
+    );
+
+    // Buscar todos los elementos con el id "subC.nombre" dentro del elemento currentSlideElement
+    const elementos = currentSlideElement.querySelectorAll(`#${subC.nombre}`);
+
+    // Verificar si se encontraron elementos y scrollear hasta el primer elemento
+    if (elementos.length > 0) {
+      const firstElement = elementos[0];
+      const elementRect = firstElement.getBoundingClientRect();
+      const offsetTop =
+        window.scrollY + elementRect.top - window.innerHeight * 0.2; // Desplazamiento de -20vh
+
+      // Agregar la clase temporalmente a todos los elementos encontrados
+      elementos.forEach((element) => {
+        element.classList.add("temp-class");
+      });
+
       window.scrollTo({
         top: offsetTop,
         behavior: "smooth",
       });
+
+      // Eliminar la clase temporal después de un cierto tiempo
+      setTimeout(() => {
+        elementos.forEach((element) => {
+          element.classList.remove("temp-class");
+        });
+      }, 1500); // Cambiar el tiempo en milisegundos según tus necesidades
     }
   };
 
