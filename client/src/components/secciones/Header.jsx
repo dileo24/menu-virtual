@@ -452,9 +452,10 @@ export default function Header({
                     .filter((subC) => subC.categoria.id === categActiveId)
                     .map((subC) => (
                       <button
-                        className={`subCategoria ${
+                        /* className={`subCategoria ${
                           subC === focusedSubcategory ? "focused" : ""
-                        }`}
+                        }`} */
+                        className="subCategoria"
                         key={subC.nombre}
                         onClick={() => {
                           setFocusedSubcategory(subC);

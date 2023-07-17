@@ -76,7 +76,8 @@ export default function Menu({ categ, prodsBuscados }) {
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div
-                      /* id={subcategoria.nombre} */ className="cardProducto"
+                      id={subcategoria ? subcategoria.nombre : ""}
+                      className="cardProducto"
                     >
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
@@ -131,6 +132,7 @@ export default function Menu({ categ, prodsBuscados }) {
                 id,
                 cantidadPersonas,
                 categoria,
+                subcategoria,
               }) => {
                 const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
                 if (esNuevaCategoria) {
@@ -141,7 +143,10 @@ export default function Menu({ categ, prodsBuscados }) {
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div className="cardItem">
+                    <div
+                      id={subcategoria ? subcategoria.nombre : ""}
+                      className="cardItem"
+                    >
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
@@ -256,6 +261,7 @@ export default function Menu({ categ, prodsBuscados }) {
                         id,
                         cantidadPersonas,
                         categoria,
+                        subcategoria,
                       }) => {
                         const esNuevaCategoria =
                           categoria.nombre !== ultimaCategoria;
@@ -269,7 +275,10 @@ export default function Menu({ categ, prodsBuscados }) {
                                 {categoria.nombre}
                               </h1>
                             )}
-                            <div className="cardItemNoVisible">
+                            <div
+                              id={subcategoria ? subcategoria.nombre : ""}
+                              className="cardItemNoVisible"
+                            >
                               <p className="nombre">{nombre}</p>
                               <p className="descripcion">{descripcion}</p>
                               <div className="precioAcciones">
