@@ -18,7 +18,7 @@ export default function Pedidos() {
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
-  let allPedidos = [...pedidos, ...nuevosPedidos];
+  let allPedidos = [...nuevosPedidos, ...pedidos];
 
   useEffect(() => {
     // Local
@@ -28,18 +28,18 @@ export default function Pedidos() {
     // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
-
     socket.on("nuevoPedidoRecibido", (pedido) => {
-      setNuevosPedidos((prevPedidos) => [...prevPedidos, pedido]);
+      setNuevosPedidos((prevPedidos) => [pedido, ...prevPedidos]);
     });
-
-    dispatch(getPedidos());
-    dispatch(getEstados());
-    dispatch(getTipoPago());
-
     return () => {
       socket.disconnect();
     };
+  }, []);
+
+  useEffect(() => {
+    dispatch(getPedidos());
+    dispatch(getEstados());
+    dispatch(getTipoPago());
   }, [dispatch]);
 
   const handleSelectChange = (e, id, atributo) => {
@@ -49,7 +49,7 @@ export default function Pedidos() {
     if (res === true) {
       dispatch(updatePedido(id, data, token))
         .then(() => {
-          dispatch(getPedidos()); // Obtener los pedidos actualizados después de la actualización
+          dispatch(getPedidos());
           if (socket) {
             socket.emit("cambiarEstadoPedido", id, data.estadoID);
           }
