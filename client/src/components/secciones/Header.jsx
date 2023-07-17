@@ -34,8 +34,7 @@ export default function Header({
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
-  const [categActiveId, setCategActive] = useState(null);
-  // const categActive = document.querySelector(".active");
+  const [categActiveId, setCategActiveId] = useState(0);
   const [focusedSubcategory, setFocusedSubcategory] = useState(null);
   const [navSideOpen, setNavSideOpen] = useState(false);
   const isHomePage = window.location.pathname === "/";
@@ -49,8 +48,7 @@ export default function Header({
 
   useEffect(() => {
     scrollToActiveCategory();
-    setCategActive(currentSlide);
-
+    setCategActiveId(newCateg[currentSlide - 1]?.id);
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
       if (savedInputs) {
@@ -62,7 +60,7 @@ export default function Header({
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, [currentSlide]);
+  }, [currentSlide, categActiveId]);
 
   let pedidosActuales = inputData.filter((idPed) =>
     pedidos.some(
@@ -447,13 +445,11 @@ export default function Header({
               </div>
 
               {newSubCategs.filter(
-                (subC) => subC.categoria.id === Number(categActiveId)
+                (subC) => subC.categoria.id === categActiveId
               ).length >= 2 && (
                 <div className="subCategorias">
                   {newSubCategs
-                    .filter(
-                      (subC) => subC.categoria.id === Number(categActiveId)
-                    )
+                    .filter((subC) => subC.categoria.id === categActiveId)
                     .map((subC) => (
                       <button
                         className={`subCategoria ${

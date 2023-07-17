@@ -75,7 +75,9 @@ export default function Menu({ categ, prodsBuscados }) {
                     {categ === "todas" && esNuevaCategoria && (
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
-                    <div id={subcategoria.nombre} className="cardProducto">
+                    <div
+                      /* id={subcategoria.nombre} */ className="cardProducto"
+                    >
                       <p className="nombre">{nombre}</p>
                       <p className="descripcion">{descripcion}</p>
                       <div className="precioAcciones">
