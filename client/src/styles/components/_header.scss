@@ -268,10 +268,9 @@ header {
     }
   }
   .subCategorias {
-    // display: flex;
-    // align-items: center;
-    // Nuevo:
-    @include center;
+    display: flex;
+    align-items: center;
+
     background-color: white;
     width: 100vw;
     font-size: $subtSize;
@@ -305,10 +304,6 @@ header {
       }
       &:not(:last-child) {
         margin-right: 5%;
-      }
-      // Nuevo:
-      &:first-child {
-        margin-left: 7vw;
       }
       &.focused {
         outline: none;
