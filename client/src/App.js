@@ -16,6 +16,9 @@ import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import AdminCateg from "./components/secciones/AdminCateg";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 import Subcategs from "./components/formularios/Subcategs";
+import MiPedido from "./components/secciones/MiPedido";
+import HacerPedido from "./components/secciones/HacerPedido";
+import EditarCateg from "./components/formularios/EditarCateg";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
