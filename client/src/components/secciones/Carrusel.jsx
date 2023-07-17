@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "./Header";
 import Menu from "./Menu";
-import HacerPedido from "../secciones/HacerPedido";
+// import HacerPedido from "./HacerPedido1";
 import { getProductos } from "../../redux/actions";
 import Swipe from "react-swipe";
+import { Link } from "react-router-dom";
+import { io } from "socket.io-client";
 
 const Carrusel = () => {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
@@ -12,8 +14,16 @@ const Carrusel = () => {
   // const [diapositiva, setDiapositiva] = useState(0);
   // const prevDiapositivaRef = useRef(diapositiva);
   const carruselRef = useRef(null); // Referencia al contenedor principal
-
+  const [preciosArray, setPreciosArray] = useState([]);
+  const carrito = useSelector((state) => state.carrito);
+  const userActual = useSelector((state) => state.userActual);
+  let marginTop = carrito.length > 0 ? "" : "margen";
+  let precioFinal = 0;
+  for (let i = 0; i < preciosArray.length; i++) {
+    precioFinal += parseInt(preciosArray[i]);
+  }
   const dispatch = useDispatch();
+  const [socket, setSocket] = useState(null);
 
   const { categorias, home, homeBusqueda /* , carrito */ } = useSelector(
     (state) => ({
@@ -27,6 +37,20 @@ const Carrusel = () => {
   useEffect(() => {
     dispatch(getProductos());
   }, [dispatch]);
+
+  useEffect(() => {
+    // Local
+    // const socket = io("http://localhost:3001");
+
+    // Deploy
+    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+
+    setSocket(socket);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
 
   const handleWindowScroll = useCallback(() => {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
@@ -89,6 +113,20 @@ const Carrusel = () => {
   }, []);
 
   useEffect(() => {
+    const precios = carrito.map((carritoItem) => carritoItem.precio);
+    setPreciosArray(precios);
+
+    // const nombres = carrito.map((carritoItem) => carritoItem.nombre);
+    // setNombresProdArray(nombres);
+
+    // setInput((prevInput) => ({
+    //   ...prevInput,
+    //   productos: nombres,
+    //   precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
+    // }));
+  }, [carrito]);
+
+  useEffect(() => {
     const diapo = document.querySelector(
       `.scrollable-content[data-index="${currentSlide}"]`
     );
@@ -145,7 +183,17 @@ const Carrusel = () => {
             </Swipe>
           )}
         </div>
-        <HacerPedido />
+        {userActual ? null : (
+          <>
+            <footer className={`footer ${marginTop}`}>
+              <Link className="botonFooter" to={"/miPedido"}>
+                <div className="cantidad">{preciosArray.length}</div>
+                <b className="verPedido">Mi Pedido</b>
+                <div className="precio">${precioFinal}</div>
+              </Link>
+            </footer>
+          </>
+        )}
       </div>
     </div>
   );

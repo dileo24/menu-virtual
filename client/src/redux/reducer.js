@@ -16,6 +16,7 @@ import {
   GET_TIPOPAGOS,
   DELETE_CATEG,
   EDITAR_ITEMS_EXTRA,
+  DELETE_SUBCATEG,
 } from "./actions.js";
 
 const initialState = {
@@ -117,6 +118,13 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         subcategorias: [...action.payload],
+      };
+    case DELETE_SUBCATEG:
+      return {
+        ...state,
+        subcategorias: state.subcategorias.filter(
+          (subcateg) => subcateg.id !== action.payload
+        ),
       };
 
     /****************** USUARIOS ******************/

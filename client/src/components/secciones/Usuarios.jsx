@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import React /* , { useEffect } */ from "react";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bloqueoUsuario,
   deleteUsuario,
   desbloqueoUsuario,
-  getUsuarios,
+  /* getUsuarios, */
 } from "../../redux/actions";
 // import Filtros from "../recursos/Filtros";
 

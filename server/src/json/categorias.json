@@ -1,9 +1,11 @@
 [
   {
-    "nombre": "Desayuno/Merienda"
+    "nombre": "Desayuno/Merienda",
+    "subcategID": ["8", "9"]
   },
   {
-    "nombre": "Almuerzo/Cena"
+    "nombre": "Almuerzo/Cena",
+    "subcategID": ["1", "2", "3", "4", "5", "6", "7"]
   },
   {
     "nombre": "Infusiones"

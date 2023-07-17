@@ -11,6 +11,7 @@ const {
   fnEstado,
   fnPedidos,
   fnSubcategorias,
+  SubcategEnCateg,
 } = require("./src/loadDB.js");
 
 const http = require("http");
@@ -28,7 +29,7 @@ const io = socketIO(server, {
 
 io.on("connection", (socket) => {
   socket.on("nuevoPedido", (pedido) => {
-    socket.broadcast.emit("nuevoPedidoRecibido", pedido);
+    io.emit("nuevoPedidoRecibido", pedido);
   });
 
   socket.on("cambiarEstadoPedido", (pedidoId, nuevoEstadoId) => {
@@ -42,6 +43,7 @@ conn.sync({ force: true }).then(async () => {
   server.listen(port, async () => {
     await fnCategorias();
     await fnSubcategorias();
+    await SubcategEnCateg();
     await fnProducto();
     await fnRols();
     await fnUsuarios();

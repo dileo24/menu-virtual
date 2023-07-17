@@ -43,7 +43,7 @@ export default function UpdateItemsCliente() {
     <div className="elegirItemsCont">
       <div className="scrollable-content">
         <div className="headerItems">
-          <Link to="/" className="atrasBtn">
+          <Link to="/miPedido" className="atrasBtn">
             <span className="arrow-left"></span>
           </Link>
           <div className="titleHeaderItems">
@@ -56,7 +56,7 @@ export default function UpdateItemsCliente() {
           className="formulario"
           onSubmit={(e) => handleSubmitForm(e)}
         >
-          {/* ****** ITEMS ****** */}
+          {/* ** ITEMS ** */}
           <div className="">
             <div className="">
               {prod.length && (

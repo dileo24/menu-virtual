@@ -1,29 +1,41 @@
-const { Categoria } = require("../../db");
+const { Categoria, Subcategoria } = require("../../db");
 
 const createCategory = async (req, res, next) => {
   try {
-    const { nombre } = req.body;
-    if (typeof nombre !== "string" || nombre === undefined) {
+    const { nombre, subcategID } = req.body;
+    if (nombre === undefined) {
+      throw new Error("texto vacio");
+    }
+
+    if (!Array.isArray(subcategID)) {
       throw new Error(
-        `El Nombre de la categoria debe ser unicamente texto, y has insertado ${
-          nombre === undefined ? "texto vacio" : nombre
-        }`
+        "El campo subcategID debe ser un array de id de subcategorías."
       );
     }
 
-    if (typeof nombre === "string") {
-      const newCategory = await Categoria.create({
-        nombre,
-      });
+    const subcategorias = await Subcategoria.findAll({
+      where: {
+        id: subcategID,
+      },
+    });
 
-      req.body.resultado = {
-        status: "200",
-        respuesta: `La categoria ${nombre} se ha creado exitosamente!`,
-      };
-      next();
-    } else {
-      throw new Error("datos pasados por body son incorrectos");
+    if (subcategorias.length !== subcategID.length) {
+      throw new Error(
+        "Una o más subcategorías no existen en la base de datos."
+      );
     }
+
+    const newCategory = await Categoria.create({
+      nombre,
+    });
+
+    await newCategory.setSubcategorias(subcategorias);
+
+    req.body.resultado = {
+      status: "200",
+      data: newCategory,
+    };
+    next();
   } catch (err) {
     req.body.resultado = { status: "404", respuesta: err.message };
     console.log(req.body.resultado);

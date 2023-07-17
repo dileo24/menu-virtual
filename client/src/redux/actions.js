@@ -14,6 +14,7 @@ export const GET_PEDIDOS = "GET_PEDIDOS";
 export const GET_ESTADOS = "GET_ESTADOS";
 export const GET_TIPOPAGOS = "GET_TIPOPAGOS";
 export const DELETE_CATEG = "DELETE_CATEG";
+export const DELETE_SUBCATEG = "DELETE_SUBCATEG";
 export const GET_SUBCATEGORIAS = "GET_SUBCATEGORIAS";
 export const EDITAR_ITEMS_EXTRA = "EDITAR_ITEMS_EXTRA";
 
@@ -61,7 +62,7 @@ export const getCategorias = () => {
   };
 };
 
-export const postCateg = (nombre, token) => {
+export const postCateg = (data, token) => {
   return async function () {
     const config = {
       headers: {
@@ -69,7 +70,7 @@ export const postCateg = (nombre, token) => {
       },
     };
 
-    const response = await axios.post("/categorias", nombre, config);
+    const response = await axios.post("/categorias", data, config);
     return response;
   };
 };
@@ -87,6 +88,19 @@ export const deleteCateg = (id, token) => {
     });
   };
 };
+
+export const updateCateg = (data, id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.put(`/categorias/${id}`, data, config);
+    dispatch(getCategorias());
+  };
+};
+
 export const searchXcategoria = (categoria) => {
   return {
     type: SEARCHxCATEGORIA,
@@ -102,6 +116,32 @@ export const getSubcategorias = () => {
     return dispatch({
       type: GET_SUBCATEGORIAS,
       payload: response.data,
+    });
+  };
+};
+
+export const postSubcateg = (data, token) => {
+  return async function () {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const response = await axios.post("/subcategorias", data, config);
+    return response;
+  };
+};
+export const deleteSubcateg = (id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.delete(`/subcategorias/${id}`, config);
+    dispatch({
+      type: DELETE_SUBCATEG,
+      payload: id,
     });
   };
 };

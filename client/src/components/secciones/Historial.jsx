@@ -56,9 +56,9 @@ export default function Historial() {
     pedidos.filter((ped) => ped.id === idPed.id)
   );
 
-  console.log(pedidosActuales);
+  /* console.log(pedidosActuales);
   console.log(inputData);
-  console.log(pedidos);
+  console.log(pedidos); */
 
   return pedidos &&
     pedidosActuales.length > 0 &&
@@ -108,7 +108,7 @@ export default function Historial() {
                   </div>
 
                   {/* <p className="metodoDePago">{pedido[0].Pago.tipo}</p> */}
-                  {/* <p className="estado">{pedido[0].Estado.tipo}</p> */}
+                  <p className="estado">{pedido[0].Estado.tipo}</p>
                 </div>
               )
           )

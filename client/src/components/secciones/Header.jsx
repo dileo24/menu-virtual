@@ -34,7 +34,8 @@ export default function Header({
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
-  const categActive = document.querySelector(".active");
+  const [categActiveId, setCategActive] = useState(null);
+  // const categActive = document.querySelector(".active");
   const [focusedSubcategory, setFocusedSubcategory] = useState(null);
   const [navSideOpen, setNavSideOpen] = useState(false);
   const isHomePage = window.location.pathname === "/";
@@ -48,6 +49,7 @@ export default function Header({
 
   useEffect(() => {
     scrollToActiveCategory();
+    setCategActive(currentSlide);
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -132,11 +134,38 @@ export default function Header({
 
   const handleButtonClick = (subC) => {
     setFocusedSubcategory(subC);
-    console.log("Botón " + subC.nombre + " fue clickeado");
-    const element = document.getElementById(subC.nombre);
-    console.log(element);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+
+    // Obtener el elemento con el atributo "data-index" igual a "currentSlide"
+    const currentSlideElement = document.querySelector(
+      `[data-index='${currentSlide}']`
+    );
+
+    // Buscar todos los elementos con el id "subC.nombre" dentro del elemento currentSlideElement
+    const elementos = currentSlideElement.querySelectorAll(`#${subC.nombre}`);
+
+    // Verificar si se encontraron elementos y scrollear hasta el primer elemento
+    if (elementos.length > 0) {
+      const firstElement = elementos[0];
+      const elementRect = firstElement.getBoundingClientRect();
+      const offsetTop =
+        window.scrollY + elementRect.top - window.innerHeight * 0.2; // Desplazamiento de -20vh
+
+      // Agregar la clase temporalmente a todos los elementos encontrados
+      elementos.forEach((element) => {
+        element.classList.add("temp-class");
+      });
+
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
+
+      // Eliminar la clase temporal después de un cierto tiempo
+      setTimeout(() => {
+        elementos.forEach((element) => {
+          element.classList.remove("temp-class");
+        });
+      }, 1500); // Cambiar el tiempo en milisegundos según tus necesidades
     }
   };
 
@@ -417,31 +446,30 @@ export default function Header({
                   ))}
               </div>
 
-              {categActive &&
-                newSubCategs.some(
-                  (subC) => subC.categoria.id === Number(categActive.id)
-                ) && (
-                  <div className="subCategorias">
-                    {newSubCategs
-                      .filter(
-                        (subC) => subC.categoria.id === Number(categActive.id)
-                      )
-                      .map((subC) => (
-                        <button
-                          className={`subCategoria ${
-                            subC === focusedSubcategory ? "focused" : ""
-                          }`}
-                          key={subC.nombre}
-                          onClick={() => {
-                            setFocusedSubcategory(subC);
-                            handleButtonClick(subC);
-                          }}
-                        >
-                          {subC.nombre}
-                        </button>
-                      ))}
-                  </div>
-                )}
+              {newSubCategs.filter(
+                (subC) => subC.categoria.id === Number(categActiveId)
+              ).length >= 2 && (
+                <div className="subCategorias">
+                  {newSubCategs
+                    .filter(
+                      (subC) => subC.categoria.id === Number(categActiveId)
+                    )
+                    .map((subC) => (
+                      <button
+                        className={`subCategoria ${
+                          subC === focusedSubcategory ? "focused" : ""
+                        }`}
+                        key={subC.nombre}
+                        onClick={() => {
+                          setFocusedSubcategory(subC);
+                          handleButtonClick(subC);
+                        }}
+                      >
+                        {subC.nombre}
+                      </button>
+                    ))}
+                </div>
+              )}
             </div>
           </>
         )}

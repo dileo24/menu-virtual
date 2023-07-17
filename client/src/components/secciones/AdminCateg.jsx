@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect /* , useState */ } from "react";
 import { deleteCateg, getCategorias } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
@@ -44,11 +44,20 @@ export default function AdminCateg() {
             categorias.map((categ) => (
               <div key={categ.id} className="cardCateg">
                 <p className="categName">{categ.nombre}</p>
+                {categ.subcategorias && (
+                  <ul className="subCategs">
+                    {categ.subcategorias.map((subC, index) => (
+                      <li key={index} className="list-item">
+                        <span className="list-item-circle"></span> {subC.nombre}
+                      </li>
+                    ))}
+                  </ul>
+                )}
                 <div className="administrarCateg">
                   <div className="editCrearSubcateg">
                     <div className="iconContainer1">
                       <Link
-                        //   to={`/updateItems/${prod.id}/${index}`}
+                        to={`/editCateg/${categ.id}`}
                         className="editarItems"
                       >
                         <HiOutlinePencil className="editarIcon" />
