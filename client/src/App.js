@@ -16,6 +16,7 @@ import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import AdminCateg from "./components/secciones/AdminCateg";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 import Subcategs from "./components/formularios/Subcategs";
+import EditarCateg from "./components/formularios/EditarCateg";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -56,6 +57,7 @@ function App() {
             <Route path="/subcategs" element={<Subcategs />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
+            <Route path="/editCateg/:id" element={<EditarCateg />} />
           </>
         )}
         {/* admins */}
@@ -65,7 +67,7 @@ function App() {
             <Route path="/editarProducto" element={<EditarProducto />} />
             <Route path="/nuevaCateg" element={<NuevaCateg />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
-
+            <Route path="/editCateg/:id" element={<EditarCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
           </>
         )}

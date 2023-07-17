@@ -57,7 +57,7 @@ export default function AdminCateg() {
                   <div className="editCrearSubcateg">
                     <div className="iconContainer1">
                       <Link
-                        //   to={`/updateItems/${prod.id}/${index}`}
+                        to={`/editCateg/${categ.id}`}
                         className="editarItems"
                       >
                         <HiOutlinePencil className="editarIcon" />
