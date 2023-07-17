@@ -1,15 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  eliminarItemCarrito,
-  getPedidos,
-  getTipoPago,
-  limpiarCarrito,
-} from "../../redux/actions";
+import { getPedidos, getTipoPago, limpiarCarrito } from "../../redux/actions";
 import { Link, useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
-import { HiOutlinePencil } from "react-icons/hi2";
-import { VscTrash } from "react-icons/vsc";
 import { AiOutlineBank } from "react-icons/ai";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { AiOutlineCreditCard } from "react-icons/ai";
@@ -19,23 +12,16 @@ import { io } from "socket.io-client";
 export default function HacerPedido() {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
-  let marginTop = carrito.length > 0 ? "" : "margen";
   const pedidos = useSelector((state) => state.pedidos);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
-  const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
   const [socket, setSocket] = useState(null);
 
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
-  // const itemsExtraArray = useSelector((state) => state.itemsExtra);
   const dispatch = useDispatch();
-  const [MostrarMenu, setMostrarMenu] = useState(false);
-  const [MostrarMenu2, setMostrarMenu2] = useState(false);
-  const [verOcultar, setVerOcultar] = useState("Mi Pedido");
-  const userActual = useSelector((state) => state.userActual);
   const tipoPagos = useSelector((state) => state.tipoPagos);
 
   const currentDate = new Date();
@@ -77,55 +63,6 @@ export default function HacerPedido() {
     };
   }, []);
 
-  const handleEliminarItemCarrito = (id, index) => {
-    setIndiceItemEliminar(index);
-    setTimeout(() => {
-      dispatch(eliminarItemCarrito(id));
-      setIndiceItemEliminar(null);
-    }, 200);
-  };
-
-  // Mostrar u ocultar Menús desplegables
-  const handleOnClick = () => {
-    if (!MostrarMenu) {
-      setMostrarMenu(!MostrarMenu);
-      if (MostrarMenu2) {
-        setMostrarMenu2(!MostrarMenu2);
-      }
-    } else {
-      if (carrito.length) {
-        setMostrarMenu2(!MostrarMenu2);
-        setMostrarMenu(MostrarMenu);
-      } else {
-        alert("Tu carrito está vacío");
-      }
-    }
-    if (verOcultar === "Mi Pedido") {
-      setVerOcultar("Siguiente");
-    }
-  };
-
-  const handleMostrarMenu1 = () => {
-    if (MostrarMenu2) {
-      setMostrarMenu2(!MostrarMenu2);
-    }
-    setMostrarMenu(MostrarMenu);
-    setVerOcultar("Siguiente");
-  };
-
-  const handleOcultarMenu1 = useCallback(() => {
-    const desplegable1 = document.querySelector(".desplegable1");
-    desplegable1.classList.add("animate-slide-down");
-    setTimeout(() => {
-      desplegable1.classList.remove("animate-slide-down");
-      setMostrarMenu(!MostrarMenu);
-      if (verOcultar === "Mi Pedido") {
-        setVerOcultar("Siguiente");
-      } else {
-        setVerOcultar("Mi Pedido");
-      }
-    }, 200);
-  }, [MostrarMenu, verOcultar]);
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);
     setPreciosArray(precios);
@@ -138,17 +75,8 @@ export default function HacerPedido() {
       productos: nombres,
       precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
     }));
+  }, [carrito]);
 
-    if (MostrarMenu && carrito.length === 0) {
-      handleOcultarMenu1();
-    }
-
-    if (MostrarMenu) {
-      document.body.classList.add("noScroll");
-    } else {
-      document.body.classList.remove("noScroll");
-    }
-  }, [carrito, MostrarMenu, handleOcultarMenu1]);
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -163,11 +91,9 @@ export default function HacerPedido() {
       });
     }
   };
-  /* console.log(input.itemsExtra);
-  console.log(input);
-  console.log(itemsDelCarrito); */
 
   const navigate = useNavigate();
+
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (carrito.length) {
@@ -217,227 +143,125 @@ export default function HacerPedido() {
     }
   };
 
-  const handleVaciar = () => {
-    dispatch(limpiarCarrito());
-  };
-
   return (
     <>
-      {/* Botón del footer */}
-      {userActual ? null : (
-        <>
-          <footer className={`footer ${marginTop}`}>
-            <button className="botonFooter" onClick={handleOnClick}>
-              {!MostrarMenu && (
-                <div className="cantidad">{preciosArray.length}</div>
-              )}
-              <b className="verPedido">{verOcultar}</b>
-              {!MostrarMenu && <div className="precio">${precioFinal}</div>}
-            </button>
-          </footer>
-        </>
-      )}
-
       <div className="desplegables">
-        {/* Menu desplegable 1*/}
-        {MostrarMenu && (
-          <div className="desplegable1 animate-slide-up">
-            <div className="scrollable-content">
-              <header className="header1">
-                <div className="ocultarBtn" onClick={handleOcultarMenu1}>
-                  <span className="arrow-down"></span>
-                </div>
-                <div className="titleHeader1">Mi Pedido</div>
-              </header>
-              {carrito.length > 0 && (
-                <>
-                  {carrito.map((prod, index) => (
+        {/* Menu desplegable 2*/}
+        <div className="desplegable2">
+          <div className="scrollable-content">
+            <header className="header1">
+              <Link className="ocultarBtn" to={"/miPedido"}>
+                <span className="arrow-left"></span>
+              </Link>
+              <div className="titleHeader1">Completar mi pedido</div>
+            </header>
+
+            <form
+              id="formulario"
+              className="formulario"
+              onSubmit={(e) => handleSubmitForm(e)}
+            >
+              <div className="mesa">
+                <label className="mesaTitle" htmlFor="mesa">
+                  Número de mesa
+                </label>
+                <input
+                  className="mesaInput"
+                  id="nombre"
+                  name="mesa"
+                  type="number"
+                  placeholder="N°"
+                  value={input.mesa}
+                  min={1}
+                  max={20}
+                  required
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+
+              <div className="aclaraciones">
+                <label className="aclaracionesTitle" htmlFor="aclaraciones">
+                  Aclaraciones
+                </label>
+                <textarea
+                  className="aclaracionesInput"
+                  id="aclaraciones"
+                  name="aclaraciones"
+                  type="text"
+                  placeholder="Si necesitás algo, avisanos!"
+                  min={0}
+                  max={3}
+                  value={input.aclaraciones}
+                  onChange={(e) => handleChange(e)}
+                />
+              </div>
+
+              <div className="pago">
+                <label className="pagoTitle" htmlFor="precio">
+                  Método de pago
+                </label>
+                <div>
+                  {tipoPagos?.map((tipo) => (
                     <div
-                      key={index}
-                      className={`cardProducto ${
-                        index === indiceItemEliminar
-                          ? "animate-slide-right"
-                          : ""
+                      key={tipo.id}
+                      className={`pagoInput ${
+                        selectedPayment === Number(tipo.id) ? "selected" : ""
                       }`}
+                      onClick={() =>
+                        handleSelectTipo({ target: { value: tipo.id } })
+                      }
                     >
-                      <div className="nombreItemsPrecio">
-                        <div className="nombrePrecio">
-                          <p className="nombre">{prod.nombre}</p>
-                          <p className="precio">${prod.precio}</p>
-                        </div>
-                        {prod && prod.itemsExtra && (
-                          <ul className="itemsExtra">
-                            {prod.itemsExtra.map((item, index) => (
-                              <li key={index} className="list-item">
-                                <span className="list-item-circle"></span>
-                                {item}
-                              </li>
-                            ))}
-                          </ul>
+                      <div className="iconCheck">
+                        <input
+                          type="radio"
+                          id={tipo.id}
+                          name="metodoPago"
+                          value={tipo.id}
+                          className="check"
+                          onChange={(e) => handleSelectTipo(e)}
+                          checked={selectedPayment === Number(tipo.id)}
+                          required
+                        />
+                        {tipo.id === 1 && (
+                          <HiOutlineBanknotes className="icon" />
+                        )}
+                        {tipo.id === 2 && <AiOutlineBank className="icon" />}
+                        {tipo.id === 3 && (
+                          <AiOutlineCreditCard className="icon" />
+                        )}
+                        {tipo.id === 4 && (
+                          <img
+                            src={mercadoPago}
+                            className="icon"
+                            alt="mercadoPago"
+                          />
                         )}
                       </div>
 
-                      <div className="accionesCont">
-                        <div className="acciones">
-                          {prod.itemsExtra && (
-                            <div className="iconContainer1">
-                              <Link
-                                to={`/updateItems/${prod.id}/${index}`}
-                                className="editarItems"
-                              >
-                                <HiOutlinePencil className="editarIcon" />
-                              </Link>
-                            </div>
-                          )}
-                          <div className="iconContainer2">
-                            <VscTrash
-                              className="eliminarIcon"
-                              onClick={() => {
-                                handleEliminarItemCarrito(prod.id, index);
-                              }}
-                            />
-                          </div>
-                        </div>
-                      </div>
+                      <label htmlFor={tipo.id} className="nombrePago">
+                        {tipo.tipo}
+                      </label>
                     </div>
                   ))}
-                  <div className="vaciarCont">
-                    <button className="vaciarBtn" onClick={handleVaciar}>
-                      Vaciar Pedido
-                    </button>
-                  </div>
-                </>
-              )}
-            </div>
-            <div className="footer1">
-              <p>Total</p>
-              <p>${precioFinal}</p>
-            </div>
-          </div>
-        )}
-
-        {/* Menu desplegable 2*/}
-        {MostrarMenu2 && (
-          <div className="desplegable2">
-            <div className="scrollable-content">
-              <header className="header1">
-                <div className="ocultarBtn" onClick={handleMostrarMenu1}>
-                  <span className="arrow-left"></span>
                 </div>
-                <div className="titleHeader1">Completar mi pedido</div>
-              </header>
+              </div>
 
-              <form
-                id="formulario"
-                className="formulario"
-                onSubmit={(e) => handleSubmitForm(e)}
-              >
-                {/* ****** MESA ****** */}
-                <div className="mesa">
-                  <label className="mesaTitle" htmlFor="mesa">
-                    Número de mesa
-                  </label>
-                  <input
-                    className="mesaInput"
-                    id="nombre"
-                    name="mesa"
-                    type="number"
-                    placeholder="N°"
-                    value={input.mesa}
-                    min={1}
-                    max={20}
-                    required
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-
-                {/* ****** ACLARACIONES ****** */}
-                <div className="aclaraciones">
-                  <label className="aclaracionesTitle" htmlFor="aclaraciones">
-                    Aclaraciones
-                  </label>
-                  <textarea
-                    className="aclaracionesInput"
-                    id="aclaraciones"
-                    name="aclaraciones"
-                    type="text"
-                    placeholder="Si necesitás algo, avisanos!"
-                    min={0}
-                    max={3}
-                    value={input.aclaraciones}
-                    onChange={(e) => handleChange(e)}
-                  />
-                </div>
-
-                {/* ****** MÉTODO DE PAGO ****** */}
-                <div className="pago">
-                  <label className="pagoTitle" htmlFor="precio">
-                    Método de pago
-                  </label>
-                  <div>
-                    {tipoPagos?.map((tipo) => (
-                      <div
-                        key={tipo.id}
-                        className={`pagoInput ${
-                          selectedPayment === Number(tipo.id) ? "selected" : ""
-                        }`}
-                        onClick={() =>
-                          handleSelectTipo({ target: { value: tipo.id } })
-                        }
-                      >
-                        <div className="iconCheck">
-                          <input
-                            type="radio"
-                            id={tipo.id}
-                            name="metodoPago"
-                            value={tipo.id}
-                            className="check"
-                            onChange={(e) => handleSelectTipo(e)}
-                            checked={selectedPayment === Number(tipo.id)}
-                            required
-                          />
-                          {tipo.id === 1 && (
-                            <HiOutlineBanknotes className="icon" />
-                          )}
-                          {tipo.id === 2 && <AiOutlineBank className="icon" />}
-                          {tipo.id === 3 && (
-                            <AiOutlineCreditCard className="icon" />
-                          )}
-                          {tipo.id === 4 && (
-                            <img
-                              src={mercadoPago}
-                              className="icon"
-                              alt="mercadoPago"
-                            />
-                          )}
-                        </div>
-
-                        <label htmlFor={tipo.id} className="nombrePago">
-                          {tipo.tipo}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* ****** FOOTER ****** */}
-                <div className="footer1">
-                  <p>Total</p>
-                  <p>${precioFinal}</p>
-                </div>
+              <div className="footer1">
+                <p>Total</p>
+                <p>${precioFinal}</p>
                 <div className="footer">
                   <div className="botonFooter">
                     <input
                       type="submit"
-                      className="verPedido"
+                      className="hacerPedido"
                       value="Hacer pedido"
                     />
                   </div>
                 </div>
-              </form>
-            </div>
+              </div>
+            </form>
           </div>
-        )}
+        </div>
       </div>
     </>
   );

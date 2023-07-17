@@ -16,6 +16,8 @@ import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import AdminCateg from "./components/secciones/AdminCateg";
 import NuevaCateg from "./components/formularios/NuevaCateg";
 import Subcategs from "./components/formularios/Subcategs";
+import MiPedido from "./components/secciones/MiPedido";
+import HacerPedido from "./components/secciones/HacerPedido";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -31,6 +33,8 @@ function App() {
       <Routes>
         {/* cualquiera */}
         <Route exact path="/" element={<Carrusel />} />
+        <Route exact path="/miPedido" element={<MiPedido />} />
+        <Route exact path="/hacerPedido" element={<HacerPedido />} />
         <Route path="/login" element={<ModalLogin />} />
         <Route path="/historial" element={<Historial />} />
         <Route path="/carrito" element={<Carrito />} />

@@ -34,7 +34,8 @@ export default function Header({
   const scrollableRef = useRef(null);
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
-  const categActive = document.querySelector(".active");
+  const [categActiveId, setCategActive] = useState(null);
+  // const categActive = document.querySelector(".active");
   const [focusedSubcategory, setFocusedSubcategory] = useState(null);
   const [navSideOpen, setNavSideOpen] = useState(false);
   const isHomePage = window.location.pathname === "/";
@@ -48,6 +49,7 @@ export default function Header({
 
   useEffect(() => {
     scrollToActiveCategory();
+    setCategActive(currentSlide);
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -421,31 +423,30 @@ export default function Header({
                   ))}
               </div>
 
-              {categActive &&
-                newSubCategs.some(
-                  (subC) => subC.categoria.id === Number(categActive.id)
-                ) && (
-                  <div className="subCategorias">
-                    {newSubCategs
-                      .filter(
-                        (subC) => subC.categoria.id === Number(categActive.id)
-                      )
-                      .map((subC) => (
-                        <button
-                          className={`subCategoria ${
-                            subC === focusedSubcategory ? "focused" : ""
-                          }`}
-                          key={subC.nombre}
-                          onClick={() => {
-                            setFocusedSubcategory(subC);
-                            handleButtonClick(subC);
-                          }}
-                        >
-                          {subC.nombre}
-                        </button>
-                      ))}
-                  </div>
-                )}
+              {newSubCategs.some(
+                (subC) => subC.categoria.id === Number(categActiveId)
+              ) && (
+                <div className="subCategorias">
+                  {newSubCategs
+                    .filter(
+                      (subC) => subC.categoria.id === Number(categActiveId)
+                    )
+                    .map((subC) => (
+                      <button
+                        className={`subCategoria ${
+                          subC === focusedSubcategory ? "focused" : ""
+                        }`}
+                        key={subC.nombre}
+                        onClick={() => {
+                          setFocusedSubcategory(subC);
+                          handleButtonClick(subC);
+                        }}
+                      >
+                        {subC.nombre}
+                      </button>
+                    ))}
+                </div>
+              )}
             </div>
           </>
         )}
