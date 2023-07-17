@@ -16,6 +16,7 @@ export default function HacerPedido() {
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [socket, setSocket] = useState(null);
+  const navigate = useNavigate();
 
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
@@ -55,6 +56,10 @@ export default function HacerPedido() {
   }, [dispatch]);
 
   useEffect(() => {
+    if (!carrito.length) {
+      navigate("/");
+    }
+
     // Local
     const socket = io("http://localhost:3001");
 
@@ -96,8 +101,6 @@ export default function HacerPedido() {
       });
     }
   };
-
-  const navigate = useNavigate();
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
