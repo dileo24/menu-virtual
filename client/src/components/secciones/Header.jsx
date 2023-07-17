@@ -423,9 +423,9 @@ export default function Header({
                   ))}
               </div>
 
-              {newSubCategs.some(
+              {newSubCategs.filter(
                 (subC) => subC.categoria.id === Number(categActiveId)
-              ) && (
+              ).length >= 2 && (
                 <div className="subCategorias">
                   {newSubCategs
                     .filter(
