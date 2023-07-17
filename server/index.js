@@ -29,7 +29,7 @@ const io = socketIO(server, {
 
 io.on("connection", (socket) => {
   socket.on("nuevoPedido", (pedido) => {
-    socket.broadcast.emit("nuevoPedidoRecibido", pedido);
+    io.emit("nuevoPedidoRecibido", pedido);
   });
 
   socket.on("cambiarEstadoPedido", (pedidoId, nuevoEstadoId) => {
