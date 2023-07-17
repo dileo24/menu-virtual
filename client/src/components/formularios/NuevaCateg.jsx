@@ -6,13 +6,12 @@ import {
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 // import Header from "../secciones/Header";
-import { useNavigate } from "react-router-dom";
-import { Link /* , useNavigate */ } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function NuevaCateg() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userActual.tokenSession);
-  const subcategs = useSelector((state) => state.subcategorias);
+  /* const subcategs = useSelector((state) => state.subcategorias); */
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,13 +28,13 @@ export default function NuevaCateg() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubcategChange = (e) => {
+  /*  const handleSubcategChange = (e) => {
     const subcategId = parseInt(e.target.value);
     const updatedSubcategIDs = input.subcategID.includes(subcategId)
       ? input.subcategID.filter((id) => id !== subcategId)
       : [...input.subcategID, subcategId];
     setInput({ ...input, subcategID: updatedSubcategIDs });
-  };
+  }; */
 
   const handleSubmit = (e) => {
     e.preventDefault();

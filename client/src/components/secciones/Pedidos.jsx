@@ -18,7 +18,7 @@ export default function Pedidos() {
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
-  let allPedidos = [...pedidos, ...nuevosPedidos];
+  let allPedidos = [...nuevosPedidos, ...pedidos];
 
   useEffect(() => {
     // Local
@@ -28,18 +28,18 @@ export default function Pedidos() {
     // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
-
     socket.on("nuevoPedidoRecibido", (pedido) => {
-      setNuevosPedidos((prevPedidos) => [...prevPedidos, pedido]);
+      setNuevosPedidos((prevPedidos) => [pedido, ...prevPedidos]);
     });
-
-    dispatch(getPedidos());
-    dispatch(getEstados());
-    dispatch(getTipoPago());
-
     return () => {
       socket.disconnect();
     };
+  }, []);
+
+  useEffect(() => {
+    dispatch(getPedidos());
+    dispatch(getEstados());
+    dispatch(getTipoPago());
   }, [dispatch]);
 
   const handleSelectChange = (e, id, atributo) => {
@@ -49,7 +49,7 @@ export default function Pedidos() {
     if (res === true) {
       dispatch(updatePedido(id, data, token))
         .then(() => {
-          dispatch(getPedidos()); // Obtener los pedidos actualizados después de la actualización
+          dispatch(getPedidos());
           if (socket) {
             socket.emit("cambiarEstadoPedido", id, data.estadoID);
           }
@@ -107,6 +107,8 @@ export default function Pedidos() {
                           creacionHora,
                           Pago,
                           id,
+                          estadoID,
+                          tipoPagoID,
                         }) => (
                           <tr key={id}>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -133,7 +135,7 @@ export default function Pedidos() {
                               <p className="text-gray-600">${precio}</p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Estado && (
+                              {Estado ? (
                                 <select
                                   id=""
                                   value={Estado.id}
@@ -147,10 +149,26 @@ export default function Pedidos() {
                                     </option>
                                   ))}
                                 </select>
+                              ) : (
+                                estadoID && (
+                                  <select
+                                    id=""
+                                    value={estadoID}
+                                    onChange={(e) =>
+                                      handleSelectChange(e, id, "estadoID")
+                                    }
+                                  >
+                                    {estados.map((est) => (
+                                      <option key={est.id} value={est.id}>
+                                        {est.tipo}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )
                               )}
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Pago && (
+                              {Pago ? (
                                 <select
                                   id=""
                                   value={Pago.id}
@@ -164,6 +182,22 @@ export default function Pedidos() {
                                     </option>
                                   ))}
                                 </select>
+                              ) : (
+                                tipoPagoID && (
+                                  <select
+                                    id=""
+                                    value={tipoPagoID}
+                                    onChange={(e) =>
+                                      handleSelectChange(e, id, "tipoPagoID")
+                                    }
+                                  >
+                                    {tipoPagos.map((pag) => (
+                                      <option key={pag.id} value={pag.id}>
+                                        {pag.tipo}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )
                               )}
                             </td>
                           </tr>

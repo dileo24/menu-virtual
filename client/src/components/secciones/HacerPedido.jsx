@@ -55,7 +55,12 @@ export default function HacerPedido() {
   }, [dispatch]);
 
   useEffect(() => {
+    // Local
     const socket = io("http://localhost:3001");
+
+    // Deploy
+    // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+
     setSocket(socket);
 
     return () => {
@@ -121,7 +126,16 @@ export default function HacerPedido() {
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
-      dispatch(createPedido(input));
+      dispatch(createPedido(input))
+        .then(() => {
+          dispatch(getPedidos());
+          if (socket) {
+            socket.emit("nuevoPedido", input);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       dispatch(limpiarCarrito());
       setInput({
         productos: [],

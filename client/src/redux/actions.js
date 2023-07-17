@@ -88,6 +88,19 @@ export const deleteCateg = (id, token) => {
     });
   };
 };
+
+export const updateCateg = (data, id, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.put(`/categorias/${id}`, data, config);
+    dispatch(getCategorias());
+  };
+};
+
 export const searchXcategoria = (categoria) => {
   return {
     type: SEARCHxCATEGORIA,
