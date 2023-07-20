@@ -33,6 +33,10 @@ export default function AdminCateg() {
     }
   };
 
+  // const handleCateg = (e) => {
+  //   setInput({ ...input, categID: e.target.value });
+  // };
+
   return (
     <>
       <Header />
@@ -66,6 +70,7 @@ export default function AdminCateg() {
                     <div className="btnContainer">
                       <Link
                         //   to={`/updateItems/${prod.id}/${index}`}
+                        to={`/subcategs/${categ.id}`}
                         className="crearSubcateg"
                       >
                         <div className="signoMas1">

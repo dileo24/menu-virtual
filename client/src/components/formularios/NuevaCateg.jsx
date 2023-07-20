@@ -54,20 +54,22 @@ export default function NuevaCateg() {
         </Link>
         <h1 className="categTitle">Crear nueva Categoría</h1>
       </header>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="email">Nombre de categoría nueva</label>
-            <input
-              type="text"
-              name="nombre"
-              placeholder="Escribe el nombre"
-              value={input.nombre}
-              onChange={handleChange}
-              required
-            />
+      <form onSubmit={handleSubmit} className="formulario">
+        <div className="nombre">
+          <label htmlFor="email" className="nombreTitle">
+            Nombre de categoría nueva
+          </label>
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Escribe el nombre"
+            className="nombreInput"
+            value={input.nombre}
+            onChange={handleChange}
+            required
+          />
 
-            {/* <p>
+          {/* <p>
                 <br />
                 Subcategorias (opcional)
               </p>
@@ -83,12 +85,14 @@ export default function NuevaCateg() {
                   {subC.nombre}
                 </label>
               ))} */}
-          </div>
-          <div>
-            <button type="submit">Crear</button>
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <footer>
+          <button type="submit" className="botonFooter">
+            Crear
+          </button>
+        </footer>
+      </form>
     </div>
   );
 }
