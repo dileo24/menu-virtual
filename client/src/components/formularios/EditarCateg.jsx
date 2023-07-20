@@ -35,28 +35,25 @@ export default function EditarCateg() {
     ]);
   };
 
+  console.log(subcategsToRemove);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(subcategsToRemove);
 
-    /* const updatedSubcategs = subcategs.filter(
+    /*  const updatedSubcategs = subcategs.filter(
       (subC) =>
         Number(subC.categoria.id) !== Number(id) &&
         !subcategsToRemove.includes(subC.id)
     ); */
-
-    // Dispatch the deleteSubcateg action for each subcategory in subcategsToRemove
-    Promise.all(
-      subcategsToRemove.map((subcategId) =>
-        dispatch(deleteSubcateg(subcategId))
-      )
-    ).then(() => {
-      // After all subcategories are removed, update the category
-      setSubcategsToRemove([]);
-      alert("Categoria actualizada con éxito!");
-      console.log(subcategs);
-      // navigate("/adminCateg");
+    subcategsToRemove.map((subC) => {
+      console.log(subC);
+      dispatch(deleteSubcateg(subC, token));
     });
+
+    setSubcategsToRemove([]);
+    alert("Categoria actualizada con éxito!");
+    console.log(subcategs);
+    // navigate("/adminCateg");
   };
 
   return (
