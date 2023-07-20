@@ -138,7 +138,6 @@ export const deleteSubcateg = (id, token) => {
         Authorization: `Bearer ${token}`,
       },
     };
-    console.log(id);
     await axios.delete(`/subcategorias/${id}`, config);
     dispatch({
       type: DELETE_SUBCATEG,

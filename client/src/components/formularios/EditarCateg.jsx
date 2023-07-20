@@ -35,18 +35,14 @@ export default function EditarCateg() {
     ]);
   };
 
-  console.log(subcategsToRemove);
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(subcategsToRemove);
-
     /*  const updatedSubcategs = subcategs.filter(
       (subC) =>
         Number(subC.categoria.id) !== Number(id) &&
         !subcategsToRemove.includes(subC.id)
     ); */
     subcategsToRemove.map((subC) => {
-      console.log(subC);
       dispatch(deleteSubcateg(subC, token));
     });
 
