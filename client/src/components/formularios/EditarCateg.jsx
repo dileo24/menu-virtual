@@ -3,6 +3,7 @@ import {
   getCategorias,
   getSubcategorias,
   updateCateg,
+  deleteSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -13,28 +14,48 @@ export default function EditarCateg() {
   const navigate = useNavigate();
   let { id } = useParams();
   const categ = useSelector((state) => state.categorias[id - 1]);
+  const subcategs = useSelector((state) => state.subcategorias);
+  const [input, setInput] = useState({
+    nombre: "",
+  });
+  const [subcategsToRemove, setSubcategsToRemove] = useState([]);
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
   useEffect(() => {
     dispatch(getCategorias());
     dispatch(getSubcategorias());
   }, [dispatch]);
 
-  const [input, setInput] = useState({
-    nombre: "",
-    subcategID: [],
-  });
-
-  const handleChange = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+  const handleRemoveSubcateg = (subcategId) => {
+    setSubcategsToRemove((prevSubcategsToRemove) => [
+      ...prevSubcategsToRemove,
+      subcategId,
+    ]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateCateg(input, id, token)).then(() => {
-      dispatch(getCategorias());
+    console.log(subcategsToRemove);
+
+    /* const updatedSubcategs = subcategs.filter(
+      (subC) =>
+        Number(subC.categoria.id) !== Number(id) &&
+        !subcategsToRemove.includes(subC.id)
+    ); */
+
+    // Dispatch the deleteSubcateg action for each subcategory in subcategsToRemove
+    Promise.all(
+      subcategsToRemove.map((subcategId) =>
+        dispatch(deleteSubcateg(subcategId))
+      )
+    ).then(() => {
+      // After all subcategories are removed, update the category
+      setSubcategsToRemove([]);
       alert("Categoria actualizada con éxito!");
-      navigate("/adminCateg");
-      setInput({ nombre: "", subcategID: [] });
+      console.log(subcategs);
+      // navigate("/adminCateg");
     });
   };
 
@@ -60,6 +81,25 @@ export default function EditarCateg() {
                 required
               />
             </div>
+            <p>
+              <br />
+              Subcategorias (opcional)
+            </p>
+            <ul>
+              {subcategs
+                .filter((subC) => Number(subC.categoria.id) === Number(id))
+                .map((subC) => (
+                  <li key={subC.id}>
+                    {subC.nombre}
+                    <span
+                      className="removeSubcateg"
+                      onClick={() => handleRemoveSubcateg(subC.id)}
+                    >
+                      X
+                    </span>
+                  </li>
+                ))}
+            </ul>
             <div>
               <button type="submit">Terminar edición</button>
             </div>

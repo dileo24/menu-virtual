@@ -5,7 +5,7 @@ import {
   postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Subcategs() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export default function Subcategs() {
   const categs = useSelector((state) => state.categorias);
   const pathArray = window.location.pathname.split("/");
   const [selectedCategoryName, setSelectedCategoryName] = useState(""); // State to hold the selected category name
-
+  const navigate = useNavigate();
   const lastAttribute = pathArray[pathArray.length - 1];
 
   const [input, setInput] = useState({
@@ -40,17 +40,19 @@ export default function Subcategs() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleCateg = (e) => {
-    setInput({ ...input, categID: e.target.value });
-  };
+  // const handleCateg = (e) => {
+  //   setInput({ ...input, categID: e.target.value });
+  // };
 
   const handleSubmit = (e) => {
     console.log(input);
     e.preventDefault();
+    alert("Subcategoría creada con éxito!");
+
     dispatch(postSubcateg(input, token)).then(() => {
       dispatch(getSubcategorias());
-      alert("Subcategoría creada con éxito!");
       setInput({ nombre: "", categID: "" });
+      navigate("/adminCateg");
     });
   };
 
