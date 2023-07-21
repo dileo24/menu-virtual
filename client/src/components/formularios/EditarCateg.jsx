@@ -48,8 +48,7 @@ export default function EditarCateg() {
 
     setSubcategsToRemove([]);
     alert("Categoria actualizada con éxito!");
-    console.log(subcategs);
-    // navigate("/adminCateg");
+    navigate("/adminCateg");
   };
 
   return (
