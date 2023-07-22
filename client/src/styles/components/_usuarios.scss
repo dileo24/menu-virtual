@@ -1,0 +1,112 @@
+.usuariosContainer {
+  .usuariosTitle {
+    font-size: $titleSize;
+    font-weight: $titleWeight;
+    line-height: 1;
+    margin-left: 5vw;
+    margin-bottom: 8vw;
+  }
+  .todos,
+  .habilitados,
+  .inhabilitados {
+    padding: 0 5vw 28vw 5vw;
+    min-height: 90vh;
+    .diapoTitle {
+      font-size: $titleSize;
+      font-weight: $titleWeight;
+      margin-bottom: 8vw;
+      line-height: 1;
+    }
+    .diapoSubtitle {
+      font-weight: $titleWeight;
+      font-size: $subtSize;
+      line-height: 1;
+      &.inhab {
+        margin-top: 10vw;
+      }
+    }
+    .cardUsuario {
+      background-color: white;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      padding: 5%;
+      min-height: 12rem;
+      margin-top: 5%;
+      @media only screen and (max-height: 700px) {
+        min-height: 25vh;
+      }
+      max-height: fit-content;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      .userData {
+        .userNameRol {
+          width: 100%;
+          font-size: 4vw;
+          font-weight: $titleWeight;
+          color: $paragraph;
+          display: flex;
+          line-height: 1.2;
+          flex-wrap: wrap;
+          p {
+            margin-right: 1.5vw;
+          }
+          .rol {
+            line-height: 1.2;
+            color: rgb(170, 170, 170);
+            font-weight: 500;
+          }
+        }
+        .userEmail {
+          margin-top: 3vw;
+          line-height: 1;
+          font-size: 4vw;
+        }
+      }
+      .precioAcciones {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        margin-top: 10%;
+        .precio {
+          font-weight: $titleWeight;
+          font-size: 5vw;
+        }
+        .acciones {
+          min-width: 50%;
+          @include center;
+          justify-content: flex-end;
+          .iconContainer1 {
+            width: 8vw;
+            height: 8vw;
+            border-radius: 8px;
+            @include center;
+            margin-right: 4vw;
+            border: 1px solid $naranja;
+            background-color: #fef5e6;
+            .editarIcon {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
+          .iconContainer2 {
+            width: 8vw;
+            height: 8vw;
+            border-radius: 8px;
+            @include center;
+            background-color: #ffe5e5;
+            border: 1px solid #ff3d3d;
+            .eliminarIcon {
+              width: 1.2rem;
+              height: 1.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

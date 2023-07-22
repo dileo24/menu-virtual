@@ -1,18 +1,23 @@
-import React /* , { useEffect } */ from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header from "./Header";
 import { useDispatch, useSelector } from "react-redux";
 import {
   bloqueoUsuario,
   deleteUsuario,
   desbloqueoUsuario,
-  /* getUsuarios, */
+  getUsuarios,
 } from "../../redux/actions";
 // import Filtros from "../recursos/Filtros";
+import Swipe from "react-swipe";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  useEffect(() => {
+    dispatch(getUsuarios());
+  }, [dispatch]);
 
   const handleEliminar = (id) => {
     dispatch(deleteUsuario(id, userActual.tokenSession));
@@ -38,119 +43,121 @@ export default function Usuarios() {
     }
   };
 
-  return (
-    <div className="min-h-100 bg-gray-200">
-      <div className="md:flex min-h-screen md:align-top">
-        <Header />
-        <div className="modal flex flex-col justify-center h-screen bg-gray-200 md:w-4/5 xl:w-4/5">
-          <div className="flex flex-col mt-10 items-center contenedor w-auto">
-            <div className="modal-content -my-2 py-2 overflow-x-auto w-auto">
-              {/* <Filtros /> */}
+  const handleSwipe = useCallback((index) => {
+    setCurrentSlide(index);
+    window.scrollTo({ top: 0 });
+  }, []);
 
-              <div className="grid grid-cols-2 gap-20">
-                {/* Usuarios habilitados */}
-                <div className="px-8 py-5 bg-gray-300 rounded">
-                  <p className="text-2xl text-center mb-10">
-                    Usuarios habilitados
+  return (
+    <div className="usuariosContainer">
+      <Header />
+      <h1 className="usuariosTitle">Administrar Usuarios</h1>
+
+      <Swipe
+        className="swipe"
+        swipeOptions={{
+          startSlide: currentSlide,
+          speed: 300,
+          continuous: false,
+          callback: handleSwipe,
+        }}
+      >
+        <div className="todos">
+          <h1 className="diapoTitle">Todos</h1>
+
+          {/* Usuarios habilitados */}
+          <p className="diapoSubtitle ">Usuarios habilitados</p>
+          {usuarios &&
+            usuarios
+              .filter((user) => user.id !== 1 && !user.bloqueo)
+              .map((user) => (
+                <div key={user.id} className="cardUsuario">
+                  {/* <p className="nombre">
+                    {user.nombre} {user.apellido}
                   </p>
-                  {usuarios &&
-                    usuarios
-                      .filter((user) => user.id !== 1 && !user.bloqueo)
-                      .map((user) => (
-                        <div key={user.id}>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Nombre:</b> {user.nombre} {user.apellido}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Email:</b> {user.email}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Tipo de usuario:</b> {user.Rol.rol}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <span>
-                              <b>Estado actual:</b> Habilitado
-                            </span>
-                          </p>
-                          <div className="flex mb-10">
-                            <button
-                              onClick={() => handleEliminar(user.id)}
-                              className="mr-2 rounded bg-red-700 hover:bg-red-900 mt-1  p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                            >
-                              Eliminar usuario
-                            </button>
-                            <button
-                              onClick={() =>
-                                handleBloqueo(user.id, user.nombre)
-                              }
-                              className="rounded bg-orange-500 hover:bg-orange-700 mt-1 p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                            >
-                              Inhabilitar usuario
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                  {usuarios &&
-                    usuarios.filter((user) => !user.bloqueo).length === 1 && (
-                      <p className="font-light text-center">
-                        No hay usuarios habilitados
+                  <p className="email">Email: {user.email}</p>
+                  <p>Tipo de usuario: {user.Rol.rol}</p> */}
+
+                  <div className="userData">
+                    <div className="userNameRol">
+                      <p>
+                        {user.nombre} {user.apellido}
                       </p>
-                    )}
+
+                      {user.Rol.id === 2 && <div className="rol">• Admin</div>}
+                      {user.Rol.id === 3 && (
+                        <div className="rol">• Empleado</div>
+                      )}
+                    </div>
+                    <p className="userEmail">{user.email}</p>
+                  </div>
+
+                  <p>Estado actual: Habilitado</p>
+
+                  <div className="acciones">
+                    <button onClick={() => handleEliminar(user.id)}>
+                      Eliminar usuario
+                    </button>
+                    <button onClick={() => handleBloqueo(user.id, user.nombre)}>
+                      Inhabilitar usuario
+                    </button>
+                  </div>
                 </div>
-                {/* Usuarios bloqueados */}
-                <div className="px-8 py-5 bg-gray-300 rounded">
-                  <p className="text-2xl text-center mb-10">
-                    Usuarios inhabilitados
+              ))}
+          {usuarios &&
+            usuarios.filter((user) => !user.bloqueo).length === 1 && (
+              <p>No hay usuarios habilitados</p>
+            )}
+
+          {/* Usuarios bloqueados */}
+          <p className="diapoSubtitle inhab">Usuarios inhabilitados</p>
+          {usuarios &&
+            usuarios
+              .filter((user) => user.id !== 1 && user.bloqueo)
+              .map((user) => (
+                <div key={user.id} className="cardUsuario">
+                  {/* <p className="nombre">
+                    {user.nombre} {user.apellido}
                   </p>
-                  {usuarios &&
-                    usuarios
-                      .filter((user) => user.id !== 1 && user.bloqueo)
-                      .map((user) => (
-                        <div key={user.id}>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Nombre:</b> {user.nombre} {user.apellido}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Email:</b> {user.email}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <b>Tipo de usuario:</b> {user.Rol.rol}
-                          </p>
-                          <p className="block text-gray-700 text-sm mb-2">
-                            <span>
-                              <b>Estado actual:</b> Inhabilitado
-                            </span>
-                          </p>
-                          <div className="flex">
-                            <button
-                              onClick={() => handleEliminar(user.id)}
-                              className="mr-2 rounded bg-red-700 hover:bg-red-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                            >
-                              Eliminar usuario
-                            </button>
-                            <button
-                              onClick={() =>
-                                handleDesbloqueo(user.id, user.nombre)
-                              }
-                              className="rounded bg-green-700 hover:bg-green-900 mt-1 mb-10 p-2 text-white uppercase font-bold cursor-pointer text-sm"
-                            >
-                              Habilitar usuario
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                  {usuarios &&
-                    usuarios.filter((user) => user.bloqueo).length === 0 && (
-                      <p className="font-light text-center">
-                        No hay usuarios inhabilitados
+                  <p className="email">Email: {user.email}</p>
+                  <p>Tipo de usuario: {user.Rol.rol}</p> */}
+
+                  <div className="userData">
+                    <div className="userNameRol">
+                      <p>
+                        {user.nombre} {user.apellido}
                       </p>
-                    )}
+
+                      {user.Rol.id === 2 && <div className="rol">• Admin</div>}
+                      {user.Rol.id === 3 && (
+                        <div className="rol">• Empleado</div>
+                      )}
+                    </div>
+                    <p className="userEmail">{user.email}</p>
+                  </div>
+
+                  <p>Estado actual: Habilitado</p>
+                  <div className="acciones">
+                    <button onClick={() => handleEliminar(user.id)}>
+                      Eliminar usuario
+                    </button>
+                    <button
+                      onClick={() => handleDesbloqueo(user.id, user.nombre)}
+                    >
+                      Habilitar usuario
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
+              ))}
+          {usuarios && usuarios.filter((user) => user.bloqueo).length === 0 && (
+            <p>No hay usuarios inhabilitados</p>
+          )}
         </div>
-      </div>
+
+        <div className="habilitados">Usuarios habilitados</div>
+
+        <div className="inhabilitados">Usuarios bloqueados</div>
+      </Swipe>
     </div>
   );
 }
