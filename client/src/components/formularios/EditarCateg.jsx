@@ -4,6 +4,7 @@ import {
   getSubcategorias,
   /* updateCateg, */
   deleteSubcateg,
+  updateSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -22,8 +23,17 @@ export default function EditarCateg() {
     nombre: "",
   });
 
+  const [inputSubc, setInputSubc] = useState({});
+
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
+  };
+
+  const handleChangeSubcategs = (e, subcId) => {
+    setInputSubc((prevInputSubc) => ({
+      ...prevInputSubc,
+      [subcId]: e.target.value,
+    }));
   };
 
   useEffect(() => {
@@ -54,16 +64,30 @@ export default function EditarCateg() {
   //   navigate("/adminCateg");
   // };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    subcategsToRemove.forEach((subC) => {
-      dispatch(deleteSubcateg(subC, token));
-    });
-
-    setSubcategsToRemove([]);
-    alert("Categoria actualizada con éxito!");
-    navigate("/adminCateg");
+    try {
+      for (const subC of subcategsToRemove) {
+        await dispatch(deleteSubcateg(subC, token));
+      }
+      for (const subcId of Object.keys(inputSubc)) {
+        const subcategNombre = inputSubc[subcId];
+        if (
+          subcategNombre !==
+          subcategs.find((subC) => subC.id === parseInt(subcId))?.nombre
+        ) {
+          await dispatch(
+            updateSubcateg(subcId, { nombre: subcategNombre }, token)
+          );
+        }
+      }
+      setSubcategsToRemove([]);
+      alert("Categoría actualizada con éxito!");
+      navigate("/adminCateg");
+    } catch (error) {
+      console.error("Error al actualizar categ:", error);
+    }
   };
 
   return (
@@ -113,8 +137,12 @@ export default function EditarCateg() {
                         type="text"
                         name="subcateg"
                         placeholder="Escribe el nombre"
-                        value={subC.nombre}
-                        /* onChange={handleChangeSubcategs} */
+                        value={
+                          inputSubc[subC.id] !== undefined
+                            ? inputSubc[subC.id]
+                            : subC.nombre
+                        }
+                        onChange={(e) => handleChangeSubcategs(e, subC.id)}
                         required
                       />
                       <div

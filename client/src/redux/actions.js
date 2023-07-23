@@ -131,6 +131,19 @@ export const postSubcateg = (data, token) => {
     return response;
   };
 };
+
+export const updateSubcateg = (id, data, token) => {
+  return async function (dispatch) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    await axios.put(`/subcategorias/${id}`, data, config);
+    dispatch(getSubcategorias());
+  };
+};
+
 export const deleteSubcateg = (id, token) => {
   return async function (dispatch) {
     const config = {
