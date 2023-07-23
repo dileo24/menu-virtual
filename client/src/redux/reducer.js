@@ -28,8 +28,10 @@ const initialState = {
   homeBusqueda: [],
   carrito: [],
   categorias: [],
+  categsBusq: [],
   subcategorias: [],
   pedidos: [],
+  pedidosBusq: [],
   estados: [],
   tipoPagos: [],
   itemsExtra: [],
@@ -76,26 +78,39 @@ function rootReducer(state = initialState, action) {
         return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       };
 
-      if (action.searchType === "usuarios") {
-        let usersSearch = state.usuarios.filter((user) =>
-          removeAccents(user.nombre.toLowerCase()).includes(
-            removeAccents(action.payload.toLowerCase())
-          )
-        );
-        return {
-          ...state,
-          usuariosBusq: usersSearch,
-        };
-      } else {
-        let productsSearch = state.productos.filter((e) =>
-          removeAccents(e.nombre.toLowerCase()).includes(
-            removeAccents(action.payload.toLowerCase())
-          )
-        );
-        return {
-          ...state,
-          homeBusqueda: productsSearch,
-        };
+      let searchResult = [];
+
+      switch (action.searchType) {
+        case "usuarios":
+          searchResult = state.usuarios.filter((user) =>
+            removeAccents(user.nombre.toLowerCase()).includes(
+              removeAccents(action.payload.toLowerCase())
+            )
+          );
+          return {
+            ...state,
+            usuariosBusq: searchResult,
+          };
+        case "categorias":
+          searchResult = state.categorias.filter((categoria) =>
+            removeAccents(categoria.nombre.toLowerCase()).includes(
+              removeAccents(action.payload.toLowerCase())
+            )
+          );
+          return {
+            ...state,
+            categsBusq: searchResult,
+          };
+        default:
+          let productsSearch = state.productos.filter((producto) =>
+            removeAccents(producto.nombre.toLowerCase()).includes(
+              removeAccents(action.payload.toLowerCase())
+            )
+          );
+          return {
+            ...state,
+            homeBusqueda: productsSearch,
+          };
       }
     }
 
@@ -104,6 +119,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         categorias: [...action.payload],
+        categsBusq: [...action.payload],
       };
     case SEARCHxCATEGORIA: {
       let prodFilter =

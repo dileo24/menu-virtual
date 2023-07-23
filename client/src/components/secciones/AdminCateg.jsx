@@ -14,7 +14,7 @@ import Filtros from "../recursos/Filtros";
 
 export default function AdminCateg() {
   const dispatch = useDispatch();
-  const categorias = useSelector((state) => state.categorias);
+  const categsBusq = useSelector((state) => state.categsBusq);
   const token = useSelector((state) => state.userActual.tokenSession);
   let productosState = useSelector((state) => state.home);
 
@@ -36,7 +36,7 @@ export default function AdminCateg() {
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    const categDel = categorias.find((categ) => categ.id === id);
+    const categDel = categsBusq.find((categ) => categ.id === id);
 
     const matchingProduct = productosState.find(
       (producto) => producto.categoriaID === id
@@ -70,7 +70,7 @@ export default function AdminCateg() {
       <Header />
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
-        <Filtros />
+        <Filtros searchType="categorias" />
         <form onSubmit={handleSubmit} className="formulario">
           <input
             type="text"
@@ -86,53 +86,49 @@ export default function AdminCateg() {
           </button>
         </form>
         <div>
-          {categorias &&
-            categorias.map((categ) => (
-              <div key={categ.id} className="cardCateg">
-                <p className="categName">{categ.nombre}</p>
-                {categ.subcategorias && (
-                  <ul className="subCategs">
-                    {categ.subcategorias.map((subC, index) => (
-                      <li key={index} className="list-item">
-                        <span className="list-item-circle"></span> {subC.nombre}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <div className="administrarCateg">
-                  <div className="editCrearSubcateg">
-                    <div className="iconContainer1">
-                      <Link
-                        to={`/editCateg/${categ.id}`}
-                        className="editarItems"
-                      >
-                        <HiOutlinePencil className="editarIcon" />
-                      </Link>
-                    </div>
-                    <div className="btnContainer">
-                      <Link
-                        //   to={`/updateItems/${prod.id}/${index}`}
-                        to={`/subcategs/${categ.id}`}
-                        className="crearSubcateg"
-                      >
-                        <div className="signoMas1">
-                          <div className="signoMas2"></div>
-                        </div>
-                        Subcategoría
-                      </Link>
-                    </div>
+          {categsBusq.map((categ) => (
+            <div key={categ.id} className="cardCateg">
+              <p className="categName">{categ.nombre}</p>
+              {categ.subcategorias && (
+                <ul className="subCategs">
+                  {categ.subcategorias.map((subC, index) => (
+                    <li key={index} className="list-item">
+                      <span className="list-item-circle"></span> {subC.nombre}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="administrarCateg">
+                <div className="editCrearSubcateg">
+                  <div className="iconContainer1">
+                    <Link to={`/editCateg/${categ.id}`} className="editarItems">
+                      <HiOutlinePencil className="editarIcon" />
+                    </Link>
                   </div>
-                  <div className="iconContainer2">
-                    <VscTrash
-                      className="eliminarIcon"
-                      onClick={() => {
-                        handleDelete(categ.id);
-                      }}
-                    />
+                  <div className="btnContainer">
+                    <Link
+                      //   to={`/updateItems/${prod.id}/${index}`}
+                      to={`/subcategs/${categ.id}`}
+                      className="crearSubcateg"
+                    >
+                      <div className="signoMas1">
+                        <div className="signoMas2"></div>
+                      </div>
+                      Subcategoría
+                    </Link>
                   </div>
                 </div>
+                <div className="iconContainer2">
+                  <VscTrash
+                    className="eliminarIcon"
+                    onClick={() => {
+                      handleDelete(categ.id);
+                    }}
+                  />
+                </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
         {/* <footer>
           <Link to="/nuevaCateg" className="botonFooter">
