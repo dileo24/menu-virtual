@@ -43,10 +43,11 @@ export const deleteProducto = (id, token) => {
   };
 };
 
-export const searchXname = (nombre) => {
+export const searchXname = (nombre, searchType) => {
   return {
     type: SEARCHxNOMBRE,
     payload: nombre,
+    searchType: searchType,
   };
 };
 

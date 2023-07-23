@@ -16,11 +16,11 @@ import Filtros from "../recursos/Filtros";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
+  const usuariosBusq = useSelector((state) => state.usuariosBusq);
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
   const [currentSlide, setCurrentSlide] = useState(null);
   const [diapoActual, setDiapoActual] = useState(0);
-
   useEffect(() => {
     dispatch(getUsuarios());
   }, [dispatch]);
@@ -93,7 +93,7 @@ export default function Usuarios() {
       <Header />
       <h1 className="usuariosTitle">Administrar Usuarios</h1>
       <div className="navbar">
-        <Filtros />
+        <Filtros searchType="usuarios" />
       </div>
       <div className="circles">
         <div className="circle0"></div>
@@ -116,8 +116,8 @@ export default function Usuarios() {
 
             {/* Usuarios habilitados */}
             <p className="diapoSubtitle ">Usuarios habilitados</p>
-            {usuarios &&
-              usuarios
+            {usuariosBusq &&
+              usuariosBusq
                 .filter((user) => user.id !== 1 && !user.bloqueo)
                 .map((user) => (
                   <div key={user.id} className="cardUsuario">
@@ -162,15 +162,15 @@ export default function Usuarios() {
                     </div>
                   </div>
                 ))}
-            {usuarios &&
-              usuarios.filter((user) => !user.bloqueo).length === 1 && (
+            {usuariosBusq &&
+              usuariosBusq.filter((user) => !user.bloqueo).length === 1 && (
                 <p className="noHayUsuarios">No hay usuarios habilitados</p>
               )}
 
             {/* Usuarios inhabilitados */}
             <p className="diapoSubtitle inhab">Usuarios inhabilitados</p>
-            {usuarios &&
-              usuarios
+            {usuariosBusq &&
+              usuariosBusq
                 .filter((user) => user.id !== 1 && user.bloqueo)
                 .map((user) => (
                   <div key={user.id} className="cardUsuario">
@@ -215,8 +215,8 @@ export default function Usuarios() {
                     </div>
                   </div>
                 ))}
-            {usuarios &&
-              usuarios.filter((user) => user.bloqueo).length === 0 && (
+            {usuariosBusq &&
+              usuariosBusq.filter((user) => user.bloqueo).length === 0 && (
                 <p className="noHayUsuarios">No hay usuarios inhabilitados</p>
               )}
           </div>
