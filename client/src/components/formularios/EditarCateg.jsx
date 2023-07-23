@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   getCategorias,
   getSubcategorias,
-  /* updateCateg, */
+  updateCateg,
   deleteSubcateg,
   updateSubcateg,
 } from "../../redux/actions";
@@ -63,11 +63,15 @@ export default function EditarCateg() {
   //   alert("Categoria actualizada con éxito!");
   //   navigate("/adminCateg");
   // };
-
+  console.log(input);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      if (input.nombre !== categ.nombre) {
+        dispatch(updateCateg(input, id, token));
+      }
+
       for (const subC of subcategsToRemove) {
         await dispatch(deleteSubcateg(subC, token));
       }
