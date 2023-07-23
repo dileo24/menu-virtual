@@ -62,9 +62,6 @@ export default function ModalRegister({ onClose }) {
   };
 
   useEffect(() => {
-    // Cambiarle el background del botón del Header
-    const registrar = document.querySelector(".registrar");
-    registrar.classList.add("bg-teal-700");
     dispatch(getUsuarios());
   }, [dispatch]);
 

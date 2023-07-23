@@ -14,14 +14,13 @@ import Carrito from "./components/secciones/Carrito";
 import ItemsCliente from "./components/secciones/ItemsCliente";
 import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import AdminCateg from "./components/secciones/AdminCateg";
-import NuevaCateg from "./components/formularios/NuevaCateg";
 import Subcategs from "./components/formularios/Subcategs";
 import MiPedido from "./components/secciones/MiPedido";
-import HacerPedido from "./components/secciones/HacerPedido";
+import HacerPedido from "./components/formularios/HacerPedido";
 import EditarCateg from "./components/formularios/EditarCateg";
 
 // Local
-// axios.defaults.baseURL = "http://localhost:3001";
+//axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
 axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
@@ -49,7 +48,7 @@ function App() {
         {userActual && userActual.data.RolId === 3 && (
           <Route path="/pedidos" element={<Pedidos />} />
         )}
-        {/* admins */}
+        {/* superAdmin */}
         {userActual && userActual.data.RolId === 1 && (
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
@@ -57,8 +56,7 @@ function App() {
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
-            <Route path="/nuevaCateg" element={<NuevaCateg />} />
-            <Route path="/subcategs" element={<Subcategs />} />
+            <Route path="/subcategs/:id" element={<Subcategs />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/editCateg/:id" element={<EditarCateg />} />
@@ -69,7 +67,7 @@ function App() {
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />
-            <Route path="/nuevaCateg" element={<NuevaCateg />} />
+            <Route path="/subcategs/:id" element={<Subcategs />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/editCateg/:id" element={<EditarCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategorias, searchXname } from "../../redux/actions";
 
-export default function Filtros({ handleSearch }) {
+export default function Filtros({ handleSearch = () => {}, searchType }) {
   const [state, setState] = useState("");
   const dispatch = useDispatch();
 
@@ -16,7 +16,7 @@ export default function Filtros({ handleSearch }) {
 
   const limpiarState = () => {
     if (state !== "") {
-      dispatch(searchXname(state));
+      dispatch(searchXname(state, searchType));
       handleSearch();
       setState("");
     }

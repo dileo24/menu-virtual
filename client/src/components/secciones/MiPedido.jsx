@@ -9,14 +9,12 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
-import { io } from "socket.io-client";
 
 export default function HacerPedido1() {
   const carrito = useSelector((state) => state.carrito);
   const [preciosArray, setPreciosArray] = useState([]);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
-  const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
@@ -29,27 +27,19 @@ export default function HacerPedido1() {
     dispatch(getPedidos());
   }, [dispatch]);
 
-  useEffect(() => {
-    const socket = io("http://localhost:3001");
-    setSocket(socket);
-
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
-
   const handleEliminarItemCarrito = (id, index) => {
     setIndiceItemEliminar(index);
     setTimeout(() => {
       dispatch(eliminarItemCarrito(id));
       setIndiceItemEliminar(null);
-      if (carrito.length === 1) {
-        navigate("/");
-      }
     }, 200);
   };
 
   useEffect(() => {
+    if (!carrito.length) {
+      navigate("/");
+    }
+
     const precios = carrito.map((carritoItem) => carritoItem.precio);
     setPreciosArray(precios);
 
@@ -59,7 +49,6 @@ export default function HacerPedido1() {
 
   const handleVaciar = () => {
     dispatch(limpiarCarrito());
-    navigate("/");
   };
 
   return (

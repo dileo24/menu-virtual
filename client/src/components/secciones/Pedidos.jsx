@@ -22,7 +22,7 @@ export default function Pedidos() {
 
   useEffect(() => {
     // Local
-    // const socket = io("http://localhost:3001");
+    //const socket = io("http://localhost:3001");
 
     // Deploy
     const socket = io("https://menu-virtual-production-9dbc.up.railway.app");

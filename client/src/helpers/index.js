@@ -1,7 +1,7 @@
 //// Funciones para la Base de Datos ////
 
 // Local
-// const url = "http://localhost:3001/productos";
+//const url = "http://localhost:3001/productos";
 
 // Deploy
 const url = "https://menu-virtual-production-9dbc.up.railway.app/productos";
@@ -112,9 +112,9 @@ export function mostrarAlerta(texto, tipo) {
 
 export function ningunInputVacio(obj) {
   return Object.entries(obj).every(([key, value]) => {
-    if (key === 'subcategoriaID') {
+    if (key === "subcategoriaID") {
       return true; // Skip validation for 'subcategoriaID'
     }
-    return value !== '';
+    return value !== "";
   });
 }

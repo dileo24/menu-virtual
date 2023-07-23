@@ -1,0 +1,151 @@
+.crearCategContainer {
+  width: 100vw;
+  height: 100vh;
+  .header1 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: auto;
+    width: 100vw;
+    padding: 5%;
+    padding-bottom: 0;
+
+    .categTitle {
+      margin-top: 7vw;
+      font-weight: $titleWeight;
+      font-size: $titleSize;
+      line-height: 1.2;
+    }
+
+    .ocultarBtn {
+      width: 8vw;
+      height: 8vw;
+      border: 1px solid $paragraph;
+      border-radius: 8px;
+      background-color: rgb(255, 255, 255);
+      @include center;
+      .arrow-down {
+        position: relative;
+        display: block;
+        width: 12px;
+        height: 12px;
+        margin-top: -5px;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+      }
+      .arrow-left {
+        position: relative;
+        display: block;
+        width: 12px;
+        height: 12px;
+        margin-right: -5px;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+        -moz-transform: rotate(135deg);
+        -ms-transform: rotate(135deg);
+        -o-transform: rotate(135deg);
+      }
+    }
+  }
+
+  .formulario {
+    padding: 0 5%;
+    .nombre {
+      display: flex;
+      flex-direction: column;
+      // margin: 0 0 5% 5%;
+
+      .nombreTitle {
+        font-weight: $titleWeight;
+        font-size: $subtSize;
+        margin: 6vw 0 3% 0;
+      }
+      .nombreInput {
+        border: 1px solid grey;
+        border-radius: 8px;
+        width: 100%;
+        height: 12vw;
+        background-color: white;
+        font-weight: $titleWeight;
+        padding: 3%;
+        font-size: 3.8vw;
+        &::placeholder {
+          color: grey;
+        }
+      }
+    }
+    .subcategorias {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 20vw;
+      .subcategTitle {
+        font-weight: $titleWeight;
+        font-size: $subtSize;
+        margin: 6vw 0 3% 0;
+      }
+      .subcateg {
+        display: flex;
+        align-items: center;
+        height: auto;
+        margin-bottom: 3vw;
+
+        .subcategInput {
+          border: 1px solid grey;
+          border-radius: 8px;
+          width: 90%;
+          height: 12vw;
+          background-color: white;
+          font-weight: $titleWeight;
+          padding: 3%;
+          font-size: 3.8vw;
+          &::placeholder {
+            color: grey;
+          }
+        }
+        .iconContainer2 {
+          width: 8vw;
+          height: 8vw;
+          border-radius: 8px;
+          @include center;
+          background-color: #ffe5e5;
+          border: 1px solid #ff3d3d;
+          margin-left: 3vw;
+          .eliminarIcon {
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+        }
+      }
+    }
+  }
+
+  .footer {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 5%;
+    z-index: 1;
+    .botonFooter {
+      box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+      @include center;
+      background-color: $naranja;
+      height: 12vw;
+      width: 90vw;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      font-weight: $titleWeight;
+      font-size: 4vw;
+    }
+  }
+}
