@@ -6,7 +6,7 @@ import Menu from "./Menu";
 import { getProductos } from "../../redux/actions";
 import Swipe from "react-swipe";
 import { Link } from "react-router-dom";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 
 const Carrusel = () => {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
@@ -23,7 +23,7 @@ const Carrusel = () => {
     precioFinal += parseInt(preciosArray[i]);
   }
   const dispatch = useDispatch();
-  const [socket, setSocket] = useState(null);
+  // const [socket, setSocket] = useState(null);
 
   const { categorias, home, homeBusqueda /* , carrito */ } = useSelector(
     (state) => ({
@@ -38,19 +38,19 @@ const Carrusel = () => {
     dispatch(getProductos());
   }, [dispatch]);
 
-  useEffect(() => {
-    // Local
-    const socket = io("http://localhost:3001");
+  // useEffect(() => {
+  //   // Local
+  //   const socket = io("http://localhost:3001");
 
-    // Deploy
-    // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+  //   // Deploy
+  //   // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
-    setSocket(socket);
+  //   setSocket(socket);
 
-    return () => {
-      socket.disconnect();
-    };
-  }, []);
+  //   return () => {
+  //     socket.disconnect();
+  //   };
+  // }, []);
 
   const handleWindowScroll = useCallback(() => {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;

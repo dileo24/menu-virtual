@@ -1,10 +1,16 @@
-import React, { useEffect /* , useState */ } from "react";
-import { deleteCateg, getCategorias } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
+import {
+  deleteCateg,
+  getCategorias,
+  getSubcategorias,
+  postCateg,
+} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
 import { Link } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { HiOutlinePencil } from "react-icons/hi2";
+import Filtros from "../recursos/Filtros";
 
 export default function AdminCateg() {
   const dispatch = useDispatch();
@@ -12,6 +18,19 @@ export default function AdminCateg() {
   const token = useSelector((state) => state.userActual.tokenSession);
   let productosState = useSelector((state) => state.home);
 
+  useEffect(() => {
+    dispatch(getCategorias());
+    dispatch(getSubcategorias());
+  }, [dispatch]);
+
+  const [input, setInput] = useState({
+    nombre: "",
+    subcategID: [],
+  });
+
+  const handleChange = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
   useEffect(() => {
     dispatch(getCategorias());
   }, [dispatch]);
@@ -37,12 +56,35 @@ export default function AdminCateg() {
   //   setInput({ ...input, categID: e.target.value });
   // };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postCateg(input, token)).then(() => {
+      dispatch(getCategorias());
+      alert("Categoria creada con éxito!");
+      setInput({ nombre: "", subcategID: [] });
+    });
+  };
+
   return (
     <>
       <Header />
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
-
+        <Filtros />
+        <form onSubmit={handleSubmit} className="formulario">
+          <input
+            type="text"
+            name="nombre"
+            placeholder="Nueva categoría..."
+            className="nombreInput"
+            value={input.nombre}
+            onChange={handleChange}
+            required
+          />
+          <button type="submit" className="agregarBtn">
+            Agregar
+          </button>
+        </form>
         <div>
           {categorias &&
             categorias.map((categ) => (
@@ -92,14 +134,14 @@ export default function AdminCateg() {
               </div>
             ))}
         </div>
-        <footer>
+        {/* <footer>
           <Link to="/nuevaCateg" className="botonFooter">
             <div className="signoMas1">
               <div className="signoMas2"></div>
             </div>
             Crear Nueva Categoría
           </Link>
-        </footer>
+        </footer> */}
       </div>
     </>
   );

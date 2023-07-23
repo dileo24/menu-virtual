@@ -29,6 +29,7 @@ header {
       align-items: center;
       .burgerBtn {
         margin: 5vw;
+        margin-bottom: 7vw;
         width: 8vw;
         height: 8vw;
         border: 1px solid $paragraph;
@@ -168,6 +169,7 @@ header {
         font-weight: $titleWeight;
         font-size: $titleSize;
         padding-bottom: 5%;
+        line-height: 1;
       }
     }
 

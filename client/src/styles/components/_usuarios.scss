@@ -4,109 +4,205 @@
     font-weight: $titleWeight;
     line-height: 1;
     margin-left: 5vw;
-    margin-bottom: 8vw;
   }
-  .todos,
-  .habilitados,
-  .inhabilitados {
-    padding: 0 5vw 28vw 5vw;
-    min-height: 90vh;
-    .diapoTitle {
-      font-size: $titleSize;
-      font-weight: $titleWeight;
-      margin-bottom: 8vw;
-      line-height: 1;
+  .navbar {
+    padding: 0 5vw;
+    margin: 5vw 0 5vw 0;
+  }
+  .circles {
+    @include center;
+    margin-bottom: 8vw;
+
+    .circle0,
+    .circle1,
+    .circle2 {
+      width: 3vw;
+      height: 3vw;
+      border: 1px solid black;
+      border-radius: 100%;
+      -webkit-border-radius: 100%;
+      -moz-border-radius: 100%;
+      -ms-border-radius: 100%;
+      -o-border-radius: 100%;
     }
-    .diapoSubtitle {
-      font-weight: $titleWeight;
-      font-size: $subtSize;
-      line-height: 1;
-      &.inhab {
-        margin-top: 10vw;
-      }
+    .circle1 {
+      margin: 0 2vw;
     }
-    .cardUsuario {
-      background-color: white;
-      border-radius: 10px;
-      -webkit-border-radius: 10px;
-      -moz-border-radius: 10px;
-      -ms-border-radius: 10px;
-      -o-border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      padding: 5%;
-      min-height: 12rem;
-      margin-top: 5%;
-      @media only screen and (max-height: 700px) {
-        min-height: 25vh;
+  }
+  .diapositiva {
+    height: auto;
+
+    .diapoContainer {
+      padding: 0 5vw 24vw 5vw;
+      min-height: 70vh;
+      .diapoTitle {
+        font-size: $titleSize;
+        font-weight: $titleWeight;
+        margin-bottom: 8vw;
+        line-height: 1;
       }
-      max-height: fit-content;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      .userData {
-        .userNameRol {
-          width: 100%;
-          font-size: 4vw;
-          font-weight: $titleWeight;
-          color: $paragraph;
-          display: flex;
-          line-height: 1.2;
-          flex-wrap: wrap;
-          p {
-            margin-right: 1.5vw;
-          }
-          .rol {
-            line-height: 1.2;
-            color: rgb(170, 170, 170);
-            font-weight: 500;
-          }
-        }
-        .userEmail {
-          margin-top: 3vw;
-          line-height: 1;
-          font-size: 4vw;
+      .diapoSubtitle {
+        font-weight: $titleWeight;
+        font-size: $subtSize;
+        line-height: 1;
+        &.inhab {
+          margin-top: 10vw;
         }
       }
-      .precioAcciones {
+      .cardUsuario {
+        background-color: white;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 5%;
+        // min-height: 12rem;
+        margin-top: 5%;
+        @media only screen and (max-height: 700px) {
+          min-height: 25vh;
+        }
+        max-height: fit-content;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        flex-direction: row-reverse;
-        margin-top: 10%;
-        .precio {
+        .userData {
+          .userNameRol {
+            width: 100%;
+            font-size: 4vw;
+            font-weight: $titleWeight;
+            color: $paragraph;
+            display: flex;
+            line-height: 1.2;
+            flex-wrap: wrap;
+            p {
+              margin-right: 1.5vw;
+            }
+            .rol {
+              line-height: 1.2;
+              color: rgb(170, 170, 170);
+              font-weight: 500;
+            }
+          }
+          .userEmail {
+            margin-top: 3vw;
+            line-height: 1;
+            font-size: 4vw;
+          }
+        }
+        .estado {
+          margin-top: 3vw;
+
           font-weight: $titleWeight;
-          font-size: 5vw;
+          width: fit-content;
+          padding: 1vw;
+          line-height: 1;
+          &.habilitado {
+            color: $success;
+            background-color: #e8fdf4;
+          }
+          &.inhabilitado {
+            color: $error;
+            background-color: #ffe5e5;
+          }
         }
         .acciones {
-          min-width: 50%;
-          @include center;
-          justify-content: flex-end;
-          .iconContainer1 {
-            width: 8vw;
-            height: 8vw;
-            border-radius: 8px;
+          margin-top: 4vw;
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row-reverse;
+          .cambiarEstado {
             @include center;
-            margin-right: 4vw;
-            border: 1px solid $naranja;
-            background-color: #fef5e6;
-            .editarIcon {
-              width: 1.2rem;
-              height: 1.2rem;
-            }
+            padding: 2vw 0;
+            width: 30vw;
+            font-size: 4vw;
+            font-weight: $titleWeight;
+            line-height: 1;
+            border: 1px solid black;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
           }
-          .iconContainer2 {
-            width: 8vw;
-            height: 8vw;
-            border-radius: 8px;
+          .editarEliminar {
+            min-width: 50%;
             @include center;
-            background-color: #ffe5e5;
-            border: 1px solid #ff3d3d;
-            .eliminarIcon {
-              width: 1.2rem;
-              height: 1.2rem;
+            justify-content: flex-end;
+            .iconContainer1 {
+              width: 8vw;
+              height: 8vw;
+              border-radius: 8px;
+              @include center;
+              margin-right: 4vw;
+              border: 1px solid $naranja;
+              background-color: #fef5e6;
+              .editarIcon {
+                width: 1.2rem;
+                height: 1.2rem;
+              }
+            }
+            .iconContainer2 {
+              width: 8vw;
+              height: 8vw;
+              border-radius: 8px;
+              @include center;
+              background-color: #ffe5e5;
+              border: 1px solid #ff3d3d;
+              .eliminarIcon {
+                width: 1.2rem;
+                height: 1.2rem;
+              }
             }
           }
         }
       }
+      .noHayUsuarios {
+        margin-top: 5vw;
+        font-weight: 600;
+        font-size: 4vw;
+        line-height: 1;
+      }
     }
   }
+  footer {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 5%;
+    z-index: 1;
+    @include center;
+    .botonFooter {
+      box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+      @include center;
+      position: relative;
+      background-color: $naranja;
+      height: 12vw;
+      width: 90vw;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      font-weight: $titleWeight;
+      font-size: 4vw;
+      .signoMas1 {
+        width: 18px;
+        height: 1px;
+        background-color: black;
+        @include center;
+        margin-right: 2vw;
+        .signoMas2 {
+          width: 1px;
+          height: 18px;
+          background-color: black;
+        }
+      }
+    }
+  }
+}
+
+.circleActive {
+  background-color: black;
 }

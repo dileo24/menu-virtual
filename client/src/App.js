@@ -14,7 +14,6 @@ import Carrito from "./components/secciones/Carrito";
 import ItemsCliente from "./components/secciones/ItemsCliente";
 import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
 import AdminCateg from "./components/secciones/AdminCateg";
-import NuevaCateg from "./components/formularios/NuevaCateg";
 import Subcategs from "./components/formularios/Subcategs";
 import MiPedido from "./components/secciones/MiPedido";
 import HacerPedido from "./components/formularios/HacerPedido";
@@ -57,7 +56,6 @@ function App() {
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             <Route path="/estadisticas" element={<Estadisticas />} />
-            <Route path="/nuevaCateg" element={<NuevaCateg />} />
             <Route path="/subcategs/:id" element={<Subcategs />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
@@ -69,7 +67,6 @@ function App() {
           <>
             <Route path="/nuevoProducto" element={<NuevoProducto />} />
             <Route path="/editarProducto" element={<EditarProducto />} />
-            <Route path="/nuevaCateg" element={<NuevaCateg />} />
             <Route path="/subcategs/:id" element={<Subcategs />} />
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/editCateg/:id" element={<EditarCateg />} />

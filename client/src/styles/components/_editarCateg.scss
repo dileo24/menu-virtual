@@ -9,12 +9,15 @@
     height: auto;
     width: 100vw;
     padding: 5%;
+    padding-bottom: 0;
 
     .categTitle {
-      margin-top: 4%;
+      margin-top: 7vw;
       font-weight: $titleWeight;
       font-size: $titleSize;
+      line-height: 1.2;
     }
+
     .ocultarBtn {
       width: 8vw;
       height: 8vw;
@@ -63,14 +66,13 @@
       .nombreTitle {
         font-weight: $titleWeight;
         font-size: $subtSize;
-        margin-bottom: 3%;
+        margin: 6vw 0 3% 0;
       }
       .nombreInput {
         border: 1px solid grey;
         border-radius: 8px;
         width: 100%;
         height: 12vw;
-        // text-align: center;
         background-color: white;
         font-weight: $titleWeight;
         padding: 3%;
@@ -80,9 +82,52 @@
         }
       }
     }
+    .subcategorias {
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 20vw;
+      .subcategTitle {
+        font-weight: $titleWeight;
+        font-size: $subtSize;
+        margin: 6vw 0 3% 0;
+      }
+      .subcateg {
+        display: flex;
+        align-items: center;
+        height: auto;
+        margin-bottom: 3vw;
+
+        .subcategInput {
+          border: 1px solid grey;
+          border-radius: 8px;
+          width: 90%;
+          height: 12vw;
+          background-color: white;
+          font-weight: $titleWeight;
+          padding: 3%;
+          font-size: 3.8vw;
+          &::placeholder {
+            color: grey;
+          }
+        }
+        .iconContainer2 {
+          width: 8vw;
+          height: 8vw;
+          border-radius: 8px;
+          @include center;
+          background-color: #ffe5e5;
+          border: 1px solid #ff3d3d;
+          margin-left: 3vw;
+          .eliminarIcon {
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+        }
+      }
+    }
   }
 
-  footer {
+  .footer {
     width: 100vw;
     position: fixed;
     bottom: 0;

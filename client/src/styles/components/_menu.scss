@@ -7,7 +7,7 @@
       font-weight: $titleWeight;
       font-size: $titleSize;
       margin-bottom: 5%;
-      margin-top: 10%;
+      margin-top: 8vw;
     }
     .cardProducto,
     .cardItem,
@@ -21,9 +21,7 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       padding: 5%;
       min-height: 12rem;
-      &:first-child {
-        margin-top: 5%;
-      }
+      margin-top: 5%;
       @media only screen and (max-height: 700px) {
         min-height: 25vh;
       }
