@@ -104,6 +104,9 @@
           @include center;
           .crearSubcateg {
             @include center;
+            &:focus {
+              outline: none;
+            }
             .signoMas1 {
               width: 18px;
               height: 1px;
@@ -135,38 +138,70 @@
       }
     }
   }
-  // footer {
-  //   width: 100vw;
-  //   position: fixed;
-  //   bottom: 0;
-  //   padding-bottom: 5%;
-  //   z-index: 1;
-  //   .botonFooter {
-  //     box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
-  //     @include center;
-  //     position: relative;
-  //     background-color: $naranja;
-  //     height: 12vw;
-  //     width: 90vw;
-  //     border-radius: 6px;
-  //     -webkit-border-radius: 6px;
-  //     -moz-border-radius: 6px;
-  //     -ms-border-radius: 6px;
-  //     -o-border-radius: 6px;
-  //     font-weight: $titleWeight;
-  //     font-size: 4vw;
-  //     .signoMas1 {
-  //       width: 18px;
-  //       height: 1px;
-  //       background-color: black;
-  //       @include center;
-  //       margin-right: 2vw;
-  //       .signoMas2 {
-  //         width: 1px;
-  //         height: 18px;
-  //         background-color: black;
-  //       }
-  //     }
-  //   }
-  // }
+  .fondoModal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    @include center;
+
+    .modalContainer {
+      background-color: white;
+      width: 90%;
+      padding: 8vw 5%;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      .subCategTitle {
+        width: 100%;
+        font-weight: $titleWeight;
+        font-size: 3.6vw;
+        margin-bottom: 3.5vw;
+      }
+      form {
+        .nombreInput {
+          border: 1px solid rgb(196, 196, 196);
+          border-radius: 8px;
+          width: 100%;
+          height: 12vw;
+          background-color: white;
+          padding: 3%;
+          font-size: 3.8vw;
+          &::placeholder {
+            color: grey;
+          }
+        }
+        .agregarBtn {
+          position: absolute;
+          top: 47.5%;
+          right: 14%;
+          color: $info;
+          font-weight: $titleWeight;
+          &:focus {
+            outline: none;
+          }
+        }
+        .submitBtn {
+          width: fit-content;
+        }
+      }
+      .btnCont {
+        @include center;
+        .descartar {
+          margin-top: 8vw;
+          font-weight: $titleWeight;
+          font-size: 4vw;
+          line-height: 1;
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+  }
 }

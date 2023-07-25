@@ -4,10 +4,11 @@ import {
   getCategorias,
   getSubcategorias,
   postCateg,
+  postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../secciones/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { HiOutlinePencil } from "react-icons/hi2";
 import Filtros from "../recursos/Filtros";
@@ -17,6 +18,9 @@ export default function AdminCateg() {
   const categsBusq = useSelector((state) => state.categsBusq);
   const token = useSelector((state) => state.userActual.tokenSession);
   let productosState = useSelector((state) => state.home);
+  const [modal, setModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -52,10 +56,6 @@ export default function AdminCateg() {
     }
   };
 
-  // const handleCateg = (e) => {
-  //   setInput({ ...input, categID: e.target.value });
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(postCateg(input, token)).then(() => {
@@ -65,12 +65,47 @@ export default function AdminCateg() {
     });
   };
 
+  // Crear subcategs
+  const [inputSubcateg, setInputSubcateg] = useState({
+    nombre: "",
+    categID: "",
+  });
+
+  const handleChangeSubcateg = (e) => {
+    setInputSubcateg({ ...inputSubcateg, [e.target.name]: e.target.value });
+  };
+
+  const abrirModal = (id) => {
+    const matchingCategory = categsBusq.find(
+      (categ) => Number(categ.id) === Number(id)
+    );
+    if (matchingCategory) {
+      setSelectedCategory(matchingCategory);
+      setInputSubcateg({ ...inputSubcateg, categID: matchingCategory.id });
+      setModal(true);
+    }
+  };
+
+  const handleSubmitSubcateg = (e) => {
+    e.preventDefault();
+    // alert("Subcategoría creada con éxito!");
+
+    dispatch(postSubcateg(inputSubcateg, token)).then(() => {
+      // Después de crear la subcategoría, puedes realizar cualquier acción necesaria
+      // como actualizar la lista de subcategorías en el estado.
+      dispatch(getSubcategorias());
+      setInputSubcateg({ nombre: "", categID: "" });
+      /* setModal(false); */ // Cierra el modal después de crear la subcategoría
+      window.location.reload();
+    });
+  };
+
   return (
     <>
       <Header />
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
-        <Filtros searchType="categorias" />
+        <Filtros searchType="categorias" searchWord={"categorías"} />
         <form onSubmit={handleSubmit} className="formulario">
           <input
             type="text"
@@ -106,16 +141,19 @@ export default function AdminCateg() {
                     </Link>
                   </div>
                   <div className="btnContainer">
-                    <Link
+                    <div
                       //   to={`/updateItems/${prod.id}/${index}`}
-                      to={`/subcategs/${categ.id}`}
+                      // to={`/subcategs/${categ.id}`}
+                      onClick={() => {
+                        abrirModal(categ.id);
+                      }}
                       className="crearSubcateg"
                     >
                       <div className="signoMas1">
                         <div className="signoMas2"></div>
                       </div>
                       Subcategoría
-                    </Link>
+                    </div>
                   </div>
                 </div>
                 <div className="iconContainer2">
@@ -130,14 +168,41 @@ export default function AdminCateg() {
             </div>
           ))}
         </div>
-        {/* <footer>
-          <Link to="/nuevaCateg" className="botonFooter">
-            <div className="signoMas1">
-              <div className="signoMas2"></div>
+        {modal && (
+          <div className="fondoModal" /* onClick={() => setModal(false)} */>
+            {/* Aquí muestra el formulario/modal para crear subcategorías */}
+            <div className="modalContainer">
+              <header className="header1">
+                <h1 className="subCategTitle">
+                  Nueva SubCategoría para "{selectedCategory.nombre}"
+                </h1>
+              </header>
+              <div>
+                <form onSubmit={handleSubmitSubcateg}>
+                  <div>
+                    <input
+                      className="nombreInput"
+                      type="text"
+                      name="nombre"
+                      placeholder="Escribe el nombre"
+                      value={inputSubcateg.nombre}
+                      onChange={handleChangeSubcateg}
+                      required
+                    />
+                  </div>
+                  <button type="submit" className="agregarBtn">
+                    Agregar
+                  </button>
+                </form>
+                <div className="btnCont">
+                  <button className="descartar" onClick={() => setModal(false)}>
+                    Descartar
+                  </button>
+                </div>
+              </div>
             </div>
-            Crear Nueva Categoría
-          </Link>
-        </footer> */}
+          </div>
+        )}
       </div>
     </>
   );

@@ -63,7 +63,6 @@ export default function EditarCateg() {
   //   alert("Categoria actualizada con éxito!");
   //   navigate("/adminCateg");
   // };
-  console.log(input);
   const handleSubmit = async (e) => {
     e.preventDefault();
 

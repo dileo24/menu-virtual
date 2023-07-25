@@ -45,6 +45,14 @@ export default function Menu({ categ, prodsBuscados }) {
 
   let ultimaCategoria = "";
 
+  // Función para quitar tildes y espacios
+  const removeAccentsAndSpaces = (str) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s/g, "");
+  };
+
   return (
     productosState && (
       <main className="menuContainer">
@@ -76,7 +84,11 @@ export default function Menu({ categ, prodsBuscados }) {
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div
-                      id={subcategoria ? subcategoria.nombre : ""}
+                      id={
+                        subcategoria
+                          ? removeAccentsAndSpaces(subcategoria.nombre)
+                          : ""
+                      }
                       className="cardProducto"
                     >
                       <p className="nombre">{nombre}</p>

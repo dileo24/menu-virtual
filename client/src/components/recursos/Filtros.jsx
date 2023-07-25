@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategorias, searchXname } from "../../redux/actions";
 
-export default function Filtros({ handleSearch = () => {}, searchType }) {
+export default function Filtros({
+  handleSearch = () => {},
+  searchType,
+  searchWord,
+}) {
   const [state, setState] = useState("");
   const dispatch = useDispatch();
 
@@ -33,7 +37,7 @@ export default function Filtros({ handleSearch = () => {}, searchType }) {
         <input
           className="searchBar"
           type="text"
-          placeholder="Buscar productos"
+          placeholder={`Buscar ${searchWord}`}
           onChange={handleState}
           onKeyDown={handleKeyDown}
           value={state}
