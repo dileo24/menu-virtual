@@ -130,6 +130,14 @@ export default function Header({
     }
   };
 
+  // Función para quitar tildes y espacios
+  const removeAccentsAndSpaces = (str) => {
+    return str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s/g, "");
+  };
+
   const handleButtonClick = (subC) => {
     setFocusedSubcategory(subC);
 
@@ -137,9 +145,11 @@ export default function Header({
     const currentSlideElement = document.querySelector(
       `[data-index='${currentSlide}']`
     );
-
     // Buscar todos los elementos con el id "subC.nombre" dentro del elemento currentSlideElement
-    const elementos = currentSlideElement.querySelectorAll(`#${subC.nombre}`);
+    const elementos = currentSlideElement.querySelectorAll(
+      `#${removeAccentsAndSpaces(subC.nombre)}`
+    );
+    console.log(currentSlideElement);
 
     // Verificar si se encontraron elementos y scrollear hasta el primer elemento
     if (elementos.length > 0) {
@@ -388,7 +398,7 @@ export default function Header({
               <img src={login} alt="login" className="usuarioIcon" />
             </Link>
             <div className="navbarCont">
-              <Filtros handleSearch={handleSearch} />
+              <Filtros handleSearch={handleSearch} searchWord={"productos"} />
             </div>
             <Link to="/historial" className="carrito">
               <img src={bandeja} alt="bandeja" className="carritoIcon" />
@@ -406,7 +416,7 @@ export default function Header({
             {userActual && userActual.data.RolId <= 2 && (
               <div className="headerHomeUsuarios">
                 <h1>Administrar Menú</h1>
-                <Filtros handleSearch={handleSearch} />
+                <Filtros handleSearch={handleSearch} searchWord={"productos"} />
               </div>
             )}
             <div id="categorias">

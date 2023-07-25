@@ -93,7 +93,7 @@ export default function Usuarios() {
       <Header />
       <h1 className="usuariosTitle">Administrar Usuarios</h1>
       <div className="navbar">
-        <Filtros searchType="usuarios" />
+        <Filtros searchType="usuarios" searchWord={"usuarios"} />
       </div>
       <div className="circles">
         <div className="circle0"></div>
