@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getUserActual, getUsuarios, searchXname } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta } from "../../helpers";
 import { GrCircleAlert } from "react-icons/gr";
+import HeaderBack from "../recursos/HeaderBack";
 
 export default function ModalLogin({ onClose }) {
   const navigate = useNavigate();
@@ -56,11 +57,7 @@ export default function ModalLogin({ onClose }) {
 
   return (
     <div className="loginContainer">
-      <header className="header1">
-        <Link to="/" className="ocultarBtn">
-          <span className="arrow-left"></span>
-        </Link>
-      </header>
+      <HeaderBack url={"/"} arrowType={"left"} title={``} />
       <div className="marcaCardCont">
         <h1 className="">QuickBites</h1>
         <div className="cardContainer contenedor">

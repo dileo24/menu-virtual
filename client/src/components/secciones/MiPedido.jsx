@@ -9,6 +9,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
+import HeaderBack from "../recursos/HeaderBack";
 
 export default function HacerPedido1() {
   const carrito = useSelector((state) => state.carrito);
@@ -55,12 +56,7 @@ export default function HacerPedido1() {
     <div className="desplegables">
       <div className="desplegable1">
         <div className="scrollable-content">
-          <header className="header1">
-            <Link className="ocultarBtn" to={"/"}>
-              <span className="arrow-left"></span>
-            </Link>
-            <div className="titleHeader1">Mi Pedido</div>
-          </header>
+          <HeaderBack url={"/"} arrowType={"left"} title={`Mi Pedido`} />
           {carrito.length > 0 && (
             <>
               {carrito.map((prod, index) => (

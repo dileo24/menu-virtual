@@ -7,8 +7,9 @@ import {
   updateSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
+import HeaderBack from "../recursos/HeaderBack";
 
 export default function EditarCateg() {
   const dispatch = useDispatch();
@@ -96,12 +97,12 @@ export default function EditarCateg() {
   return (
     categ && (
       <div className="crearCategContainer">
-        <header className="header1">
-          <Link className="ocultarBtn" to={"/adminCateg"}>
-            <span className="arrow-left"></span>
-          </Link>
-          <h1 className="categTitle">Editando la categoría {categ.nombre}</h1>
-        </header>
+        <HeaderBack
+          url={"/adminCateg"}
+          arrowType={"left"}
+          title={`Editando la categoría ${categ.nombre}`}
+        />
+
         <div>
           <form onSubmit={handleSubmit} className="formulario">
             <div className="nombre">

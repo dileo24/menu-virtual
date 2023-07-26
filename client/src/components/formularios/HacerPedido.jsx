@@ -1,13 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos, getTipoPago, limpiarCarrito } from "../../redux/actions";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
 import { AiOutlineBank } from "react-icons/ai";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { AiOutlineCreditCard } from "react-icons/ai";
 import mercadoPago from "../../multmedia/mercadopago.svg";
 import { io } from "socket.io-client";
+import HeaderBack from "../recursos/HeaderBack";
 
 export default function HacerPedido() {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -166,12 +167,11 @@ export default function HacerPedido() {
         {/* Menu desplegable 2*/}
         <div className="desplegable2">
           <div className="scrollable-content">
-            <header className="header1">
-              <Link className="ocultarBtn" to={"/miPedido"}>
-                <span className="arrow-left"></span>
-              </Link>
-              <div className="titleHeader1">Completar mi pedido</div>
-            </header>
+            <HeaderBack
+              url={"/miPedido"}
+              arrowType={"left"}
+              title={`Completar mi pedido`}
+            />
 
             <form
               id="formulario"
