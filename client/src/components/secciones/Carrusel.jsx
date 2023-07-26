@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Header from "./Header";
+import Header from "../recursos/Header";
 import Menu from "./Menu";
 // import HacerPedido from "./HacerPedido1";
 import { getProductos } from "../../redux/actions";

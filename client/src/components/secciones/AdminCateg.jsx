@@ -7,7 +7,7 @@ import {
   postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../secciones/Header";
+import Header from "../recursos/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { HiOutlinePencil } from "react-icons/hi2";

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "./Header";
+import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "../recursos/Filtros";
 import {

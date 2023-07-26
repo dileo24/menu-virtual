@@ -85,47 +85,49 @@ export default function ModalRegister({ onClose }) {
         arrowType={"left"}
         title={`Crear Usuario`}
       />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="nombre">Nombre</label>
+      <form onSubmit={handleSubmit} className="formulario">
+        <div className="labelInput">
+          <label htmlFor="nombre" className="nombre">
+            Nombre
+          </label>
           <input
             type="text"
             name="nombre"
-            placeholder="Escribe su nombre"
+            placeholder="Escribe el nombre"
             value={input.nombre}
             onChange={(e) => handleChange(e)}
             autoFocus
           />
         </div>
 
-        <div>
+        <div className="labelInput">
           <label htmlFor="apellido">Apellido</label>
           <input
             type="text"
             name="apellido"
-            placeholder="Escribe su apellido"
+            placeholder="Escribe el apellido"
             value={input.apellido}
             onChange={(e) => handleChange(e)}
           />
         </div>
 
-        <div>
+        <div className="labelInput">
           <label htmlFor="email">Correo electrónico</label>
           <input
             type="email"
             name="email"
-            placeholder="Escribe su email"
+            placeholder="Escribe el email"
             value={input.email}
             onChange={(e) => handleChange(e)}
           />
         </div>
 
-        <div>
+        <div className="labelInput">
           <label htmlFor="clave">Contraseña</label>
           <input
             type={showPassword ? "text" : "password"}
             name="clave"
-            placeholder="Escribe su contraseña"
+            placeholder="Escribe la contraseña"
             value={input.clave}
             min={8}
             onChange={(e) => handleChange(e)}
@@ -137,13 +139,16 @@ export default function ModalRegister({ onClose }) {
           )}
         </div>
 
-        <div>
-          <button type="submit">Crear cuenta para empleado</button>
-          <Link to="/">
-            <button type="button" onClick={onClose}>
-              Cancelar
-            </button>
-          </Link>
+        <Link to="/">
+          <button type="button" onClick={onClose}>
+            Cancelar
+          </button>
+        </Link>
+
+        <div className="footer">
+          <button type="submit" className="botonFooter">
+            Crear Usuario
+          </button>
         </div>
       </form>
     </div>

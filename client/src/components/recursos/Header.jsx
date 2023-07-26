@@ -7,7 +7,7 @@ import {
   getProductos,
   searchXname,
 } from "../../redux/actions";
-import Filtros from "../recursos/Filtros";
+import Filtros from "./Filtros";
 import { getPedidos, getSubcategorias } from "../../redux/actions";
 import bandeja from "../../multmedia/bandeja.svg";
 import login from "../../multmedia/login.svg";
