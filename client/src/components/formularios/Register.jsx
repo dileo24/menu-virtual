@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { getUsuarios, register } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
@@ -19,7 +18,7 @@ export default function ModalRegister({ onClose }) {
     apellido: "",
     email: "",
     clave: "",
-    rolID: "2",
+    rolID: "",
   });
 
   const handleChange = (e) => {
@@ -29,28 +28,28 @@ export default function ModalRegister({ onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     validateEmail(input.email.valueOf());
-    if (input.clave.length < 8) {
+    /* if (!ningunInputVacio(input)) {
+      return mostrarAlerta("Error: Hay algún campo vacío", "error"); */
+    if (emails && emails.includes(input.email)) {
+      return mostrarAlerta("El email ingresado ya existe", "error");
+    } else if (input.clave.length < 8) {
       return mostrarAlerta(
         "La contraseña debe tener al menos 8 caracteres",
         "error"
       );
-    } else if (emails && emails.includes(input.email)) {
-      return mostrarAlerta("El email ingresado ya existe", "error");
-    } else if (!ningunInputVacio(input)) {
-      return mostrarAlerta("Error: Hay algún campo vacío", "error");
     } else if (!email) {
       return mostrarAlerta("Formato del email inválido", "error");
     }
     mostrarAlerta("Cuenta creada con éxito", "exito");
     dispatch(register(input, token));
-    console.log(token);
-
+    console.log(input);
     // Reiniciar los campos del formulario
     setInput({
       nombre: "",
       apellido: "",
       email: "",
       clave: "",
+      rolID: "",
     });
 
     /*  window.location.reload(); */
@@ -78,6 +77,10 @@ export default function ModalRegister({ onClose }) {
     }
   };
 
+  const handleClick = (value) => {
+    setInput({ ...input, rolID: value });
+  };
+
   return (
     <div className="registerContainer">
       <HeaderBack
@@ -85,12 +88,13 @@ export default function ModalRegister({ onClose }) {
         arrowType={"left"}
         title={`Crear Usuario`}
       />
-      <form onSubmit={handleSubmit} className="formulario">
+      <form onSubmit={handleSubmit} className="formulario contenedor">
         <div className="labelInput">
           <label htmlFor="nombre" className="nombre">
             Nombre
           </label>
           <input
+            className="input"
             type="text"
             name="nombre"
             placeholder="Escribe el nombre"
@@ -103,6 +107,7 @@ export default function ModalRegister({ onClose }) {
         <div className="labelInput">
           <label htmlFor="apellido">Apellido</label>
           <input
+            className="input"
             type="text"
             name="apellido"
             placeholder="Escribe el apellido"
@@ -114,6 +119,7 @@ export default function ModalRegister({ onClose }) {
         <div className="labelInput">
           <label htmlFor="email">Correo electrónico</label>
           <input
+            className="input"
             type="email"
             name="email"
             placeholder="Escribe el email"
@@ -125,6 +131,7 @@ export default function ModalRegister({ onClose }) {
         <div className="labelInput">
           <label htmlFor="clave">Contraseña</label>
           <input
+            className="input"
             type={showPassword ? "text" : "password"}
             name="clave"
             placeholder="Escribe la contraseña"
@@ -133,17 +140,41 @@ export default function ModalRegister({ onClose }) {
             onChange={(e) => handleChange(e)}
           />
           {showPassword ? (
-            <RiEyeOffLine className="" onClick={handleShowPassword} />
+            <RiEyeOffLine className="ojoCerrado" onClick={handleShowPassword} />
           ) : (
-            <RiEyeLine className="" onClick={handleShowPassword} />
+            <RiEyeLine className="ojoAbierto" onClick={handleShowPassword} />
           )}
         </div>
 
-        <Link to="/">
-          <button type="button" onClick={onClose}>
-            Cancelar
-          </button>
-        </Link>
+        <div className="labelInput">
+          <label htmlFor="rolID">Cargo</label>
+          <div className="checks">
+            <div className="checkContainer" onClick={() => handleClick("3")}>
+              <input
+                className="check"
+                type="radio"
+                name="rolID"
+                value="3"
+                checked={input.rolID === "3"}
+                onChange={(e) => handleChange(e)}
+                required
+              />
+              <p>Empleado</p>
+            </div>
+            <div className="checkContainer" onClick={() => handleClick("2")}>
+              <input
+                className="check"
+                type="radio"
+                name="rolID"
+                value="2"
+                checked={input.rolID === "2"}
+                onChange={(e) => handleChange(e)}
+                required
+              />
+              <p>Administrador</p>
+            </div>
+          </div>
+        </div>
 
         <div className="footer">
           <button type="submit" className="botonFooter">
