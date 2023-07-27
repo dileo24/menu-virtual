@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUsuarios, register } from "../../redux/actions";
+import { getUsuarios, desbloqueoUsuario } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../../helpers";
@@ -15,6 +15,7 @@ export default function EditarUsuario() {
   let email;
   let { id } = useParams();
   const user = usuarios.find((user) => user.id === Number(id));
+  const navigate = useNavigate();
 
   const [input, setInput] = useState({
     nombre: "",
@@ -42,12 +43,9 @@ export default function EditarUsuario() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     validateEmail(input.email.valueOf());
-    /* if (!ningunInputVacio(input)) {
-      return mostrarAlerta("Error: Hay algún campo vacío", "error"); */
-    if (emails && emails.includes(input.email)) {
-      return mostrarAlerta("El email ingresado ya existe", "error");
-    } else if (input.clave.length < 8) {
+    if (input.clave.length < 8) {
       return mostrarAlerta(
         "La contraseña debe tener al menos 8 caracteres",
         "error"
@@ -56,8 +54,9 @@ export default function EditarUsuario() {
       return mostrarAlerta("Formato del email inválido", "error");
     }
     mostrarAlerta("Cuenta creada con éxito", "exito");
-    dispatch(register(input, token));
-    console.log(input);
+
+    dispatch(desbloqueoUsuario(input, id, token));
+
     // Reiniciar los campos del formulario
     setInput({
       nombre: "",
@@ -67,8 +66,7 @@ export default function EditarUsuario() {
       rolID: "",
     });
 
-    /*  window.location.reload(); */
-    // navigate("/");
+    navigate("/usuarios");
   };
 
   const handleShowPassword = () => {
