@@ -35,7 +35,7 @@ export default function Header({
   const pedidos = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const [categActiveId, setCategActiveId] = useState(0);
-  const [focusedSubcategory, setFocusedSubcategory] = useState(null);
+  // const [focusedSubcategory, setFocusedSubcategory] = useState(null);
   const [navSideOpen, setNavSideOpen] = useState(false);
   const isHomePage = window.location.pathname === "/";
 
@@ -139,7 +139,7 @@ export default function Header({
   };
 
   const handleButtonClick = (subC) => {
-    setFocusedSubcategory(subC);
+    // setFocusedSubcategory(subC);
 
     // Obtener el elemento con el atributo "data-index" igual a "currentSlide"
     const currentSlideElement = document.querySelector(
@@ -468,7 +468,7 @@ export default function Header({
                         className="subCategoria"
                         key={subC.nombre}
                         onClick={() => {
-                          setFocusedSubcategory(subC);
+                          // setFocusedSubcategory(subC);
                           handleButtonClick(subC);
                         }}
                       >

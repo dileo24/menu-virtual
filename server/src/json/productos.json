@@ -46,19 +46,21 @@
     "categoriaID": "2"
   },
   {
-    "subcategoriaID": "8",
-    "nombre": "Desayuno para 2",
-    "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
-    "precio": "3200",
+    "subcategoriaID": "",
+    "nombre": "Desayuno completo",
+    "descripcion": "Una infusión, tres criollos o medialunas, queso crema, mermelada y jugo de naranja",
+    "precio": "1200",
     "categoriaID": "1",
     "itemsExtra": [
       "Infusiones",
-      "Postres"
+      "Panadería",
+      "Panadería",
+      "Panadería"
     ],
-    "cantidadPersonas": "2"
+    "cantidadPersonas": "1"
   },
   {
-    "subcategoriaID": "8",
+    "subcategoriaID": "",
     "nombre": "Merienda para 2",
     "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
@@ -70,7 +72,7 @@
     "cantidadPersonas": "2"
   },
   {
-    "subcategoriaID": "8",
+    "subcategoriaID": "",
     "nombre": "Desayuno para 4",
     "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
@@ -82,7 +84,7 @@
     "cantidadPersonas": "4"
   },
   {
-    "subcategoriaID": "9",
+    "subcategoriaID": "",
     "nombre": "Merienda para 4",
     "descripcion": "4 facturas, 4 infusiones y jugo de naranja",
     "precio": "1800",
@@ -106,10 +108,10 @@
     "cantidadPersonas": "2"
   },
   {
-    "subcategoriaID": "",
-    "nombre": "Café",
-    "categoriaID": "3",
-    "listado": false,
+    "subcategoriaID": "8",
+    "nombre": "Criollo",
+    "categoriaID": "1",
+    "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
@@ -117,25 +119,36 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "8",
+    "nombre": "Medialuna",
+    "categoriaID": "1",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostrarOtroCheckbox": true,
+    "precio": "300",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "subcategoriaID": "9",
+    "nombre": "Café",
+    "categoriaID": "1",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostrarOtroCheckbox": true,
+    "precio": "0",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "subcategoriaID": "9",
     "nombre": "Café con leche",
-    "categoriaID": "3",
+    "categoriaID": "1",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
-  },
-  {
-    "subcategoriaID": "",
-    "nombre": "Lágrima",
-    "categoriaID": "3",
-    "listado": true,
-    "item": true,
-    "mostrarPersonaItem": false,
-    "mostrarOtroCheckbox": true,
-    "precio": "550",
     "descripcion": "Descripcion del producto"
   },
   {
@@ -172,20 +185,31 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "9",
     "nombre": "Té",
-    "categoriaID": "3",
-    "listado": false,
+    "categoriaID": "1",
+    "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
-    "precio": "0",
+    "precio": "300",
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "9",
+    "nombre": "Lágrima",
+    "categoriaID": "1",
+    "listado": true,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostrarOtroCheckbox": true,
+    "precio": "300",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "subcategoriaID": "9",
     "nombre": "Té verde",
-    "categoriaID": "3",
+    "categoriaID": "1",
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,

@@ -156,7 +156,11 @@ export default function Menu({ categ, prodsBuscados }) {
                       <h1 className="nombreCateg">{categoria.nombre}</h1>
                     )}
                     <div
-                      id={subcategoria ? subcategoria.nombre : ""}
+                      id={
+                        subcategoria
+                          ? removeAccentsAndSpaces(subcategoria.nombre)
+                          : ""
+                      }
                       className="cardItem"
                     >
                       <p className="nombre">{nombre}</p>
@@ -288,7 +292,11 @@ export default function Menu({ categ, prodsBuscados }) {
                               </h1>
                             )}
                             <div
-                              id={subcategoria ? subcategoria.nombre : ""}
+                              id={
+                                subcategoria
+                                  ? removeAccentsAndSpaces(subcategoria.nombre)
+                                  : ""
+                              }
                               className="cardItemNoVisible"
                             >
                               <p className="nombre">{nombre}</p>
