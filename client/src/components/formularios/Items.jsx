@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../recursos/Button";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getProductos } from "../../redux/actions";
 
 export default function Items({
   itemsExtra,
@@ -11,12 +13,31 @@ export default function Items({
   let productosState = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
   const subcategorias = useSelector((state) => state.subcategorias);
-
   const productosConItemTrue = productosState.filter(
     (producto) => producto.item === true
   );
-  console.log(productosConItemTrue);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getProductos());
+  }, [dispatch]);
+
+  // Al cargar el componente, leer los datos desde el Local Storage
+  useEffect(() => {
+    const savedItems = JSON.parse(localStorage.getItem("itemsExtra"));
+    const savedNumItems = parseInt(localStorage.getItem("numItemsExtra"));
+
+    if (savedItems && !isNaN(savedNumItems)) {
+      setItemsExtra(savedItems);
+      setNumItemsExtra(savedNumItems);
+    }
+  }, []);
+
+  // Al actualizar los estados, guardar los datos en el Local Storage
+  useEffect(() => {
+    localStorage.setItem("itemsExtra", JSON.stringify(itemsExtra));
+    localStorage.setItem("numItemsExtra", numItemsExtra);
+  }, [itemsExtra, numItemsExtra]);
   const handleNumItemsChange = (e) => {
     let count = parseInt(e.target.value);
     setNumItemsExtra(count);
