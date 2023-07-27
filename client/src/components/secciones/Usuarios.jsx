@@ -140,12 +140,12 @@ export default function Usuarios() {
 
                     <div className="acciones">
                       <div className="editarEliminar">
-                        <button
-                          /* onClick={() => handleBloqueo(user.id, user.nombre)} */
+                        <Link
+                          to={`/editarUsuario/${user.id}`}
                           className="iconContainer1"
                         >
                           <HiOutlinePencil className="editarIcon" />
-                        </button>
+                        </Link>
                         <button
                           onClick={() => handleEliminar(user.id)}
                           className="iconContainer2"
@@ -250,12 +250,12 @@ export default function Usuarios() {
 
                     <div className="acciones">
                       <div className="editarEliminar">
-                        <button
-                          /* onClick={() => handleBloqueo(user.id, user.nombre)} */
+                        <Link
+                          to={`/editarUsuario/${user.id}`}
                           className="iconContainer1"
                         >
                           <HiOutlinePencil className="editarIcon" />
-                        </button>
+                        </Link>
                         <button
                           onClick={() => handleEliminar(user.id)}
                           className="iconContainer2"

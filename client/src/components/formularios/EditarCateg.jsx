@@ -20,9 +20,7 @@ export default function EditarCateg() {
   const subcategs = useSelector((state) => state.subcategorias);
   const [subcategsToRemove, setSubcategsToRemove] = useState([]);
 
-  const [input, setInput] = useState({
-    nombre: "",
-  });
+  const [input, setInput] = useState();
 
   const [inputSubc, setInputSubc] = useState({});
 
@@ -49,21 +47,6 @@ export default function EditarCateg() {
     ]);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   /*  const updatedSubcategs = subcategs.filter(
-  //     (subC) =>
-  //       Number(subC.categoria.id) !== Number(id) &&
-  //       !subcategsToRemove.includes(subC.id)
-  //   ); */
-
-  //   subcategsToRemove.map((subC) => {
-  //     dispatch(deleteSubcateg(subC, token));
-  //   });
-  //   setSubcategsToRemove([]);
-  //   alert("Categoria actualizada con éxito!");
-  //   navigate("/adminCateg");
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -114,7 +97,7 @@ export default function EditarCateg() {
                 type="text"
                 name="nombre"
                 placeholder="Escribe el nombre"
-                value={input.nombre || categ.nombre}
+                value={input === undefined ? categ.nombre : input.nombre}
                 onChange={handleChange}
                 required
               />

@@ -114,9 +114,9 @@ export default function EditarProductos() {
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
-    if (nombre === " - Personalizable") {
-      return mostrarAlerta("Error: El nombre está incompleto", "error");
-    }
+    // if (nombre === " - Personalizable") {
+    //   return mostrarAlerta("Error: El nombre está incompleto", "error");
+    // }
     editarProducto(producto, token);
     mostrarAlerta("Producto editado con éxito", "exito");
   }

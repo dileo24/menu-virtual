@@ -4,14 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../../helpers";
 import HeaderBack from "../recursos/HeaderBack";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function Register() {
+export default function EditarUsuario() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userActual.tokenSession);
   const usuarios = useSelector((state) => state.usuarios);
   const emails = usuarios && usuarios.map((user) => user.email);
   const [showPassword, setShowPassword] = useState(false);
   let email;
+  let { id } = useParams();
+  const user = usuarios.find((user) => user.id === Number(id));
 
   const [input, setInput] = useState({
     nombre: "",
@@ -20,6 +23,18 @@ export default function Register() {
     clave: "",
     rolID: "",
   });
+
+  useEffect(() => {
+    if (user) {
+      setInput({
+        nombre: user ? user.nombre : "",
+        apellido: user ? user.apellido : "",
+        email: user ? user.email : "",
+        clave: user ? "" : "",
+        rolID: user ? user.Rol.id.toString() : "",
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
