@@ -8,6 +8,7 @@ export default function Items() {
   const navigate = useNavigate();
   const productosArray = useSelector((state) => state.home);
   const itemsExtraState = useSelector((state) => state.itemsExtra);
+  // console.log(itemsExtraState);
   const dispatch = useDispatch();
   const { id } = useParams();
   let prod =
@@ -84,7 +85,16 @@ export default function Items() {
                         <p className="persona">Persona {personaIndex + 1}</p>
                         {prod[0].itemsExtra.map((categoria, categoriaIndex) => {
                           const itemsFiltrados = itemsExtraState.filter(
-                            (item) => item.categoria.nombre === categoria
+                            (item) => {
+                              if (item.categoria.nombre === categoria) {
+                                return true;
+                              }
+                              // Si el producto tiene subcategoría y coincide con la categoría actual, también se incluirá en el filtro.
+                              return (
+                                item.subcategoria &&
+                                item.subcategoria.nombre === categoria
+                              );
+                            }
                           );
                           return (
                             <div

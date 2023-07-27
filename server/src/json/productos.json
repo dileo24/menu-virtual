@@ -61,32 +61,34 @@
   },
   {
     "subcategoriaID": "",
-    "nombre": "Merienda para 2",
-    "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
+    "nombre": "Licuados para 2 personas",
+    "descripcion": "2 Licuados, 4 criollos o medialunas y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
     "itemsExtra": [
       "Licuados",
-      "Postres"
+      "Panadería",
+      "Panadería"
     ],
     "cantidadPersonas": "2"
   },
   {
     "subcategoriaID": "",
-    "nombre": "Desayuno para 4",
-    "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
+    "nombre": "Desayuno completo para 4 personas",
+    "descripcion": "4 infusiones, 8 criollos o medialunas, queso crema, palta y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
     "itemsExtra": [
       "Infusiones",
-      "Postres"
+      "Panadería",
+      "Panadería"
     ],
     "cantidadPersonas": "4"
   },
   {
     "subcategoriaID": "",
-    "nombre": "Merienda para 4",
-    "descripcion": "4 facturas, 4 infusiones y jugo de naranja",
+    "nombre": "Desayuno simple para 4 personas",
+    "descripcion": "4 infusiones, 4 criollos o medialunas y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
     "itemsExtra": [
@@ -97,13 +99,14 @@
   },
   {
     "subcategoriaID": "7",
-    "nombre": "Asado para 2 con bebida",
-    "descripcion": "Vacío y Costilla con bebidas de 500ml",
+    "nombre": "Asado para 2 personas",
+    "descripcion": "Vacío y Costilla con bebidas de 500ml, papas y postre",
     "precio": "5300",
     "categoriaID": "2",
     "itemsExtra": [
       "Bebidas sin alcohol",
-      "Guarniciones"
+      "Guarniciones",
+      "Postres"
     ],
     "cantidadPersonas": "2"
   },
@@ -152,9 +155,9 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "10",
     "nombre": "Licuado de banana",
-    "categoriaID": "8",
+    "categoriaID": "1",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -163,9 +166,9 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "10",
     "nombre": "Licuado de durazno",
-    "categoriaID": "8",
+    "categoriaID": "1",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -174,9 +177,9 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "10",
     "nombre": "Licuado de frutilla",
-    "categoriaID": "8",
+    "categoriaID": "1",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -220,7 +223,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Fanta 500ml",
-    "categoriaID": "7",
+    "categoriaID": "5",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -231,7 +234,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Coca Cola 500ml",
-    "categoriaID": "7",
+    "categoriaID": "5",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -242,7 +245,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Agua sin gas 500ml",
-    "categoriaID": "7",
+    "categoriaID": "5",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -253,7 +256,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Aquarius de Manzana 500ml",
-    "categoriaID": "7",
+    "categoriaID": "5",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -264,7 +267,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Aquarius de Naranja 500ml",
-    "categoriaID": "7",
+    "categoriaID": "5",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -275,7 +278,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Aquarius de Pomelo 500ml",
-    "categoriaID": "7",
+    "categoriaID": "5",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -284,9 +287,9 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "6",
+    "subcategoriaID": "11",
     "nombre": "Papas Fritas",
-    "categoriaID": "5",
+    "categoriaID": "2",
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
@@ -295,9 +298,9 @@
     "descripcion": "Descripcion del producto"
   },
   {
-    "subcategoriaID": "",
+    "subcategoriaID": "11",
     "nombre": "Papas al Horno",
-    "categoriaID": "5",
+    "categoriaID": "2",
     "listado": false,
     "item": true,
     "mostrarPersonaItem": false,
@@ -308,7 +311,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Cheesecake",
-    "categoriaID": "4",
+    "categoriaID": "3",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -319,7 +322,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Flan con Dulce de leche",
-    "categoriaID": "4",
+    "categoriaID": "3",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -330,7 +333,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Golden Ale (rubia)",
-    "categoriaID": "6",
+    "categoriaID": "4",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -341,7 +344,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Irish Red (roja)",
-    "categoriaID": "6",
+    "categoriaID": "4",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -352,7 +355,7 @@
   {
     "subcategoriaID": "",
     "nombre": "Blackwood (negra)",
-    "categoriaID": "6",
+    "categoriaID": "4",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
@@ -363,12 +366,34 @@
   {
     "subcategoriaID": "",
     "nombre": "Orange Honey (rubia)",
-    "categoriaID": "6",
+    "categoriaID": "4",
     "listado": true,
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "subcategoriaID": "11",
+    "nombre": "Puré de papas",
+    "categoriaID": "2",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostrarOtroCheckbox": true,
+    "precio": "0",
+    "descripcion": "Descripcion del producto"
+  },
+  {
+    "subcategoriaID": "11",
+    "nombre": "Ensalada",
+    "categoriaID": "2",
+    "listado": false,
+    "item": true,
+    "mostrarPersonaItem": false,
+    "mostrarOtroCheckbox": true,
+    "precio": "0",
     "descripcion": "Descripcion del producto"
   }
 ]

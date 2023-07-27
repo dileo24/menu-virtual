@@ -19,21 +19,12 @@
     ]
   },
   {
-    "nombre": "Infusión"
-  },
-  {
     "nombre": "Postres"
   },
   {
-    "nombre": "Guarniciones"
-  },
-  {
-    "nombre": "Cervezas"
+    "nombre": "Bebidas con alcohol"
   },
   {
     "nombre": "Bebidas sin alcohol"
-  },
-  {
-    "nombre": "Licuados"
   }
 ]
