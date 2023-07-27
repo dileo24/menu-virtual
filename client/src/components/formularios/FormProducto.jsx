@@ -58,6 +58,17 @@ export default function FormProducto({
     setMostrarPersonaItem,
   ]);
 
+  useEffect(() => {
+    if (item) {
+      setMostrarOtroCheckbox(true);
+      setMostrarPersonaItem(false);
+      if (!listado) {
+        setListado(false);
+        setMostrarPrecio(false);
+      }
+    }
+  }, [item]);
+
   return (
     <div className="min-h-100 bg-gray-200">
       <div className="md:flex min-h-screen md:align-top">

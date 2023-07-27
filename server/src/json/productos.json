@@ -12,7 +12,9 @@
     "descripcion": "Descripcion del producto",
     "precio": "1500",
     "categoriaID": "2",
-    "itemsExtra": ["Cervezas"],
+    "itemsExtra": [
+      "Cervezas"
+    ],
     "cantidadPersonas": "2"
   },
   {
@@ -49,7 +51,10 @@
     "descripcion": "4 tostadas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": ["Infusiones", "Postres"],
+    "itemsExtra": [
+      "Infusiones",
+      "Postres"
+    ],
     "cantidadPersonas": "2"
   },
   {
@@ -58,7 +63,10 @@
     "descripcion": "2 tostados con papas, queso crema, palta, 2 infusiones y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": ["Licuados", "Postres"],
+    "itemsExtra": [
+      "Licuados",
+      "Postres"
+    ],
     "cantidadPersonas": "2"
   },
   {
@@ -67,7 +75,10 @@
     "descripcion": "8 tostadas, queso crema, palta, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": ["Infusiones", "Postres"],
+    "itemsExtra": [
+      "Infusiones",
+      "Postres"
+    ],
     "cantidadPersonas": "4"
   },
   {
@@ -76,7 +87,10 @@
     "descripcion": "4 facturas, 4 infusiones y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": ["Licuados", "Postres"],
+    "itemsExtra": [
+      "Licuados",
+      "Postres"
+    ],
     "cantidadPersonas": "4"
   },
   {
@@ -85,7 +99,10 @@
     "descripcion": "Vacío y Costilla con bebidas de 500ml",
     "precio": "5300",
     "categoriaID": "2",
-    "itemsExtra": ["Bebidas sin alcohol", "Guarniciones"],
+    "itemsExtra": [
+      "Bebidas sin alcohol",
+      "Guarniciones"
+    ],
     "cantidadPersonas": "2"
   },
   {
@@ -162,7 +179,7 @@
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
-    "precio": "300",
+    "precio": "0",
     "descripcion": "Descripcion del producto"
   },
   {
@@ -173,7 +190,7 @@
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
-    "precio": "500",
+    "precio": "0",
     "descripcion": "Descripcion del producto"
   },
   {
@@ -250,7 +267,7 @@
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
-    "precio": "1050",
+    "precio": "0",
     "descripcion": "Descripcion del producto"
   },
   {
@@ -261,7 +278,7 @@
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
-    "precio": "1050",
+    "precio": "0",
     "descripcion": "Descripcion del producto"
   },
   {
