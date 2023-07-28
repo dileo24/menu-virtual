@@ -8,7 +8,7 @@ import {
   postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import HeaderBack from "../recursos/HeaderBack";
 
@@ -209,6 +209,9 @@ export default function EditarCateg() {
               </div>
             </div>
             <div className="footer">
+              <Link to={"/adminCateg"} className="botonDescartar">
+                <VscTrash className="eliminarIcon" /> Descartar Cambios
+              </Link>
               <button type="submit" className="botonFooter">
                 Guardar Cambios
               </button>
@@ -222,7 +225,7 @@ export default function EditarCateg() {
             <div className="modalContainer">
               <header>
                 <h1 className="subCategTitle">
-                  Crear SubCategoría para "{selectedCategory.nombre}"
+                  SubCategoría para "{selectedCategory.nombre}"
                 </h1>
               </header>
               <div>

@@ -172,7 +172,7 @@ export default function AdminCateg() {
             <div className="modalContainer">
               <header>
                 <h1 className="subCategTitle">
-                  Crear SubCategoría para "{selectedCategory.nombre}"
+                  SubCategoría para "{selectedCategory.nombre}"
                 </h1>
               </header>
               <div>

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../../helpers";
 import HeaderBack from "../recursos/HeaderBack";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { VscTrash } from "react-icons/vsc";
 
 export default function EditarUsuario() {
   const dispatch = useDispatch();
@@ -190,8 +191,11 @@ export default function EditarUsuario() {
         </div>
 
         <div className="footer">
+          <Link to={"/usuarios"} className="botonDescartar">
+            <VscTrash className="eliminarIcon" /> Descartar Cambios
+          </Link>
           <button type="submit" className="botonFooter">
-            Crear Usuario
+            Guardar Cambios
           </button>
         </div>
       </form>
