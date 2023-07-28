@@ -106,12 +106,6 @@ export default function HacerPedido() {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (carrito.length) {
-      // Validación de longitud de aclaraciones
-      if (input.aclaraciones.length > 50) {
-        alert("Las aclaraciones deben tener hasta 50 caracteres");
-        return;
-      }
-
       // Obtener la lista de inputs previamente almacenados
       let storedInputs = localStorage.getItem("inputs");
       if (storedInputs) {

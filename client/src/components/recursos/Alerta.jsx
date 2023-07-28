@@ -30,11 +30,11 @@ export default function Alerta({
           <p className="texto">{texto}</p>
           {tipo === "pregunta" ? (
             <div className="btnCont">
-              <button className="cancelar" onClick={() => setEstado(false)}>
-                Cancelar
-              </button>
               <button className="aceptar" onClick={() => handleClick()}>
                 Aceptar
+              </button>
+              <button className="cancelar" onClick={() => setEstado(false)}>
+                Cancelar
               </button>
             </div>
           ) : (
