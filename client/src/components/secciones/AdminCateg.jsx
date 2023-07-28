@@ -52,13 +52,13 @@ export default function AdminCateg() {
     if (matchingProduct) {
       setAlertaError({
         estadoActualizado: true,
-        nombre: categDel.nombre,
+        texto: `No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${categDel.nombre}".`,
       });
     } else {
       setAlertaPregunta({
         estadoActualizado: true,
         id,
-        nombre: categDel && categDel.nombre,
+        texto: `¿Estás seguro que quiere eliminar la categoria "${categDel.nombre}"?`,
       });
     }
   };
@@ -101,9 +101,10 @@ export default function AdminCateg() {
     );
 
     if (existingSubcategory) {
-      alert(
-        `Error: La subcategoría "${inputSubcateg.nombre}" ya existe en una categoría. Por favor, elija un nombre diferente.`
-      );
+      setAlertaError({
+        estadoActualizado: true,
+        texto: `Error: La SubCategoría "${inputSubcateg.nombre}" ya existe en una categoría. Por favor, elija un nombre diferente.`,
+      });
       return;
     }
 
@@ -226,7 +227,7 @@ export default function AdminCateg() {
           <Alerta
             tipo={"error"}
             titulo={"Error"}
-            texto={`No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${alertaError.nombre}".`}
+            texto={alertaError.texto}
             estado={alertaError}
             setEstado={setAlertaError}
             callback={() => {}}
@@ -246,7 +247,7 @@ export default function AdminCateg() {
           <Alerta
             tipo={"pregunta"}
             titulo={"Eliminar categoría"}
-            texto={`¿Estás seguro que quiere eliminar la categoria "${alertaPregunta.nombre}"?`}
+            texto={alertaPregunta.texto}
             estado={alertaPregunta}
             setEstado={setAlertaPregunta}
             callback={() => {

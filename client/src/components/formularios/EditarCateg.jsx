@@ -8,9 +8,9 @@ import {
   postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
-import HeaderBack from "../recursos/HeaderBack";
+import Alerta from "../recursos/Alerta";
 
 export default function EditarCateg() {
   const dispatch = useDispatch();
@@ -23,6 +23,8 @@ export default function EditarCateg() {
   const categsBusq = useSelector((state) => state.categsBusq);
   const [newSubcategories, setNewSubcategories] = useState([]);
   const [newSubcategoriesID, setNewSubcategoriesID] = useState([]);
+  const [alertaError, setAlertaError] = useState(false);
+  const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({
     nombre: "",
@@ -84,8 +86,6 @@ export default function EditarCateg() {
         }
       }
       setSubcategsToRemove([]);
-      alert("Categoría actualizada con éxito!");
-      navigate("/adminCateg");
     } catch (error) {
       console.error("Error al actualizar categ:", error);
     }
@@ -113,7 +113,10 @@ export default function EditarCateg() {
     });
 
     if (subcategoryExists) {
-      alert("Error: Ya existe otra SubCategoría con ese nombre.");
+      setAlertaError({
+        estadoActualizado: true,
+        texto: `Error: Ya exise otra SubCategoría con ese nombre. Por favor, elija un nombre diferente.`,
+      });
       return;
     }
 
@@ -164,7 +167,15 @@ export default function EditarCateg() {
         </header>
 
         <div className="formulario">
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(e) => {
+              setAlertaExito({
+                estado: true,
+                texto: "Categoría actualizada con éxito",
+              });
+              handleSubmit(e);
+            }}
+          >
             <div className="nombre">
               <label htmlFor="nombre" className="nombreTitle">
                 Nombre Categoría
@@ -254,6 +265,26 @@ export default function EditarCateg() {
             </button>
           </form>
         </div>
+        {alertaError && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={alertaError.texto}
+            estado={alertaError}
+            setEstado={setAlertaError}
+            callback={() => {}}
+          />
+        )}
+        {alertaExito && (
+          <Alerta
+            tipo={"exito"}
+            titulo={"Éxito"}
+            texto={alertaExito.texto}
+            estado={alertaExito}
+            setEstado={setAlertaExito}
+            callback={() => navigate("/adminCateg")}
+          />
+        )}
       </div>
     )
   );
