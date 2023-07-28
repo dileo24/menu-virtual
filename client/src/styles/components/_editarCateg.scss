@@ -72,6 +72,34 @@
         }
       }
     }
+    .crearSubCateg {
+      position: relative;
+      .nombreInput {
+        border: 1px solid rgb(196, 196, 196);
+        border-radius: 8px;
+        width: 100%;
+        height: 12vw;
+        background-color: white;
+        padding: 3%;
+        font-size: 3.8vw;
+        &::placeholder {
+          color: grey;
+        }
+      }
+      .agregarBtn {
+        position: absolute;
+        top: 25%;
+        right: 3%;
+        color: $info;
+        font-weight: $titleWeight;
+        &:focus {
+          outline: none;
+        }
+      }
+      .submitBtn {
+        width: fit-content;
+      }
+    }
   }
   .btnContainer {
     margin: 0;
@@ -115,5 +143,3 @@
     background-color: $naranja;
   }
 }
-
-// botón de subcategoría y Modal hechos en _adminCateg.scss

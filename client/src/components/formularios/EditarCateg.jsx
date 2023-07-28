@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   getCategorias,
   getSubcategorias,
@@ -21,8 +21,8 @@ export default function EditarCateg() {
   const subcategs = useSelector((state) => state.subcategorias);
   const [subcategsToRemove, setSubcategsToRemove] = useState([]);
   const categsBusq = useSelector((state) => state.categsBusq);
-  const [modal, setModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [newSubcategories, setNewSubcategories] = useState([]);
+  const [newSubcategoriesID, setNewSubcategoriesID] = useState([]);
 
   const [input, setInput] = useState({
     nombre: "",
@@ -94,50 +94,62 @@ export default function EditarCateg() {
   // Crear subcategs
   const [inputSubcateg, setInputSubcateg] = useState({
     nombre: "",
-    categID: "",
+    categID: Number(id),
   });
 
   const handleChangeSubcateg = (e) => {
     setInputSubcateg({ ...inputSubcateg, [e.target.name]: e.target.value });
   };
 
-  const abrirModal = (id) => {
-    const matchingCategory = categsBusq.find(
-      (categ) => Number(categ.id) === Number(id)
-    );
-    if (matchingCategory) {
-      setSelectedCategory(matchingCategory);
-      setInputSubcateg({ ...inputSubcateg, categID: matchingCategory.id });
-      setModal(true);
-    }
-  };
-
   const handleSubmitSubcateg = (e) => {
     e.preventDefault();
-    // alert("Subcategoría creada con éxito!");
 
     dispatch(postSubcateg(inputSubcateg, token)).then(() => {
-      // Después de crear la subcategoría, puedes realizar cualquier acción necesaria
-      // como actualizar la lista de subcategorías en el estado.
       dispatch(getSubcategorias());
-      setInputSubcateg({ nombre: "", categID: "" });
-      /* setModal(false); */ // Cierra el modal después de crear la subcategoría
-      // window.location.reload();
-      setModal(false);
+      setInputSubcateg({ nombre: "", categID: Number(id) });
     });
+    // crear array con las nuevas subcategs
+    setNewSubcategories((prevSubcategories) => [
+      ...prevSubcategories,
+      inputSubcateg.nombre,
+    ]);
+  };
+
+  // Si hay un array con subcategs nuevas, crear otro array en donde se guardarán los id (recién cuando se haya actualizado el array de subcategs generales)
+  useEffect(() => {
+    newSubcategories.length &&
+      setNewSubcategoriesID((prevSubcategoriesID) => [
+        ...prevSubcategoriesID,
+        subcategs[subcategs.length - 1].id,
+      ]);
+  }, [subcategs]);
+
+  // Al descartar los cambios, se elim
+  const discardChanges = async (e) => {
+    try {
+      for (const subC of newSubcategoriesID) {
+        await dispatch(deleteSubcateg(subC, token));
+        setNewSubcategoriesID([]);
+        setNewSubcategories([]);
+      }
+      navigate("/adminCateg");
+    } catch (error) {
+      console.error("Error al actualizar categ:", error);
+    }
   };
 
   return (
     categ && (
       <div className="crearCategContainer">
-        <HeaderBack
-          url={"/adminCateg"}
-          arrowType={"left"}
-          title={`Editando la categoría ${categ.nombre}`}
-        />
+        <header className="header1">
+          <div className="ocultarBtn" onClick={discardChanges}>
+            <span className="arrow-left"></span>
+          </div>
+          <h1 className="title">{`Editando la categoría ${categ.nombre}`}</h1>
+        </header>
 
-        <div>
-          <form onSubmit={handleSubmit} className="formulario">
+        <div className="formulario">
+          <form onSubmit={handleSubmit}>
             <div className="nombre">
               <label htmlFor="nombre" className="nombreTitle">
                 Nombre Categoría
@@ -195,65 +207,38 @@ export default function EditarCateg() {
                 </div>
               )}
             </div>
-            <div className="btnContainer">
-              <div
-                onClick={() => {
-                  abrirModal(categ.id);
-                }}
-                className="crearSubcateg"
-              >
-                <div className="signoMas1">
-                  <div className="signoMas2"></div>
-                </div>
-                Subcategoría
-              </div>
-            </div>
+
             <div className="footer">
-              <Link to={"/adminCateg"} className="botonDescartar">
+              <div
+                to={"/adminCateg"}
+                className="botonDescartar"
+                onClick={discardChanges}
+              >
                 <VscTrash className="eliminarIcon" /> Descartar Cambios
-              </Link>
+              </div>
+
               <button type="submit" className="botonFooter">
                 Guardar Cambios
               </button>
             </div>
           </form>
-        </div>
-
-        {modal && (
-          <div className="fondoModal" /* onClick={() => setModal(false)} */>
-            {/* Aquí muestra el formulario/modal para crear subcategorías */}
-            <div className="modalContainer">
-              <header>
-                <h1 className="subCategTitle">
-                  SubCategoría para "{selectedCategory.nombre}"
-                </h1>
-              </header>
-              <div>
-                <form onSubmit={handleSubmitSubcateg}>
-                  <div>
-                    <input
-                      className="nombreInput"
-                      type="text"
-                      name="nombre"
-                      placeholder="Escribe el nombre"
-                      value={inputSubcateg.nombre}
-                      onChange={handleChangeSubcateg}
-                      required
-                    />
-                  </div>
-                  <button type="submit" className="agregarBtn">
-                    Agregar
-                  </button>
-                </form>
-                <div className="btnCont">
-                  <button className="descartar" onClick={() => setModal(false)}>
-                    Descartar
-                  </button>
-                </div>
-              </div>
+          <form onSubmit={handleSubmitSubcateg} className="crearSubCateg">
+            <div>
+              <input
+                className="nombreInput"
+                type="text"
+                name="nombre"
+                placeholder="Nueva subcategoría..."
+                value={inputSubcateg.nombre}
+                onChange={handleChangeSubcateg}
+                required
+              />
             </div>
-          </div>
-        )}
+            <button type="submit" className="agregarBtn">
+              Agregar
+            </button>
+          </form>
+        </div>
       </div>
     )
   );
