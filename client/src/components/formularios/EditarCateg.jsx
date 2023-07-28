@@ -118,13 +118,16 @@ export default function EditarCateg() {
     }
 
     // If the subcategory is unique, proceed with creation
-    try {
-      await dispatch(postSubcateg(inputSubcateg, token));
+    dispatch(postSubcateg(inputSubcateg, token)).then(() => {
       dispatch(getSubcategorias());
       setInputSubcateg({ nombre: "", categID: Number(id) });
-    } catch (error) {
-      console.error("Error al crear subcategoría:", error);
-    }
+    });
+
+    // crear array con las nuevas subcategs
+    setNewSubcategories((prevSubcategories) => [
+      ...prevSubcategories,
+      inputSubcateg.nombre,
+    ]);
   };
 
   // Si hay un array con subcategs nuevas, almacena el id de la nueva subcateg en otro id (recién cuando se haya actualizado el array de subcategs generales)
