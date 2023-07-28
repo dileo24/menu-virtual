@@ -5,6 +5,7 @@ import {
   updateCateg,
   deleteSubcateg,
   updateSubcateg,
+  postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,8 +20,21 @@ export default function EditarCateg() {
   const categ = useSelector((state) => state.categorias[id - 1]);
   const subcategs = useSelector((state) => state.subcategorias);
   const [subcategsToRemove, setSubcategsToRemove] = useState([]);
+  const categsBusq = useSelector((state) => state.categsBusq);
+  const [modal, setModal] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const [input, setInput] = useState();
+  const [input, setInput] = useState({
+    nombre: "",
+  });
+
+  useEffect(() => {
+    if (categ) {
+      setInput({
+        nombre: categ ? categ.nombre : "",
+      });
+    }
+  }, [categ]);
 
   const [inputSubc, setInputSubc] = useState({});
 
@@ -77,6 +91,42 @@ export default function EditarCateg() {
     }
   };
 
+  // Crear subcategs
+  const [inputSubcateg, setInputSubcateg] = useState({
+    nombre: "",
+    categID: "",
+  });
+
+  const handleChangeSubcateg = (e) => {
+    setInputSubcateg({ ...inputSubcateg, [e.target.name]: e.target.value });
+  };
+
+  const abrirModal = (id) => {
+    const matchingCategory = categsBusq.find(
+      (categ) => Number(categ.id) === Number(id)
+    );
+    if (matchingCategory) {
+      setSelectedCategory(matchingCategory);
+      setInputSubcateg({ ...inputSubcateg, categID: matchingCategory.id });
+      setModal(true);
+    }
+  };
+
+  const handleSubmitSubcateg = (e) => {
+    e.preventDefault();
+    // alert("Subcategoría creada con éxito!");
+
+    dispatch(postSubcateg(inputSubcateg, token)).then(() => {
+      // Después de crear la subcategoría, puedes realizar cualquier acción necesaria
+      // como actualizar la lista de subcategorías en el estado.
+      dispatch(getSubcategorias());
+      setInputSubcateg({ nombre: "", categID: "" });
+      /* setModal(false); */ // Cierra el modal después de crear la subcategoría
+      // window.location.reload();
+      setModal(false);
+    });
+  };
+
   return (
     categ && (
       <div className="crearCategContainer">
@@ -97,7 +147,7 @@ export default function EditarCateg() {
                 type="text"
                 name="nombre"
                 placeholder="Escribe el nombre"
-                value={input === undefined ? categ.nombre : input.nombre}
+                value={input.nombre}
                 onChange={handleChange}
                 required
               />
@@ -142,7 +192,19 @@ export default function EditarCateg() {
                   ))}
               </div>
             )}
-
+            <div className="btnContainer">
+              <div
+                onClick={() => {
+                  abrirModal(categ.id);
+                }}
+                className="crearSubcateg"
+              >
+                <div className="signoMas1">
+                  <div className="signoMas2"></div>
+                </div>
+                Subcategoría
+              </div>
+            </div>
             <div className="footer">
               <button type="submit" className="botonFooter">
                 Guardar Cambios
@@ -150,6 +212,42 @@ export default function EditarCateg() {
             </div>
           </form>
         </div>
+
+        {modal && (
+          <div className="fondoModal" /* onClick={() => setModal(false)} */>
+            {/* Aquí muestra el formulario/modal para crear subcategorías */}
+            <div className="modalContainer">
+              <header>
+                <h1 className="subCategTitle">
+                  Crear SubCategoría para "{selectedCategory.nombre}"
+                </h1>
+              </header>
+              <div>
+                <form onSubmit={handleSubmitSubcateg}>
+                  <div>
+                    <input
+                      className="nombreInput"
+                      type="text"
+                      name="nombre"
+                      placeholder="Escribe el nombre"
+                      value={inputSubcateg.nombre}
+                      onChange={handleChangeSubcateg}
+                      required
+                    />
+                  </div>
+                  <button type="submit" className="agregarBtn">
+                    Agregar
+                  </button>
+                </form>
+                <div className="btnCont">
+                  <button className="descartar" onClick={() => setModal(false)}>
+                    Descartar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     )
   );

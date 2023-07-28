@@ -4,6 +4,8 @@
 
   .formulario {
     padding: 0 5%;
+    padding-bottom: 30vw;
+
     .nombre {
       display: flex;
       flex-direction: column;
@@ -30,7 +32,7 @@
     .subcategorias {
       display: flex;
       flex-direction: column;
-      padding-bottom: 20vw;
+      // padding-bottom: 20vw;
       .subcategTitle {
         font-weight: $titleWeight;
         font-size: $subtSize;
@@ -71,7 +73,10 @@
       }
     }
   }
-
+  .btnContainer {
+    margin: 0;
+    height: 12vw;
+  }
   .footer {
     width: 100vw;
     position: fixed;

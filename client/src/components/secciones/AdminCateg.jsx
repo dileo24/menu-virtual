@@ -142,8 +142,6 @@ export default function AdminCateg() {
                   </div>
                   <div className="btnContainer">
                     <div
-                      //   to={`/updateItems/${prod.id}/${index}`}
-                      // to={`/subcategs/${categ.id}`}
                       onClick={() => {
                         abrirModal(categ.id);
                       }}
@@ -172,9 +170,9 @@ export default function AdminCateg() {
           <div className="fondoModal" /* onClick={() => setModal(false)} */>
             {/* Aquí muestra el formulario/modal para crear subcategorías */}
             <div className="modalContainer">
-              <header className="header1">
+              <header>
                 <h1 className="subCategTitle">
-                  Nueva SubCategoría para "{selectedCategory.nombre}"
+                  Crear SubCategoría para "{selectedCategory.nombre}"
                 </h1>
               </header>
               <div>
