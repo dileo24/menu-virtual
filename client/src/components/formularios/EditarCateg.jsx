@@ -152,46 +152,49 @@ export default function EditarCateg() {
                 required
               />
             </div>
-            {subcategs.some(
-              (subC) => Number(subC.categoria.id) === Number(id)
-            ) && (
-              <div className="subcategorias">
-                <p className="subcategTitle">SubCategorías</p>
-                {subcategs
-                  .filter((subC) => Number(subC.categoria.id) === Number(id))
-                  .map((subC) => (
-                    <div
-                      key={subC.id}
-                      className="subcateg"
-                      style={
-                        subcategsToRemove.includes(subC.id)
-                          ? { display: "none" }
-                          : {}
-                      }
-                    >
-                      <input
-                        className="subcategInput"
-                        type="text"
-                        name="subcateg"
-                        placeholder="Escribe el nombre"
-                        value={
-                          inputSubc[subC.id] !== undefined
-                            ? inputSubc[subC.id]
-                            : subC.nombre
-                        }
-                        onChange={(e) => handleChangeSubcategs(e, subC.id)}
-                        required
-                      />
+
+            <div className="subcategorias">
+              <p className="subcategTitle">SubCategorías</p>
+              {subcategs.some(
+                (subC) => Number(subC.categoria.id) === Number(id)
+              ) && (
+                <div>
+                  {subcategs
+                    .filter((subC) => Number(subC.categoria.id) === Number(id))
+                    .map((subC) => (
                       <div
-                        onClick={() => handleRemoveSubcateg(subC.id)}
-                        className="iconContainer2"
+                        key={subC.id}
+                        className="subcateg"
+                        style={
+                          subcategsToRemove.includes(subC.id)
+                            ? { display: "none" }
+                            : {}
+                        }
                       >
-                        <VscTrash className="eliminarIcon" />
+                        <input
+                          className="subcategInput"
+                          type="text"
+                          name="subcateg"
+                          placeholder="Escribe el nombre"
+                          value={
+                            inputSubc[subC.id] !== undefined
+                              ? inputSubc[subC.id]
+                              : subC.nombre
+                          }
+                          onChange={(e) => handleChangeSubcategs(e, subC.id)}
+                          required
+                        />
+                        <div
+                          onClick={() => handleRemoveSubcateg(subC.id)}
+                          className="iconContainer2"
+                        >
+                          <VscTrash className="eliminarIcon" />
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
-            )}
+                    ))}
+                </div>
+              )}
+            </div>
             <div className="btnContainer">
               <div
                 onClick={() => {
