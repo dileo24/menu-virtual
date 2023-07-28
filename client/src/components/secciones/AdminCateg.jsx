@@ -88,14 +88,23 @@ export default function AdminCateg() {
 
   const handleSubmitSubcateg = (e) => {
     e.preventDefault();
-    // alert("Subcategoría creada con éxito!");
 
+    // Check if there's already a subcategory with the same name across all categories
+    const existingSubcategory = categsBusq.some((categ) =>
+      categ.subcategorias.some((subC) => subC.nombre === inputSubcateg.nombre)
+    );
+
+    if (existingSubcategory) {
+      alert(
+        `Error: La subcategoría "${inputSubcateg.nombre}" ya existe en una categoría. Por favor, elija un nombre diferente.`
+      );
+      return;
+    }
+
+    // If the subcategory name is unique, proceed with the creation
     dispatch(postSubcateg(inputSubcateg, token)).then(() => {
-      // Después de crear la subcategoría, puedes realizar cualquier acción necesaria
-      // como actualizar la lista de subcategorías en el estado.
       dispatch(getSubcategorias());
       setInputSubcateg({ nombre: "", categID: "" });
-      /* setModal(false); */ // Cierra el modal después de crear la subcategoría
       window.location.reload();
     });
   };

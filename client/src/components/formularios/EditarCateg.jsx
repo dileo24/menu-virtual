@@ -101,21 +101,33 @@ export default function EditarCateg() {
     setInputSubcateg({ ...inputSubcateg, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitSubcateg = (e) => {
+  const handleSubmitSubcateg = async (e) => {
     e.preventDefault();
 
-    dispatch(postSubcateg(inputSubcateg, token)).then(() => {
+    // Check if the subcategory with the same name already exists across all categories
+    const subcategoryExists = subcategs.some((subC) => {
+      const matchingCategory = categsBusq.find(
+        (categ) => categ.id === subC.categoria.id
+      );
+      return matchingCategory && subC.nombre === inputSubcateg.nombre;
+    });
+
+    if (subcategoryExists) {
+      alert("Error: Ya existe otra SubCategoría con ese nombre.");
+      return;
+    }
+
+    // If the subcategory is unique, proceed with creation
+    try {
+      await dispatch(postSubcateg(inputSubcateg, token));
       dispatch(getSubcategorias());
       setInputSubcateg({ nombre: "", categID: Number(id) });
-    });
-    // crear array con las nuevas subcategs
-    setNewSubcategories((prevSubcategories) => [
-      ...prevSubcategories,
-      inputSubcateg.nombre,
-    ]);
+    } catch (error) {
+      console.error("Error al crear subcategoría:", error);
+    }
   };
 
-  // Si hay un array con subcategs nuevas, crear otro array en donde se guardarán los id (recién cuando se haya actualizado el array de subcategs generales)
+  // Si hay un array con subcategs nuevas, almacena el id de la nueva subcateg en otro id (recién cuando se haya actualizado el array de subcategs generales)
   useEffect(() => {
     newSubcategories.length &&
       setNewSubcategoriesID((prevSubcategoriesID) => [
@@ -124,7 +136,7 @@ export default function EditarCateg() {
       ]);
   }, [subcategs]);
 
-  // Al descartar los cambios, se elim
+  // Al descartar los cambios, se eliminan las subcategs nuevas creadas que no se guardaron
   const discardChanges = async (e) => {
     try {
       for (const subC of newSubcategoriesID) {
