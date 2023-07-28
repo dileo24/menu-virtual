@@ -100,7 +100,7 @@ export default function EditarUsuario() {
       <HeaderBack
         url={"/usuarios"}
         arrowType={"left"}
-        title={`Crear Usuario`}
+        title={`Editar Usuario`}
       />
       <form onSubmit={handleSubmit} className="formulario contenedor">
         <div className="labelInput">
