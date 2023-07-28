@@ -13,6 +13,7 @@ import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import Filtros from "../recursos/Filtros";
+import Alerta from "../recursos/Alerta";
 
 export default function Usuarios() {
   const usuarios = useSelector((state) => state.usuarios);
@@ -21,36 +22,40 @@ export default function Usuarios() {
   const dispatch = useDispatch();
   const [currentSlide, setCurrentSlide] = useState(null);
   const [diapoActual, setDiapoActual] = useState(0);
+  const [alertaPregunta, setAlertaPregunta] = useState(false);
+
   useEffect(() => {
     dispatch(getUsuarios());
   }, [dispatch]);
 
   const handleEliminar = (id) => {
     dispatch(deleteUsuario(id, userActual.tokenSession));
+    window.location.reload();
+  };
+
+  const handleClickEliminar = (id, nombre, apellido) => {
+    setAlertaPregunta({
+      estadoActualizado: true,
+      id,
+      nombre,
+      apellido,
+    });
   };
 
   const handleBloqueo = useCallback(
-    (id, nombre) => {
-      let res = window.confirm(`Está seguro de querer bloquear a "${nombre}"?`);
-      if (res === true) {
-        dispatch(
-          bloqueoUsuario({ bloqueo: "true" }, id, userActual.tokenSession)
-        );
-      }
+    (id) => {
+      dispatch(
+        bloqueoUsuario({ bloqueo: "true" }, id, userActual.tokenSession)
+      );
     },
     [dispatch, userActual.tokenSession]
   );
 
   const handleDesbloqueo = useCallback(
-    (id, nombre) => {
-      let res = window.confirm(
-        `Está seguro de querer desbloquear a "${nombre}"?`
+    (id) => {
+      dispatch(
+        desbloqueoUsuario({ bloqueo: "false" }, id, userActual.tokenSession)
       );
-      if (res === true) {
-        dispatch(
-          desbloqueoUsuario({ bloqueo: "false" }, id, userActual.tokenSession)
-        );
-      }
     },
     [dispatch, userActual.tokenSession]
   );
@@ -147,14 +152,20 @@ export default function Usuarios() {
                           <HiOutlinePencil className="editarIcon" />
                         </Link>
                         <button
-                          onClick={() => handleEliminar(user.id)}
+                          onClick={() =>
+                            handleClickEliminar(
+                              user.id,
+                              user.nombre,
+                              user.apellido
+                            )
+                          }
                           className="iconContainer2"
                         >
                           <VscTrash className="eliminarIcon" />
                         </button>
                       </div>
                       <button
-                        onClick={() => handleBloqueo(user.id, user.nombre)}
+                        onClick={() => handleBloqueo(user.id)}
                         className="cambiarEstado"
                       >
                         inhabilitar
@@ -200,7 +211,13 @@ export default function Usuarios() {
                           <HiOutlinePencil className="editarIcon" />
                         </button>
                         <button
-                          onClick={() => handleEliminar(user.id)}
+                          onClick={() =>
+                            handleClickEliminar(
+                              user.id,
+                              user.nombre,
+                              user.apellido
+                            )
+                          }
                           className="iconContainer2"
                         >
                           <VscTrash className="eliminarIcon" />
@@ -257,7 +274,13 @@ export default function Usuarios() {
                           <HiOutlinePencil className="editarIcon" />
                         </Link>
                         <button
-                          onClick={() => handleEliminar(user.id)}
+                          onClick={() =>
+                            handleClickEliminar(
+                              user.id,
+                              user.nombre,
+                              user.apellido
+                            )
+                          }
                           className="iconContainer2"
                         >
                           <VscTrash className="eliminarIcon" />
@@ -315,7 +338,13 @@ export default function Usuarios() {
                           <HiOutlinePencil className="editarIcon" />
                         </button>
                         <button
-                          onClick={() => handleEliminar(user.id)}
+                          onClick={() =>
+                            handleClickEliminar(
+                              user.id,
+                              user.nombre,
+                              user.apellido
+                            )
+                          }
                           className="iconContainer2"
                         >
                           <VscTrash className="eliminarIcon" />
@@ -337,6 +366,17 @@ export default function Usuarios() {
           </div>
         </div>
       </Swipe>
+
+      {alertaPregunta && (
+        <Alerta
+          tipo={"pregunta"}
+          titulo={"Eliminar usuario"}
+          texto={`¿Estás seguro que quieres eliminar el usuario "${alertaPregunta.nombre} ${alertaPregunta.apellido}"?`}
+          estado={alertaPregunta}
+          setEstado={setAlertaPregunta}
+          callback={() => handleEliminar(alertaPregunta.id)}
+        />
+      )}
 
       <footer>
         <Link to="/register" className="botonFooter">

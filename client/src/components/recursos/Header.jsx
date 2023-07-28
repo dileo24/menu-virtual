@@ -19,6 +19,7 @@ import { RxExit } from "react-icons/rx";
 import { BiFoodMenu } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { IoIosStats } from "react-icons/io";
+import Alerta from "../recursos/Alerta";
 
 export default function Header({
   currentSlide,
@@ -38,6 +39,7 @@ export default function Header({
   // const [focusedSubcategory, setFocusedSubcategory] = useState(null);
   const [navSideOpen, setNavSideOpen] = useState(false);
   const isHomePage = window.location.pathname === "/";
+  const [alertaPregunta, setAlertaPregunta] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -71,8 +73,7 @@ export default function Header({
   const pedidosNoVacios = pedidosActuales.filter((array) => array.length !== 0);
 
   const cerrarSesion = () => {
-    let res = window.confirm(`Está seguro de querer cerrar su sesión?`);
-    res && dispatch(cleanUserActual(userActual.data.id));
+    dispatch(cleanUserActual(userActual.data.id));
     setNavSideOpen(false);
     navigate("/");
   };
@@ -189,7 +190,10 @@ export default function Header({
           <div id="nav" className="headerUsuarios">
             {/* Empleados: No tienen header, solo sección de pedidos */}
             {userActual && userActual.data.RolId === 3 && (
-              <button onClick={cerrarSesion} className="cerrarSesion">
+              <button
+                onClick={() => setAlertaPregunta(true)}
+                className="cerrarSesion"
+              >
                 Cerrar sesión
               </button>
             )}
@@ -305,7 +309,10 @@ export default function Header({
                         <IoIosStats className="linkIcon" />
                         Estadisticas
                       </Link>
-                      <button onClick={cerrarSesion} className="cerrarSesion">
+                      <button
+                        onClick={() => setAlertaPregunta(true)}
+                        className="cerrarSesion"
+                      >
                         <RxExit className="linkIcon" />
                         Cerrar sesión
                       </button>
@@ -375,7 +382,10 @@ export default function Header({
                         <BsTags className="linkIcon" />
                         Categorias
                       </Link>
-                      <button onClick={cerrarSesion} className="cerrarSesion">
+                      <button
+                        onClick={() => setAlertaPregunta(true)}
+                        className="cerrarSesion"
+                      >
                         <RxExit className="linkIcon" />
                         Cerrar sesión
                       </button>
@@ -481,6 +491,17 @@ export default function Header({
           </>
         )}
       </div>
+
+      {alertaPregunta && (
+        <Alerta
+          tipo={"pregunta"}
+          titulo={"Cerrar sesión"}
+          texto={`¿Estás seguro que quieres cerrar sesión?`}
+          estado={alertaPregunta}
+          setEstado={setAlertaPregunta}
+          callback={cerrarSesion}
+        />
+      )}
     </header>
   );
 }

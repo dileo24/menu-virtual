@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "../recursos/Header";
 import Menu from "./Menu";
 // import HacerPedido from "./HacerPedido1";
-import { getProductos } from "../../redux/actions";
+
+import { getProductos, deleteProducto } from "../../redux/actions";
 import Swipe from "react-swipe";
 import { Link } from "react-router-dom";
 // import { io } from "socket.io-client";
+import Alerta from "../recursos/Alerta";
 
 const Carrusel = () => {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
@@ -17,8 +19,12 @@ const Carrusel = () => {
   const [preciosArray, setPreciosArray] = useState([]);
   const carrito = useSelector((state) => state.carrito);
   const userActual = useSelector((state) => state.userActual);
+  const [alertaPregunta, setAlertaPregunta] = useState(false);
   let marginTop = carrito.length > 0 ? "" : "margen";
   let precioFinal = 0;
+  const token = userActual && userActual.tokenSession;
+  let productosState = useSelector((state) => state.home);
+
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
@@ -38,19 +44,21 @@ const Carrusel = () => {
     dispatch(getProductos());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   // Local
-  //   const socket = io("http://localhost:3001");
+  const handleClickEliminar = (id) => {
+    const producto = productosState.find((prod) => prod.id === id);
+    const nombre = producto ? producto.nombre : "";
+    setAlertaPregunta({
+      estadoActualizado: true,
+      id,
+      nombre,
+    });
+  };
 
-  //   // Deploy
-  //   // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
-
-  //   setSocket(socket);
-
-  //   return () => {
-  //     socket.disconnect();
-  //   };
-  // }, []);
+  const handleEliminarProducto = (id) => {
+    dispatch(deleteProducto(id, token)).then(() => {
+      dispatch(getProductos());
+    });
+  };
 
   const handleWindowScroll = useCallback(() => {
     const scrollPosition = window.scrollY || document.documentElement.scrollTop;
@@ -162,6 +170,7 @@ const Carrusel = () => {
                   categ={"todas"}
                   prodsBuscados={homeBusqueda}
                   currentSlide={currentSlide}
+                  handleClickEliminar={handleClickEliminar}
                 />
               </div>
               {categorias.map(
@@ -175,6 +184,7 @@ const Carrusel = () => {
                         <Menu
                           categ={categ.nombre}
                           currentSlide={currentSlide}
+                          handleClickEliminar={handleClickEliminar}
                         />
                       )}
                     </div>
@@ -195,6 +205,17 @@ const Carrusel = () => {
           </>
         )}
       </div>
+
+      {alertaPregunta && (
+        <Alerta
+          tipo={"pregunta"}
+          titulo={"Eliminar producto"}
+          texto={`¿Estás seguro que quieres eliminar el producto "${alertaPregunta.nombre}"?`}
+          estado={alertaPregunta}
+          setEstado={setAlertaPregunta}
+          callback={() => handleEliminarProducto(alertaPregunta.id)}
+        />
+      )}
     </div>
   );
 };

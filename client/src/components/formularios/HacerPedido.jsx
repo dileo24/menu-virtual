@@ -9,6 +9,7 @@ import { AiOutlineCreditCard } from "react-icons/ai";
 import mercadoPago from "../../multmedia/mercadopago.svg";
 import { io } from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
+import Alerta from "../recursos/Alerta";
 
 export default function HacerPedido() {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -18,14 +19,12 @@ export default function HacerPedido() {
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
-
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
   const dispatch = useDispatch();
   const tipoPagos = useSelector((state) => state.tipoPagos);
-
   const currentDate = new Date();
   const formattedDate = `${currentDate.getDate()}/${
     currentDate.getMonth() + 1
@@ -39,6 +38,7 @@ export default function HacerPedido() {
   } ${ampm}`;
   let id = pedidos.length + 1;
   const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? [["vacio"]]);
+  const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -152,10 +152,6 @@ export default function HacerPedido() {
         creacionFecha: "",
         creacionHora: "",
       });
-      alert(
-        "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
-      );
-      navigate("/historial");
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
@@ -176,7 +172,10 @@ export default function HacerPedido() {
             <form
               id="formulario"
               className="formulario"
-              onSubmit={(e) => handleSubmitForm(e)}
+              onSubmit={(e) => {
+                setAlertaExito(true);
+                handleSubmitForm(e);
+              }}
             >
               <div className="mesa">
                 <label className="mesaTitle" htmlFor="mesa">
@@ -279,6 +278,20 @@ export default function HacerPedido() {
             </form>
           </div>
         </div>
+        {alertaExito && (
+          <Alerta
+            tipo={"exito"}
+            titulo={"Pedido exitoso"}
+            texto={
+              "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
+            }
+            estado={alertaExito}
+            setEstado={setAlertaExito}
+            callback={() => {
+              navigate("/historial");
+            }}
+          />
+        )}
       </div>
     </>
   );

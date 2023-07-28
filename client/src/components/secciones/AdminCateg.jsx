@@ -12,6 +12,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { HiOutlinePencil } from "react-icons/hi2";
 import Filtros from "../recursos/Filtros";
+import Alerta from "../recursos/Alerta";
 
 export default function AdminCateg() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function AdminCateg() {
   const [modal, setModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
+  const [alertaError, setAlertaError] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -46,9 +48,10 @@ export default function AdminCateg() {
       (producto) => producto.categoriaID === id
     );
     if (matchingProduct) {
-      alert(
-        `Error: No se puede eliminar una categoría que tenga productos asociados. Primero debes editar la Categoría de los productos que pertenezcan a ${categDel.nombre}, o eliminarlos.`
-      );
+      setAlertaError({
+        estadoActualizado: true,
+        nombre: categDel.nombre,
+      });
     } else {
       window.confirm(
         `¿Seguro de querer borrar la categoría ${categDel && categDel.nombre}?`
@@ -210,6 +213,36 @@ export default function AdminCateg() {
             </div>
           </div>
         )}
+        {alertaError && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={`No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${alertaError.nombre}".`}
+            estado={alertaError}
+            setEstado={setAlertaError}
+            callback={() => {}}
+          />
+        )}
+        {/* {alertaExito && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={`No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${alertaError.nombre}".`}
+            estado={alertaError}
+            setEstado={setAlertaError}
+            callback={() => {}}
+          />
+        )} */}
+        {/* {alertPregunta && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={`No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${alertaError.nombre}".`}
+            estado={alertaError}
+            setEstado={setAlertaError}
+            callback={() => {}}
+          />
+        )} */}
       </div>
     </>
   );
