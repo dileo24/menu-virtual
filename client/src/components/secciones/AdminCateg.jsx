@@ -23,6 +23,8 @@ export default function AdminCateg() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
   const [alertaError, setAlertaError] = useState(false);
+  const [alertaExito, setAlertaExito] = useState(false);
+  const [alertaPregunta, setAlertaPregunta] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -53,9 +55,11 @@ export default function AdminCateg() {
         nombre: categDel.nombre,
       });
     } else {
-      window.confirm(
-        `¿Seguro de querer borrar la categoría ${categDel && categDel.nombre}?`
-      ) && dispatch(deleteCateg(id, token));
+      setAlertaPregunta({
+        estadoActualizado: true,
+        id,
+        nombre: categDel && categDel.nombre,
+      });
     }
   };
 
@@ -63,7 +67,6 @@ export default function AdminCateg() {
     e.preventDefault();
     dispatch(postCateg(input, token)).then(() => {
       dispatch(getCategorias());
-      alert("Categoria creada con éxito!");
       setInput({ nombre: "", subcategID: [] });
     });
   };
@@ -118,7 +121,13 @@ export default function AdminCateg() {
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
         <Filtros searchType="categorias" searchWord={"categorías"} />
-        <form onSubmit={handleSubmit} className="formulario">
+        <form
+          onSubmit={(e) => {
+            setAlertaExito(true);
+            handleSubmit(e);
+          }}
+          className="formulario"
+        >
           <input
             type="text"
             name="nombre"
@@ -223,26 +232,29 @@ export default function AdminCateg() {
             callback={() => {}}
           />
         )}
-        {/* {alertaExito && (
+        {alertaExito && (
           <Alerta
-            tipo={"error"}
-            titulo={"Error"}
-            texto={`No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${alertaError.nombre}".`}
-            estado={alertaError}
-            setEstado={setAlertaError}
+            tipo={"exito"}
+            titulo={"Éxito"}
+            texto={`Categoría creada con éxito.`}
+            estado={alertaExito}
+            setEstado={setAlertaExito}
             callback={() => {}}
           />
-        )} */}
-        {/* {alertPregunta && (
+        )}
+        {alertaPregunta && (
           <Alerta
-            tipo={"error"}
-            titulo={"Error"}
-            texto={`No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${alertaError.nombre}".`}
-            estado={alertaError}
-            setEstado={setAlertaError}
-            callback={() => {}}
+            tipo={"pregunta"}
+            titulo={"Eliminar categoría"}
+            texto={`¿Estás seguro que quiere eliminar la categoria "${alertaPregunta.nombre}"?`}
+            estado={alertaPregunta}
+            setEstado={setAlertaPregunta}
+            callback={() => {
+              dispatch(deleteCateg(alertaPregunta.id, token));
+              window.location.reload();
+            }}
           />
-        )} */}
+        )}
       </div>
     </>
   );
