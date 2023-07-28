@@ -1,0 +1,73 @@
+.fondoAlerta {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999999;
+  @include center;
+  .pregunta,
+  .exito,
+  .error {
+    width: 90%;
+    padding: 8vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    .titulo {
+      font-weight: $titleWeight;
+      font-size: $subtSize;
+      margin-bottom: 3.5vw;
+      text-align: center;
+    }
+    .texto {
+      text-align: center;
+    }
+    .btnCont {
+      @include center;
+      .cancelar,
+      .aceptar,
+      .aceptarSolo {
+        margin-top: 8vw;
+        font-weight: $titleWeight;
+        font-size: 4vw;
+        line-height: 1;
+        padding: 3.5vw 8.5vw;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+      }
+      .cancelar {
+        background-color: $naranja;
+        border: 1px solid $naranja;
+        margin-left: 5vw;
+      }
+      .aceptar {
+        background-color: white;
+        border: 1px solid black;
+      }
+      .aceptarSolo {
+        background-color: $naranja;
+      }
+    }
+  }
+  .pregunta {
+    background-color: white;
+  }
+  .exito {
+    background-color: white;
+    // border: 1px solid $success;
+  }
+  .error {
+    background-color: white;
+    /* background-color: #ffe5e5;
+    border: 1px solid #ff3d3d; */
+  }
+}

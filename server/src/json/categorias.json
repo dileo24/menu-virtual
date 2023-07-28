@@ -1,28 +1,30 @@
 [
   {
     "nombre": "Desayuno/Merienda",
-    "subcategID": ["8", "9"]
+    "subcategID": [
+      "8",
+      "9"
+    ]
   },
   {
     "nombre": "Almuerzo/Cena",
-    "subcategID": ["1", "2", "3", "4", "5", "6", "7"]
-  },
-  {
-    "nombre": "Infusiones"
+    "subcategID": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+    ]
   },
   {
     "nombre": "Postres"
   },
   {
-    "nombre": "Guarniciones"
-  },
-  {
-    "nombre": "Cervezas"
+    "nombre": "Bebidas con alcohol"
   },
   {
     "nombre": "Bebidas sin alcohol"
-  },
-  {
-    "nombre": "Licuados"
   }
 ]

@@ -23,7 +23,6 @@ export default function EditarProductos() {
   const [mostrarPersonaItem, setMostrarPersonaItem] = useState(false);
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(true);
   const [mostrarPrecio, setMostrarPrecio] = useState(true);
-
   const [item, setItem] = useState(false);
   // const [checkListadoTrue, setCheckListadoTrue] = useState("");
   // const [checkListadoFalse, setCheckListadoFalse] = useState("");
@@ -38,7 +37,10 @@ export default function EditarProductos() {
     if (idItem) {
       obtenerItem(idItem)
         .then((item) => {
-          mostrarItem(item);
+          if (item.item === true) {
+            mostrarItem(item);
+          }
+          console.log(item.mostrarOtroCheckbox);
         })
         .catch((error) => {
           console.log("error al obtener item" + error);
@@ -47,6 +49,7 @@ export default function EditarProductos() {
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
+          console.log(producto);
         })
         .catch((error) => {
           console.log(error);
@@ -78,10 +81,13 @@ export default function EditarProductos() {
     setDescripcion(item.descripcion);
     setPrecio(item.precio);
     setId(item.id);
+    // setNumItemsExtra(item.itemsExtra.length);
+    // setItemsExtra(item.itemsExtra);
     setCantidadPersonas(item.cantidadPersonas);
     setMostrarPersonaItem(item.mostrarPersonaItem);
     setMostrarOtroCheckbox(item.mostrarOtroCheckbox);
     setListado(item.listado);
+    setItem(item.item);
     // setCheckListadoFalse(item.listado === false ? true : false);
     // setCheckListadoTrue(item.listado === true ? true : false);
   }
@@ -108,9 +114,9 @@ export default function EditarProductos() {
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
       return mostrarAlerta("Error: Hay algún campo vacío", "error");
     }
-    if (nombre === " - Personalizable") {
-      return mostrarAlerta("Error: El nombre está incompleto", "error");
-    }
+    // if (nombre === " - Personalizable") {
+    //   return mostrarAlerta("Error: El nombre está incompleto", "error");
+    // }
     editarProducto(producto, token);
     mostrarAlerta("Producto editado con éxito", "exito");
   }

@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../recursos/Button";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { getProductos } from "../../redux/actions";
 
 export default function Items({
   itemsExtra,
   setItemsExtra,
   numItemsExtra,
   setNumItemsExtra,
-  itemsExtraArray,
-  categoriaID,
 }) {
+  let productosState = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
-  const categsItems = categorias.filter((c) => c.id !== 1 && c.id !== 2);
+  const subcategorias = useSelector((state) => state.subcategorias);
+  const productosConItemTrue = productosState.filter(
+    (producto) => producto.item === true
+  );
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getProductos());
+  }, [dispatch]);
+
+  // Al cargar el componente, leer los datos desde el Local Storage
+  useEffect(() => {
+    const savedItems = JSON.parse(localStorage.getItem("itemsExtra"));
+    const savedNumItems = parseInt(localStorage.getItem("numItemsExtra"));
+
+    if (savedItems && !isNaN(savedNumItems)) {
+      setItemsExtra(savedItems);
+      setNumItemsExtra(savedNumItems);
+    }
+  }, []);
+
+  // Al actualizar los estados, guardar los datos en el Local Storage
+  useEffect(() => {
+    localStorage.setItem("itemsExtra", JSON.stringify(itemsExtra));
+    localStorage.setItem("numItemsExtra", numItemsExtra);
+  }, [itemsExtra, numItemsExtra]);
   const handleNumItemsChange = (e) => {
     let count = parseInt(e.target.value);
     setNumItemsExtra(count);
@@ -42,6 +67,16 @@ export default function Items({
       setItemsExtra(itemsExtra.slice(0, -1));
     }
   };
+
+  /* const categoriasUnicas = Array.from(
+    new Set(
+      productosConItemTrue.map((producto) => {
+        return producto.subcategoria
+          ? producto.subcategoria.nombre
+          : producto.categoria.nombre;
+      })
+    )
+  ); */
 
   return (
     <>
@@ -87,11 +122,45 @@ export default function Items({
               {itemsExtra[index] === "" ? "Elegí un item" : itemsExtra[index]}
             </option>
 
-            {categsItems.map((item) => (
-              <option key={item.id} value={item.nombre}>
-                {item.nombre}
+            {/* {categoriasUnicas.map((nombre, index) => (
+              <option key={index} value={nombre}>
+                {nombre}
               </option>
-            ))}
+            ))} */}
+
+            {/* Mapear las opciones de categorías */}
+            {categorias.map((categoria) => {
+              const categoriaEstaEnProductos = productosConItemTrue.some(
+                (producto) => producto.categoria.id === categoria.id
+              );
+
+              if (categoriaEstaEnProductos) {
+                return (
+                  <option key={categoria.id} value={categoria.nombre}>
+                    {categoria.nombre}
+                  </option>
+                );
+              }
+              return null;
+            })}
+
+            {/* Mapear las opciones de subcategorías */}
+            {subcategorias.map((subcategoria) => {
+              const subcategoriaEstaEnProductos = productosConItemTrue.some(
+                (producto) =>
+                  producto.subcategoria &&
+                  producto.subcategoria.id === subcategoria.id
+              );
+
+              if (subcategoriaEstaEnProductos) {
+                return (
+                  <option key={subcategoria.id} value={subcategoria.nombre}>
+                    {subcategoria.nombre}
+                  </option>
+                );
+              }
+              return null;
+            })}
           </select>
         </div>
       ))}

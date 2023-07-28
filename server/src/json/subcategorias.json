@@ -28,11 +28,19 @@
     "categID": "2"
   },
   {
-    "nombre": "Tostadas",
+    "nombre": "Panadería",
     "categID": "1"
   },
   {
-    "nombre": "Facturas",
+    "nombre": "Infusiones",
     "categID": "1"
+  },
+  {
+    "nombre": "Licuados",
+    "categID": "1"
+  },
+  {
+    "nombre": "Guarniciones",
+    "categID": "2"
   }
 ]

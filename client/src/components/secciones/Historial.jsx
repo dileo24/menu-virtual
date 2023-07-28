@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-// import Header from "./Header";
+// import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos } from "../../redux/actions";
 import io from "socket.io-client";
-import { Link } from "react-router-dom";
+import HeaderBack from "../recursos/HeaderBack";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -67,12 +67,11 @@ export default function Historial() {
         pedido[0] && pedido[0].EstadoId !== 4 && pedido[0].EstadoId !== 5
     ) ? (
     <div className="historialContainer">
-      <header className="header1">
-        <Link to="/" className="ocultarBtn">
-          <span className="arrow-left"></span>
-        </Link>
-        <h1 className="titleHeader1">Mis Pedidos Realizados</h1>
-      </header>
+      <HeaderBack
+        url={"/"}
+        arrowType={"left"}
+        title={`Mis Pedidos Realizados`}
+      />
       {
         pedidosActuales
           .filter(
@@ -117,12 +116,11 @@ export default function Historial() {
     </div>
   ) : (
     <div className="historialContainer">
-      <header className="header1">
-        <Link to="/" className="ocultarBtn">
-          <span className="arrow-left"></span>
-        </Link>
-        <div className="titleHeader1">Mis Pedidos Realizados</div>
-      </header>
+      <HeaderBack
+        url={"/"}
+        arrowType={"left"}
+        title={`Mis Pedidos Realizados`}
+      />
       <p className="alerta">No hay pedidos pendientes</p>
     </div>
   );

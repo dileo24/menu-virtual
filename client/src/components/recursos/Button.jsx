@@ -1,3 +1,5 @@
+import React from "react";
+
 function Button({ signo, funcion }) {
   return (
     <button className="contador" type="button" onClick={funcion}>

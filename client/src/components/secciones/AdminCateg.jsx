@@ -7,11 +7,12 @@ import {
   postSubcateg,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "../secciones/Header";
+import Header from "../recursos/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { HiOutlinePencil } from "react-icons/hi2";
 import Filtros from "../recursos/Filtros";
+import Alerta from "../recursos/Alerta";
 
 export default function AdminCateg() {
   const dispatch = useDispatch();
@@ -21,6 +22,9 @@ export default function AdminCateg() {
   const [modal, setModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const navigate = useNavigate();
+  const [alertaError, setAlertaError] = useState(false);
+  const [alertaExito, setAlertaExito] = useState(false);
+  const [alertaPregunta, setAlertaPregunta] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -46,13 +50,16 @@ export default function AdminCateg() {
       (producto) => producto.categoriaID === id
     );
     if (matchingProduct) {
-      alert(
-        `Error: No se puede eliminar una categoría que tenga productos asociados. Primero debes editar la Categoría de los productos que pertenezcan a ${categDel.nombre}, o eliminarlos.`
-      );
+      setAlertaError({
+        estadoActualizado: true,
+        texto: `No se puede eliminar una categoría que tenga productos asociados. Primero debes editar o eliminar los productos asociados a "${categDel.nombre}".`,
+      });
     } else {
-      window.confirm(
-        `¿Seguro de querer borrar la categoría ${categDel && categDel.nombre}?`
-      ) && dispatch(deleteCateg(id, token));
+      setAlertaPregunta({
+        estadoActualizado: true,
+        id,
+        texto: `¿Estás seguro que quiere eliminar la categoria "${categDel.nombre}"?`,
+      });
     }
   };
 
@@ -60,7 +67,6 @@ export default function AdminCateg() {
     e.preventDefault();
     dispatch(postCateg(input, token)).then(() => {
       dispatch(getCategorias());
-      alert("Categoria creada con éxito!");
       setInput({ nombre: "", subcategID: [] });
     });
   };
@@ -88,14 +94,24 @@ export default function AdminCateg() {
 
   const handleSubmitSubcateg = (e) => {
     e.preventDefault();
-    // alert("Subcategoría creada con éxito!");
 
+    // Check if there's already a subcategory with the same name across all categories
+    const existingSubcategory = categsBusq.some((categ) =>
+      categ.subcategorias.some((subC) => subC.nombre === inputSubcateg.nombre)
+    );
+
+    if (existingSubcategory) {
+      setAlertaError({
+        estadoActualizado: true,
+        texto: `Error: La SubCategoría "${inputSubcateg.nombre}" ya existe en una categoría. Por favor, elija un nombre diferente.`,
+      });
+      return;
+    }
+
+    // If the subcategory name is unique, proceed with the creation
     dispatch(postSubcateg(inputSubcateg, token)).then(() => {
-      // Después de crear la subcategoría, puedes realizar cualquier acción necesaria
-      // como actualizar la lista de subcategorías en el estado.
       dispatch(getSubcategorias());
       setInputSubcateg({ nombre: "", categID: "" });
-      /* setModal(false); */ // Cierra el modal después de crear la subcategoría
       window.location.reload();
     });
   };
@@ -106,7 +122,13 @@ export default function AdminCateg() {
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
         <Filtros searchType="categorias" searchWord={"categorías"} />
-        <form onSubmit={handleSubmit} className="formulario">
+        <form
+          onSubmit={(e) => {
+            setAlertaExito(true);
+            handleSubmit(e);
+          }}
+          className="formulario"
+        >
           <input
             type="text"
             name="nombre"
@@ -142,8 +164,6 @@ export default function AdminCateg() {
                   </div>
                   <div className="btnContainer">
                     <div
-                      //   to={`/updateItems/${prod.id}/${index}`}
-                      // to={`/subcategs/${categ.id}`}
                       onClick={() => {
                         abrirModal(categ.id);
                       }}
@@ -172,9 +192,9 @@ export default function AdminCateg() {
           <div className="fondoModal" /* onClick={() => setModal(false)} */>
             {/* Aquí muestra el formulario/modal para crear subcategorías */}
             <div className="modalContainer">
-              <header className="header1">
+              <header>
                 <h1 className="subCategTitle">
-                  Nueva SubCategoría para "{selectedCategory.nombre}"
+                  SubCategoría para "{selectedCategory.nombre}"
                 </h1>
               </header>
               <div>
@@ -202,6 +222,39 @@ export default function AdminCateg() {
               </div>
             </div>
           </div>
+        )}
+        {alertaError && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={alertaError.texto}
+            estado={alertaError}
+            setEstado={setAlertaError}
+            callback={() => {}}
+          />
+        )}
+        {alertaExito && (
+          <Alerta
+            tipo={"exito"}
+            titulo={"Éxito"}
+            texto={`Categoría creada con éxito.`}
+            estado={alertaExito}
+            setEstado={setAlertaExito}
+            callback={() => {}}
+          />
+        )}
+        {alertaPregunta && (
+          <Alerta
+            tipo={"pregunta"}
+            titulo={"Eliminar categoría"}
+            texto={alertaPregunta.texto}
+            estado={alertaPregunta}
+            setEstado={setAlertaPregunta}
+            callback={() => {
+              dispatch(deleteCateg(alertaPregunta.id, token));
+              window.location.reload();
+            }}
+          />
         )}
       </div>
     </>

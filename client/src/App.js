@@ -17,6 +17,7 @@ import AdminCateg from "./components/secciones/AdminCateg";
 import MiPedido from "./components/secciones/MiPedido";
 import HacerPedido from "./components/formularios/HacerPedido";
 import EditarCateg from "./components/formularios/EditarCateg";
+import EditarUsuario from "./components/formularios/EditarUsuario";
 
 // Local
 // axios.defaults.baseURL = "http://localhost:3001";
@@ -58,6 +59,7 @@ function App() {
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/editCateg/:id" element={<EditarCateg />} />
+            <Route path="/editarUsuario/:id" element={<EditarUsuario />} />
           </>
         )}
         {/* admins */}

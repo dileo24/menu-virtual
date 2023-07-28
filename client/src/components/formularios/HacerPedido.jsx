@@ -1,13 +1,15 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos, getTipoPago, limpiarCarrito } from "../../redux/actions";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { createPedido } from "../../redux/actions";
 import { AiOutlineBank } from "react-icons/ai";
 import { HiOutlineBanknotes } from "react-icons/hi2";
 import { AiOutlineCreditCard } from "react-icons/ai";
 import mercadoPago from "../../multmedia/mercadopago.svg";
 import { io } from "socket.io-client";
+import HeaderBack from "../recursos/HeaderBack";
+import Alerta from "../recursos/Alerta";
 
 export default function HacerPedido() {
   const [selectedPayment, setSelectedPayment] = useState(null);
@@ -17,14 +19,12 @@ export default function HacerPedido() {
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [socket, setSocket] = useState(null);
   const navigate = useNavigate();
-
   let precioFinal = 0;
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
   }
   const dispatch = useDispatch();
   const tipoPagos = useSelector((state) => state.tipoPagos);
-
   const currentDate = new Date();
   const formattedDate = `${currentDate.getDate()}/${
     currentDate.getMonth() + 1
@@ -38,6 +38,7 @@ export default function HacerPedido() {
   } ${ampm}`;
   let id = pedidos.length + 1;
   const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? [["vacio"]]);
+  const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({
     productos: nombresProdArray,
@@ -105,12 +106,6 @@ export default function HacerPedido() {
   const handleSubmitForm = (e) => {
     e.preventDefault();
     if (carrito.length) {
-      // Validación de longitud de aclaraciones
-      if (input.aclaraciones.length > 50) {
-        alert("Las aclaraciones deben tener hasta 50 caracteres");
-        return;
-      }
-
       // Obtener la lista de inputs previamente almacenados
       let storedInputs = localStorage.getItem("inputs");
       if (storedInputs) {
@@ -151,10 +146,6 @@ export default function HacerPedido() {
         creacionFecha: "",
         creacionHora: "",
       });
-      alert(
-        "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
-      );
-      navigate("/historial");
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
@@ -166,17 +157,19 @@ export default function HacerPedido() {
         {/* Menu desplegable 2*/}
         <div className="desplegable2">
           <div className="scrollable-content">
-            <header className="header1">
-              <Link className="ocultarBtn" to={"/miPedido"}>
-                <span className="arrow-left"></span>
-              </Link>
-              <div className="titleHeader1">Completar mi pedido</div>
-            </header>
+            <HeaderBack
+              url={"/miPedido"}
+              arrowType={"left"}
+              title={`Completar mi pedido`}
+            />
 
             <form
               id="formulario"
               className="formulario"
-              onSubmit={(e) => handleSubmitForm(e)}
+              onSubmit={(e) => {
+                setAlertaExito(true);
+                handleSubmitForm(e);
+              }}
             >
               <div className="mesa">
                 <label className="mesaTitle" htmlFor="mesa">
@@ -279,6 +272,20 @@ export default function HacerPedido() {
             </form>
           </div>
         </div>
+        {alertaExito && (
+          <Alerta
+            tipo={"exito"}
+            titulo={"Pedido exitoso"}
+            texto={
+              "Pedido realizado con éxito. En un momento te lo llevamos a tu mesa."
+            }
+            estado={alertaExito}
+            setEstado={setAlertaExito}
+            callback={() => {
+              navigate("/historial");
+            }}
+          />
+        )}
       </div>
     </>
   );

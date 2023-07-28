@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { getUsuarios, register } from "../../redux/actions";
+import { getUsuarios, desbloqueoUsuario } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../../helpers";
 import HeaderBack from "../recursos/HeaderBack";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { VscTrash } from "react-icons/vsc";
 
-export default function Register() {
+export default function EditarUsuario() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userActual.tokenSession);
   const usuarios = useSelector((state) => state.usuarios);
   const emails = usuarios && usuarios.map((user) => user.email);
   const [showPassword, setShowPassword] = useState(false);
   let email;
+  let { id } = useParams();
+  const user = usuarios.find((user) => user.id === Number(id));
+  const navigate = useNavigate();
 
   const [input, setInput] = useState({
     nombre: "",
@@ -21,18 +26,27 @@ export default function Register() {
     rolID: "",
   });
 
+  useEffect(() => {
+    if (user) {
+      setInput({
+        nombre: user ? user.nombre : "",
+        apellido: user ? user.apellido : "",
+        email: user ? user.email : "",
+        clave: user ? "" : "",
+        rolID: user ? user.Rol.id.toString() : "",
+      });
+    }
+  }, [user]);
+
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     validateEmail(input.email.valueOf());
-    /* if (!ningunInputVacio(input)) {
-      return mostrarAlerta("Error: Hay algún campo vacío", "error"); */
-    if (emails && emails.includes(input.email)) {
-      return mostrarAlerta("El email ingresado ya existe", "error");
-    } else if (input.clave.length < 8) {
+    if (input.clave.length < 8) {
       return mostrarAlerta(
         "La contraseña debe tener al menos 8 caracteres",
         "error"
@@ -41,8 +55,9 @@ export default function Register() {
       return mostrarAlerta("Formato del email inválido", "error");
     }
     mostrarAlerta("Cuenta creada con éxito", "exito");
-    dispatch(register(input, token));
-    console.log(input);
+
+    dispatch(desbloqueoUsuario(input, id, token));
+
     // Reiniciar los campos del formulario
     setInput({
       nombre: "",
@@ -52,8 +67,7 @@ export default function Register() {
       rolID: "",
     });
 
-    /*  window.location.reload(); */
-    // navigate("/");
+    navigate("/usuarios");
   };
 
   const handleShowPassword = () => {
@@ -86,7 +100,7 @@ export default function Register() {
       <HeaderBack
         url={"/usuarios"}
         arrowType={"left"}
-        title={`Crear Usuario`}
+        title={`Editar Usuario`}
       />
       <form onSubmit={handleSubmit} className="formulario contenedor">
         <div className="labelInput">
@@ -177,8 +191,11 @@ export default function Register() {
         </div>
 
         <div className="footer">
+          <Link to={"/usuarios"} className="botonDescartar">
+            <VscTrash className="eliminarIcon" /> Descartar Cambios
+          </Link>
           <button type="submit" className="botonFooter">
-            Crear Usuario
+            Guardar Cambios
           </button>
         </div>
       </form>
