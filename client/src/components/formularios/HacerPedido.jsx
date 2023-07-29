@@ -37,7 +37,7 @@ export default function HacerPedido() {
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
   let id = pedidos.length + 1;
-  const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? [["vacio"]]);
+  const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? ["vacio"]);
   const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({

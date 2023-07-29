@@ -13,6 +13,10 @@ const createPedido = async (req, res, next) => {
       tipoPagoID,
     } = req.body;
 
+    const filteredItemsExtra = itemsExtra.filter(
+      (subArray) => subArray[0] !== "vacio"
+    );
+
     const tipoPago = await Pago.findByPk(tipoPagoID);
     const estado = await Estado.findOne({
       where: { id: "1" },
@@ -23,7 +27,7 @@ const createPedido = async (req, res, next) => {
       mesa,
       precio,
       aclaraciones,
-      itemsExtra,
+      itemsExtra: filteredItemsExtra,
       creacionFecha,
       creacionHora,
     });
