@@ -109,17 +109,18 @@
 }
 
 .footer {
-  width: 100vw;
+  width: 90vw;
   position: fixed;
   bottom: 0;
   padding-bottom: 5%;
   z-index: 1;
-
+  @include center;
+  justify-content: space-between;
   .botonFooter,
   .botonDescartar {
     @include center;
     height: 12vw;
-    width: 90vw;
+    width: 42.5vw;
     border-radius: 6px;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
@@ -127,6 +128,7 @@
     -o-border-radius: 6px;
     font-weight: $titleWeight;
     font-size: 4vw;
+    box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
   }
   .botonDescartar {
     border: 1px solid black;
@@ -138,8 +140,6 @@
     }
   }
   .botonFooter {
-    box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
-    margin-top: 3vw;
     background-color: $naranja;
   }
 }

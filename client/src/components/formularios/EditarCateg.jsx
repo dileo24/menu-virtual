@@ -163,7 +163,7 @@ export default function EditarCateg() {
           <div className="ocultarBtn" onClick={discardChanges}>
             <span className="arrow-left"></span>
           </div>
-          <h1 className="title">{`Editando la categoría ${categ.nombre}`}</h1>
+          <h1 className="title">{`Editando la categoría "${categ.nombre}"`}</h1>
         </header>
 
         <div className="formulario">
@@ -240,11 +240,11 @@ export default function EditarCateg() {
                 className="botonDescartar"
                 onClick={discardChanges}
               >
-                <VscTrash className="eliminarIcon" /> Descartar Cambios
+                {/* <VscTrash className="eliminarIcon" /> */} Descartar cambios
               </div>
 
               <button type="submit" className="botonFooter">
-                Guardar Cambios
+                Guardar cambios
               </button>
             </div>
           </form>

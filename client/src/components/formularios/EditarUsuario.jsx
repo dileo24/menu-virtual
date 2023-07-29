@@ -5,7 +5,8 @@ import { RiEyeOffLine, RiEyeLine } from "react-icons/ri";
 import { mostrarAlerta, ningunInputVacio } from "../../helpers";
 import HeaderBack from "../recursos/HeaderBack";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { VscTrash } from "react-icons/vsc";
+/* import { VscTrash } from "react-icons/vsc"; */
+import Alerta from "../recursos/Alerta";
 
 export default function EditarUsuario() {
   const dispatch = useDispatch();
@@ -13,10 +14,12 @@ export default function EditarUsuario() {
   const usuarios = useSelector((state) => state.usuarios);
   const emails = usuarios && usuarios.map((user) => user.email);
   const [showPassword, setShowPassword] = useState(false);
+  const [editarContra, setEditarContra] = useState(false);
   let email;
   let { id } = useParams();
   const user = usuarios.find((user) => user.id === Number(id));
   const navigate = useNavigate();
+  const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({
     nombre: "",
@@ -42,11 +45,9 @@ export default function EditarUsuario() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const handleSubmit = () => {
     validateEmail(input.email.valueOf());
-    if (input.clave.length < 8) {
+    if (input.clave.length < 8 && editarContra) {
       return mostrarAlerta(
         "La contraseña debe tener al menos 8 caracteres",
         "error"
@@ -54,7 +55,7 @@ export default function EditarUsuario() {
     } else if (!email) {
       return mostrarAlerta("Formato del email inválido", "error");
     }
-    mostrarAlerta("Cuenta creada con éxito", "exito");
+    // mostrarAlerta("Usuario acutualizado con con éxito", "exito");
 
     dispatch(desbloqueoUsuario(input, id, token));
 
@@ -66,8 +67,6 @@ export default function EditarUsuario() {
       clave: "",
       rolID: "",
     });
-
-    navigate("/usuarios");
   };
 
   const handleShowPassword = () => {
@@ -84,10 +83,8 @@ export default function EditarUsuario() {
 
     if (!emailRegex.test(e)) {
       email = false;
-      console.log(email);
     } else {
       email = true;
-      console.log(email);
     }
   };
 
@@ -102,7 +99,17 @@ export default function EditarUsuario() {
         arrowType={"left"}
         title={`Editar Usuario`}
       />
-      <form onSubmit={handleSubmit} className="formulario contenedor">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setAlertaExito({
+            estado: true,
+            texto: "Usuario actualizado con éxito",
+          });
+          handleSubmit();
+        }}
+        className="formulario contenedor"
+      >
         <div className="labelInput">
           <label htmlFor="nombre" className="nombre">
             Nombre
@@ -144,19 +151,34 @@ export default function EditarUsuario() {
 
         <div className="labelInput">
           <label htmlFor="clave">Contraseña</label>
-          <input
-            className="input"
-            type={showPassword ? "text" : "password"}
-            name="clave"
-            placeholder="Escribe la contraseña"
-            value={input.clave}
-            min={8}
-            onChange={(e) => handleChange(e)}
-          />
-          {showPassword ? (
-            <RiEyeOffLine className="ojoCerrado" onClick={handleShowPassword} />
-          ) : (
-            <RiEyeLine className="ojoAbierto" onClick={handleShowPassword} />
+          {!editarContra && (
+            <button onClick={() => setEditarContra(true)} className="btnContra">
+              Editar contraseña
+            </button>
+          )}
+          {editarContra && (
+            <>
+              <input
+                className="input"
+                type={showPassword ? "text" : "password"}
+                name="clave"
+                placeholder="Escribe la contraseña"
+                value={input.clave}
+                min={8}
+                onChange={(e) => handleChange(e)}
+              />
+              {showPassword ? (
+                <RiEyeOffLine
+                  className="ojoCerrado"
+                  onClick={handleShowPassword}
+                />
+              ) : (
+                <RiEyeLine
+                  className="ojoAbierto"
+                  onClick={handleShowPassword}
+                />
+              )}
+            </>
           )}
         </div>
 
@@ -192,13 +214,23 @@ export default function EditarUsuario() {
 
         <div className="footer">
           <Link to={"/usuarios"} className="botonDescartar">
-            <VscTrash className="eliminarIcon" /> Descartar Cambios
+            {/* <VscTrash className="eliminarIcon" /> */} Descartar cambios
           </Link>
           <button type="submit" className="botonFooter">
-            Guardar Cambios
+            Guardar cambios
           </button>
         </div>
       </form>
+      {alertaExito && (
+        <Alerta
+          tipo={"exito"}
+          titulo={"Éxito"}
+          texto={alertaExito.texto}
+          estado={alertaExito}
+          setEstado={setAlertaExito}
+          callback={() => navigate("/usuarios")}
+        />
+      )}
     </div>
   );
 }
