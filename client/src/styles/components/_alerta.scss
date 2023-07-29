@@ -45,13 +45,13 @@
         -o-border-radius: 10px;
       }
       .cancelar {
-        background-color: $naranja;
-        border: 1px solid $naranja;
-        margin-left: 5vw;
-      }
-      .aceptar {
         background-color: white;
         border: 1px solid black;
+        margin-right: 5vw;
+      }
+      .aceptar {
+        background-color: $naranja;
+        border: 1px solid $naranja;
       }
       .aceptarSolo {
         background-color: $naranja;

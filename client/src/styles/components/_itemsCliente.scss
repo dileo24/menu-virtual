@@ -52,6 +52,7 @@
         margin-top: 4%;
         font-weight: $titleWeight;
         font-size: $titleSize;
+        line-height: 1.2;
       }
     }
     .precio {
@@ -114,33 +115,9 @@
         }
       }
     }
-    .footerItems {
-      width: 100%;
-      position: fixed;
-      bottom: 0;
-      @include center;
-      padding-bottom: 5%;
-      z-index: 9999;
-      .listoBtn {
-        box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.249);
-        @include center;
-        justify-content: space-between;
-        background-color: $naranja;
-        padding: 3.1% 10%;
-        border-radius: 6px;
-        -webkit-border-radius: 6px;
-        -moz-border-radius: 6px;
-        -ms-border-radius: 6px;
-        -o-border-radius: 6px;
-        .submit {
-          font-size: $subtSize;
-          font-weight: $titleWeight;
-          background: none;
-        }
-        &:focus {
-          outline: none;
-        }
-      }
+    .footer {
+      width: 100vw;
+      padding: 5vw;
     }
   }
 }

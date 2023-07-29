@@ -8,7 +8,7 @@ import {
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../recursos/Header";
-import { Link, useNavigate } from "react-router-dom";
+import { Link /* , useNavigate */ } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import { HiOutlinePencil } from "react-icons/hi2";
 import Filtros from "../recursos/Filtros";
@@ -21,7 +21,7 @@ export default function AdminCateg() {
   let productosState = useSelector((state) => state.home);
   const [modal, setModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const [alertaPregunta, setAlertaPregunta] = useState(false);
