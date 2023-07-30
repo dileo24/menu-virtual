@@ -18,7 +18,7 @@ export default function Pedidos() {
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
-  let allPedidos = [...nuevosPedidos, ...pedidos];
+  /* let allPedidos = [...nuevosPedidos, ...pedidos]; */
 
   useEffect(() => {
     // Local
@@ -37,19 +37,27 @@ export default function Pedidos() {
   }, []);
 
   useEffect(() => {
+    if (nuevosPedidos.length > 0) {
+      const pedidosActualizados = [...nuevosPedidos, ...pedidos];
+      dispatch(getPedidos(pedidosActualizados));
+      setNuevosPedidos([]);
+    }
+  }, [nuevosPedidos, pedidos, dispatch]);
+
+  useEffect(() => {
     dispatch(getPedidos());
     dispatch(getEstados());
     dispatch(getTipoPago());
   }, [dispatch]);
 
   const handleSelectChange = (e, id, atributo) => {
+    console.log(id);
     const value = e.target.value;
     const data = { [atributo]: value };
     let res = window.confirm("Está seguro de querer modificar este pedido?");
     if (res === true) {
       dispatch(updatePedido(id, data, token))
         .then(() => {
-          dispatch(getPedidos());
           if (socket) {
             socket.emit("cambiarEstadoPedido", id, data.estadoID);
           }
@@ -59,10 +67,18 @@ export default function Pedidos() {
         });
     }
   };
-  console.log(nuevosPedidos);
-  console.log(allPedidos);
+
+  const tipoPorID = (tipoPagoID) => {
+    if (tipoPagos && tipoPagoID) {
+      const tipo = tipoPagos.find((tipo) => tipo.id === tipoPagoID);
+      return tipo.tipo;
+    }
+    return null;
+  };
+
+  console.log(pedidos);
   return (
-    allPedidos.length > 0 && (
+    pedidos.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
         <div className="md:flex min-h-screen md:align-top">
           <Header />
@@ -95,7 +111,7 @@ export default function Pedidos() {
                       </tr>
                     </thead>
                     <tbody className="bg-white">
-                      {allPedidos.map(
+                      {pedidos.map(
                         ({
                           productos,
                           mesa,
@@ -169,34 +185,14 @@ export default function Pedidos() {
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
                               {Pago ? (
-                                <select
-                                  id=""
-                                  value={Pago.id}
-                                  onChange={(e) =>
-                                    handleSelectChange(e, id, "tipoPagoID")
-                                  }
-                                >
-                                  {tipoPagos.map((pag) => (
-                                    <option key={pag.id} value={pag.id}>
-                                      {pag.tipo}
-                                    </option>
-                                  ))}
-                                </select>
+                                <p className="text-gray-600" key={Pago.id}>
+                                  {Pago.tipo}
+                                </p>
                               ) : (
-                                tipoPagoID && (
-                                  <select
-                                    id=""
-                                    value={tipoPagoID}
-                                    onChange={(e) =>
-                                      handleSelectChange(e, id, "tipoPagoID")
-                                    }
-                                  >
-                                    {tipoPagos.map((pag) => (
-                                      <option key={pag.id} value={pag.id}>
-                                        {pag.tipo}
-                                      </option>
-                                    ))}
-                                  </select>
+                                tipoPorID(tipoPagoID) && (
+                                  <p className="text-gray-600">
+                                    {tipoPorID(tipoPagoID)}
+                                  </p>
                                 )
                               )}
                             </td>

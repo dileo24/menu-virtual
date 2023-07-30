@@ -41,6 +41,7 @@ export default function HacerPedido() {
   const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({
+    id: id,
     productos: nombresProdArray,
     precio: precioFinal,
     mesa: "",
@@ -124,16 +125,7 @@ export default function HacerPedido() {
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
-      dispatch(createPedido(input))
-        .then(() => {
-          dispatch(getPedidos());
-          if (socket) {
-            socket.emit("nuevoPedido", input);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
