@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductos, agregarCarrito } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
+import Alerta from "../recursos/Alerta";
 
 export default function Items() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Items() {
     productosArray && productosArray.filter((p) => p.id === Number(id));
 
   const [itemsExtraArray, setItemsExtraArray] = useState([]);
+  const [alertaError, setAlertaError] = useState(false);
 
   const handleIncremento = (prod, itemsExtraArray) => {
     dispatch(
@@ -40,7 +42,10 @@ export default function Items() {
       Number(prod[0].itemsExtra.length);
     // Validación de itemsExtra seleccionados
     if (cantItems !== itemsExtraArray.length) {
-      return alert("Debes seleccionar todos los items extra requeridos");
+      return setAlertaError({
+        estadoActualizado: true,
+        texto: `Debes seleccionar todos los items extra requeridos`,
+      });
     }
     handleIncremento(prod && prod, itemsExtraArray);
     navigate("/");
@@ -62,7 +67,8 @@ export default function Items() {
           </Link>
 
           <div className="titleHeaderItems">
-            {prod.length && <p>{prod[0].nombre}</p>}
+            {`Selecciona los ítems extra para
+            "${prod.length && prod[0].nombre}"`}
           </div>
         </div>
 
@@ -134,13 +140,31 @@ export default function Items() {
             </div>
           </div>
 
-          <div className="footerItems">
-            <div className="listoBtn">
-              <input type="submit" className="submit" value="Aceptar" />
+          <div className="footer">
+            <div
+              to={"/adminCateg"}
+              className="botonDescartar"
+              onClick={() => navigate("/")}
+            >
+              <VscTrash className="eliminarIcon" /> Cancelar
             </div>
+
+            <button type="submit" className="botonFooter">
+              Aceptar
+            </button>
           </div>
         </form>
       </div>
+      {alertaError && (
+        <Alerta
+          tipo={"error"}
+          titulo={"Error"}
+          texto={alertaError.texto}
+          estado={alertaError}
+          setEstado={setAlertaError}
+          callback={() => {}}
+        />
+      )}
     </div>
   );
 }

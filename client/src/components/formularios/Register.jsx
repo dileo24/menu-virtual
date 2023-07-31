@@ -177,7 +177,7 @@ export default function Register() {
         </div>
 
         <div className="footer">
-          <button type="submit" className="botonFooter">
+          <button type="submit" className="botonFooter btnCrearUsuario">
             Crear Usuario
           </button>
         </div>

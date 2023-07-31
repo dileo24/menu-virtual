@@ -11,8 +11,11 @@
   .title {
     margin-top: 5%;
     font-weight: $titleWeight;
-    font-size: $titleSize;
+    font-size: $titleSizeMax;
     line-height: 1.2;
+    span {
+      color: $naranja;
+    }
   }
 
   .ocultarBtn {

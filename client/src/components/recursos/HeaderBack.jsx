@@ -9,7 +9,10 @@ function HeaderBack({ url, arrowType, title }) {
           className={`${arrowType === "left" ? "arrow-left" : "arrow-down"}`}
         ></span>
       </Link>
-      <h1 className="title">{title}</h1>
+      <h1 className="title">
+        {title}
+        <span> Realizados</span>
+      </h1>
     </header>
   );
 }

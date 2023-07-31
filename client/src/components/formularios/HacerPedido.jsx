@@ -37,10 +37,11 @@ export default function HacerPedido() {
     minutes < 10 ? "0" + minutes : minutes
   } ${ampm}`;
   let id = pedidos.length + 1;
-  const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? [["vacio"]]);
+  const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? ["vacio"]);
   const [alertaExito, setAlertaExito] = useState(false);
 
   const [input, setInput] = useState({
+    id: id,
     productos: nombresProdArray,
     precio: precioFinal,
     mesa: "",
@@ -62,10 +63,10 @@ export default function HacerPedido() {
     }
 
     // Local
-    // const socket = io("http://localhost:3001");
+   // const socket = io("http://localhost:3001");
 
     // Deploy
-    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+     const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
 
@@ -124,16 +125,7 @@ export default function HacerPedido() {
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
-      dispatch(createPedido(input))
-        .then(() => {
-          dispatch(getPedidos());
-          if (socket) {
-            socket.emit("nuevoPedido", input);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
         productos: [],
