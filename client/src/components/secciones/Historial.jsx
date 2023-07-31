@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { getPedidos } from "../../redux/actions";
+import { getPedidos, getProductos } from "../../redux/actions";
 import io from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
 import {
@@ -17,12 +17,14 @@ import { GiCook } from "react-icons/gi";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
+  const productos = useSelector((state) => state.productos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
     dispatch(getPedidos());
+    dispatch(getProductos());
 
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -93,7 +95,7 @@ export default function Historial() {
         return null;
     }
   };
-  const getClassForEstado = (estadoId) => {
+  const clasePorEstado = (estadoId) => {
     switch (estadoId) {
       case 1:
         return "estado-info";
@@ -104,6 +106,10 @@ export default function Historial() {
       default:
         return "estado-info";
     }
+  };
+  const prodPorNom = (productName) => {
+    const product = productos.find((p) => p.nombre === productName);
+    return product ? product.precio : 0;
   };
 
   return pedidos &&
@@ -131,7 +137,7 @@ export default function Historial() {
                   <div className="supBar">
                     <p className="estado-info">Mesa {pedido[0].mesa}</p>
                     <p
-                      className={`estado ${getClassForEstado(
+                      className={`estado ${clasePorEstado(
                         pedido[0].Estado.id
                       )}`}
                     >
@@ -144,7 +150,12 @@ export default function Historial() {
                   <div className="nombreItems">
                     {pedido[0].productos.map((producto, i) => (
                       <div key={i}>
-                        <p className="nombre">{producto}</p>
+                        <p className="nombre">
+                          {producto}{" "}
+                          <span className="precioIndiv">
+                            ${prodPorNom(producto)}
+                          </span>
+                        </p>
                         {pedido[0].itemsExtra[i] &&
                           pedido[0].itemsExtra[i].length > 0 && (
                             <ul className="itemsExtra">
@@ -159,16 +170,16 @@ export default function Historial() {
                       </div>
                     ))}
                   </div>
-                  <div className="footerPed">
-                    <p className="metodoDePago estado-success">
-                      {iconPago(pedido[0].Pago.id)}
-                      <span style={{ marginLeft: "5px" }}>
-                        {pedido[0].Pago.tipo}
-                      </span>
-                    </p>
-                    <p className="total">Total: </p>
-                    <p className="precio">${pedido[0].precio}</p>
-                  </div>
+                </div>
+                <div className="footerPed">
+                  <p className="metodoDePago estado-success">
+                    {iconPago(pedido[0].Pago.id)}
+                    <span style={{ marginLeft: "5px" }}>
+                      {pedido[0].Pago.tipo}
+                    </span>
+                  </p>
+                  <p className="total">Total: </p>
+                  <p className="precio">${pedido[0].precio}</p>
                 </div>
               </div>
             )

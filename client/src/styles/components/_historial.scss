@@ -15,9 +15,11 @@
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    padding: 5%;
+    padding: 5% 5% 20% 5%;
     height: auto;
     display: flex;
+    flex-direction: column;
+    position: relative;
     .nombreItemsPrecio {
       width: 100%;
       display: flex;
@@ -28,10 +30,15 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        margin: 5% 0 5% 0;
         .nombre {
           font-weight: $titleWeight;
           font-size: 4vw;
-          width: 60%;
+          @include centerRow;
+          justify-content: space-between;
+          .precioIndiv {
+            color: $paragraph;
+          }
         }
         .itemsExtra {
           display: flex;
@@ -58,7 +65,7 @@
       }
       .supBar {
         @include centerRow;
-        padding: 5% 0 5% 0;
+        padding-bottom: 5%;
         width: 100%;
         justify-content: space-between;
         font-weight: $titleWeight;
@@ -67,45 +74,51 @@
           @include centerRow;
         }
       }
-      .footerPed {
-        @include centerRow;
-        padding: 5% 0 5% 0;
-        width: 100%;
-        justify-content: space-between;
-        font-weight: $titleWeight;
-        font-size: 4vw;
-        .total {
-          font-weight: 400;
-          margin-right: -20vw;
-        }
-        .precio {
-          color: $success;
-        }
-        .metodoDePago {
-          @include centerRow;
-        }
+    }
+    .footerPed {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      @include centerRow;
+      padding-top: 5%;
+      padding: 5% 5% 5% 5%;
+      width: 100%;
+      justify-content: space-between;
+      font-weight: $titleWeight;
+      font-size: 4vw;
+      background-color: rgb(241, 241, 241);
+      border-end-end-radius: 10px;
+      .total {
+        font-weight: 400;
+        margin-right: -20vw;
       }
-
-      .estado-info {
-        border-radius: 0.5rem;
-        padding: 1%;
-        color: $info;
-        background-color: lighten($info, 42%);
-      }
-
-      .estado-naranja {
-        border-radius: 0.5rem;
-        padding: 1%;
-        color: $naranja;
-        background-color: lighten($naranja, 34%);
-      }
-
-      .estado-success {
-        border-radius: 0.5rem;
-        padding: 1%;
+      .precio {
         color: $success;
-        background-color: lighten($success, 52%);
+      }
+      .metodoDePago {
+        @include centerRow;
       }
     }
   }
+}
+.estado-info {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $info;
+  background-color: lighten($info, 42%);
+}
+
+.estado-naranja {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $naranja;
+  background-color: lighten($naranja, 34%);
+}
+
+.estado-success {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $success;
+  background-color: lighten($success, 52%);
 }
