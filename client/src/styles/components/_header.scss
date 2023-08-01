@@ -146,6 +146,9 @@ header {
               display: flex;
               align-items: center;
               padding-left: 3vw;
+              &:focus {
+                outline: none;
+              }
               .linkIcon {
                 margin-right: 2vw;
               }

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductos, editarItemsExtra } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { VscTrash } from "react-icons/vsc";
+import Alerta from "../recursos/Alerta";
 
 export default function UpdateItemsCliente() {
   const navigate = useNavigate();
@@ -15,6 +17,7 @@ export default function UpdateItemsCliente() {
     productosArray && productosArray.filter((p) => p.id === Number(id));
 
   const [itemsExtraArray, setItemsExtraArray] = useState(itemActual.itemsExtra);
+  const [alertaError, setAlertaError] = useState(false);
 
   useEffect(() => {
     dispatch(getProductos());
@@ -26,8 +29,13 @@ export default function UpdateItemsCliente() {
       Number(prod && prod[0].cantidadPersonas) *
       Number(prod[0].itemsExtra.length);
     // Validación de itemsExtra seleccionados
+    console.log(cantItems);
+    console.log(itemsExtraArray.length);
     if (cantItems !== itemsExtraArray.length) {
-      return alert("Debes seleccionar todos los items extra requeridos");
+      return setAlertaError({
+        estadoActualizado: true,
+        texto: `Debes seleccionar todos los items extra requeridos`,
+      });
     }
     dispatch(editarItemsExtra(index, itemsExtraArray));
     navigate("/");
@@ -47,7 +55,8 @@ export default function UpdateItemsCliente() {
             <span className="arrow-left"></span>
           </Link>
           <div className="titleHeaderItems">
-            {prod.length && <p>{prod[0].nombre}</p>}
+            {`Edita los ítems extra de
+            "${prod.length && prod[0].nombre}"`}
           </div>
         </div>
 
@@ -70,13 +79,24 @@ export default function UpdateItemsCliente() {
                         <p className="persona">Persona {personaIndex + 1}</p>
                         {prod[0].itemsExtra.map((categoria, categoriaIndex) => {
                           const itemsFiltrados = itemsExtraState.filter(
-                            (item) => item.categoria.nombre === categoria
+                            (item) => {
+                              if (item.categoria.nombre === categoria) {
+                                return true;
+                              }
+                              // Si el producto tiene subcategoría y coincide con la categoría actual, también se incluirá en el filtro.
+                              return (
+                                item.subcategoria &&
+                                item.subcategoria.nombre === categoria
+                              );
+                            }
                           );
                           return (
                             <div
                               className="cardItem"
                               key={`${personaIndex}-${categoriaIndex}`}
                             >
+                              {" "}
+                              {/* Agregar key */}
                               <p className="categItem">{categoria}</p>
                               <select
                                 className="select"
@@ -89,12 +109,6 @@ export default function UpdateItemsCliente() {
                                   )
                                 }
                                 required
-                                value={
-                                  itemsExtraArray[
-                                    categoriaIndex +
-                                      personaIndex * prod[0].itemsExtra.length
-                                  ]
-                                }
                               >
                                 <option hidden>Seleccionar</option>
                                 {itemsFiltrados.map((item, itemIndex) => (
@@ -114,13 +128,31 @@ export default function UpdateItemsCliente() {
             </div>
           </div>
 
-          <div className="footerItems">
-            <div className="listoBtn">
-              <input type="submit" className="submit" value="Aceptar" />
+          <div className="footer">
+            <div
+              to={"/adminCateg"}
+              className="botonDescartar"
+              onClick={() => navigate("/miPedido")}
+            >
+              <VscTrash className="eliminarIcon" /> Cancelar
             </div>
+
+            <button type="submit" className="botonFooter">
+              Aceptar
+            </button>
           </div>
         </form>
       </div>
+      {alertaError && (
+        <Alerta
+          tipo={"error"}
+          titulo={"Error"}
+          texto={alertaError.texto}
+          estado={alertaError}
+          setEstado={setAlertaError}
+          callback={() => {}}
+        />
+      )}
     </div>
   );
 }
