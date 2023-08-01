@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductos, editarItemsExtra } from "../../redux/actions";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
-import Alerta from "../recursos/Alerta";
 
 export default function UpdateItemsCliente() {
   const navigate = useNavigate();
@@ -15,30 +14,16 @@ export default function UpdateItemsCliente() {
   const itemActual = carrito[index];
   let prod =
     productosArray && productosArray.filter((p) => p.id === Number(id));
-
   const [itemsExtraArray, setItemsExtraArray] = useState(itemActual.itemsExtra);
-  const [alertaError, setAlertaError] = useState(false);
-
   useEffect(() => {
     dispatch(getProductos());
   }, [dispatch]);
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    const cantItems =
-      Number(prod && prod[0].cantidadPersonas) *
-      Number(prod[0].itemsExtra.length);
-    // Validación de itemsExtra seleccionados
-    console.log(cantItems);
-    console.log(itemsExtraArray.length);
-    if (cantItems !== itemsExtraArray.length) {
-      return setAlertaError({
-        estadoActualizado: true,
-        texto: `Debes seleccionar todos los items extra requeridos`,
-      });
-    }
+
     dispatch(editarItemsExtra(index, itemsExtraArray));
-    navigate("/");
+    navigate("/miPedido");
   };
 
   const handleSelectItemExtra = (item, personaIndex, categoriaIndex) => {
@@ -83,7 +68,6 @@ export default function UpdateItemsCliente() {
                               if (item.categoria.nombre === categoria) {
                                 return true;
                               }
-                              // Si el producto tiene subcategoría y coincide con la categoría actual, también se incluirá en el filtro.
                               return (
                                 item.subcategoria &&
                                 item.subcategoria.nombre === categoria
@@ -95,8 +79,6 @@ export default function UpdateItemsCliente() {
                               className="cardItem"
                               key={`${personaIndex}-${categoriaIndex}`}
                             >
-                              {" "}
-                              {/* Agregar key */}
                               <p className="categItem">{categoria}</p>
                               <select
                                 className="select"
@@ -109,8 +91,21 @@ export default function UpdateItemsCliente() {
                                   )
                                 }
                                 required
+                                value={
+                                  itemsExtraArray[
+                                    personaIndex * prod[0].itemsExtra.length +
+                                      categoriaIndex
+                                  ]
+                                } // Set the value to the corresponding item from itemsExtraArray
                               >
-                                <option hidden>Seleccionar</option>
+                                <option hidden>
+                                  {
+                                    itemsExtraArray[
+                                      personaIndex * prod[0].itemsExtra.length +
+                                        categoriaIndex
+                                    ]
+                                  }
+                                </option>
                                 {itemsFiltrados.map((item, itemIndex) => (
                                   <option key={itemIndex} value={item.nombre}>
                                     {item.nombre}
@@ -143,16 +138,6 @@ export default function UpdateItemsCliente() {
           </div>
         </form>
       </div>
-      {alertaError && (
-        <Alerta
-          tipo={"error"}
-          titulo={"Error"}
-          texto={alertaError.texto}
-          estado={alertaError}
-          setEstado={setAlertaError}
-          callback={() => {}}
-        />
-      )}
     </div>
   );
 }
