@@ -163,7 +163,9 @@ export default function EditarCateg() {
           <div className="ocultarBtn" onClick={discardChanges}>
             <span className="arrow-left"></span>
           </div>
-          <h1 className="title">{`Editando la categoría "${categ.nombre}"`}</h1>
+          <div className="titulo">
+            <h1 className="title">{`Editando la categoría "${categ.nombre}"`}</h1>
+          </div>
         </header>
 
         <div className="formulario">

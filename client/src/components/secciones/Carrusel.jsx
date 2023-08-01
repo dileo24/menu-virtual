@@ -214,6 +214,7 @@ const Carrusel = () => {
           estado={alertaPregunta}
           setEstado={setAlertaPregunta}
           callback={() => handleEliminarProducto(alertaPregunta.id)}
+          aceptar={"Eliminar"}
         />
       )}
     </div>

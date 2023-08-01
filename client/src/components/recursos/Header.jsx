@@ -500,6 +500,7 @@ export default function Header({
           estado={alertaPregunta}
           setEstado={setAlertaPregunta}
           callback={cerrarSesion}
+          aceptar={"Cerrar sesión"}
         />
       )}
     </header>

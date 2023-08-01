@@ -86,7 +86,8 @@ export default function Register() {
       <HeaderBack
         url={"/usuarios"}
         arrowType={"left"}
-        title={`Crear Usuario`}
+        title={`Crear`}
+        span={"Usuario"}
       />
       <form onSubmit={handleSubmit} className="formulario contenedor">
         <div className="labelInput">
@@ -101,6 +102,7 @@ export default function Register() {
             value={input.nombre}
             onChange={(e) => handleChange(e)}
             autoFocus
+            required
           />
         </div>
 
@@ -113,6 +115,7 @@ export default function Register() {
             placeholder="Escribe el apellido"
             value={input.apellido}
             onChange={(e) => handleChange(e)}
+            required
           />
         </div>
 
@@ -125,6 +128,7 @@ export default function Register() {
             placeholder="Escribe el email"
             value={input.email}
             onChange={(e) => handleChange(e)}
+            required
           />
         </div>
 
@@ -138,6 +142,7 @@ export default function Register() {
             value={input.clave}
             min={8}
             onChange={(e) => handleChange(e)}
+            required
           />
           {showPassword ? (
             <RiEyeOffLine className="ojoCerrado" onClick={handleShowPassword} />
