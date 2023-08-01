@@ -1,7 +1,15 @@
 .crearCategContainer {
   width: 100vw;
   height: 100vh;
-
+  .title,
+  span {
+    font-size: $titleSize !important;
+    font-weight: $titleWeight !important;
+    line-height: 1.1;
+  }
+  span {
+    color: $naranja;
+  }
   .formulario {
     padding: 0 5%;
     padding-bottom: 40vw;

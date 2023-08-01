@@ -97,7 +97,8 @@ export default function EditarUsuario() {
       <HeaderBack
         url={"/usuarios"}
         arrowType={"left"}
-        title={`Editar Usuario`}
+        title={`Editar`}
+        span={"Usuario"}
       />
       <form
         onSubmit={(e) => {

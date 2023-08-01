@@ -7,12 +7,18 @@
   width: 100vw;
   padding: 5%;
   //   padding-bottom: 0;
+  .titulo {
+    display: flex;
 
-  .title {
-    margin-top: 5%;
-    font-weight: $titleWeight;
-    font-size: $titleSizeMax;
-    line-height: 1.2;
+    .title,
+    span {
+      margin-top: 4vw;
+      font-weight: 900;
+      font-size: $titleSizeMax;
+      // font-size: $titleSize;
+      // font-weight: $titleWeight;
+      line-height: 1.1;
+    }
     span {
       color: $naranja;
     }

@@ -86,7 +86,8 @@ export default function Register() {
       <HeaderBack
         url={"/usuarios"}
         arrowType={"left"}
-        title={`Crear Usuario`}
+        title={`Crear`}
+        span={"Usuario"}
       />
       <form onSubmit={handleSubmit} className="formulario contenedor">
         <div className="labelInput">

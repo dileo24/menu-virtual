@@ -7,6 +7,7 @@ export default function Alerta({
   estado,
   setEstado,
   callback,
+  aceptar,
 }) {
   const claseAlerta =
     tipo === "pregunta"
@@ -34,7 +35,7 @@ export default function Alerta({
                 Cancelar
               </button>
               <button className="aceptar" onClick={() => handleClick()}>
-                Aceptar
+                {aceptar}
               </button>
             </div>
           ) : (

@@ -152,7 +152,8 @@ export default function HacerPedido() {
             <HeaderBack
               url={"/miPedido"}
               arrowType={"left"}
-              title={`Completar mi pedido`}
+              title={`Completar mi `}
+              span={"Pedido"}
             />
 
             <form

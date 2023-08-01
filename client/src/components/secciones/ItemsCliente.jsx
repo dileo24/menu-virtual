@@ -63,7 +63,7 @@ export default function Items() {
       <div className="scrollable-content">
         <div className="headerItems">
           <Link to="/" className="atrasBtn">
-            <VscTrash className="eliminarIcon" />
+            <span className="arrow-left"></span>
           </Link>
 
           <div className="titleHeaderItems">

@@ -119,7 +119,12 @@ export default function Historial() {
         pedido[0] && pedido[0].EstadoId !== 4 && pedido[0].EstadoId !== 5
     ) ? (
     <div className="historialContainer">
-      <HeaderBack url={"/"} arrowType={"left"} title={`Mis Pedidos`} />
+      <HeaderBack
+        url={"/"}
+        arrowType={"left"}
+        title={`Mis Pedidos `}
+        span={`Realizados`}
+      />
       {pedidosActuales
         .filter(
           (pedido) =>
@@ -186,7 +191,8 @@ export default function Historial() {
       <HeaderBack
         url={"/"}
         arrowType={"left"}
-        title={`Mis Pedidos Realizados`}
+        title={`Mis Pedidos`}
+        span={`Realizados`}
       />
       <p className="alerta">No hay pedidos pendientes</p>
     </div>
