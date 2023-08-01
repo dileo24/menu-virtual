@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Items from "./Items";
 import { useDispatch, useSelector } from "react-redux";
 import { getCategorias, getSubcategorias } from "../../redux/actions";
 import { Link } from "react-router-dom";
 // import { func } from "prop-types";
+import Header from "../recursos/Header";
 
 export default function FormProducto({
   titulo,
@@ -43,6 +44,8 @@ export default function FormProducto({
   const categorias = useSelector((state) => state.categorias);
   const subcategorias = useSelector((state) => state.subcategorias);
   // const categActual = categorias.filter((categ) => categ.id === categoriaID);
+  const [crearProducto, setCrearProducto] = useState(false);
+  const [crearCombo, setCrearCombo] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -70,243 +73,236 @@ export default function FormProducto({
   }, [item]);
 
   return (
-    <div className="min-h-100 bg-gray-200">
-      <div className="md:flex min-h-screen md:align-top">
-        {/*  <Header /> */}
-        <Link to="/">Atrás</Link>
-        <div className="flex flex-col justify-center h-screen bg-gray-200 md:w-4/5  xl:w-4/5">
-          <h2 className="titulo -mt-16 text-3xl font-light text-center">
-            {!titulo ? "Editar Producto" : titulo}
-          </h2>
-          <div className="flex flex-col mt-10 items-center contenedor">
-            <div className="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 w-10/12 md:w-8/12 lg:w-6/12">
-              <div className=" shadow overflow-hidden sm:rounded-lg border-b border-gray-200 ">
-                <form id="formulario" className="bg-white p-3" method="POST">
-                  <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">
-                      Categoría
-                    </label>
-                    <select
-                      className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      onChange={(e) => {
-                        setCategoriaID(e.target.value);
-                        setMostrarPrecio(true);
-                        setPrecio("");
-                      }}
-                      value={categoriaID || ""} // Establece el valor seleccionado en base a la variable de estado categoriaID
-                    >
-                      <option value="" hidden>
-                        Elegí una categoría
-                      </option>
+    <>
+      <Header />
+      <div className="prodContainer">
+        {!crearProducto && !crearCombo && (
+          <h1 className="prodTitle">Crear Producto o Combo</h1>
+        )}
+        {crearProducto && <h1 className="prodTitle">Crear Producto</h1>}
+        {crearCombo && <h1 className="prodTitle">Crear Combo</h1>}
 
-                      {categorias.map((categoria) => (
-                        <option key={categoria.id} value={categoria.id}>
-                          {categoria.nombre}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {subcategorias &&
-                    subcategorias.some(
-                      (subC) =>
-                        Number(subC.categoria.id) === Number(categoriaID)
-                    ) && (
-                      <select
-                        className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        onChange={(e) => setSubcategoriaID(e.target.value)}
-                        value={subcategoriaID}
-                      >
-                        <option hidden>Subcategoria (no obligatorio)</option>
-                        {subcategorias.map(
-                          (subC) =>
-                            Number(subC.categoria.id) ===
-                              Number(categoriaID) && (
-                              <option key={subC.id} value={subC.id}>
-                                {subC.nombre}
-                              </option>
-                            )
-                        )}
-                      </select>
-                    )}
-
-                  <div className="flex mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="nombre"
-                    >
-                      Guardar como ítem
-                    </label>
-                    <p className="ml-2 mr-1">No</p>
-                    <input
-                      className="mr-2 leading-tight"
-                      type="checkbox"
-                      checked={mostrarPersonaItem}
-                      onChange={() => {
-                        setMostrarPersonaItem(true);
-                        setMostrarOtroCheckbox(false);
-                        setListado(true);
-                        setItem(false);
-                      }}
-                    />
-                    <p className="mr-1">Sí</p>
-                    <input
-                      className="mr-2 leading-tight"
-                      type="checkbox"
-                      checked={mostrarOtroCheckbox}
-                      onChange={() => {
-                        setMostrarOtroCheckbox(true);
-                        setCantidadPersonas(1);
-                        setMostrarPersonaItem(false);
-                        setNumItemsExtra(0);
-                        setItemsExtra([]);
-                        setItem(true);
-                      }}
-                    />
-
-                    {mostrarOtroCheckbox && (
-                      <>
-                        <label
-                          className="block text-gray-700 text-sm font-bold mb-2 ml-5"
-                          htmlFor="nombre"
-                        >
-                          Mostrar en el Menú
-                        </label>
-                        <p className="ml-2 mr-1">No</p>
-                        <input
-                          className="mr-2 leading-tight"
-                          type="checkbox"
-                          checked={listado === false ? true : false}
-                          onChange={() => {
-                            setListado(false);
-                            // Ocultar precio:
-                            setMostrarPrecio(false);
-                            setPrecio(0);
-                          }}
-                        />
-                        <p className=" mr-1">Sí</p>
-                        <input
-                          className="mr-2 leading-tight"
-                          type="checkbox"
-                          checked={listado === true ? true : false}
-                          onChange={() => {
-                            setListado(true);
-                            // Mostrar precio
-                            setMostrarPrecio(true);
-                            setPrecio("");
-                          }}
-                        />
-                      </>
-                    )}
-                  </div>
-
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="nombre"
-                    >
-                      Nombre
-                    </label>
-                    <input
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="nombre"
-                      name="nombre"
-                      type="text"
-                      placeholder="Nombre del producto"
-                      value={nombre}
-                      maxLength={150}
-                      onChange={(e) => setNombre(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label
-                      className="block text-gray-700 text-sm font-bold mb-2"
-                      htmlFor="descripcion"
-                    >
-                      Descripción
-                    </label>
-                    <input
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="descripcion"
-                      name="descripcion"
-                      type="text"
-                      placeholder="Descripción del producto"
-                      value={descripcion}
-                      maxLength={150}
-                      onChange={(e) => setDescripcion(e.target.value)}
-                    />
-                  </div>
-
-                  {mostrarPrecio && listado && (
-                    <div className="mb-4">
-                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="precio"
-                      >
-                        Precio
-                      </label>
-                      <input
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="precio"
-                        name="precio"
-                        type="number"
-                        placeholder="Precio del producto"
-                        value={precio}
-                        onChange={(e) => setPrecio(e.target.value)}
-                      />
-                    </div>
-                  )}
-
-                  <input type="hidden" name="id" id="id" value="" />
-
-                  {mostrarPersonaItem && (
-                    <>
-                      <div className="mb-4">
-                        <label
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                          htmlFor="cantidadPersonas"
-                        >
-                          Para cuántas personas será el combo
-                        </label>
-                        <input
-                          className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                          id="cantidadPersonas"
-                          name="cantidadPersonas"
-                          type="number"
-                          placeholder="Para cuántas personas será el combo"
-                          value={cantidadPersonas}
-                          onChange={(e) => setCantidadPersonas(e.target.value)}
-                        />
-                      </div>
-                      <Items
-                        itemsExtra={itemsExtra}
-                        setItemsExtra={setItemsExtra}
-                        numItemsExtra={numItemsExtra}
-                        setNumItemsExtra={setNumItemsExtra}
-                        itemsExtraArray={itemsExtraArray}
-                        categoriaID={categoriaID}
-                      />
-                    </>
-                  )}
-
-                  <input
-                    type="submit"
-                    className="bg-teal-600 hover:bg-teal-900 w-full mt-5 p-2 text-white uppercase font-bold cursor-pointer"
-                    value={
-                      titulo === "Nuevo Producto"
-                        ? "Crear Producto"
-                        : "Guardar cambios"
-                    }
-                    onClick={onSubmit}
-                  />
-                </form>
+        <form className="formulario" id="formulario" method="POST">
+          <div className="labelInput">
+            <label htmlFor="rolID">Cargo</label>
+            <div className="checks">
+              <div className="checkContainer">
+                <input
+                  className="check"
+                  type="radio"
+                  name="rolID"
+                  value="3"
+                  checked={/* input.rolID ===  */ "3"}
+                  /* onChange={(e) => handleChange(e)} */
+                  required
+                />
+                <p>Empleado</p>
+              </div>
+              <div className="checkContainer">
+                <input
+                  className="check"
+                  type="radio"
+                  name="rolID"
+                  value="2"
+                  checked={/* input.rolID ===  */ "2"}
+                  /* onChange={(e) => handleChange(e)} */
+                  required
+                />
+                <p>Administrador</p>
               </div>
             </div>
           </div>
-        </div>
+          {/* Categoría */}
+          {crearProducto ||
+            (crearCombo && (
+              <div>
+                <label>Categoría</label>
+                <select
+                  onChange={(e) => {
+                    setCategoriaID(e.target.value);
+                    setMostrarPrecio(true);
+                    setPrecio("");
+                  }}
+                  value={categoriaID || ""}
+                >
+                  <option value="" hidden>
+                    Elegí una categoría
+                  </option>
+                  {categorias.map((categoria) => (
+                    <option key={categoria.id} value={categoria.id}>
+                      {categoria.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ))}
+
+          {/* subcategorias */}
+          {(subcategorias && crearProducto) ||
+            (crearCombo &&
+              subcategorias.some(
+                (subC) => Number(subC.categoria.id) === Number(categoriaID)
+              ) && (
+                <select
+                  onChange={(e) => setSubcategoriaID(e.target.value)}
+                  value={subcategoriaID}
+                >
+                  <option hidden>Subcategoria (no obligatorio)</option>
+                  {subcategorias.map(
+                    (subC) =>
+                      Number(subC.categoria.id) === Number(categoriaID) && (
+                        <option key={subC.id} value={subC.id}>
+                          {subC.nombre}
+                        </option>
+                      )
+                  )}
+                </select>
+              ))}
+
+          {/* Guardar como ítem */}
+          {crearProducto && (
+            <div>
+              <label htmlFor="nombre">Guardar como ítem</label>
+              <p>No</p>
+              <input
+                type="checkbox"
+                checked={mostrarPersonaItem}
+                onChange={() => {
+                  setMostrarPersonaItem(true);
+                  setMostrarOtroCheckbox(false);
+                  setListado(true);
+                  setItem(false);
+                }}
+              />
+              <p>Sí</p>
+              <input
+                type="checkbox"
+                checked={mostrarOtroCheckbox}
+                onChange={() => {
+                  setMostrarOtroCheckbox(true);
+                  setCantidadPersonas(1);
+                  setMostrarPersonaItem(false);
+                  setNumItemsExtra(0);
+                  setItemsExtra([]);
+                  setItem(true);
+                }}
+              />
+
+              {mostrarOtroCheckbox && (
+                <>
+                  <label htmlFor="nombre">Mostrar en el Menú</label>
+                  <p>No</p>
+                  <input
+                    type="checkbox"
+                    checked={listado === false ? true : false}
+                    onChange={() => {
+                      setListado(false);
+                      setMostrarPrecio(false);
+                      setPrecio(0);
+                    }}
+                  />
+                  <p>Sí</p>
+                  <input
+                    type="checkbox"
+                    checked={listado === true ? true : false}
+                    onChange={() => {
+                      setListado(true);
+                      setMostrarPrecio(true);
+                      setPrecio("");
+                    }}
+                  />
+                </>
+              )}
+            </div>
+          )}
+
+          {/* nombre */}
+          {crearProducto ||
+            (crearCombo && (
+              <div>
+                <label htmlFor="nombre">Nombre</label>
+                <input
+                  id="nombre"
+                  name="nombre"
+                  type="text"
+                  placeholder="Nombre del producto"
+                  value={nombre}
+                  maxLength={150}
+                  onChange={(e) => setNombre(e.target.value)}
+                />
+              </div>
+            ))}
+
+          {/* descripcion */}
+          {crearProducto ||
+            (crearCombo && (
+              <div>
+                <label htmlFor="descripcion">Descripción</label>
+                <input
+                  id="descripcion"
+                  name="descripcion"
+                  type="text"
+                  placeholder="Descripción del producto"
+                  value={descripcion}
+                  maxLength={150}
+                  onChange={(e) => setDescripcion(e.target.value)}
+                />
+              </div>
+            ))}
+
+          {/* precio */}
+          {mostrarPrecio && listado && (
+            <div>
+              <label htmlFor="precio">Precio</label>
+              <input
+                id="precio"
+                name="precio"
+                type="number"
+                placeholder="Precio del producto"
+                value={precio}
+                onChange={(e) => setPrecio(e.target.value)}
+              />
+            </div>
+          )}
+
+          <input type="hidden" name="id" id="id" value="" />
+
+          {/* cantidad de personas */}
+          {mostrarPersonaItem && crearCombo && (
+            <>
+              <div>
+                <label htmlFor="cantidadPersonas">
+                  Para cuántas personas será el combo
+                </label>
+                <input
+                  id="cantidadPersonas"
+                  name="cantidadPersonas"
+                  type="number"
+                  placeholder="Para cuántas personas será el combo"
+                  value={cantidadPersonas}
+                  onChange={(e) => setCantidadPersonas(e.target.value)}
+                />
+              </div>
+              <Items
+                itemsExtra={itemsExtra}
+                setItemsExtra={setItemsExtra}
+                numItemsExtra={numItemsExtra}
+                setNumItemsExtra={setNumItemsExtra}
+                itemsExtraArray={itemsExtraArray}
+                categoriaID={categoriaID}
+              />
+            </>
+          )}
+
+          <input
+            type="submit"
+            value={
+              titulo === "Nuevo Producto" ? "Crear Producto" : "Guardar cambios"
+            }
+            onClick={onSubmit}
+          />
+        </form>
       </div>
-    </div>
-    /* ) */
+    </>
   );
 }
