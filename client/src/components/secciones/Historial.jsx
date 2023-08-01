@@ -14,6 +14,8 @@ import {
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
 import { GiCook } from "react-icons/gi";
+import bandeja from "../../multmedia/bandeja.svg";
+import { Link } from "react-router-dom";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -188,13 +190,17 @@ export default function Historial() {
     </div>
   ) : (
     <div className="historialContainer">
-      <HeaderBack
-        url={"/"}
-        arrowType={"left"}
-        title={`Mis Pedidos`}
-        span={`Realizados`}
-      />
-      <p className="alerta">No hay pedidos pendientes</p>
+      <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+      <div className="centro">
+        <img src={bandeja} alt="bandeja" className="icon" />
+        <p className="alerta">¡Comienza a sumar productos a tu pedido!</p>
+        <p className="alerta2">Aún no tienes pedidos hechos</p>
+      </div>
+      <div className="footer">
+        <Link to={"/"} className="botonFooter btnVerMenu">
+          Ver Menú
+        </Link>
+      </div>
     </div>
   );
 }

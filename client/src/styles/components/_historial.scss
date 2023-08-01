@@ -1,10 +1,37 @@
 .historialContainer {
   background-color: rgb(247, 247, 247);
   height: 100vh;
-
-  .alerta {
-    padding-left: 5%;
+  width: 100vw;
+  position: relative;
+  .centro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @include center;
+    flex-direction: column;
+    width: 80vw;
+    .icon {
+      width: 25vw;
+      filter: grayscale(1) brightness(0.5);
+      -webkit-filter: grayscale(1) brightness(0.8);
+    }
+    .alerta {
+      text-align: center;
+      font-size: $titleSize;
+      font-weight: $titleWeight;
+      line-height: 1;
+      color: $paragraph;
+      margin-top: 9vw;
+    }
+    .alerta2 {
+      text-align: center;
+      font-size: $subtSize;
+      color: $disable;
+      margin-top: 5vw;
+    }
   }
+
   .cardPedido {
     background-color: rgb(255, 255, 255);
     width: 90vw;
@@ -100,6 +127,13 @@
       .metodoDePago {
         @include centerRow;
       }
+    }
+  }
+
+  .footer {
+    margin-left: 5vw !important;
+    .btnVerMenu {
+      width: 100% !important;
     }
   }
 }
