@@ -12,22 +12,21 @@ const createPedido = async (req, res, next) => {
       itemsExtra,
       tipoPagoID,
     } = req.body;
-
-    const filteredItemsExtra = itemsExtra.filter(
-      (subArray) => subArray[0] !== "vacio"
-    );
-
     const tipoPago = await Pago.findByPk(tipoPagoID);
     const estado = await Estado.findOne({
       where: { id: "1" },
     });
+    const filteredItemsExtra = itemsExtra.filter(
+      (subArray) => subArray[0] !== "vacio"
+    );
+    const itemsExtraJSON = JSON.stringify(filteredItemsExtra);
 
     const newPedido = await Pedido.create({
       productos,
       mesa,
       precio,
       aclaraciones,
-      itemsExtra: filteredItemsExtra,
+      itemsExtra: itemsExtraJSON,
       creacionFecha,
       creacionHora,
     });
