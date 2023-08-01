@@ -22,6 +22,11 @@ module.exports = (sequelize) => {
         defaultValue: false,
         allowNull: true,
       },
+      combo: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+        allowNull: true,
+      },
       cantidadPersonas: {
         type: DataTypes.STRING,
         defaultValue: "1",
