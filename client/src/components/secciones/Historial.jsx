@@ -70,13 +70,9 @@ export default function Historial() {
     .map((idPed) => pedidos.filter((ped) => ped.id === idPed.id))
     .flat();
 
-  console.log(pedidosActuales);
-
   const itemsArray = pedidosActuales.map((pedido) =>
     JSON.parse(pedido.itemsExtra)
   );
-
-  console.log(itemsArray[0] && itemsArray[0][0]);
 
   const iconPago = (pagoId) => {
     switch (pagoId) {
