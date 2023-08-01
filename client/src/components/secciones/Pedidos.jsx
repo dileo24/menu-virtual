@@ -76,7 +76,28 @@ export default function Pedidos() {
     return null;
   };
 
-  console.log(pedidos);
+  const itemsString = (itemsExtra) => {
+    if (typeof itemsExtra === "string") {
+      const parsedItems = JSON.parse(itemsExtra);
+
+      if (Array.isArray(parsedItems) && parsedItems.length > 0) {
+        const flattenedItems = parsedItems.flat();
+
+        const resultString = flattenedItems.join(", ");
+
+        return resultString;
+      } else {
+        throw new Error(
+          "Invalid input data. Expected a non-empty array of arrays."
+        );
+      }
+    } else if (Array.isArray(itemsExtra)) {
+      const resultString = itemsExtra.join(", ");
+
+      return resultString;
+    }
+  };
+
   return (
     pedidos.length > 0 && (
       <div id="productos" className="min-h-100 bg-gray-200">
@@ -131,17 +152,24 @@ export default function Pedidos() {
                               <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
                                 {productos.join(", ")}
                               </p>
-                              {itemsExtra && (
+                              {itemsExtra ? (
                                 <p className="text-gray-700 mt-2">
-                                  <b>Extra:</b> {itemsExtra.join(", ")}
+                                  <b>Extra:</b> {/* {itemsExtra.join(", ")} */}
+                                  {itemsString(itemsExtra)}.
                                 </p>
+                              ) : (
+                                ""
+                              )}
+                              {aclaraciones ? (
+                                <p className="text-gray-700 mt-2">
+                                  <b> Aclaraciones:</b> {aclaraciones}.
+                                </p>
+                              ) : (
+                                ""
                               )}
                               <p className="text-gray-700 mt-2">
-                                <b> Aclaraciones:</b> {aclaraciones}
-                              </p>
-                              <p className="text-gray-700 mt-2">
                                 <b> Realizado el:</b>{" "}
-                                {creacionFecha + " a las " + creacionHora}
+                                {creacionFecha + " a las " + creacionHora}.
                               </p>
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
