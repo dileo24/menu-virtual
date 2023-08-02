@@ -1,0 +1,64 @@
+.prodContainer {
+  width: 100vw;
+  height: 100vh;
+  .prodTitle {
+    padding: 0 0 5vw 5vw;
+    font-weight: 900;
+    font-size: $titleSizeMax;
+    // font-size: $titleSize;
+    // font-weight: $titleWeight;
+    line-height: 1.1;
+  }
+  .formulario {
+    padding: 0 5% 30vw 5%;
+
+    .labelInput {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      label {
+        font-weight: $titleWeight;
+        font-size: $subtSize;
+        margin: 6vw 0 3% 0;
+        &.nombre {
+          margin-top: 0;
+        }
+      }
+      input,
+      select {
+        border: 1px solid grey;
+        border-radius: 8px;
+        width: 100%;
+        height: 12vw;
+        background-color: white;
+        font-weight: $titleWeight;
+        padding: 3%;
+        font-size: 3.8vw;
+        &::placeholder {
+          color: grey;
+        }
+      }
+      .checks {
+        display: flex;
+        justify-content: space-between;
+        .checkContainer {
+          display: flex;
+          align-items: center;
+          border: 1px solid grey;
+          border-radius: 8px;
+          width: 42.5vw;
+          height: 12vw;
+          .check {
+            width: 5vw;
+            height: 5vw;
+            margin: 0 3vw 0 3vw;
+            background-color: $naranja;
+          }
+        }
+      }
+    }
+  }
+  .btnCrearUsuario {
+    width: 100% !important;
+  }
+}
