@@ -1,7 +1,7 @@
 //// Funciones para la Base de Datos ////
 
 // Local
-//const url = "http://localhost:3001/productos";
+// const url = "http://localhost:3001/productos";
 
 // Deploy
 const url = "https://menu-virtual-production-9dbc.up.railway.app/productos";

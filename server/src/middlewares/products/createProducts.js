@@ -15,6 +15,7 @@ const createProduct = async (req, res, next) => {
       cantidadPersonas,
       mostrarPersonaItem,
       mostrarOtroCheckbox,
+      combo,
     } = req.body;
 
     if (typeof nombre !== "string" || nombre === undefined) {
@@ -37,6 +38,7 @@ const createProduct = async (req, res, next) => {
       cantidadPersonas,
       mostrarPersonaItem,
       mostrarOtroCheckbox,
+      combo,
     });
 
     await categoria.addProducto(newProduct);

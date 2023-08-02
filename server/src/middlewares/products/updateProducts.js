@@ -13,6 +13,7 @@ const updateProduct = async (req, res, next) => {
       categoriaID,
       subcategoriaID,
       cantidadPersonas,
+      combo,
     } = req.body;
     const id = req.params.id;
     const producto = await Producto.findByPk(id);
@@ -29,6 +30,7 @@ const updateProduct = async (req, res, next) => {
           categoriaID: categoriaID || producto.categoriaID,
           subcategoriaID: subcategoriaID || producto.subcategoriaID,
           cantidadPersonas: cantidadPersonas || producto.cantidadPersonas,
+          combo: combo || producto.combo,
         },
         { where: { id: id } }
       );

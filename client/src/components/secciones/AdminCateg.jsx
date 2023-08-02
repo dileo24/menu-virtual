@@ -254,6 +254,7 @@ export default function AdminCateg() {
               dispatch(deleteCateg(alertaPregunta.id, token));
               window.location.reload();
             }}
+            aceptar={"Eliminar"}
           />
         )}
       </div>

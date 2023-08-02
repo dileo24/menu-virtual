@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       itemsExtra: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.JSON,
         allowNull: true,
       },
       mesa: {

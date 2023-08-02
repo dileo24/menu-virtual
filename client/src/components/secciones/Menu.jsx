@@ -14,7 +14,6 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
   let productosState = useSelector((state) => state.home);
   // let subcategorias = useSelector((state) => state.subcategorias);
   prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
-  const [alertaPregunta, setAlertaPregunta] = useState(false);
 
   let productos = productosState.filter((prod) =>
     categ !== "todas" ? prod.categoria.nombre === categ : prod

@@ -375,6 +375,7 @@ export default function Usuarios() {
           estado={alertaPregunta}
           setEstado={setAlertaPregunta}
           callback={() => handleEliminar(alertaPregunta.id)}
+          aceptar={"Eliminar"}
         />
       )}
 

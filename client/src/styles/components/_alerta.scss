@@ -37,7 +37,8 @@
         font-weight: $titleWeight;
         font-size: 4vw;
         line-height: 1;
-        padding: 3.5vw 8.5vw;
+        padding: 3.5vw;
+        width: 40vw;
         border-radius: 10px;
         -webkit-border-radius: 10px;
         -moz-border-radius: 10px;
@@ -50,8 +51,9 @@
         margin-right: 5vw;
       }
       .aceptar {
-        background-color: $naranja;
-        border: 1px solid $naranja;
+        color: white;
+        background-color: $error;
+        border: 1px solid $error;
       }
       .aceptarSolo {
         background-color: $naranja;

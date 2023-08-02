@@ -24,8 +24,8 @@ export default function EditarProductos() {
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(true);
   const [mostrarPrecio, setMostrarPrecio] = useState(true);
   const [item, setItem] = useState(false);
-  // const [checkListadoTrue, setCheckListadoTrue] = useState("");
-  // const [checkListadoFalse, setCheckListadoFalse] = useState("");
+  const [crearProducto, setCrearProducto] = useState(false);
+  const [combo, setCombo] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   useEffect(() => {
@@ -40,7 +40,6 @@ export default function EditarProductos() {
           if (item.item === true) {
             mostrarItem(item);
           }
-          console.log(item.mostrarOtroCheckbox);
         })
         .catch((error) => {
           console.log("error al obtener item" + error);
@@ -49,7 +48,6 @@ export default function EditarProductos() {
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
-          console.log(producto);
         })
         .catch((error) => {
           console.log(error);
@@ -65,12 +63,14 @@ export default function EditarProductos() {
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
     setId(producto.id);
-    setNumItemsExtra(producto.itemsExtra.length);
+    setNumItemsExtra(producto.itemsExtra && producto.itemsExtra.length);
     setItemsExtra(producto.itemsExtra);
     setCantidadPersonas(producto.cantidadPersonas);
     setMostrarPersonaItem(producto.mostrarPersonaItem);
     setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
     setListado(producto.listado);
+    setCombo(producto.combo);
+    setCrearProducto(producto.combo ? false : true);
   }
 
   // Mostrar los datos del item en el formulario
@@ -81,15 +81,13 @@ export default function EditarProductos() {
     setDescripcion(item.descripcion);
     setPrecio(item.precio);
     setId(item.id);
-    // setNumItemsExtra(item.itemsExtra.length);
-    // setItemsExtra(item.itemsExtra);
     setCantidadPersonas(item.cantidadPersonas);
     setMostrarPersonaItem(item.mostrarPersonaItem);
     setMostrarOtroCheckbox(item.mostrarOtroCheckbox);
     setListado(item.listado);
     setItem(item.item);
-    // setCheckListadoFalse(item.listado === false ? true : false);
-    // setCheckListadoTrue(item.listado === true ? true : false);
+    setCombo(item.combo);
+    setCrearProducto(item.combo ? false : true);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
@@ -109,6 +107,7 @@ export default function EditarProductos() {
       mostrarPersonaItem,
       mostrarOtroCheckbox,
       item,
+      combo,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -152,10 +151,10 @@ export default function EditarProductos() {
       setItem={setItem}
       mostrarPrecio={mostrarPrecio}
       setMostrarPrecio={setMostrarPrecio}
-      // checkListadoTrue={checkListadoTrue}
-      // setCheckListadoTrue={setCheckListadoTrue}
-      // checkListadoFalse={checkListadoFalse}
-      // setCheckListadoFalse={setCheckListadoFalse}
+      crearProducto={crearProducto}
+      setCrearProducto={setCrearProducto}
+      combo={combo}
+      setCombo={setCombo}
     />
   );
 }

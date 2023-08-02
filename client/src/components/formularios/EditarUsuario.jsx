@@ -97,7 +97,8 @@ export default function EditarUsuario() {
       <HeaderBack
         url={"/usuarios"}
         arrowType={"left"}
-        title={`Editar Usuario`}
+        title={`Editar`}
+        span={"Usuario"}
       />
       <form
         onSubmit={(e) => {
@@ -122,6 +123,7 @@ export default function EditarUsuario() {
             value={input.nombre}
             onChange={(e) => handleChange(e)}
             autoFocus
+            required
           />
         </div>
 
@@ -134,6 +136,7 @@ export default function EditarUsuario() {
             placeholder="Escribe el apellido"
             value={input.apellido}
             onChange={(e) => handleChange(e)}
+            required
           />
         </div>
 
@@ -146,6 +149,7 @@ export default function EditarUsuario() {
             placeholder="Escribe el email"
             value={input.email}
             onChange={(e) => handleChange(e)}
+            required
           />
         </div>
 

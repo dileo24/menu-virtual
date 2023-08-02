@@ -179,7 +179,7 @@ export default function Header({
   };
 
   return (
-    <header id="containerHeader" className="containerHeader">
+    <header id="containerHeader " className="containerHeader">
       {!userActual && (
         <button className="quickBites" onClick={reload}>
           <h1 id="marca">QuickBites</h1>
@@ -500,6 +500,7 @@ export default function Header({
           estado={alertaPregunta}
           setEstado={setAlertaPregunta}
           callback={cerrarSesion}
+          aceptar={"Cerrar sesión"}
         />
       )}
     </header>

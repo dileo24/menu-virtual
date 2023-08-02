@@ -14,6 +14,8 @@ import {
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
 import { GiCook } from "react-icons/gi";
+import bandeja from "../../multmedia/bandeja.svg";
+import { Link } from "react-router-dom";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -44,10 +46,10 @@ export default function Historial() {
 
   useEffect(() => {
     // Local
-    //const socket = io("http://localhost:3001");
+    // const socket = io("http://localhost:3001");
 
     // Deploy
-     const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
 
@@ -64,9 +66,14 @@ export default function Historial() {
     }
   }, [socket, dispatch]);
 
-  let pedidosActuales = inputData.map((idPed) =>
-    pedidos.filter((ped) => ped.id === idPed.id)
+  let pedidosActuales = inputData
+    .map((idPed) => pedidos.filter((ped) => ped.id === idPed.id))
+    .flat();
+
+  const itemsArray = pedidosActuales.map((pedido) =>
+    JSON.parse(pedido.itemsExtra)
   );
+
   const iconPago = (pagoId) => {
     switch (pagoId) {
       case 1:
@@ -115,36 +122,35 @@ export default function Historial() {
   return pedidos &&
     pedidosActuales.length > 0 &&
     pedidosActuales.some(
-      (pedido) =>
-        pedido[0] && pedido[0].EstadoId !== 4 && pedido[0].EstadoId !== 5
+      (pedido) => pedido && pedido.EstadoId !== 4 && pedido.EstadoId !== 5
     ) ? (
     <div className="historialContainer">
-      <HeaderBack url={"/"} arrowType={"left"} title={`Mis Pedidos`} />
+      <HeaderBack
+        url={"/"}
+        arrowType={"left"}
+        title={`Mis Pedidos `}
+        span={`Realizados`}
+      />
       {pedidosActuales
         .filter(
-          (pedido) =>
-            pedido[0] && pedido[0].Estado.id !== 4 && pedido[0].Estado.id !== 5
+          (pedido) => pedido && pedido.Estado.id !== 4 && pedido.Estado.id !== 5
         )
         .map(
           (pedido, index) =>
-            pedido[0] && (
+            pedido && (
               <div className="cardPedido" key={index}>
                 <div className="nombreItemsPrecio">
                   <div className="supBar">
-                    <p className="estado-info">Mesa {pedido[0].mesa}</p>
-                    <p
-                      className={`estado ${clasePorEstado(
-                        pedido[0].Estado.id
-                      )}`}
-                    >
-                      {iconEstado(pedido[0].Estado.id)}
+                    <p className="estado-info">Mesa {pedido.mesa}</p>
+                    <p className={`estado ${clasePorEstado(pedido.Estado.id)}`}>
+                      {iconEstado(pedido.Estado.id)}
                       <span style={{ marginLeft: "5px" }}>
-                        {pedido[0].Estado.tipo}
+                        {pedido.Estado.tipo}
                       </span>
                     </p>
                   </div>
                   <div className="nombreItems">
-                    {pedido[0].productos.map((producto, i) => (
+                    {pedido.productos.map((producto, i) => (
                       <div key={i}>
                         <p className="nombre">
                           {producto}{" "}
@@ -152,30 +158,30 @@ export default function Historial() {
                             ${prodPorNom(producto)}
                           </span>
                         </p>
-                        {pedido[0].itemsExtra[i] &&
-                          pedido[0].itemsExtra[i].length > 0 && (
-                            <ul className="itemsExtra">
-                              {pedido[0].itemsExtra[i].map((item, j) => (
+                        {itemsArray[index].length > 0 && (
+                          <ul className="itemsExtra">
+                            {itemsArray[index][i] &&
+                              itemsArray[index][i].map((item, j) => (
                                 <li key={j} className="list-item">
                                   <span className="list-item-circle"></span>
                                   {item}
                                 </li>
                               ))}
-                            </ul>
-                          )}
+                          </ul>
+                        )}
                       </div>
                     ))}
                   </div>
                 </div>
                 <div className="footerPed">
                   <p className="metodoDePago estado-success">
-                    {iconPago(pedido[0].Pago.id)}
+                    {iconPago(pedido.Pago.id)}
                     <span style={{ marginLeft: "5px" }}>
-                      {pedido[0].Pago.tipo}
+                      {pedido.Pago.tipo}
                     </span>
                   </p>
                   <p className="total">Total: </p>
-                  <p className="precio">${pedido[0].precio}</p>
+                  <p className="precio">${pedido.precio}</p>
                 </div>
               </div>
             )
@@ -183,12 +189,17 @@ export default function Historial() {
     </div>
   ) : (
     <div className="historialContainer">
-      <HeaderBack
-        url={"/"}
-        arrowType={"left"}
-        title={`Mis Pedidos Realizados`}
-      />
-      <p className="alerta">No hay pedidos pendientes</p>
+      <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+      <div className="centro">
+        <img src={bandeja} alt="bandeja" className="icon" />
+        <p className="alerta">¡Comienza a sumar productos a tu pedido!</p>
+        <p className="alerta2">Aún no tienes pedidos hechos</p>
+      </div>
+      <div className="footer">
+        <Link to={"/"} className="botonFooter btnVerMenu">
+          Ver Menú
+        </Link>
+      </div>
     </div>
   );
 }

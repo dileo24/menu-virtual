@@ -27,6 +27,7 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      // position: fixed;
       .burgerBtn {
         margin: 5vw;
         // margin-bottom: 7vw;
@@ -146,6 +147,9 @@ header {
               display: flex;
               align-items: center;
               padding-left: 3vw;
+              &:focus {
+                outline: none;
+              }
               .linkIcon {
                 margin-right: 2vw;
               }
