@@ -63,13 +63,14 @@ export default function EditarProductos() {
     setDescripcion(producto.descripcion);
     setPrecio(producto.precio);
     setId(producto.id);
-    setNumItemsExtra(producto.itemsExtra.length);
+    setNumItemsExtra(producto.itemsExtra && producto.itemsExtra.length);
     setItemsExtra(producto.itemsExtra);
     setCantidadPersonas(producto.cantidadPersonas);
     setMostrarPersonaItem(producto.mostrarPersonaItem);
     setMostrarOtroCheckbox(producto.mostrarOtroCheckbox);
     setListado(producto.listado);
     setCombo(producto.combo);
+    setCrearProducto(producto.combo ? false : true);
   }
 
   // Mostrar los datos del item en el formulario
@@ -86,6 +87,7 @@ export default function EditarProductos() {
     setListado(item.listado);
     setItem(item.item);
     setCombo(item.combo);
+    setCrearProducto(item.combo ? false : true);
   }
 
   // Validar y actualizar el producto con los nuevos cambios
