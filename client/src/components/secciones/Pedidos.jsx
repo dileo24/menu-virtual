@@ -22,7 +22,7 @@ export default function Pedidos() {
 
   useEffect(() => {
     // Local
-    // const socket = io("http://localhost:3001");
+    //const socket = io("http://localhost:3001");
 
     // Deploy
     const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
@@ -86,10 +86,6 @@ export default function Pedidos() {
         const resultString = flattenedItems.join(", ");
 
         return resultString;
-      } else {
-        throw new Error(
-          "Invalid input data. Expected a non-empty array of arrays."
-        );
       }
     } else if (Array.isArray(itemsExtra)) {
       const resultString = itemsExtra.join(", ");
