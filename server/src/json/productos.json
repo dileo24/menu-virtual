@@ -13,7 +13,8 @@
     "precio": "1500",
     "categoriaID": "2",
     "itemsExtra": ["Bebidas con alcohol"],
-    "cantidadPersonas": "2"
+    "cantidadPersonas": "2",
+    "combo": true
   },
   {
     "subcategoriaID": "4",
@@ -50,7 +51,8 @@
     "precio": "1200",
     "categoriaID": "1",
     "itemsExtra": ["Infusiones", "Panadería", "Panadería", "Panadería"],
-    "cantidadPersonas": "1"
+    "cantidadPersonas": "1",
+    "combo": true
   },
   {
     "subcategoriaID": "",
@@ -59,7 +61,8 @@
     "precio": "3200",
     "categoriaID": "1",
     "itemsExtra": ["Licuados", "Panadería", "Panadería"],
-    "cantidadPersonas": "2"
+    "cantidadPersonas": "2",
+    "combo": true
   },
   {
     "subcategoriaID": "",
@@ -68,7 +71,8 @@
     "precio": "1800",
     "categoriaID": "1",
     "itemsExtra": ["Infusiones", "Panadería", "Panadería"],
-    "cantidadPersonas": "4"
+    "cantidadPersonas": "4",
+    "combo": true
   },
   {
     "subcategoriaID": "",
@@ -77,7 +81,8 @@
     "precio": "1800",
     "categoriaID": "1",
     "itemsExtra": ["Licuados", "Postres"],
-    "cantidadPersonas": "4"
+    "cantidadPersonas": "4",
+    "combo": true
   },
   {
     "subcategoriaID": "7",
@@ -86,7 +91,8 @@
     "precio": "5300",
     "categoriaID": "2",
     "itemsExtra": ["Bebidas sin alcohol", "Guarniciones", "Postres"],
-    "cantidadPersonas": "2"
+    "cantidadPersonas": "2",
+    "combo": true
   },
   {
     "subcategoriaID": "8",
