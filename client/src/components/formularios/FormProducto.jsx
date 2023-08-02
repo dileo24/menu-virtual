@@ -36,6 +36,10 @@ export default function FormProducto({
   setMostrarPrecio,
   item,
   setItem,
+  crearProducto,
+  setCrearProducto,
+  combo,
+  setCombo,
   // checkListadoTrue,
   // checkListadoFalse,
 }) {
@@ -45,8 +49,7 @@ export default function FormProducto({
   const categorias = useSelector((state) => state.categorias);
   const subcategorias = useSelector((state) => state.subcategorias);
   // const categActual = categorias.filter((categ) => categ.id === categoriaID);
-  const [crearProducto, setCrearProducto] = useState(false);
-  const [crearCombo, setCrearCombo] = useState(false);
+
   const [tipoElegido, setTipoElegido] = useState(false);
 
   useEffect(() => {
@@ -75,12 +78,12 @@ export default function FormProducto({
   }, [item]);
 
   useEffect(() => {
-    if (crearCombo || crearProducto) {
+    if (combo || crearProducto) {
       setTipoElegido(true);
     } else {
       setTipoElegido(false);
     }
-  }, [crearCombo, crearProducto]);
+  }, [combo, crearProducto]);
 
   return (
     <div className="prodContainer">
@@ -94,41 +97,34 @@ export default function FormProducto({
         </div>
       )}
 
-      {!crearProducto && !crearCombo && titulo === "Nuevo Producto" && (
-        <h1 className="prodTitle">Crear Producto o Combo</h1>
+      {!crearProducto && !combo && (
+        <h1 className="prodTitle">
+          {titulo === "Nuevo Producto"
+            ? "Crear Producto o Combo"
+            : "Editar Producto o Combo"}
+        </h1>
       )}
 
-      {crearProducto && titulo === "Nuevo Producto" && (
-        <h1 className="prodTitle">Crear Producto</h1>
-      )}
-      {crearCombo && titulo === "Nuevo Producto" && (
-        <h1 className="prodTitle">Crear Combo</h1>
-      )}
-
-      {!crearProducto && !crearCombo && titulo !== "Nuevo Producto" && (
-        <h1 className="prodTitle">Editar Producto o Combo</h1>
-      )}
-      {crearProducto && titulo !== "Nuevo Producto" && (
-        <h1 className="prodTitle">Editar Producto</h1>
-      )}
-      {crearCombo && titulo !== "Nuevo Producto" && (
-        <h1 className="prodTitle">Editar Combo</h1>
+      {titulo === "Nuevo Producto" ? (
+        <h1 className="prodTitle">
+          {crearProducto ? "Crear Producto" : combo ? "Crear Combo" : ""}
+        </h1>
+      ) : (
+        <h1 className="prodTitle">
+          {crearProducto ? "Editar Producto" : combo ? "Editar Combo" : ""}
+        </h1>
       )}
 
       <form className="formulario" id="formulario" method="POST">
         <div className="labelInput">
-          {/* <label htmlFor="rolID">Cargo</label> */}
           <div className="checks">
             <div className="checkContainer">
               <input
                 className="check"
                 type="radio"
-                name="rolID"
-                value="3"
-                checked={/* input.rolID ===  */ "3"}
+                checked={crearProducto}
                 onChange={() => {
-                  console.log("prod");
-                  setCrearCombo(false);
+                  setCombo(false);
                   setCrearProducto(true);
                 }}
                 required
@@ -139,12 +135,9 @@ export default function FormProducto({
               <input
                 className="check"
                 type="radio"
-                name="rolID"
-                value="2"
-                checked={/* input.rolID ===  */ "2"}
+                checked={combo}
                 onChange={() => {
-                  console.log("combo");
-                  setCrearCombo(true);
+                  setCombo(true);
                   setCrearProducto(false);
                 }}
                 required
@@ -203,63 +196,6 @@ export default function FormProducto({
             </div>
           )}
 
-        {/* Guardar como ítem */}
-        {crearProducto && (
-          <div>
-            <label htmlFor="nombre">Guardar como ítem</label>
-            <p>No</p>
-            <input
-              type="checkbox"
-              checked={mostrarPersonaItem}
-              onChange={() => {
-                setMostrarPersonaItem(true);
-                setMostrarOtroCheckbox(false);
-                setListado(true);
-                setItem(false);
-              }}
-            />
-            <p>Sí</p>
-            <input
-              type="checkbox"
-              checked={mostrarOtroCheckbox}
-              onChange={() => {
-                setMostrarOtroCheckbox(true);
-                setCantidadPersonas(1);
-                setMostrarPersonaItem(false);
-                setNumItemsExtra(0);
-                setItemsExtra([]);
-                setItem(true);
-              }}
-            />
-
-            {mostrarOtroCheckbox && (
-              <div>
-                <label htmlFor="nombre">Mostrar en el Menú</label>
-                <p>No</p>
-                <input
-                  type="checkbox"
-                  checked={listado === false ? true : false}
-                  onChange={() => {
-                    setListado(false);
-                    setMostrarPrecio(false);
-                    setPrecio(0);
-                  }}
-                />
-                <p>Sí</p>
-                <input
-                  type="checkbox"
-                  checked={listado === true ? true : false}
-                  onChange={() => {
-                    setListado(true);
-                    setMostrarPrecio(true);
-                    setPrecio("");
-                  }}
-                />
-              </div>
-            )}
-          </div>
-        )}
-
         {/* nombre */}
         {tipoElegido && (
           <div className="labelInput">
@@ -280,15 +216,87 @@ export default function FormProducto({
         {tipoElegido && (
           <div className="labelInput">
             <label htmlFor="descripcion">Descripción</label>
-            <input
+            <textarea
               id="descripcion"
               name="descripcion"
-              type="text"
               placeholder="Descripción del producto"
               value={descripcion}
               maxLength={150}
               onChange={(e) => setDescripcion(e.target.value)}
             />
+          </div>
+        )}
+
+        {/* Guardar como ítem */}
+        {crearProducto && (
+          <div className="labelInput">
+            <label htmlFor="nombre">Guardar como ítem</label>
+            <div className="checks">
+              <div className="checkContainer">
+                <input
+                  className="check"
+                  type="radio"
+                  checked={mostrarPersonaItem}
+                  onChange={() => {
+                    setMostrarPersonaItem(true);
+                    setMostrarOtroCheckbox(false);
+                    setListado(true);
+                    setItem(false);
+                  }}
+                />
+                <p>No</p>
+              </div>
+              <div className="checkContainer">
+                <input
+                  className="check"
+                  type="radio"
+                  checked={mostrarOtroCheckbox}
+                  onChange={() => {
+                    setMostrarOtroCheckbox(true);
+                    setCantidadPersonas(1);
+                    setMostrarPersonaItem(false);
+                    setNumItemsExtra(0);
+                    setItemsExtra([]);
+                    setItem(true);
+                  }}
+                />
+                <p>Sí</p>
+              </div>
+            </div>
+
+            {mostrarOtroCheckbox && (
+              <div className="labelInput">
+                <label htmlFor="nombre">Mostrar en el Menú</label>
+                <div className="checks">
+                  <div className="checkContainer">
+                    <input
+                      className="check"
+                      type="radio"
+                      checked={listado === false ? true : false}
+                      onChange={() => {
+                        setListado(false);
+                        setMostrarPrecio(false);
+                        setPrecio(0);
+                      }}
+                    />
+                    <p>No</p>
+                  </div>
+                  <div className="checkContainer">
+                    <input
+                      className="check"
+                      type="radio"
+                      checked={listado === true ? true : false}
+                      onChange={() => {
+                        setListado(true);
+                        setMostrarPrecio(true);
+                        setPrecio("");
+                      }}
+                    />
+                    <p>Sí</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -310,7 +318,7 @@ export default function FormProducto({
         <input type="hidden" name="id" id="id" value="" />
 
         {/* cantidad de personas */}
-        {mostrarPersonaItem && crearCombo && (
+        {mostrarPersonaItem && combo && (
           <>
             <div className="labelInput">
               <label htmlFor="cantidadPersonas">
@@ -349,7 +357,11 @@ export default function FormProducto({
             className="botonFooter btnCrearUsuario"
             onClick={onSubmit}
           >
-            {titulo === "Nuevo Producto" ? "Crear Producto" : "Guardar cambios"}
+            {titulo === "Nuevo Producto"
+              ? crearProducto
+                ? "Crear Producto"
+                : "Crear Combo"
+              : "Guardar Cambios"}
           </button>
         </div>
       </form>

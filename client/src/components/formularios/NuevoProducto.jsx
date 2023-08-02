@@ -18,6 +18,8 @@ export default function NuevoProducto() {
   const [mostrarOtroCheckbox, setMostrarOtroCheckbox] = useState(false);
   const [mostrarPrecio, setMostrarPrecio] = useState(true);
   const [item, setItem] = useState(false);
+  const [crearProducto, setCrearProducto] = useState(false);
+  const [combo, setCombo] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
 
   function validarProducto(e) {
@@ -35,6 +37,7 @@ export default function NuevoProducto() {
       listado,
       mostrarPersonaItem,
       mostrarOtroCheckbox,
+      combo,
     };
 
     if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
@@ -82,6 +85,10 @@ export default function NuevoProducto() {
       setMostrarPrecio={setMostrarPrecio}
       item={item}
       setItem={setItem}
+      crearProducto={crearProducto}
+      setCrearProducto={setCrearProducto}
+      combo={combo}
+      setCombo={setCombo}
     />
   );
 }
