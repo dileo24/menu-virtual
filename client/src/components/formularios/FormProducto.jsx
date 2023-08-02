@@ -126,6 +126,11 @@ export default function FormProducto({
                 onChange={() => {
                   setCombo(false);
                   setCrearProducto(true);
+                  setCantidadPersonas(1);
+                  setNumItemsExtra(0);
+                  setItemsExtra([]);
+                  setMostrarPersonaItem(true);
+                  setMostrarOtroCheckbox(false);
                 }}
                 required
               />
@@ -139,6 +144,9 @@ export default function FormProducto({
                 onChange={() => {
                   setCombo(true);
                   setCrearProducto(false);
+                  setItem(false);
+                  setMostrarOtroCheckbox(false);
+                  setMostrarPersonaItem(true);
                 }}
                 required
               />
@@ -160,7 +168,7 @@ export default function FormProducto({
               value={categoriaID || ""}
             >
               <option value="" hidden>
-                Elegí una categoría
+                Selecciona una categoría
               </option>
               {categorias.map((categoria) => (
                 <option key={categoria.id} value={categoria.id}>
@@ -178,12 +186,14 @@ export default function FormProducto({
             (subC) => Number(subC.categoria.id) === Number(categoriaID)
           ) && (
             <div className="labelInput">
-              <label>SubCategoría</label>
+              <label>
+                SubCategoría <span>(no obligatorio)</span>
+              </label>
               <select
                 onChange={(e) => setSubcategoriaID(e.target.value)}
-                value={subcategoriaID}
+                value={subcategoriaID || ""}
               >
-                <option hidden>Subcategoria (no obligatorio)</option>
+                <option hidden>Selecciona una SubCategoria</option>
                 {subcategorias.map(
                   (subC) =>
                     Number(subC.categoria.id) === Number(categoriaID) && (
@@ -230,7 +240,13 @@ export default function FormProducto({
         {/* Guardar como ítem */}
         {crearProducto && (
           <div className="labelInput">
-            <label htmlFor="nombre">Guardar como ítem</label>
+            <label htmlFor="nombre">
+              Guardar como ítem{" "}
+              <span>
+                Permitir que el producto sea elegido como ítem extra en los
+                combos asociados a esta categoría
+              </span>
+            </label>
             <div className="checks">
               <div className="checkContainer">
                 <input
@@ -254,7 +270,6 @@ export default function FormProducto({
                   onChange={() => {
                     setMostrarOtroCheckbox(true);
                     setCantidadPersonas(1);
-                    setMostrarPersonaItem(false);
                     setNumItemsExtra(0);
                     setItemsExtra([]);
                     setItem(true);
@@ -318,7 +333,7 @@ export default function FormProducto({
         <input type="hidden" name="id" id="id" value="" />
 
         {/* cantidad de personas */}
-        {mostrarPersonaItem && combo && (
+        {combo && (
           <>
             <div className="labelInput">
               <label htmlFor="cantidadPersonas">

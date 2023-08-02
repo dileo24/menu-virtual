@@ -83,12 +83,11 @@ export default function Items({
       <div className="labelInput">
         <label htmlFor="numItemsExtra">
           Ítems Extra
-          <span className="font-normal"> (no obligatorio)</span>
+          <span className="ml-2"> (no obligatorio)</span>
         </label>
         <div className="numItems">
           {numItemsExtra ? (
             <>
-              {" "}
               <Button signo="-" funcion={decrementNumItems} />
               <p
                 className="w-5 mx-3 text-center text-gray-700  font-medium leading-tight focus:outline-none focus:shadow-outline"
@@ -105,15 +104,28 @@ export default function Items({
           <Button signo="+" funcion={incrementNumItems} />
         </div>
       </div>
+      {numItemsExtra ? (
+        <p className="info">
+          Selecciona categorías o subcategorías para vincular sus productos
+          guardados como ítems
+        </p>
+      ) : (
+        ""
+      )}
 
       {itemsExtra.map((item, index) => (
-        <div className="labelInput" key={index}>
-          <label className="" htmlFor={`item${index}`}>
+        <div className="labelInput " key={index}>
+          <label className="item" htmlFor={`item${index}`}>
             ítem {index + 1}
           </label>
-          <select onChange={(e) => handleItemChange(e, index)}>
+          <select
+            className="itemInput"
+            onChange={(e) => handleItemChange(e, index)}
+          >
             <option hidden>
-              {itemsExtra[index] === "" ? "Elegí un item" : itemsExtra[index]}
+              {itemsExtra[index] === ""
+                ? "Selecciona una categoría"
+                : itemsExtra[index]}
             </option>
 
             {/* {categoriasUnicas.map((nombre, index) => (
