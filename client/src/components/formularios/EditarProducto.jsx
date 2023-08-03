@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import FormProducto from "./FormProducto";
-import {
-  obtenerProducto,
-  obtenerItem,
-  ningunInputVacio,
-  editarProducto,
-  mostrarAlerta,
-} from "../../helpers";
+import { obtenerProducto, obtenerItem, editarProducto } from "../../helpers";
 import { useSelector } from "react-redux";
+import Alerta from "../recursos/Alerta";
 
 export default function EditarProductos() {
   const [nombre, setNombre] = useState("");
@@ -27,6 +22,17 @@ export default function EditarProductos() {
   const [crearProducto, setCrearProducto] = useState(false);
   const [combo, setCombo] = useState(false);
   const token = useSelector((state) => state.userActual.tokenSession);
+  const [alertaError, setAlertaError] = useState(false);
+  const [alertaExito, setAlertaExito] = useState(false);
+
+  const checkForEmptyElements = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === "") {
+        return true; // Si se encuentra un elemento vacío, se devuelve true
+      }
+    }
+    return false; // Si no se encuentra ningún elemento vacío, se devuelve false
+  };
 
   useEffect(() => {
     // Obtener el ID del producto de la URL cuando se carga la página
@@ -94,6 +100,13 @@ export default function EditarProductos() {
   function validarProducto(e) {
     e.preventDefault();
 
+    if (checkForEmptyElements(itemsExtra)) {
+      return setAlertaError({
+        estadoActualizado: true,
+        texto: `Falta seleccionar la categoría de algún ítem extra`,
+      });
+    }
+
     const producto = {
       categoriaID,
       subcategoriaID,
@@ -110,51 +123,72 @@ export default function EditarProductos() {
       combo,
     };
 
-    if (!ningunInputVacio(producto) || itemsExtra.some((item) => item === "")) {
-      return mostrarAlerta("Error: Hay algún campo vacío", "error");
-    }
-    // if (nombre === " - Personalizable") {
-    //   return mostrarAlerta("Error: El nombre está incompleto", "error");
-    // }
-    editarProducto(producto, token);
-    mostrarAlerta("Producto editado con éxito", "exito");
+    setAlertaExito({
+      estado: true,
+      texto: combo
+        ? "Combo actualizado con éxito"
+        : "Producto actualizado con éxito",
+      producto,
+    });
   }
 
   return (
-    <FormProducto
-      nombre={nombre}
-      setNombre={setNombre}
-      cantidadPersonas={cantidadPersonas}
-      setCantidadPersonas={setCantidadPersonas}
-      descripcion={descripcion}
-      setDescripcion={setDescripcion}
-      precio={precio}
-      setPrecio={setPrecio}
-      id={id}
-      setId={setId}
-      itemsExtra={itemsExtra}
-      setItemsExtra={setItemsExtra}
-      onSubmit={validarProducto}
-      numItemsExtra={numItemsExtra}
-      setNumItemsExtra={setNumItemsExtra}
-      categoriaID={categoriaID}
-      setCategoriaID={setCategoriaID}
-      subcategoriaID={subcategoriaID}
-      setSubcategoriaID={setSubcategoriaID}
-      listado={listado}
-      setListado={setListado}
-      mostrarPersonaItem={mostrarPersonaItem}
-      setMostrarPersonaItem={setMostrarPersonaItem}
-      mostrarOtroCheckbox={mostrarOtroCheckbox}
-      setMostrarOtroCheckbox={setMostrarOtroCheckbox}
-      item={item}
-      setItem={setItem}
-      mostrarPrecio={mostrarPrecio}
-      setMostrarPrecio={setMostrarPrecio}
-      crearProducto={crearProducto}
-      setCrearProducto={setCrearProducto}
-      combo={combo}
-      setCombo={setCombo}
-    />
+    <>
+      <FormProducto
+        nombre={nombre}
+        setNombre={setNombre}
+        cantidadPersonas={cantidadPersonas}
+        setCantidadPersonas={setCantidadPersonas}
+        descripcion={descripcion}
+        setDescripcion={setDescripcion}
+        precio={precio}
+        setPrecio={setPrecio}
+        id={id}
+        setId={setId}
+        itemsExtra={itemsExtra}
+        setItemsExtra={setItemsExtra}
+        onSubmit={validarProducto}
+        numItemsExtra={numItemsExtra}
+        setNumItemsExtra={setNumItemsExtra}
+        categoriaID={categoriaID}
+        setCategoriaID={setCategoriaID}
+        subcategoriaID={subcategoriaID}
+        setSubcategoriaID={setSubcategoriaID}
+        listado={listado}
+        setListado={setListado}
+        mostrarPersonaItem={mostrarPersonaItem}
+        setMostrarPersonaItem={setMostrarPersonaItem}
+        mostrarOtroCheckbox={mostrarOtroCheckbox}
+        setMostrarOtroCheckbox={setMostrarOtroCheckbox}
+        item={item}
+        setItem={setItem}
+        mostrarPrecio={mostrarPrecio}
+        setMostrarPrecio={setMostrarPrecio}
+        crearProducto={crearProducto}
+        setCrearProducto={setCrearProducto}
+        combo={combo}
+        setCombo={setCombo}
+      />
+      {alertaError && (
+        <Alerta
+          tipo={"error"}
+          titulo={"Error"}
+          texto={alertaError.texto}
+          estado={alertaError}
+          setEstado={setAlertaError}
+          callback={() => {}}
+        />
+      )}
+      {alertaExito && (
+        <Alerta
+          tipo={"exito"}
+          titulo={"Éxito"}
+          texto={alertaExito.texto}
+          estado={alertaExito}
+          setEstado={setAlertaExito}
+          callback={() => editarProducto(alertaExito.producto, token)}
+        />
+      )}
+    </>
   );
 }

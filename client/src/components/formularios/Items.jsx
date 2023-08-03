@@ -121,6 +121,7 @@ export default function Items({
           <select
             className="itemInput"
             onChange={(e) => handleItemChange(e, index)}
+            required
           >
             <option hidden>
               {itemsExtra[index] === ""

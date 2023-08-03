@@ -46,15 +46,6 @@ export default function EditarUsuario() {
   };
 
   const handleSubmit = () => {
-    validateEmail(input.email.valueOf());
-    if (input.clave.length < 8 && editarContra) {
-      return mostrarAlerta(
-        "La contraseña debe tener al menos 8 caracteres",
-        "error"
-      );
-    } else if (!email) {
-      return mostrarAlerta("Formato del email inválido", "error");
-    }
     // mostrarAlerta("Usuario acutualizado con con éxito", "exito");
 
     dispatch(desbloqueoUsuario(input, id, token));
@@ -103,6 +94,15 @@ export default function EditarUsuario() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          validateEmail(input.email.valueOf());
+          if (input.clave.length < 8 && editarContra) {
+            return mostrarAlerta(
+              "La contraseña debe tener al menos 8 caracteres",
+              "error"
+            );
+          } else if (!email) {
+            return mostrarAlerta("Formato del email inválido", "error");
+          }
           setAlertaExito({
             estado: true,
             texto: "Usuario actualizado con éxito",
