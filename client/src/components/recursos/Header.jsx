@@ -150,7 +150,7 @@ export default function Header({
     const elementos = currentSlideElement.querySelectorAll(
       `#${removeAccentsAndSpaces(subC.nombre)}`
     );
-    console.log(currentSlideElement);
+    // console.log(currentSlideElement);
 
     // Verificar si se encontraron elementos y scrollear hasta el primer elemento
     if (elementos.length > 0) {
