@@ -9,15 +9,9 @@ import Alerta from "../recursos/Alerta";
 
 export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
   const userActual = useSelector((state) => state.userActual);
-  // const itemsNoListados = useSelector((state) => state.itemsNoListados);
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
-  // let subcategorias = useSelector((state) => state.subcategorias);
-  prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
-
-  let productos = productosState.filter((prod) =>
-    categ !== "todas" ? prod.categoria.nombre === categ : prod
-  );
+  const categorias = useSelector((state) => state.categorias);
 
   useEffect(() => {
     dispatch(getProductos());
@@ -34,37 +28,50 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
       .replace(/\s/g, "");
   };
 
-  return (
-    productosState && (
-      <main className="menuContainer">
-        <div className="cardsVisibles">
-          {/********************* PRODUCTOS VISIBLES *********************/}
+  let productos = productosState.filter((prod) =>
+    categ !== "todas" ? prod.categoria.nombre === categ : prod
+  );
 
-          {productos
-            .filter(
-              (producto) => producto.listado === true && producto.item === false
-            )
-            .map(
-              ({
-                nombre,
-                descripcion,
-                precio,
-                itemsExtra,
-                id,
-                cantidadPersonas,
-                categoria,
-                subcategoria,
-              }) => {
-                const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
-                if (esNuevaCategoria) {
-                  ultimaCategoria = categoria.nombre;
-                }
-                return (
-                  <div key={id}>
-                    {categ === "todas" && esNuevaCategoria && (
-                      <h1 className="nombreCateg">{categoria.nombre}</h1>
-                    )}
+  // Filtrar los productos por categoría
+  const filtrarProductosPorCategoria = (categoria) => {
+    return productos.filter((prod) => prod.categoria.nombre === categoria);
+  };
+
+  return (
+    productos && (
+      <main className="menuContainer">
+        {categorias.map((categoria) => {
+          const productosConItemFalse = filtrarProductosPorCategoria(
+            categoria.nombre
+          ).filter(
+            (producto) => producto.listado === true && producto.item === false
+          );
+          const productosConItemTrue = filtrarProductosPorCategoria(
+            categoria.nombre
+          ).filter(
+            (producto) => producto.listado === true && producto.item === true
+          );
+
+          return (
+            <div key={categoria.id}>
+              {categ === "todas" && (
+                <h1 className="nombreCateg">{categoria.nombre}</h1>
+              )}
+              <div className="cardsVisibles">
+                {/* Renderizar los productos con item === false */}
+                {productosConItemFalse.map(
+                  ({
+                    nombre,
+                    descripcion,
+                    precio,
+                    itemsExtra,
+                    id,
+                    cantidadPersonas,
+                    categoria,
+                    subcategoria,
+                  }) => (
                     <div
+                      key={id}
                       id={
                         subcategoria
                           ? removeAccentsAndSpaces(subcategoria.nombre)
@@ -106,37 +113,22 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                         <p className="precio">${precio}</p>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-            )}
+                  )
+                )}
 
-          {/********************* ITEMS VISIBLES *********************/}
-          {productos
-            .filter(
-              (producto) => producto.listado === true && producto.item === true
-            )
-            .map(
-              ({
-                nombre,
-                descripcion,
-                precio,
-                itemsExtra,
-                id,
-                cantidadPersonas,
-                categoria,
-                subcategoria,
-              }) => {
-                const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
-                if (esNuevaCategoria) {
-                  ultimaCategoria = categoria.nombre;
-                }
-                return (
-                  <div key={id}>
-                    {categ === "todas" && esNuevaCategoria && (
-                      <h1 className="nombreCateg">{categoria.nombre}</h1>
-                    )}
+                {/* Renderizar los productos con item === true */}
+                {productosConItemTrue.map(
+                  ({
+                    nombre,
+                    descripcion,
+                    precio,
+                    itemsExtra,
+                    id,
+                    cantidadPersonas,
+                    subcategoria,
+                  }) => (
                     <div
+                      key={id}
                       id={
                         subcategoria
                           ? removeAccentsAndSpaces(subcategoria.nombre)
@@ -177,11 +169,12 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                         <p className="precio">${precio}</p>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-            )}
-        </div>
+                  )
+                )}
+              </div>
+            </div>
+          );
+        })}
         {/********************* ITEMS NO VISIBLES *********************/}
         <div>
           {userActual && (
@@ -241,7 +234,7 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                   );
                 }) ? (
                 <div className="cardsNoVisibles">
-                  <p className="nombreCateg">Items no visibles</p>
+                  <p className="nombreCateg noVisibles">Items no visibles</p>
                   {productosState
                     .filter(
                       (producto) =>
@@ -318,7 +311,7 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                 </div>
               ) : null}
             </div>
-          )}
+          )}{" "}
         </div>
       </main>
     )
