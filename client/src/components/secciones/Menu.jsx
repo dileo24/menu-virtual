@@ -67,7 +67,6 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                     itemsExtra,
                     id,
                     cantidadPersonas,
-                    categoria,
                     subcategoria,
                   }) => (
                     <div
