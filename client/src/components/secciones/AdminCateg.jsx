@@ -149,11 +149,13 @@ export default function AdminCateg() {
               <p className="categName">{categ.nombre}</p>
               {categ.subcategorias && (
                 <ul className="subCategs">
-                  {categ.subcategorias.map((subC, index) => (
-                    <li key={index} className="list-item">
-                      <span className="list-item-circle"></span> {subC.nombre}
-                    </li>
-                  ))}
+                  {categ.subcategorias
+                    .sort((a, b) => a.id - b.id) // Sort subcategories by ID
+                    .map((subC, index) => (
+                      <li key={index} className="list-item">
+                        <span className="list-item-circle"></span> {subC.nombre}
+                      </li>
+                    ))}
                 </ul>
               )}
               <div className="administrarCateg">
