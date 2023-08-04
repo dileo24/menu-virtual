@@ -41,6 +41,15 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
     productos && (
       <main className="menuContainer">
         {categorias.map((categoria) => {
+          // Comprobar que haya productos en la categoría
+          const productosCategoria = productos.filter(
+            (prod) => prod.categoria.nombre === categoria.nombre
+          );
+          if (productosCategoria.length === 0) {
+            // Si no hay prod en la categ, la saltea
+            return null;
+          }
+
           const productosConItemFalse = filtrarProductosPorCategoria(
             categoria.nombre
           ).filter(
