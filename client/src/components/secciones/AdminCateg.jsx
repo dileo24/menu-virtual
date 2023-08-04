@@ -16,15 +16,19 @@ import Alerta from "../recursos/Alerta";
 
 export default function AdminCateg() {
   const dispatch = useDispatch();
+  const categorias = useSelector((state) => state.categorias);
+  let categs = categorias;
   const categsBusq = useSelector((state) => state.categsBusq);
   const token = useSelector((state) => state.userActual.tokenSession);
   let productosState = useSelector((state) => state.home);
   const [modal, setModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  // const navigate = useNavigate();
   const [alertaError, setAlertaError] = useState(false);
+  const [alertaError2, setAlertaError2] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const [alertaPregunta, setAlertaPregunta] = useState(false);
+  const [busqueda, setBusqueda] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -116,13 +120,29 @@ export default function AdminCateg() {
     });
   };
 
+  categsBusq && categsBusq.length > 0 && (categs = categsBusq);
+
+  useEffect(() => {
+    checkAlertaError && categsBusq && categsBusq.length === 0
+      ? setAlertaError2({
+          estadoActualizado: true,
+          texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
+        })
+      : setCheckAlertaError(false);
+  }, [checkAlertaError]);
+
   return (
     <>
       <Header />
 
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
-        <Filtros searchType="categorias" searchWord={"categorías"} />
+        <Filtros
+          searchType="categorias"
+          searchWord={"categorías"}
+          setBusqueda={setBusqueda}
+          setCheckAlertaError={setCheckAlertaError}
+        />
         <form
           onSubmit={(e) => {
             setAlertaExito(true);
@@ -144,7 +164,7 @@ export default function AdminCateg() {
           </button>
         </form>
         <div>
-          {categsBusq.map((categ) => (
+          {categs.map((categ) => (
             <div key={categ.id} className="cardCateg">
               <p className="categName">{categ.nombre}</p>
               {categ.subcategorias && (
@@ -234,6 +254,16 @@ export default function AdminCateg() {
             estado={alertaError}
             setEstado={setAlertaError}
             callback={() => {}}
+          />
+        )}
+        {alertaError2 && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={alertaError2.texto}
+            estado={alertaError2}
+            setEstado={setAlertaError2}
+            callback={() => setCheckAlertaError(false)}
           />
         )}
         {alertaExito && (

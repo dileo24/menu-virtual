@@ -25,10 +25,13 @@ export default function Filtros({
       dispatch(searchXname(state, searchType));
       handleSearch();
       setState("");
+      // if (window.location.pathname === "/") {
       setBusqueda(state);
       setCheckAlertaError(true);
+      // }
     }
   };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       limpiarState();
