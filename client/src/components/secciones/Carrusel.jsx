@@ -126,15 +126,6 @@ const Carrusel = () => {
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);
     setPreciosArray(precios);
-
-    // const nombres = carrito.map((carritoItem) => carritoItem.nombre);
-    // setNombresProdArray(nombres);
-
-    // setInput((prevInput) => ({
-    //   ...prevInput,
-    //   productos: nombres,
-    //   precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    // }));
   }, [carrito]);
 
   useEffect(() => {
@@ -147,16 +138,15 @@ const Carrusel = () => {
       const swipe = document.querySelector(".swipe");
       swipe.style.maxHeight = `${menuContainerHeight}px`;
     }
-  }, [currentSlide]);
+  }, [currentSlide, checkAlertaError]);
 
   useEffect(() => {
-    checkAlertaError &&
-      homeBusqueda &&
-      homeBusqueda.length === 0 &&
-      setAlertaError({
-        estadoActualizado: true,
-        texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
-      });
+    checkAlertaError && homeBusqueda && homeBusqueda.length === 0
+      ? setAlertaError({
+          estadoActualizado: true,
+          texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
+        })
+      : setCheckAlertaError(false);
   }, [checkAlertaError]);
 
   return (
