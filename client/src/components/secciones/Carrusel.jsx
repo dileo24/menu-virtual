@@ -24,6 +24,9 @@ const Carrusel = () => {
   let precioFinal = 0;
   const token = userActual && userActual.tokenSession;
   let productosState = useSelector((state) => state.home);
+  const [busqueda, setBusqueda] = useState(false);
+  const [alertaError, setAlertaError] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
@@ -146,12 +149,24 @@ const Carrusel = () => {
     }
   }, [currentSlide]);
 
+  useEffect(() => {
+    checkAlertaError &&
+      homeBusqueda &&
+      homeBusqueda.length === 0 &&
+      setAlertaError({
+        estadoActualizado: true,
+        texto: `No se encontraron resultados para esa búsqueda`,
+      });
+  }, [checkAlertaError]);
+
   return (
     <div className="containerCarrusel">
       <Header
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
         handleSearch={handleSearch}
+        setBusqueda={setBusqueda}
+        setCheckAlertaError={setCheckAlertaError}
       />
       <div className="carruselContainer">
         <div className="carrusel-wrapper" ref={carruselRef}>
@@ -171,6 +186,8 @@ const Carrusel = () => {
                   prodsBuscados={homeBusqueda}
                   currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
+                  setBusqueda={setBusqueda}
+                  busqueda={busqueda}
                 />
               </div>
               {categorias.map(
@@ -215,6 +232,16 @@ const Carrusel = () => {
           setEstado={setAlertaPregunta}
           callback={() => handleEliminarProducto(alertaPregunta.id)}
           aceptar={"Eliminar"}
+        />
+      )}
+      {alertaError && (
+        <Alerta
+          tipo={"error"}
+          titulo={"Error"}
+          texto={alertaError.texto}
+          estado={alertaError}
+          setEstado={setAlertaError}
+          callback={() => setCheckAlertaError(false)}
         />
       )}
     </div>

@@ -2,13 +2,14 @@
   .searchBar {
     display: flex;
     background-color: rgba(0, 0, 0, 0.079);
-    padding: 1.5% 0;
+    padding: 1.5% 2vw;
     width: 100%;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
+    text-align: center;
     &::placeholder {
       color: gray;
       text-align: center;

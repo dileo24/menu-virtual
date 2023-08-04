@@ -25,6 +25,8 @@ export default function Header({
   currentSlide,
   setCurrentSlide,
   handleSearch,
+  setBusqueda,
+  setCheckAlertaError,
 }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -408,7 +410,12 @@ export default function Header({
               <img src={login} alt="login" className="usuarioIcon" />
             </Link>
             <div className="navbarCont">
-              <Filtros handleSearch={handleSearch} searchWord={"productos"} />
+              <Filtros
+                handleSearch={handleSearch}
+                searchWord={"productos"}
+                setBusqueda={setBusqueda}
+                setCheckAlertaError={setCheckAlertaError}
+              />
             </div>
             <Link to="/historial" className="carrito">
               <img src={bandeja} alt="bandeja" className="carritoIcon" />
@@ -426,7 +433,13 @@ export default function Header({
             {userActual && userActual.data.RolId <= 2 && (
               <div className="headerHomeUsuarios">
                 <h1>Administrar Menú</h1>
-                <Filtros handleSearch={handleSearch} searchWord={"productos"} />
+
+                <Filtros
+                  handleSearch={handleSearch}
+                  searchWord={"productos"}
+                  setBusqueda={setBusqueda}
+                  setCheckAlertaError={setCheckAlertaError}
+                />
               </div>
             )}
             <div id="categorias">

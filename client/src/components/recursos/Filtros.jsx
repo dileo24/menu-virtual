@@ -6,6 +6,8 @@ export default function Filtros({
   handleSearch = () => {},
   searchType,
   searchWord,
+  setBusqueda,
+  setCheckAlertaError,
 }) {
   const [state, setState] = useState("");
   const dispatch = useDispatch();
@@ -23,6 +25,8 @@ export default function Filtros({
       dispatch(searchXname(state, searchType));
       handleSearch();
       setState("");
+      setBusqueda(state);
+      setCheckAlertaError(true);
     }
   };
   const handleKeyDown = (e) => {

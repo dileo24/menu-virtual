@@ -1,7 +1,21 @@
 .menuContainer {
   padding: 0 5% 28vw 5%;
   min-height: 90vh;
-
+  .resultados {
+    font-weight: $titleWeight;
+    font-size: 5vw;
+    margin: 8vw 0 2vw 0;
+  }
+  .limpiarBusq {
+    font-weight: $titleWeight;
+    font-size: $subtSize;
+    line-height: 1;
+    border-bottom: 1px solid black;
+    margin-bottom: 8vw;
+    &:focus {
+      outline: none;
+    }
+  }
   .nombreCateg {
     font-weight: $titleWeight;
     font-size: $titleSize;
