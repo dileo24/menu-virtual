@@ -155,7 +155,7 @@ const Carrusel = () => {
       homeBusqueda.length === 0 &&
       setAlertaError({
         estadoActualizado: true,
-        texto: `No se encontraron resultados para esa búsqueda`,
+        texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
       });
   }, [checkAlertaError]);
 
@@ -186,7 +186,6 @@ const Carrusel = () => {
                   prodsBuscados={homeBusqueda}
                   currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
-                  setBusqueda={setBusqueda}
                   busqueda={busqueda}
                 />
               </div>
@@ -202,6 +201,7 @@ const Carrusel = () => {
                           categ={categ.nombre}
                           currentSlide={currentSlide}
                           handleClickEliminar={handleClickEliminar}
+                          busqueda={busqueda}
                         />
                       )}
                     </div>

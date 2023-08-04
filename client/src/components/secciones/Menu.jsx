@@ -12,7 +12,6 @@ export default function Menu({
   prodsBuscados,
   handleClickEliminar,
   busqueda,
-  setBusqueda,
 }) {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
