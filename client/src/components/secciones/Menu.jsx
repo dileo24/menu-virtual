@@ -12,6 +12,7 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
+  const subcategorias = useSelector((state) => state.subcategorias);
 
   useEffect(() => {
     dispatch(getProductos());
@@ -19,6 +20,7 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
   }, [dispatch]);
 
   let ultimaCategoria = "";
+  let ultimaSubCategoria = "";
 
   // Función para quitar tildes y espacios
   const removeAccentsAndSpaces = (str) => {
@@ -50,15 +52,12 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
             return null;
           }
 
-          const productosConItemFalse = filtrarProductosPorCategoria(
+          const productosPorCateg = filtrarProductosPorCategoria(
             categoria.nombre
-          ).filter(
-            (producto) => producto.listado === true && producto.item === false
-          );
-          const productosConItemTrue = filtrarProductosPorCategoria(
-            categoria.nombre
-          ).filter(
-            (producto) => producto.listado === true && producto.item === true
+          ).filter((producto) => producto.listado === true);
+
+          const productosSinSubcateg = productosPorCateg.filter(
+            (prod) => prod.subcategoria === null
           );
 
           return (
@@ -66,9 +65,10 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
               {categ === "todas" && (
                 <h1 className="nombreCateg">{categoria.nombre}</h1>
               )}
+
+              {/* Renderizar los productos sin subcategoria */}
               <div className="cardsVisibles">
-                {/* Renderizar los productos con item === false */}
-                {productosConItemFalse.map(
+                {productosSinSubcateg.map(
                   ({
                     nombre,
                     descripcion,
@@ -123,63 +123,94 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                     </div>
                   )
                 )}
-
-                {/* Renderizar los productos con item === true */}
-                {productosConItemTrue.map(
-                  ({
-                    nombre,
-                    descripcion,
-                    precio,
-                    itemsExtra,
-                    id,
-                    cantidadPersonas,
-                    subcategoria,
-                  }) => (
-                    <div
-                      key={id}
-                      id={
-                        subcategoria
-                          ? removeAccentsAndSpaces(subcategoria.nombre)
-                          : ""
-                      }
-                      className="cardItem"
-                    >
-                      <p className="nombre">{nombre}</p>
-                      <p className="descripcion">{descripcion}</p>
-                      <div className="precioAcciones">
-                        <div className="acciones">
-                          {userActual ? (
-                            <>
-                              <Link
-                                to={`/editarProducto?idItem=${id}`}
-                                className="iconContainer1"
-                              >
-                                <HiOutlinePencil className="editarIcon" />
-                              </Link>
-                              <button
-                                onClick={() => handleClickEliminar(id)}
-                                className="iconContainer2"
-                              >
-                                <VscTrash className="eliminarIcon" />
-                              </button>
-                            </>
-                          ) : (
-                            <Contador
-                              id={id}
-                              nombre={nombre}
-                              descripcion={descripcion}
-                              precio={precio}
-                              itemsExtra={itemsExtra}
-                              cantidadPersonas={cantidadPersonas}
-                            />
-                          )}
-                        </div>
-                        <p className="precio">${precio}</p>
-                      </div>
-                    </div>
-                  )
-                )}
               </div>
+
+              {/* Renderizar los productos con subcategoria */}
+              {subcategorias.map((subcategoria) => {
+                const productosPorSubCateg = productosPorCateg.filter(
+                  (prod) =>
+                    prod.subcategoria &&
+                    prod.subcategoria.nombre === subcategoria.nombre
+                );
+                return (
+                  <div className="cardsVisibles" key={subcategoria.id}>
+                    {/* Renderizar los productos con item === false */}
+                    {productosPorSubCateg.map(
+                      ({
+                        nombre,
+                        descripcion,
+                        precio,
+                        itemsExtra,
+                        id,
+                        cantidadPersonas,
+                        subcategoria,
+                      }) => {
+                        const esNuevaSubCategoria =
+                          subcategoria.nombre !== ultimaSubCategoria;
+                        if (esNuevaSubCategoria) {
+                          ultimaSubCategoria = subcategoria.nombre;
+                        }
+                        return (
+                          <div
+                            key={id}
+                            id={
+                              subcategoria
+                                ? removeAccentsAndSpaces(subcategoria.nombre)
+                                : ""
+                            }
+                          >
+                            {categ !== "todas" && esNuevaSubCategoria && (
+                              <h1 className="nombreCateg">
+                                {subcategoria.nombre}
+                              </h1>
+                            )}
+                            {categ === "todas" && esNuevaSubCategoria && (
+                              <h1 className="nombreSubCateg">
+                                {subcategoria.nombre}
+                              </h1>
+                            )}
+                            <div className="cardProducto">
+                              <p className="nombre">{nombre}</p>
+                              <p className="descripcion">{descripcion}</p>
+                              <div className="precioAcciones">
+                                <div className="acciones">
+                                  {userActual ? (
+                                    <>
+                                      <Link
+                                        to={`/editarProducto?id=${id}`}
+                                        className="iconContainer1"
+                                      >
+                                        <HiOutlinePencil className="editarIcon" />
+                                      </Link>
+
+                                      <button
+                                        onClick={() => handleClickEliminar(id)}
+                                        className="iconContainer2"
+                                      >
+                                        <VscTrash className="eliminarIcon" />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <Contador
+                                      id={id}
+                                      nombre={nombre}
+                                      descripcion={descripcion}
+                                      precio={precio}
+                                      itemsExtra={itemsExtra}
+                                      cantidadPersonas={cantidadPersonas}
+                                    />
+                                  )}
+                                </div>
+                                <p className="precio">${precio}</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                );
+              })}
             </div>
           );
         })}
