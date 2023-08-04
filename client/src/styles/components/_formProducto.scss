@@ -1,6 +1,8 @@
 .prodContainer {
   width: 100vw;
   height: 100vh;
+  background-color: rgb(247, 247, 247);
+
   .prodTitle {
     margin: 0 0 5vw 5vw;
     font-weight: 900;
@@ -65,6 +67,7 @@
           border-radius: 8px;
           width: 42.5vw;
           height: 12vw;
+          background-color: white;
           .check {
             width: 5vw;
             height: 5vw;

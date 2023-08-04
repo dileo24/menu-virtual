@@ -22,7 +22,7 @@ header {
     z-index: 999;
 
     .headerUsuarios {
-      background-color: white;
+      background-color: transparent;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -35,7 +35,7 @@ header {
         height: 8vw;
         border: 1px solid $paragraph;
         border-radius: 8px;
-        background-color: rgb(255, 255, 255);
+        background-color: white;
         @include center;
         .burgerIcon {
           width: 1.2rem;
@@ -168,7 +168,7 @@ header {
       width: 100vw;
       padding: 5%;
       padding-top: 0;
-
+      background-color: white;
       h1 {
         font-weight: $titleWeight;
         font-size: $titleSize;

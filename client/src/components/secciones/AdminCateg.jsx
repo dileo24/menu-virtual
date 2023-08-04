@@ -119,6 +119,7 @@ export default function AdminCateg() {
   return (
     <>
       <Header />
+
       <div className="categContainer">
         <h1 className="categTitle">Administrar Categorías</h1>
         <Filtros searchType="categorias" searchWord={"categorías"} />

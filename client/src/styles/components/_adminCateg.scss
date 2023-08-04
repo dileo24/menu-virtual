@@ -1,5 +1,9 @@
+body {
+  background-color: rgb(247, 247, 247);
+}
 .categContainer {
   padding: 0 5% 10% 5%;
+
   .categTitle {
     font-size: $titleSize;
     font-weight: $titleWeight;
@@ -12,7 +16,8 @@
     margin: 4.5vw 0;
     position: relative;
     .nombreInput {
-      border: 1px solid rgb(196, 196, 196);
+      border: 1px solid grey;
+
       border-radius: 8px;
       width: 100%;
       height: 12vw;
@@ -167,7 +172,7 @@
       }
       form {
         .nombreInput {
-          border: 1px solid rgb(196, 196, 196);
+          border: 1px solid grey;
           border-radius: 8px;
           width: 100%;
           height: 12vw;

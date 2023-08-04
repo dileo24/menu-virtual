@@ -16,6 +16,7 @@
     .circle0,
     .circle1,
     .circle2 {
+      background-color: white;
       width: 3vw;
       height: 3vw;
       border: 1px solid black;
@@ -204,5 +205,5 @@
 }
 
 .circleActive {
-  background-color: black;
+  background-color: black !important;
 }

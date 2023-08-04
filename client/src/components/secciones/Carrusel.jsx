@@ -147,7 +147,7 @@ const Carrusel = () => {
   }, [currentSlide]);
 
   return (
-    <div>
+    <div className="containerCarrusel">
       <Header
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
