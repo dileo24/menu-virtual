@@ -97,6 +97,9 @@
       .agregarBtn {
         position: absolute;
         top: 25%;
+        @media (max-height: 800px) {
+          top: 20%;
+        }
         right: 3%;
         color: $info;
         font-weight: $titleWeight;

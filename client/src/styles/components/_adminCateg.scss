@@ -31,6 +31,9 @@ body {
     .agregarBtn {
       position: absolute;
       top: 26%;
+      @media (max-height: 800px) {
+        top: 20%;
+      }
       right: 4%;
       color: $info;
       font-weight: $titleWeight;
@@ -185,7 +188,10 @@ body {
         }
         .agregarBtn {
           position: absolute;
-          top: 47.7%;
+          top: 47.9%;
+          @media (max-height: 800px) {
+            top: 47%;
+          }
           right: 14%;
           color: $info;
           font-weight: $titleWeight;
