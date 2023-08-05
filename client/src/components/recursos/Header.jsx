@@ -298,7 +298,7 @@ export default function Header({
                         Usuarios
                       </Link>
 
-                      <p className="navSideTitles">Reportes</p>
+                      {/* <p className="navSideTitles">Reportes</p>
 
                       <Link
                         to="/estadisticas"
@@ -310,7 +310,7 @@ export default function Header({
                       >
                         <IoIosStats className="linkIcon" />
                         Estadisticas
-                      </Link>
+                      </Link> */}
                       <button
                         onClick={() => setAlertaPregunta(true)}
                         className="cerrarSesion"
