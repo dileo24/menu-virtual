@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "../recursos/Filtros";
@@ -19,6 +19,7 @@ import {
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
 import { GiCook } from "react-icons/gi";
+import Swipe from "react-swipe";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -30,6 +31,8 @@ export default function Pedidos() {
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
   /* let allPedidos = [...nuevosPedidos, ...pedidos]; */
   const productos = useSelector((state) => state.productos);
+  const [currentSlide, setCurrentSlide] = useState(null);
+  const [diapoActual, setDiapoActual] = useState(0);
 
   useEffect(() => {
     // Local
@@ -150,6 +153,23 @@ export default function Pedidos() {
     return product ? product.precio : 0;
   };
 
+  useEffect(() => {
+    const diapo = document.querySelector(
+      `.diapositiva[data-index="${currentSlide}"]`
+    );
+    if (diapo) {
+      const diapoContainerHeight = diapo.offsetHeight;
+      const swipe = document.querySelector(".swipe");
+      swipe.style.maxHeight = `${diapoContainerHeight}px`;
+    }
+  }, [currentSlide]);
+
+  const handleSwipe = useCallback((index) => {
+    setCurrentSlide(index);
+    setDiapoActual(index);
+    window.scrollTo({ top: 0 });
+  }, []);
+
   return (
     pedidos && (
       <div id="productos" className="pedidosContainer">
@@ -165,23 +185,34 @@ export default function Pedidos() {
           />
         </div>
 
-        {pedidos.map(
-          ({
-            productos,
-            mesa,
-            aclaraciones,
-            precio,
-            Estado,
-            itemsExtra,
-            creacionFecha,
-            creacionHora,
-            Pago,
-            id,
-            estadoID,
-            tipoPagoID,
-          }) => (
-            <div key={id}>
-              {/* <div key={id} className="cardPedido">
+        <Swipe
+          className="swipe"
+          swipeOptions={{
+            startSlide: currentSlide,
+            speed: 300,
+            continuous: false,
+            callback: handleSwipe,
+          }}
+        >
+          {/* Todos */}
+          <div className="diapositiva">
+            {pedidos.map(
+              ({
+                productos,
+                mesa,
+                aclaraciones,
+                precio,
+                Estado,
+                itemsExtra,
+                creacionFecha,
+                creacionHora,
+                Pago,
+                id,
+                estadoID,
+                tipoPagoID,
+              }) => (
+                <div key={id}>
+                  {/* <div key={id} className="cardPedido">
                 <div>
                   <p>{productos.join(", ")}</p>
                   {itemsExtra ? (
@@ -247,25 +278,27 @@ export default function Pedidos() {
                   )}
                 </div>
               </div> */}
-              <div className="cardPedido">
-                <div className="nombreItemsPrecio">
-                  <div className="supBar">
-                    <p className="estado-info">Mesa {mesa}</p>
-                    <p className={`estado ${clasePorEstado(Estado.id)}`}>
-                      {iconEstado(Estado.id)}
-                      <span style={{ marginLeft: "5px" }}>{Estado.tipo}</span>
-                    </p>
-                  </div>
-                  <div className="nombreItems">
-                    {productos.map((producto, i) => (
-                      <div key={i}>
-                        <p className="nombre">
-                          {producto}{" "}
-                          <span className="precioIndiv">
-                            ${prodPorNom(producto)}
+                  <div className="cardPedido">
+                    <div className="nombreItemsPrecio">
+                      <div className="supBar">
+                        <p className="estado-info">Mesa {mesa}</p>
+                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                          {iconEstado(Estado.id)}
+                          <span style={{ marginLeft: "5px" }}>
+                            {Estado.tipo}
                           </span>
                         </p>
-                        {/* {itemsExtra[id].length > 0 && (
+                      </div>
+                      <div className="nombreItems">
+                        {productos.map((producto, i) => (
+                          <div key={i}>
+                            <p className="nombre">
+                              {producto}{" "}
+                              <span className="precioIndiv">
+                                ${prodPorNom(producto)}
+                              </span>
+                            </p>
+                            {/* {itemsExtra[id].length > 0 && (
                           <ul className="itemsExtra">
                             {itemsExtra[id][i] &&
                               itemsExtra[id][i].map((item, j) => (
@@ -276,22 +309,556 @@ export default function Pedidos() {
                               ))}
                           </ul>
                         )} */}
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+                    <div className="footerPed">
+                      <p className="metodoDePago estado-success">
+                        {iconPago(Pago.id)}
+                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+                      </p>
+                      <p className="total">Total: </p>
+                      <p className="precio">${precio}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="footerPed">
-                  <p className="metodoDePago estado-success">
-                    {iconPago(Pago.id)}
-                    <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+              )
+            )}
+          </div>
+
+          {/* Pendientes */}
+          <div className="diapositiva">
+            {pedidos.map(
+              ({
+                productos,
+                mesa,
+                aclaraciones,
+                precio,
+                Estado,
+                itemsExtra,
+                creacionFecha,
+                creacionHora,
+                Pago,
+                id,
+                estadoID,
+                tipoPagoID,
+              }) => (
+                <div key={id}>
+                  {/* <div key={id} className="cardPedido">
+                <div>
+                  <p>{productos.join(", ")}</p>
+                  {itemsExtra ? (
+                    <p>
+                      <b>Extra:</b>
+                      {itemsString(itemsExtra)}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {aclaraciones ? (
+                    <p>
+                      <b> Aclaraciones:</b> {aclaraciones}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  <p>
+                    <b> Realizado el:</b>{" "}
+                    {creacionFecha + " a las " + creacionHora}.
                   </p>
-                  <p className="total">Total: </p>
-                  <p className="precio">${precio}</p>
                 </div>
-              </div>
-            </div>
-          )
-        )}
+                <div>
+                  <p>{mesa}</p>
+                </div>
+                <div>
+                  <p>${precio}</p>
+                </div>
+                <div>
+                  {Estado ? (
+                    <select
+                      id=""
+                      value={Estado.id}
+                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                    >
+                      {estados.map((est) => (
+                        <option key={est.id} value={est.id}>
+                          {est.tipo}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    estadoID && (
+                      <select
+                        id=""
+                        value={estadoID}
+                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                      >
+                        {estados.map((est) => (
+                          <option key={est.id} value={est.id}>
+                            {est.tipo}
+                          </option>
+                        ))}
+                      </select>
+                    )
+                  )}
+                </div>
+                <div>
+                  {Pago ? (
+                    <p key={Pago.id}>{Pago.tipo}</p>
+                  ) : (
+                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
+                  )}
+                </div>
+              </div> */}
+                  <div className="cardPedido">
+                    <div className="nombreItemsPrecio">
+                      <div className="supBar">
+                        <p className="estado-info">Mesa {mesa}</p>
+                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                          {iconEstado(Estado.id)}
+                          <span style={{ marginLeft: "5px" }}>
+                            {Estado.tipo}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="nombreItems">
+                        {productos.map((producto, i) => (
+                          <div key={i}>
+                            <p className="nombre">
+                              {producto}{" "}
+                              <span className="precioIndiv">
+                                ${prodPorNom(producto)}
+                              </span>
+                            </p>
+                            {/* {itemsExtra[id].length > 0 && (
+                          <ul className="itemsExtra">
+                            {itemsExtra[id][i] &&
+                              itemsExtra[id][i].map((item, j) => (
+                                <li key={j} className="list-item">
+                                  <span className="list-item-circle"></span>
+                                  {item}
+                                </li>
+                              ))}
+                          </ul>
+                        )} */}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="footerPed">
+                      <p className="metodoDePago estado-success">
+                        {iconPago(Pago.id)}
+                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+                      </p>
+                      <p className="total">Total: </p>
+                      <p className="precio">${precio}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Entregados */}
+          <div className="diapositiva">
+            {pedidos.map(
+              ({
+                productos,
+                mesa,
+                aclaraciones,
+                precio,
+                Estado,
+                itemsExtra,
+                creacionFecha,
+                creacionHora,
+                Pago,
+                id,
+                estadoID,
+                tipoPagoID,
+              }) => (
+                <div key={id}>
+                  {/* <div key={id} className="cardPedido">
+                <div>
+                  <p>{productos.join(", ")}</p>
+                  {itemsExtra ? (
+                    <p>
+                      <b>Extra:</b>
+                      {itemsString(itemsExtra)}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {aclaraciones ? (
+                    <p>
+                      <b> Aclaraciones:</b> {aclaraciones}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  <p>
+                    <b> Realizado el:</b>{" "}
+                    {creacionFecha + " a las " + creacionHora}.
+                  </p>
+                </div>
+                <div>
+                  <p>{mesa}</p>
+                </div>
+                <div>
+                  <p>${precio}</p>
+                </div>
+                <div>
+                  {Estado ? (
+                    <select
+                      id=""
+                      value={Estado.id}
+                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                    >
+                      {estados.map((est) => (
+                        <option key={est.id} value={est.id}>
+                          {est.tipo}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    estadoID && (
+                      <select
+                        id=""
+                        value={estadoID}
+                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                      >
+                        {estados.map((est) => (
+                          <option key={est.id} value={est.id}>
+                            {est.tipo}
+                          </option>
+                        ))}
+                      </select>
+                    )
+                  )}
+                </div>
+                <div>
+                  {Pago ? (
+                    <p key={Pago.id}>{Pago.tipo}</p>
+                  ) : (
+                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
+                  )}
+                </div>
+              </div> */}
+                  <div className="cardPedido">
+                    <div className="nombreItemsPrecio">
+                      <div className="supBar">
+                        <p className="estado-info">Mesa {mesa}</p>
+                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                          {iconEstado(Estado.id)}
+                          <span style={{ marginLeft: "5px" }}>
+                            {Estado.tipo}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="nombreItems">
+                        {productos.map((producto, i) => (
+                          <div key={i}>
+                            <p className="nombre">
+                              {producto}{" "}
+                              <span className="precioIndiv">
+                                ${prodPorNom(producto)}
+                              </span>
+                            </p>
+                            {/* {itemsExtra[id].length > 0 && (
+                          <ul className="itemsExtra">
+                            {itemsExtra[id][i] &&
+                              itemsExtra[id][i].map((item, j) => (
+                                <li key={j} className="list-item">
+                                  <span className="list-item-circle"></span>
+                                  {item}
+                                </li>
+                              ))}
+                          </ul>
+                        )} */}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="footerPed">
+                      <p className="metodoDePago estado-success">
+                        {iconPago(Pago.id)}
+                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+                      </p>
+                      <p className="total">Total: </p>
+                      <p className="precio">${precio}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Pagados */}
+          <div className="diapositiva">
+            {pedidos.map(
+              ({
+                productos,
+                mesa,
+                aclaraciones,
+                precio,
+                Estado,
+                itemsExtra,
+                creacionFecha,
+                creacionHora,
+                Pago,
+                id,
+                estadoID,
+                tipoPagoID,
+              }) => (
+                <div key={id}>
+                  {/* <div key={id} className="cardPedido">
+                <div>
+                  <p>{productos.join(", ")}</p>
+                  {itemsExtra ? (
+                    <p>
+                      <b>Extra:</b>
+                      {itemsString(itemsExtra)}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {aclaraciones ? (
+                    <p>
+                      <b> Aclaraciones:</b> {aclaraciones}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  <p>
+                    <b> Realizado el:</b>{" "}
+                    {creacionFecha + " a las " + creacionHora}.
+                  </p>
+                </div>
+                <div>
+                  <p>{mesa}</p>
+                </div>
+                <div>
+                  <p>${precio}</p>
+                </div>
+                <div>
+                  {Estado ? (
+                    <select
+                      id=""
+                      value={Estado.id}
+                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                    >
+                      {estados.map((est) => (
+                        <option key={est.id} value={est.id}>
+                          {est.tipo}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    estadoID && (
+                      <select
+                        id=""
+                        value={estadoID}
+                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                      >
+                        {estados.map((est) => (
+                          <option key={est.id} value={est.id}>
+                            {est.tipo}
+                          </option>
+                        ))}
+                      </select>
+                    )
+                  )}
+                </div>
+                <div>
+                  {Pago ? (
+                    <p key={Pago.id}>{Pago.tipo}</p>
+                  ) : (
+                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
+                  )}
+                </div>
+              </div> */}
+                  <div className="cardPedido">
+                    <div className="nombreItemsPrecio">
+                      <div className="supBar">
+                        <p className="estado-info">Mesa {mesa}</p>
+                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                          {iconEstado(Estado.id)}
+                          <span style={{ marginLeft: "5px" }}>
+                            {Estado.tipo}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="nombreItems">
+                        {productos.map((producto, i) => (
+                          <div key={i}>
+                            <p className="nombre">
+                              {producto}{" "}
+                              <span className="precioIndiv">
+                                ${prodPorNom(producto)}
+                              </span>
+                            </p>
+                            {/* {itemsExtra[id].length > 0 && (
+                          <ul className="itemsExtra">
+                            {itemsExtra[id][i] &&
+                              itemsExtra[id][i].map((item, j) => (
+                                <li key={j} className="list-item">
+                                  <span className="list-item-circle"></span>
+                                  {item}
+                                </li>
+                              ))}
+                          </ul>
+                        )} */}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="footerPed">
+                      <p className="metodoDePago estado-success">
+                        {iconPago(Pago.id)}
+                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+                      </p>
+                      <p className="total">Total: </p>
+                      <p className="precio">${precio}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+
+          {/* Cancelados */}
+          <div className="diapositiva">
+            {pedidos.map(
+              ({
+                productos,
+                mesa,
+                aclaraciones,
+                precio,
+                Estado,
+                itemsExtra,
+                creacionFecha,
+                creacionHora,
+                Pago,
+                id,
+                estadoID,
+                tipoPagoID,
+              }) => (
+                <div key={id}>
+                  {/* <div key={id} className="cardPedido">
+                <div>
+                  <p>{productos.join(", ")}</p>
+                  {itemsExtra ? (
+                    <p>
+                      <b>Extra:</b>
+                      {itemsString(itemsExtra)}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {aclaraciones ? (
+                    <p>
+                      <b> Aclaraciones:</b> {aclaraciones}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  <p>
+                    <b> Realizado el:</b>{" "}
+                    {creacionFecha + " a las " + creacionHora}.
+                  </p>
+                </div>
+                <div>
+                  <p>{mesa}</p>
+                </div>
+                <div>
+                  <p>${precio}</p>
+                </div>
+                <div>
+                  {Estado ? (
+                    <select
+                      id=""
+                      value={Estado.id}
+                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                    >
+                      {estados.map((est) => (
+                        <option key={est.id} value={est.id}>
+                          {est.tipo}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    estadoID && (
+                      <select
+                        id=""
+                        value={estadoID}
+                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                      >
+                        {estados.map((est) => (
+                          <option key={est.id} value={est.id}>
+                            {est.tipo}
+                          </option>
+                        ))}
+                      </select>
+                    )
+                  )}
+                </div>
+                <div>
+                  {Pago ? (
+                    <p key={Pago.id}>{Pago.tipo}</p>
+                  ) : (
+                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
+                  )}
+                </div>
+              </div> */}
+                  <div className="cardPedido">
+                    <div className="nombreItemsPrecio">
+                      <div className="supBar">
+                        <p className="estado-info">Mesa {mesa}</p>
+                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                          {iconEstado(Estado.id)}
+                          <span style={{ marginLeft: "5px" }}>
+                            {Estado.tipo}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="nombreItems">
+                        {productos.map((producto, i) => (
+                          <div key={i}>
+                            <p className="nombre">
+                              {producto}{" "}
+                              <span className="precioIndiv">
+                                ${prodPorNom(producto)}
+                              </span>
+                            </p>
+                            {/* {itemsExtra[id].length > 0 && (
+                          <ul className="itemsExtra">
+                            {itemsExtra[id][i] &&
+                              itemsExtra[id][i].map((item, j) => (
+                                <li key={j} className="list-item">
+                                  <span className="list-item-circle"></span>
+                                  {item}
+                                </li>
+                              ))}
+                          </ul>
+                        )} */}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="footerPed">
+                      <p className="metodoDePago estado-success">
+                        {iconPago(Pago.id)}
+                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+                      </p>
+                      <p className="total">Total: </p>
+                      <p className="precio">${precio}</p>
+                    </div>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
+        </Swipe>
       </div>
     )
   );
