@@ -170,13 +170,6 @@ export default function Header({
         top: offsetTop,
         behavior: "smooth",
       });
-
-      // Eliminar la clase temporal después de un cierto tiempo
-      setTimeout(() => {
-        elementos.forEach((element) => {
-          element.classList.remove("temp-class");
-        });
-      }, 1500); // Cambiar el tiempo en milisegundos según tus necesidades
     }
   };
 

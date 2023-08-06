@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "../recursos/Filtros";
@@ -32,6 +32,14 @@ export default function Pedidos() {
   const productos = useSelector((state) => state.productos);
   const [currentSlide, setCurrentSlide] = useState(null);
   const [diapoActual, setDiapoActual] = useState(0);
+  const scrollableRef = useRef(null);
+  const [estadoActiveId, setEstadoActiveId] = useState(0);
+  const [inputData, setInputData] = useState([]);
+
+  useEffect(() => {
+    scrollToEstadoActive();
+    setEstadoActiveId(estados[currentSlide - 1]?.id);
+  }, [currentSlide, estadoActiveId]);
 
   useEffect(() => {
     // Local
@@ -169,6 +177,23 @@ export default function Pedidos() {
     window.scrollTo({ top: 0 });
   }, []);
 
+  const scrollToEstadoActive = () => {
+    if (scrollableRef.current) {
+      const activeCategory = scrollableRef.current.querySelector(".active");
+      if (activeCategory) {
+        const containerWidth = scrollableRef.current.offsetWidth;
+        const categoryWidth = activeCategory.offsetWidth;
+        const categoryLeft = activeCategory.offsetLeft;
+        const scrollLeft = categoryLeft - (containerWidth - categoryWidth) / 2;
+
+        scrollableRef.current.scrollTo({
+          left: scrollLeft,
+          behavior: "smooth",
+        });
+      }
+    }
+  };
+
   return (
     pedidos && (
       <div id="productos" className="pedidosContainer">
@@ -183,6 +208,42 @@ export default function Pedidos() {
             className="navbar"
           />
         </div>
+        <div
+          className="estados"
+          ref={scrollableRef}
+          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+        >
+          <button
+            className={`menuBtn ${diapoActual === 0 ? "active" : ""}`}
+            id="0"
+            onClick={() => {
+              setCurrentSlide(0);
+              setDiapoActual(0);
+              window.scrollTo({ top: 0 });
+            }}
+          >
+            Todos
+          </button>
+          {estados &&
+            estados.map((estado, index) => (
+              <React.Fragment key={estado.id}>
+                <button
+                  className={`estado ${
+                    currentSlide === index + 1 ? "active" : ""
+                  }`}
+                  id={estado.id}
+                  onClick={() => {
+                    setCurrentSlide(index + 1);
+                    setDiapoActual(index + 1);
+
+                    window.scrollTo({ top: 0 });
+                  }}
+                >
+                  {estado.tipo}
+                </button>
+              </React.Fragment>
+            ))}
+        </div>
 
         <Swipe
           className="swipe"
@@ -195,69 +256,57 @@ export default function Pedidos() {
         >
           {/* Todos */}
           <div className="diapositiva">
-            {pedidos.map(
-              ({
-                productos,
-                mesa,
-                aclaraciones,
-                precio,
-                Estado,
-                itemsExtra,
-                creacionFecha,
-                creacionHora,
-                Pago,
-                id,
-                estadoID,
-                tipoPagoID,
-              }) => (
-                <div key={id}>
-                  {/* <div key={id} className="cardPedido">
-                <div>
-                  <p>{productos.join(", ")}</p>
-                  {itemsExtra ? (
+            <div className="diapoContainer">
+              {pedidos.map(
+                ({
+                  productos,
+                  mesa,
+                  aclaraciones,
+                  precio,
+                  Estado,
+                  itemsExtra,
+                  creacionFecha,
+                  creacionHora,
+                  Pago,
+                  id,
+                  estadoID,
+                  tipoPagoID,
+                }) => (
+                  <div key={id}>
+                    {/* <div key={id} className="cardPedido">
+                  <div>
+                    <p>{productos.join(", ")}</p>
+                    {itemsExtra ? (
+                      <p>
+                        <b>Extra:</b>
+                        {itemsString(itemsExtra)}.
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                    {aclaraciones ? (
+                      <p>
+                        <b> Aclaraciones:</b> {aclaraciones}.
+                      </p>
+                    ) : (
+                      ""
+                    )}
                     <p>
-                      <b>Extra:</b>
-                      {itemsString(itemsExtra)}.
+                      <b> Realizado el:</b>{" "}
+                      {creacionFecha + " a las " + creacionHora}.
                     </p>
-                  ) : (
-                    ""
-                  )}
-                  {aclaraciones ? (
-                    <p>
-                      <b> Aclaraciones:</b> {aclaraciones}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  <p>
-                    <b> Realizado el:</b>{" "}
-                    {creacionFecha + " a las " + creacionHora}.
-                  </p>
-                </div>
-                <div>
-                  <p>{mesa}</p>
-                </div>
-                <div>
-                  <p>${precio}</p>
-                </div>
-                <div>
-                  {Estado ? (
-                    <select
-                      id=""
-                      value={Estado.id}
-                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                    >
-                      {estados.map((est) => (
-                        <option key={est.id} value={est.id}>
-                          {est.tipo}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    estadoID && (
+                  </div>
+                  <div>
+                    <p>{mesa}</p>
+                  </div>
+                  <div>
+                    <p>${precio}</p>
+                  </div>
+                  <div>
+                    {Estado ? (
                       <select
                         id=""
-                        value={estadoID}
+                        value={Estado.id}
                         onChange={(e) => handleSelectChange(e, id, "estadoID")}
                       >
                         {estados.map((est) => (
@@ -266,596 +315,98 @@ export default function Pedidos() {
                           </option>
                         ))}
                       </select>
-                    )
-                  )}
-                </div>
-                <div>
-                  {Pago ? (
-                    <p key={Pago.id}>{Pago.tipo}</p>
-                  ) : (
-                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
-                  )}
-                </div>
-              </div> */}
-                  <div className="cardPedido">
-                    <div className="nombreItemsPrecio">
-                      <div className="supBar">
-                        <p className="estado-info">Mesa {mesa}</p>
-                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
-                          {iconEstado(Estado.id)}
-                          <span style={{ marginLeft: "5px" }}>
-                            {Estado.tipo}
-                          </span>
+                    ) : (
+                      estadoID && (
+                        <select
+                          id=""
+                          value={estadoID}
+                          onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                        >
+                          {estados.map((est) => (
+                            <option key={est.id} value={est.id}>
+                              {est.tipo}
+                            </option>
+                          ))}
+                        </select>
+                      )
+                    )}
+                  </div>
+                  <div>
+                    {Pago ? (
+                      <p key={Pago.id}>{Pago.tipo}</p>
+                    ) : (
+                      tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
+                    )}
+                  </div>
+                </div> */}
+                    <div className="cardPedido">
+                      <div className="nombreItemsPrecio">
+                        <div className="supBar">
+                          <p className="estado-info">Mesa {mesa}</p>
+                          <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                            {iconEstado(Estado.id)}
+                            <span style={{ marginLeft: "5px" }}>
+                              {Estado.tipo}
+                            </span>
+                          </p>
+                        </div>
+                        <div className="nombreItems">
+                          {productos.map((producto, i) => (
+                            <div key={i}>
+                              <p className="nombre">
+                                {producto}{" "}
+                                <span className="precioIndiv">
+                                  ${prodPorNom(producto)}
+                                </span>
+                              </p>
+                              {/* {itemsExtra[id].length > 0 && (
+                            <ul className="itemsExtra">
+                              {itemsExtra[id][i] &&
+                                itemsExtra[id][i].map((item, j) => (
+                                  <li key={j} className="list-item">
+                                    <span className="list-item-circle"></span>
+                                    {item}
+                                  </li>
+                                ))}
+                            </ul>
+                          )} */}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div className="footerPed">
+                        <p className="metodoDePago estado-success">
+                          {iconPago(Pago.id)}
+                          <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
                         </p>
+                        <p className="total">Total: </p>
+                        <p className="precio">${precio}</p>
                       </div>
-                      <div className="nombreItems">
-                        {productos.map((producto, i) => (
-                          <div key={i}>
-                            <p className="nombre">
-                              {producto}{" "}
-                              <span className="precioIndiv">
-                                ${prodPorNom(producto)}
-                              </span>
-                            </p>
-                            {/* {itemsExtra[id].length > 0 && (
-                          <ul className="itemsExtra">
-                            {itemsExtra[id][i] &&
-                              itemsExtra[id][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
-                          </ul>
-                        )} */}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="footerPed">
-                      <p className="metodoDePago estado-success">
-                        {iconPago(Pago.id)}
-                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
-                      </p>
-                      <p className="total">Total: </p>
-                      <p className="precio">${precio}</p>
                     </div>
                   </div>
-                </div>
-              )
-            )}
+                )
+              )}
+            </div>
           </div>
 
           {/* Pendientes */}
           <div className="diapositiva">
-            {pedidos.map(
-              ({
-                productos,
-                mesa,
-                aclaraciones,
-                precio,
-                Estado,
-                itemsExtra,
-                creacionFecha,
-                creacionHora,
-                Pago,
-                id,
-                estadoID,
-                tipoPagoID,
-              }) => (
-                <div key={id}>
-                  {/* <div key={id} className="cardPedido">
-                <div>
-                  <p>{productos.join(", ")}</p>
-                  {itemsExtra ? (
-                    <p>
-                      <b>Extra:</b>
-                      {itemsString(itemsExtra)}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  {aclaraciones ? (
-                    <p>
-                      <b> Aclaraciones:</b> {aclaraciones}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  <p>
-                    <b> Realizado el:</b>{" "}
-                    {creacionFecha + " a las " + creacionHora}.
-                  </p>
-                </div>
-                <div>
-                  <p>{mesa}</p>
-                </div>
-                <div>
-                  <p>${precio}</p>
-                </div>
-                <div>
-                  {Estado ? (
-                    <select
-                      id=""
-                      value={Estado.id}
-                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                    >
-                      {estados.map((est) => (
-                        <option key={est.id} value={est.id}>
-                          {est.tipo}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    estadoID && (
-                      <select
-                        id=""
-                        value={estadoID}
-                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                      >
-                        {estados.map((est) => (
-                          <option key={est.id} value={est.id}>
-                            {est.tipo}
-                          </option>
-                        ))}
-                      </select>
-                    )
-                  )}
-                </div>
-                <div>
-                  {Pago ? (
-                    <p key={Pago.id}>{Pago.tipo}</p>
-                  ) : (
-                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
-                  )}
-                </div>
-              </div> */}
-                  <div className="cardPedido">
-                    <div className="nombreItemsPrecio">
-                      <div className="supBar">
-                        <p className="estado-info">Mesa {mesa}</p>
-                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
-                          {iconEstado(Estado.id)}
-                          <span style={{ marginLeft: "5px" }}>
-                            {Estado.tipo}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="nombreItems">
-                        {productos.map((producto, i) => (
-                          <div key={i}>
-                            <p className="nombre">
-                              {producto}{" "}
-                              <span className="precioIndiv">
-                                ${prodPorNom(producto)}
-                              </span>
-                            </p>
-                            {/* {itemsExtra[id].length > 0 && (
-                          <ul className="itemsExtra">
-                            {itemsExtra[id][i] &&
-                              itemsExtra[id][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
-                          </ul>
-                        )} */}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="footerPed">
-                      <p className="metodoDePago estado-success">
-                        {iconPago(Pago.id)}
-                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
-                      </p>
-                      <p className="total">Total: </p>
-                      <p className="precio">${precio}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
+            <h1>Pendientes</h1>
           </div>
 
           {/* Entregados */}
           <div className="diapositiva">
-            {pedidos.map(
-              ({
-                productos,
-                mesa,
-                aclaraciones,
-                precio,
-                Estado,
-                itemsExtra,
-                creacionFecha,
-                creacionHora,
-                Pago,
-                id,
-                estadoID,
-                tipoPagoID,
-              }) => (
-                <div key={id}>
-                  {/* <div key={id} className="cardPedido">
-                <div>
-                  <p>{productos.join(", ")}</p>
-                  {itemsExtra ? (
-                    <p>
-                      <b>Extra:</b>
-                      {itemsString(itemsExtra)}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  {aclaraciones ? (
-                    <p>
-                      <b> Aclaraciones:</b> {aclaraciones}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  <p>
-                    <b> Realizado el:</b>{" "}
-                    {creacionFecha + " a las " + creacionHora}.
-                  </p>
-                </div>
-                <div>
-                  <p>{mesa}</p>
-                </div>
-                <div>
-                  <p>${precio}</p>
-                </div>
-                <div>
-                  {Estado ? (
-                    <select
-                      id=""
-                      value={Estado.id}
-                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                    >
-                      {estados.map((est) => (
-                        <option key={est.id} value={est.id}>
-                          {est.tipo}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    estadoID && (
-                      <select
-                        id=""
-                        value={estadoID}
-                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                      >
-                        {estados.map((est) => (
-                          <option key={est.id} value={est.id}>
-                            {est.tipo}
-                          </option>
-                        ))}
-                      </select>
-                    )
-                  )}
-                </div>
-                <div>
-                  {Pago ? (
-                    <p key={Pago.id}>{Pago.tipo}</p>
-                  ) : (
-                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
-                  )}
-                </div>
-              </div> */}
-                  <div className="cardPedido">
-                    <div className="nombreItemsPrecio">
-                      <div className="supBar">
-                        <p className="estado-info">Mesa {mesa}</p>
-                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
-                          {iconEstado(Estado.id)}
-                          <span style={{ marginLeft: "5px" }}>
-                            {Estado.tipo}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="nombreItems">
-                        {productos.map((producto, i) => (
-                          <div key={i}>
-                            <p className="nombre">
-                              {producto}{" "}
-                              <span className="precioIndiv">
-                                ${prodPorNom(producto)}
-                              </span>
-                            </p>
-                            {/* {itemsExtra[id].length > 0 && (
-                          <ul className="itemsExtra">
-                            {itemsExtra[id][i] &&
-                              itemsExtra[id][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
-                          </ul>
-                        )} */}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="footerPed">
-                      <p className="metodoDePago estado-success">
-                        {iconPago(Pago.id)}
-                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
-                      </p>
-                      <p className="total">Total: </p>
-                      <p className="precio">${precio}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
+            <h1>Entregados</h1>
           </div>
 
           {/* Pagados */}
           <div className="diapositiva">
-            {pedidos.map(
-              ({
-                productos,
-                mesa,
-                aclaraciones,
-                precio,
-                Estado,
-                itemsExtra,
-                creacionFecha,
-                creacionHora,
-                Pago,
-                id,
-                estadoID,
-                tipoPagoID,
-              }) => (
-                <div key={id}>
-                  {/* <div key={id} className="cardPedido">
-                <div>
-                  <p>{productos.join(", ")}</p>
-                  {itemsExtra ? (
-                    <p>
-                      <b>Extra:</b>
-                      {itemsString(itemsExtra)}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  {aclaraciones ? (
-                    <p>
-                      <b> Aclaraciones:</b> {aclaraciones}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  <p>
-                    <b> Realizado el:</b>{" "}
-                    {creacionFecha + " a las " + creacionHora}.
-                  </p>
-                </div>
-                <div>
-                  <p>{mesa}</p>
-                </div>
-                <div>
-                  <p>${precio}</p>
-                </div>
-                <div>
-                  {Estado ? (
-                    <select
-                      id=""
-                      value={Estado.id}
-                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                    >
-                      {estados.map((est) => (
-                        <option key={est.id} value={est.id}>
-                          {est.tipo}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    estadoID && (
-                      <select
-                        id=""
-                        value={estadoID}
-                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                      >
-                        {estados.map((est) => (
-                          <option key={est.id} value={est.id}>
-                            {est.tipo}
-                          </option>
-                        ))}
-                      </select>
-                    )
-                  )}
-                </div>
-                <div>
-                  {Pago ? (
-                    <p key={Pago.id}>{Pago.tipo}</p>
-                  ) : (
-                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
-                  )}
-                </div>
-              </div> */}
-                  <div className="cardPedido">
-                    <div className="nombreItemsPrecio">
-                      <div className="supBar">
-                        <p className="estado-info">Mesa {mesa}</p>
-                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
-                          {iconEstado(Estado.id)}
-                          <span style={{ marginLeft: "5px" }}>
-                            {Estado.tipo}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="nombreItems">
-                        {productos.map((producto, i) => (
-                          <div key={i}>
-                            <p className="nombre">
-                              {producto}{" "}
-                              <span className="precioIndiv">
-                                ${prodPorNom(producto)}
-                              </span>
-                            </p>
-                            {/* {itemsExtra[id].length > 0 && (
-                          <ul className="itemsExtra">
-                            {itemsExtra[id][i] &&
-                              itemsExtra[id][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
-                          </ul>
-                        )} */}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="footerPed">
-                      <p className="metodoDePago estado-success">
-                        {iconPago(Pago.id)}
-                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
-                      </p>
-                      <p className="total">Total: </p>
-                      <p className="precio">${precio}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
+            <h1>Pagados</h1>
           </div>
 
           {/* Cancelados */}
           <div className="diapositiva">
-            {pedidos.map(
-              ({
-                productos,
-                mesa,
-                aclaraciones,
-                precio,
-                Estado,
-                itemsExtra,
-                creacionFecha,
-                creacionHora,
-                Pago,
-                id,
-                estadoID,
-                tipoPagoID,
-              }) => (
-                <div key={id}>
-                  {/* <div key={id} className="cardPedido">
-                <div>
-                  <p>{productos.join(", ")}</p>
-                  {itemsExtra ? (
-                    <p>
-                      <b>Extra:</b>
-                      {itemsString(itemsExtra)}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  {aclaraciones ? (
-                    <p>
-                      <b> Aclaraciones:</b> {aclaraciones}.
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                  <p>
-                    <b> Realizado el:</b>{" "}
-                    {creacionFecha + " a las " + creacionHora}.
-                  </p>
-                </div>
-                <div>
-                  <p>{mesa}</p>
-                </div>
-                <div>
-                  <p>${precio}</p>
-                </div>
-                <div>
-                  {Estado ? (
-                    <select
-                      id=""
-                      value={Estado.id}
-                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                    >
-                      {estados.map((est) => (
-                        <option key={est.id} value={est.id}>
-                          {est.tipo}
-                        </option>
-                      ))}
-                    </select>
-                  ) : (
-                    estadoID && (
-                      <select
-                        id=""
-                        value={estadoID}
-                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
-                      >
-                        {estados.map((est) => (
-                          <option key={est.id} value={est.id}>
-                            {est.tipo}
-                          </option>
-                        ))}
-                      </select>
-                    )
-                  )}
-                </div>
-                <div>
-                  {Pago ? (
-                    <p key={Pago.id}>{Pago.tipo}</p>
-                  ) : (
-                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
-                  )}
-                </div>
-              </div> */}
-                  <div className="cardPedido">
-                    <div className="nombreItemsPrecio">
-                      <div className="supBar">
-                        <p className="estado-info">Mesa {mesa}</p>
-                        <p className={`estado ${clasePorEstado(Estado.id)}`}>
-                          {iconEstado(Estado.id)}
-                          <span style={{ marginLeft: "5px" }}>
-                            {Estado.tipo}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="nombreItems">
-                        {productos.map((producto, i) => (
-                          <div key={i}>
-                            <p className="nombre">
-                              {producto}{" "}
-                              <span className="precioIndiv">
-                                ${prodPorNom(producto)}
-                              </span>
-                            </p>
-                            {/* {itemsExtra[id].length > 0 && (
-                          <ul className="itemsExtra">
-                            {itemsExtra[id][i] &&
-                              itemsExtra[id][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
-                          </ul>
-                        )} */}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="footerPed">
-                      <p className="metodoDePago estado-success">
-                        {iconPago(Pago.id)}
-                        <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
-                      </p>
-                      <p className="total">Total: </p>
-                      <p className="precio">${precio}</p>
-                    </div>
-                  </div>
-                </div>
-              )
-            )}
+            <h1>Cancelados</h1>
           </div>
         </Swipe>
       </div>
