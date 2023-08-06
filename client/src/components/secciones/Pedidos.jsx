@@ -19,7 +19,6 @@ import {
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
 import Swipe from "react-swipe";
-import bandeja from "../../multmedia/bandeja.svg";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
