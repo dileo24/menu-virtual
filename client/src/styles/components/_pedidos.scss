@@ -1,0 +1,159 @@
+.pedidosContainer {
+  background-color: rgb(247, 247, 247);
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  .centro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @include center;
+    flex-direction: column;
+    width: 80vw;
+    .icon {
+      width: 25vw;
+      filter: grayscale(1) brightness(0.5);
+      -webkit-filter: grayscale(1) brightness(0.8);
+    }
+    .alerta {
+      text-align: center;
+      font-size: $titleSize;
+      font-weight: $titleWeight;
+      line-height: 1;
+      color: $paragraph;
+      margin-top: 9vw;
+    }
+    .alerta2 {
+      text-align: center;
+      font-size: $subtSize;
+      color: $disable;
+      margin-top: 5vw;
+    }
+  }
+
+  .cardPedido {
+    background-color: rgb(255, 255, 255);
+    width: 90vw;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 5% 5% 20% 5%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    .nombreItemsPrecio {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      .nombreItems {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 5% 0 5% 0;
+        .nombre {
+          font-weight: $titleWeight;
+          font-size: 4vw;
+          @include centerRow;
+          justify-content: space-between;
+          .precioIndiv {
+            color: $paragraph;
+          }
+        }
+        .itemsExtra {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          padding: 5% 0 0 5%;
+          line-height: 1;
+
+          .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .list-item-circle {
+              display: inline-block;
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: black;
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+      .supBar {
+        @include centerRow;
+        padding-bottom: 5%;
+        width: 100%;
+        justify-content: space-between;
+        font-weight: $titleWeight;
+        font-size: 4vw;
+        .estado {
+          @include centerRow;
+        }
+      }
+    }
+    .footerPed {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      @include centerRow;
+      padding-top: 5%;
+      padding: 5% 5% 5% 5%;
+      width: 100%;
+      justify-content: space-between;
+      font-weight: $titleWeight;
+      font-size: 4vw;
+      background-color: rgb(241, 241, 241);
+      border-end-end-radius: 10px;
+      .total {
+        font-weight: 400;
+        margin-right: -20vw;
+      }
+      .precio {
+        color: $success;
+      }
+      .metodoDePago {
+        @include centerRow;
+      }
+    }
+  }
+
+  .footer {
+    margin-left: 5vw !important;
+    .btnVerMenu {
+      width: 100% !important;
+    }
+  }
+}
+.estado-info {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $info;
+  background-color: lighten($info, 42%);
+}
+
+.estado-naranja {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $naranja;
+  background-color: lighten($naranja, 34%);
+}
+
+.estado-success {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $success;
+  background-color: lighten($success, 52%);
+}

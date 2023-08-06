@@ -1,7 +1,13 @@
 [
   {
-    "productos": ["Asado para 2 con bebida", "Lomito Completo Premium"],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "productos": [
+      "Asado para 2 con bebida",
+      "Lomito Completo Premium"
+    ],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "2",
     "precio": "9200",
     "estadoID": "1",
@@ -16,7 +22,10 @@
       "Lomito Completo Premium",
       "Pizza Fugazzeta (8 porciones)"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "1",
     "precio": "9200",
     "estadoID": "2",
@@ -31,7 +40,10 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
@@ -42,97 +54,13 @@
   },
   {
     "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
+      "Asado para 2 con bebida",
+      "Lomito Completo Premium"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "10:15",
-    "creacionFecha": "03/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "02:41",
-    "creacionFecha": "03/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "01:15",
-    "creacionFecha": "05/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "20:14",
-    "creacionFecha": "07/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "21:34",
-    "creacionFecha": "07/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "15:27",
-    "creacionFecha": "07/06/2023"
-  },
-  {
-    "productos": ["Asado para 2 con bebida", "Lomito Completo Premium"],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
     "mesa": "2",
     "precio": "9200",
     "estadoID": "1",
@@ -147,7 +75,10 @@
       "Lomito Completo Premium",
       "Pizza Fugazzeta (8 porciones)"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "1",
     "precio": "9200",
     "estadoID": "2",
@@ -162,7 +93,10 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "5",
@@ -170,81 +104,6 @@
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
     "creacionHora": "12:30",
     "creacionFecha": "01/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "5",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "10:15",
-    "creacionFecha": "01/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "5",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "02:41",
-    "creacionFecha": "04/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "5",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "02:41",
-    "creacionFecha": "15/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "5",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "02:41",
-    "creacionFecha": "24/06/2023"
-  },
-  {
-    "productos": [
-      "Hamburguesa Americana Doble",
-      "Papas a la Alemana (para 4)",
-      "Pizza Especial (8 porciones)"
-    ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "5",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "02:41",
-    "creacionFecha": "24/06/2023"
   },
   {
     "productos": [
@@ -252,7 +111,10 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
@@ -262,8 +124,13 @@
     "creacionFecha": "13/06/2023"
   },
   {
-    "productos": ["Merienda para 4"],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "productos": [
+      "Merienda para 4"
+    ],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
@@ -278,7 +145,10 @@
       "Papas Bravas con 2 Pintas",
       "Merienda para 4"
     ],
-    "itemsExtra": ["Fanta 500ml", "Aquarius de Manzana 500ml"],
+    "itemsExtra": [
+      "Fanta 500ml",
+      "Aquarius de Manzana 500ml"
+    ],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
