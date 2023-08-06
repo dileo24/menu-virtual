@@ -13,7 +13,6 @@ import {
 } from "react-icons/bs";
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
-import { GiCook } from "react-icons/gi";
 import bandeja from "../../multmedia/bandeja.svg";
 import { Link } from "react-router-dom";
 
@@ -95,9 +94,9 @@ export default function Historial() {
       case 1:
         return <BsClock />;
       case 2:
-        return <GiCook />;
-      case 3:
         return <BsCheckLg />;
+      case 3:
+        return <TbBrandCashapp />;
       default:
         return null;
     }
@@ -105,13 +104,13 @@ export default function Historial() {
   const clasePorEstado = (estadoId) => {
     switch (estadoId) {
       case 1:
-        return "estado-info";
-      case 2:
         return "estado-naranja";
+      case 2:
+        return "estado-info";
       case 3:
         return "estado-success";
       default:
-        return "estado-info";
+        return "estado-cancelado";
     }
   };
   const prodPorNom = (productName) => {

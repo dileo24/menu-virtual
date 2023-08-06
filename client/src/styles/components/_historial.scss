@@ -100,6 +100,10 @@
         font-size: 4vw;
         .estado {
           @include centerRow;
+          .linkIconPedidos {
+            width: 5vw;
+            height: 5vw;
+          }
         }
       }
     }
@@ -141,7 +145,7 @@
   border-radius: 0.5rem;
   padding: 1%;
   color: $info;
-  background-color: lighten($info, 42%);
+  background-color: lighten($info, 40%);
 }
 
 .estado-naranja {
@@ -155,5 +159,12 @@
   border-radius: 0.5rem;
   padding: 1%;
   color: $success;
-  background-color: lighten($success, 52%);
+  background-color: lighten($success, 48%);
+}
+
+.estado-cancelado {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $error;
+  background-color: lighten($error, 35%);
 }
