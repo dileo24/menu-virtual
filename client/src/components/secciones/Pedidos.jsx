@@ -9,6 +9,16 @@ import {
   updatePedido,
 } from "../../redux/actions";
 import io from "socket.io-client";
+import {
+  BsCreditCardFill,
+  BsCashStack,
+  BsCashCoin,
+  BsCheckLg,
+  BsClock,
+} from "react-icons/bs";
+import { SiMercadopago } from "react-icons/si";
+import { TbBrandCashapp } from "react-icons/tb";
+import { GiCook } from "react-icons/gi";
 
 export default function Pedidos() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -19,6 +29,7 @@ export default function Pedidos() {
   const [socket, setSocket] = useState(null);
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
   /* let allPedidos = [...nuevosPedidos, ...pedidos]; */
+  const productos = useSelector((state) => state.productos);
 
   useEffect(() => {
     // Local
@@ -94,142 +105,193 @@ export default function Pedidos() {
     }
   };
 
+  const iconPago = (pagoId) => {
+    switch (pagoId) {
+      case 1:
+        return <BsCashCoin />;
+      case 2:
+        return <BsCashStack />;
+      case 3:
+        return <BsCreditCardFill />;
+      case 4:
+        return <SiMercadopago />;
+      case 5:
+        return <TbBrandCashapp />;
+      default:
+        return null;
+    }
+  };
+  const iconEstado = (estadoId) => {
+    switch (estadoId) {
+      case 1:
+        return <BsClock />;
+      case 2:
+        return <GiCook />;
+      case 3:
+        return <BsCheckLg />;
+      default:
+        return null;
+    }
+  };
+  const clasePorEstado = (estadoId) => {
+    switch (estadoId) {
+      case 1:
+        return "estado-info";
+      case 2:
+        return "estado-naranja";
+      case 3:
+        return "estado-success";
+      default:
+        return "estado-info";
+    }
+  };
+  const prodPorNom = (productName) => {
+    const product = productos.find((p) => p.nombre === productName);
+    return product ? product.precio : 0;
+  };
+
   return (
-    pedidos.length > 0 && (
-      <div id="productos" className="min-h-100 bg-gray-200">
-        <div className="md:flex min-h-screen md:align-top">
-          <Header />
-          <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
-            <h2 className="text-3xl font-light text-center">
-              Planilla de Pedidos
-            </h2>
-            <div className="px-5 flex flex-col mt-10">
-              <Filtros />
-              <div className="py-2 overflow-x-auto">
-                <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                  <table className="min-w-full">
-                    <thead className="bg-gray-100">
-                      <tr>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Productos
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Mesa
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Precio
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Estado
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Tipo de Pago
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white">
-                      {pedidos.map(
-                        ({
-                          productos,
-                          mesa,
-                          aclaraciones,
-                          precio,
-                          Estado,
-                          itemsExtra,
-                          creacionFecha,
-                          creacionHora,
-                          Pago,
-                          id,
-                          estadoID,
-                          tipoPagoID,
-                        }) => (
-                          <tr key={id}>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
-                                {productos.join(", ")}
-                              </p>
-                              {itemsExtra ? (
-                                <p className="text-gray-700 mt-2">
-                                  <b>Extra:</b> {/* {itemsExtra.join(", ")} */}
-                                  {itemsString(itemsExtra)}.
-                                </p>
-                              ) : (
-                                ""
-                              )}
-                              {aclaraciones ? (
-                                <p className="text-gray-700 mt-2">
-                                  <b> Aclaraciones:</b> {aclaraciones}.
-                                </p>
-                              ) : (
-                                ""
-                              )}
-                              <p className="text-gray-700 mt-2">
-                                <b> Realizado el:</b>{" "}
-                                {creacionFecha + " a las " + creacionHora}.
-                              </p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-gray-700">{mesa}</p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
-                              <p className="text-gray-600">${precio}</p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Estado ? (
-                                <select
-                                  id=""
-                                  value={Estado.id}
-                                  onChange={(e) =>
-                                    handleSelectChange(e, id, "estadoID")
-                                  }
-                                >
-                                  {estados.map((est) => (
-                                    <option key={est.id} value={est.id}>
-                                      {est.tipo}
-                                    </option>
-                                  ))}
-                                </select>
-                              ) : (
-                                estadoID && (
-                                  <select
-                                    id=""
-                                    value={estadoID}
-                                    onChange={(e) =>
-                                      handleSelectChange(e, id, "estadoID")
-                                    }
-                                  >
-                                    {estados.map((est) => (
-                                      <option key={est.id} value={est.id}>
-                                        {est.tipo}
-                                      </option>
-                                    ))}
-                                  </select>
-                                )
-                              )}
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Pago ? (
-                                <p className="text-gray-600" key={Pago.id}>
-                                  {Pago.tipo}
-                                </p>
-                              ) : (
-                                tipoPorID(tipoPagoID) && (
-                                  <p className="text-gray-600">
-                                    {tipoPorID(tipoPagoID)}
-                                  </p>
-                                )
-                              )}
-                            </td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  </table>
+    pedidos && (
+      <div id="productos" className="pedidosContainer">
+        <Header />
+        <h1 className="pedidosTitle">Pedidos</h1>
+        <div className="navbar">
+          <Filtros
+            searchType="pedidos"
+            searchWord={"pedidos"}
+            setBusqueda={""}
+            setCheckAlertaError={""}
+            className="navbar"
+          />
+        </div>
+
+        {pedidos.map(
+          ({
+            productos,
+            mesa,
+            aclaraciones,
+            precio,
+            Estado,
+            itemsExtra,
+            creacionFecha,
+            creacionHora,
+            Pago,
+            id,
+            estadoID,
+            tipoPagoID,
+          }) => (
+            <div key={id}>
+              {/* <div key={id} className="cardPedido">
+                <div>
+                  <p>{productos.join(", ")}</p>
+                  {itemsExtra ? (
+                    <p>
+                      <b>Extra:</b>
+                      {itemsString(itemsExtra)}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  {aclaraciones ? (
+                    <p>
+                      <b> Aclaraciones:</b> {aclaraciones}.
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                  <p>
+                    <b> Realizado el:</b>{" "}
+                    {creacionFecha + " a las " + creacionHora}.
+                  </p>
+                </div>
+                <div>
+                  <p>{mesa}</p>
+                </div>
+                <div>
+                  <p>${precio}</p>
+                </div>
+                <div>
+                  {Estado ? (
+                    <select
+                      id=""
+                      value={Estado.id}
+                      onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                    >
+                      {estados.map((est) => (
+                        <option key={est.id} value={est.id}>
+                          {est.tipo}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    estadoID && (
+                      <select
+                        id=""
+                        value={estadoID}
+                        onChange={(e) => handleSelectChange(e, id, "estadoID")}
+                      >
+                        {estados.map((est) => (
+                          <option key={est.id} value={est.id}>
+                            {est.tipo}
+                          </option>
+                        ))}
+                      </select>
+                    )
+                  )}
+                </div>
+                <div>
+                  {Pago ? (
+                    <p key={Pago.id}>{Pago.tipo}</p>
+                  ) : (
+                    tipoPorID(tipoPagoID) && <p>{tipoPorID(tipoPagoID)}</p>
+                  )}
+                </div>
+              </div> */}
+              <div className="cardPedido">
+                <div className="nombreItemsPrecio">
+                  <div className="supBar">
+                    <p className="estado-info">Mesa {mesa}</p>
+                    <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                      {iconEstado(Estado.id)}
+                      <span style={{ marginLeft: "5px" }}>{Estado.tipo}</span>
+                    </p>
+                  </div>
+                  <div className="nombreItems">
+                    {productos.map((producto, i) => (
+                      <div key={i}>
+                        <p className="nombre">
+                          {producto}{" "}
+                          <span className="precioIndiv">
+                            ${prodPorNom(producto)}
+                          </span>
+                        </p>
+                        {/* {itemsExtra[id].length > 0 && (
+                          <ul className="itemsExtra">
+                            {itemsExtra[id][i] &&
+                              itemsExtra[id][i].map((item, j) => (
+                                <li key={j} className="list-item">
+                                  <span className="list-item-circle"></span>
+                                  {item}
+                                </li>
+                              ))}
+                          </ul>
+                        )} */}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="footerPed">
+                  <p className="metodoDePago estado-success">
+                    {iconPago(Pago.id)}
+                    <span style={{ marginLeft: "5px" }}>{Pago.tipo}</span>
+                  </p>
+                  <p className="total">Total: </p>
+                  <p className="precio">${precio}</p>
                 </div>
               </div>
             </div>
-          </main>
-        </div>
+          )
+        )}
       </div>
     )
   );

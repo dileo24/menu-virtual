@@ -1,7 +1,7 @@
 [
   {
     "productos": [
-      "Asado para 2 con bebida",
+      "Asado para 2 personas",
       "Lomito Completo Premium"
     ],
     "itemsExtra": [
@@ -54,7 +54,7 @@
   },
   {
     "productos": [
-      "Asado para 2 con bebida",
+      "Asado para 2 personas",
       "Lomito Completo Premium"
     ],
     "itemsExtra": [
@@ -107,7 +107,7 @@
   },
   {
     "productos": [
-      "Merienda para 2",
+      "Desayuno completo",
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
@@ -122,39 +122,5 @@
     "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
     "creacionHora": "10:15",
     "creacionFecha": "13/06/2023"
-  },
-  {
-    "productos": [
-      "Merienda para 4"
-    ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "10:15",
-    "creacionFecha": "13/06/2023"
-  },
-  {
-    "productos": [
-      "Desayuno para 2",
-      "Papas Bravas con 2 Pintas",
-      "Merienda para 4"
-    ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
-    "mesa": "4",
-    "precio": "9200",
-    "estadoID": "4",
-    "tipoPagoID": "5",
-    "aclaraciones": "traigan dos sobres de ketchup y las papas sin sal",
-    "creacionHora": "10:15",
-    "creacionFecha": "17/06/2023"
   }
 ]
