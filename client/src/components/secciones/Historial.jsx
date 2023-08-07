@@ -187,7 +187,7 @@ export default function Historial() {
         )}
     </div>
   ) : (
-    <div className="historialContainer">
+    <div className="historialContainer2">
       <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
       <div className="centro">
         <img src={bandeja} alt="bandeja" className="icon" />

@@ -1,8 +1,11 @@
-.historialContainer {
+.historialContainer,
+.historialContainer2 {
   background-color: rgb(247, 247, 247);
   height: 100vh;
   width: 100vw;
   position: relative;
+  padding-bottom: 20vw;
+
   .centro {
     position: absolute;
     top: 50%;
@@ -140,6 +143,10 @@
       width: 100% !important;
     }
   }
+}
+.historialContainer {
+  min-height: 100vw;
+  height: 100%;
 }
 .estado-info {
   border-radius: 0.5rem;
