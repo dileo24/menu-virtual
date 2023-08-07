@@ -93,6 +93,8 @@ export default function Usuarios() {
     }
   }, [diapoActual]);
 
+  console.log(usuarios);
+
   return (
     <div className="usuariosContainer">
       <Header />

@@ -1,10 +1,10 @@
 .pedidosContainer {
   background-color: rgb(247, 247, 247);
-  min-height: 100vw;
+  // min-height: 100vh;
   height: 100%;
   width: 100vw;
   position: relative;
-  padding-bottom: 20vw;
+  // padding-bottom: 20vw;
   .pedidosTitle {
     font-size: $titleSize;
     font-weight: $titleWeight;
@@ -70,9 +70,8 @@
     }
   }
   .diapositiva {
-    height: auto;
-
     .diapoContainer {
+      min-height: 70vh;
       .cardPedido {
         background-color: rgb(255, 255, 255);
         width: 90vw;
@@ -118,7 +117,7 @@
                 }
                 .estadoSelect {
                   background-color: transparent;
-                  margin-left: -1vw;
+                  margin-left: 2px;
                   &:focus {
                     outline: none;
                   }
@@ -219,6 +218,9 @@
             border-bottom: 1px solid rgba(128, 128, 128, 0.37);
             .metodoDePago {
               @include centerRow;
+              .tipoPago {
+                margin-left: 5px;
+              }
             }
             .precio {
               @include center;

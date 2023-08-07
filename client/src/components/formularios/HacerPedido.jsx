@@ -31,11 +31,10 @@ export default function HacerPedido() {
   }/${currentDate.getFullYear()}`;
   const hours = currentDate.getHours();
   const minutes = currentDate.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  const formattedHours = hours % 12 || 12;
-  const formattedTime = `${formattedHours}:${
+  const formattedTime = `${hours < 10 ? "0" + hours : hours}:${
     minutes < 10 ? "0" + minutes : minutes
-  } ${ampm}`;
+  }`;
+
   let id = pedidos.length + 1;
   const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? ["vacio"]);
   const [alertaExito, setAlertaExito] = useState(false);
