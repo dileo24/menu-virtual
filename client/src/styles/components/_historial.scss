@@ -123,7 +123,11 @@
       font-weight: $titleWeight;
       font-size: 4vw;
       background-color: rgb(241, 241, 241);
-      border-end-end-radius: 10px;
+      border-radius: 0 0 10px 10px;
+      -webkit-border-radius: 0 0 10px 10px;
+      -moz-border-radius: 0 0 10px 10px;
+      -ms-border-radius: 0 0 10px 10px;
+      -o-border-radius: 0 0 10px 10px;
       .total {
         font-weight: 400;
         margin-right: -20vw;

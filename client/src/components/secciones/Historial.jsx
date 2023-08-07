@@ -4,17 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPedidos, getProductos } from "../../redux/actions";
 import io from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
-import {
-  BsCreditCardFill,
-  BsCashStack,
-  BsCashCoin,
-  BsCheckLg,
-  BsClock,
-} from "react-icons/bs";
+import { BsCashStack, BsCashCoin, BsCheckLg, BsClock } from "react-icons/bs";
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
 import bandeja from "../../multmedia/bandeja.svg";
 import { Link } from "react-router-dom";
+import { AiOutlineCreditCard } from "react-icons/ai";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -80,7 +75,7 @@ export default function Historial() {
       case 2:
         return <BsCashStack />;
       case 3:
-        return <BsCreditCardFill />;
+        return <AiOutlineCreditCard />;
       case 4:
         return <SiMercadopago />;
       case 5:

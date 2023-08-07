@@ -84,27 +84,101 @@
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        padding: 5% 5% 20% 5%;
+        padding-top: 5%;
         height: auto;
         display: flex;
         flex-direction: column;
         position: relative;
-        .nombreItemsPrecio {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-direction: column;
+        .mainCard {
+          .supBar {
+            @include centerRow;
+            width: 100%;
+            justify-content: space-between;
+            font-weight: $titleWeight;
+            font-size: 4vw;
+            padding: 0 5vw 5vw 5vw;
+            .mesaEstado {
+              width: 70%;
+              display: flex;
+              .list-item-circle {
+                display: inline-block;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: black;
+                margin-right: 5px;
+              }
+              .estado {
+                @include center;
+                margin-left: 5vw;
+                padding: 0 2vw;
+                width: 30vw;
+                .circle {
+                  font-size: 5vw;
+                }
+                .estadoSelect {
+                  background-color: transparent;
+                  margin-left: -1vw;
+                  &:focus {
+                    outline: none;
+                  }
+                }
+                .estadoOption {
+                  color: black;
+                }
+                .linkIconPedidos {
+                  width: 5vw;
+                  height: 5vw;
+                }
+              }
+            }
+
+            .hora {
+              color: $paragraph;
+            }
+            .arrow-up {
+              position: relative;
+              display: block;
+              width: 10px;
+              height: 10px;
+              margin-top: 5px;
+              border-right: 3px solid black;
+              border-bottom: 3px solid black;
+              transform: rotate(225deg);
+              -webkit-transform: rotate(225deg);
+              -moz-transform: rotate(225deg);
+              -ms-transform: rotate(225deg);
+              -o-transform: rotate(225deg);
+            }
+            .arrow-down {
+              position: relative;
+              display: block;
+              width: 10px;
+              height: 10px;
+              margin-top: -5px;
+              border-right: 3px solid black;
+              border-bottom: 3px solid black;
+              transform: rotate(45deg);
+              -webkit-transform: rotate(45deg);
+              -moz-transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
+            }
+          }
           .nombreItems {
             display: flex;
             flex-direction: column;
             width: 100%;
-            margin: 5% 0 5% 0;
+            margin-top: -4vw;
             .nombre {
               font-weight: $titleWeight;
               font-size: 4vw;
               @include centerRow;
               justify-content: space-between;
+              padding: 4vw 0;
+              margin: 0 5vw;
+              border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+              color: $paragraph;
               .precioIndiv {
                 color: $paragraph;
               }
@@ -121,74 +195,59 @@
                 display: flex;
                 align-items: center;
                 margin-bottom: 10px;
-                .list-item-circle {
-                  display: inline-block;
-                  width: 5px;
-                  height: 5px;
-                  border-radius: 50%;
-                  background-color: black;
-                  margin-right: 5px;
-                }
-              }
-            }
-          }
-          .supBar {
-            @include centerRow;
-            padding-bottom: 5%;
-            width: 100%;
-            justify-content: space-between;
-            font-weight: $titleWeight;
-            font-size: 4vw;
-            .estado {
-              @include centerRow;
-              .linkIconPedidos {
-                width: 5vw;
-                height: 5vw;
               }
             }
           }
         }
-        .footerPed {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          @include centerRow;
+        .footerCard {
+          margin-top: -1px;
           padding-top: 5%;
-          padding: 5% 5% 5% 5%;
-          width: 100%;
-          justify-content: space-between;
+          padding: 5%;
           font-weight: $titleWeight;
           font-size: 4vw;
           background-color: rgb(241, 241, 241);
-          border-end-end-radius: 10px;
-          .total {
-            font-weight: 400;
-            margin-right: -20vw;
-          }
-          .precio {
-            color: $success;
-          }
-          .metodoDePago {
+          border-radius: 0 0 10px 10px;
+          -webkit-border-radius: 0 0 10px 10px;
+          -moz-border-radius: 0 0 10px 10px;
+          -ms-border-radius: 0 0 10px 10px;
+          -o-border-radius: 0 0 10px 10px;
+          .dinero {
             @include centerRow;
+            justify-content: space-between;
+            width: 100%;
+            padding-bottom: 4vw;
+            border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+            .metodoDePago {
+              @include centerRow;
+            }
+            .precio {
+              @include center;
+              .total {
+                font-weight: 400;
+                margin-right: 4vw;
+              }
+            }
           }
+          .aclaraciones {
+            padding-top: 4vw;
+            span {
+              font-weight: 400;
+            }
+          }
+        }
+        .subtitle {
+          font-size: 5vw;
         }
       }
     }
   }
-
-  /* .footer {
-    margin-left: 5vw !important;
-    .btnVerMenu {
-      width: 100% !important;
-    }
-  } */
 }
 .estado-info {
   border-radius: 0.5rem;
   padding: 1%;
   color: $info;
   background-color: lighten($info, 40%);
+  border: 1px solid $info;
 }
 
 .estado-naranja {
@@ -196,6 +255,7 @@
   padding: 1%;
   color: $naranja;
   background-color: lighten($naranja, 34%);
+  border: 1px solid $naranja;
 }
 
 .estado-success {
@@ -203,6 +263,7 @@
   padding: 1%;
   color: $success;
   background-color: lighten($success, 48%);
+  border: 1px solid $success;
 }
 
 .estado-cancelado {
@@ -210,4 +271,5 @@
   padding: 1%;
   color: $error;
   background-color: lighten($error, 35%);
+  border: 1px solid $error;
 }
