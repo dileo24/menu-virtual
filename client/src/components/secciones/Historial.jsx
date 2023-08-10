@@ -67,7 +67,6 @@ export default function Historial() {
   const itemsArray = pedidosActuales.map((pedido) =>
     JSON.parse(pedido.itemsExtra)
   );
-
   const iconPago = (pagoId) => {
     switch (pagoId) {
       case 1:
@@ -108,9 +107,13 @@ export default function Historial() {
         return "estado-cancelado";
     }
   };
-  const prodPorNom = (productName) => {
+  const prodPrecio = (productName) => {
     const product = productos.find((p) => p.nombre === productName);
     return product ? product.precio : 0;
+  };
+  const prodPorNom = (productName) => {
+    const product = productos.find((p) => p.nombre === productName);
+    return product && product.combo;
   };
 
   return pedidos &&
@@ -147,21 +150,34 @@ export default function Historial() {
                     {pedido.productos.map((producto, i) => (
                       <div key={i}>
                         <p className="nombre">
-                          {producto}{" "}
+                          {producto}
                           <span className="precioIndiv">
-                            ${prodPorNom(producto)}
+                            ${prodPrecio(producto)}
                           </span>
                         </p>
-                        {itemsArray[index].length > 0 && (
+                        {prodPorNom(producto) &&
+                        itemsArray[index].length === 1 ? (
                           <ul className="itemsExtra">
-                            {itemsArray[index][i] &&
-                              itemsArray[index][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
+                            {itemsArray[index][0].map((item, j) => (
+                              <li key={j} className="list-item">
+                                <span className="list-item-circle"></span>
+                                {item}
+                              </li>
+                            ))}
                           </ul>
+                        ) : (
+                          itemsArray[index].length > 1 &&
+                          prodPorNom(producto) && (
+                            <ul className="itemsExtra">
+                              {itemsArray[index] &&
+                                itemsArray[index][i].map((item, j) => (
+                                  <li key={j} className="list-item">
+                                    <span className="list-item-circle"></span>
+                                    {item}
+                                  </li>
+                                ))}
+                            </ul>
+                          )
                         )}
                       </div>
                     ))}

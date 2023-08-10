@@ -88,6 +88,19 @@ export default function HacerPedido() {
     }));
   }, [carrito]);
 
+  const compareProductos = (productoA, productoB) => {
+    // Si productoA tiene itemsExtra y productoB no, productoA va primero
+    if (productoA.itemsExtra && !productoB.itemsExtra) {
+      return -1;
+    }
+    // Si productoB tiene itemsExtra y productoA no, productoB va primero
+    if (!productoA.itemsExtra && productoB.itemsExtra) {
+      return 1;
+    }
+    // En cualquier otro caso, mantener el orden actual
+    return 0;
+  };
+
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -102,6 +115,16 @@ export default function HacerPedido() {
       });
     }
   };
+
+  // Ordenar los productos antes de hacer el pedido
+  const productosOrdenados = carrito.slice().sort(compareProductos);
+
+  // Agregar los productos ordenados a la entrada de formulario
+  input.productos = productosOrdenados.map((producto) => producto.nombre);
+  input.precio = productosOrdenados.reduce(
+    (total, producto) => total + parseInt(producto.precio),
+    0
+  );
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -124,6 +147,7 @@ export default function HacerPedido() {
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
+      /* console.log(input); */
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
