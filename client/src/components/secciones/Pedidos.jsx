@@ -282,7 +282,11 @@ export default function Pedidos() {
                       <div className="supBar">
                         <div className="mesaEstado">
                           <p className="subtitle">Mesa {mesa}</p>
-                          <p className={`estado ${clasePorEstado(Estado.id)}`}>
+                          <p
+                            className={`estado ${clasePorEstado(
+                              Estado ? Estado.id : estadoID
+                            )}`}
+                          >
                             <span className="circle">•</span>
                             <span>
                               {Estado ? (
