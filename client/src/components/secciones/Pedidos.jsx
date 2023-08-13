@@ -222,9 +222,6 @@ export default function Pedidos() {
     return items;
   };
 
-  const itemsArray = pedidos.map(
-    (pedido) => pedido.itemsExtra.length && JSON.parse(pedido.itemsExtra)
-  );
   return (
     pedidos && (
       <div id="productos" className="pedidosContainer">
@@ -289,21 +286,18 @@ export default function Pedidos() {
           <div className="diapositiva">
             <div className="diapoContainer">
               {pedidos.map(
-                (
-                  {
-                    productos,
-                    mesa,
-                    aclaraciones,
-                    precio,
-                    Estado,
-                    itemsExtra,
-                    creacionHora,
-                    Pago,
-                    id,
-                    estadoID,
-                  },
-                  index
-                ) => (
+                ({
+                  productos,
+                  mesa,
+                  aclaraciones,
+                  precio,
+                  Estado,
+                  itemsExtra,
+                  creacionHora,
+                  Pago,
+                  id,
+                  estadoID,
+                }) => (
                   <div className="cardPedido" key={id}>
                     <div className="mainCard">
                       <div className="supBar">
@@ -368,7 +362,7 @@ export default function Pedidos() {
                           {productos.map((producto, i) => {
                             const items = itemsArrayFunc(itemsExtra);
                             return (
-                              <div key={i}>
+                              <div key={i} className="prod">
                                 <p className="nombre">
                                   {producto}
                                   <span className="precioIndiv">
@@ -385,6 +379,7 @@ export default function Pedidos() {
                                     ))}
                                   </ul>
                                 )}
+                                <p className="bordeBot"></p>
                               </div>
                             );
                           })}
@@ -403,15 +398,11 @@ export default function Pedidos() {
                             <p className="subtitle">${precio}</p>
                           </div>
                         </div>
-                        <div className="aclaraciones">
-                          {aclaraciones ? (
-                            <p>
-                              Aclaraciones: <span>{aclaraciones}.</span>
-                            </p>
-                          ) : (
-                            ""
-                          )}
-                        </div>
+                        {aclaraciones && (
+                          <p className="aclaraciones">
+                            Aclaraciones: <span>{aclaraciones}.</span>
+                          </p>
+                        )}
                       </div>
                     )}
                   </div>

@@ -169,31 +169,45 @@
             flex-direction: column;
             width: 100%;
             margin-top: -4vw;
-            .nombre {
-              font-weight: $titleWeight;
-              font-size: 4vw;
-              @include centerRow;
-              justify-content: space-between;
-              padding: 4vw 0;
-              margin: 0 5vw;
-              border-bottom: 1px solid rgba(128, 128, 128, 0.37);
-              color: $paragraph;
-              .precioIndiv {
-                color: $paragraph;
+            .prod {
+              .bordeBot {
+                margin: 2.5% 0 0 5%;
+                width: 90%;
+                border-bottom: 1px solid rgba(128, 128, 128, 0.37);
               }
-            }
-            .itemsExtra {
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              list-style: none;
-              padding: 5% 0 0 5%;
-              line-height: 1;
-
-              .list-item {
+              .nombre {
+                font-weight: $titleWeight;
+                font-size: 4vw;
+                @include centerRow;
+                justify-content: space-between;
+                padding: 4vw 0;
+                margin: 0 5vw -1vh 5vw;
+                color: $paragraph;
+                .precioIndiv {
+                  color: $paragraph;
+                }
+              }
+              .itemsExtra {
                 display: flex;
-                align-items: center;
-                margin-bottom: 10px;
+                flex-direction: column;
+                align-items: flex-start;
+                list-style: none;
+                padding: 0% 0 0 5%;
+                line-height: 1;
+
+                .list-item {
+                  display: flex;
+                  align-items: center;
+                  margin-bottom: 10px;
+                  .list-item-circle {
+                    display: inline-block;
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background-color: black;
+                    margin-right: 8px;
+                  }
+                }
               }
             }
           }
@@ -214,8 +228,8 @@
             @include centerRow;
             justify-content: space-between;
             width: 100%;
-            padding-bottom: 4vw;
-            border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+            /*  padding-bottom: 4vw; */
+
             .metodoDePago {
               @include centerRow;
               .tipoPago {
@@ -231,7 +245,9 @@
             }
           }
           .aclaraciones {
+            margin-top: 4vw;
             padding-top: 4vw;
+            border-top: 1px solid rgba(128, 128, 128, 0.37);
             span {
               font-weight: 400;
             }
