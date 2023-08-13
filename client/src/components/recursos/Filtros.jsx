@@ -8,6 +8,7 @@ export default function Filtros({
   searchWord,
   setBusqueda,
   setCheckAlertaError,
+  busqueda,
 }) {
   const [state, setState] = useState("");
   const [busq, setBusq] = useState(false);
@@ -28,7 +29,6 @@ export default function Filtros({
         handleSearch();
         // if (window.location.pathname === "/") {
         setBusqueda(state);
-        setBusq(true);
         setCheckAlertaError(true);
         // }
       }
@@ -37,13 +37,13 @@ export default function Filtros({
 
   return (
     <div className="filtro">
-      {busq && (
+      {busqueda && (
         <div className="ocultarBtn" onClick={() => window.location.reload()}>
           <span className="arrow-left"></span>
         </div>
       )}
       <input
-        className={busq ? "search" : "searchBar"}
+        className={busqueda ? "search" : "searchBar"}
         type="text"
         placeholder={`Buscar ${searchWord}`}
         onChange={handleState}

@@ -115,6 +115,7 @@ export default function Usuarios() {
           searchWord={"usuarios"}
           setBusqueda={setBusqueda}
           setCheckAlertaError={setCheckAlertaError}
+          busqueda={busqueda}
         />
       </div>
       {!busqueda && (

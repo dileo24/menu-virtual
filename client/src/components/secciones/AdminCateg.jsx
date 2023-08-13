@@ -142,6 +142,7 @@ export default function AdminCateg() {
           searchWord={"categorías"}
           setBusqueda={setBusqueda}
           setCheckAlertaError={setCheckAlertaError}
+          busqueda={busqueda}
         />
         {!busqueda ? (
           <form

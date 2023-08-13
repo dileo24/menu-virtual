@@ -440,6 +440,7 @@ export default function Header({
                   handleSearch={handleSearch}
                   searchWord={"productos"}
                   setBusqueda={setBusqueda}
+                  busqueda={busqueda}
                   setCheckAlertaError={setCheckAlertaError}
                 />
               </div>

@@ -126,8 +126,16 @@ const Carrusel = () => {
   const handleSwipe = useCallback((index) => {
     setCurrentSlide(index);
     window.scrollTo({ top: 0 });
+
     setBusqueda(false);
   }, []);
+
+  /* useEffect(() => {
+    if (busqueda) {
+      console.log(busqueda);
+      window.location.reload();
+    }
+  }, [currentSlide]); */
 
   const handleSearch = useCallback(() => {
     setCurrentSlide(0);
