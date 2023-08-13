@@ -149,7 +149,7 @@ export default function Pedidos() {
         return "estado-cancelado";
     }
   };
-  const prodPorNom = (productName) => {
+  const prodPrecio = (productName) => {
     const product = productos.find((p) => p.nombre === productName);
     return product ? product.precio : 0;
   };
@@ -211,10 +211,20 @@ export default function Pedidos() {
         })
       : setCheckAlertaError(false);
   }, [checkAlertaError]); */
+
+  const prodPorNom = (productName) => {
+    const product = productos.find((p) => p.nombre === productName);
+    return product && product.combo;
+  };
+
+  const itemsArrayFunc = (itemsExtra) => {
+    let items = JSON.parse(itemsExtra);
+    return items;
+  };
+
   const itemsArray = pedidos.map(
     (pedido) => pedido.itemsExtra.length && JSON.parse(pedido.itemsExtra)
   );
-
   return (
     pedidos && (
       <div id="productos" className="pedidosContainer">
@@ -355,26 +365,29 @@ export default function Pedidos() {
                       </div>
                       {openCardId === id && (
                         <div className="nombreItems">
-                          {productos.map((producto, i) => (
-                            <div key={i}>
-                              <p className="nombre">
-                                {producto}{" "}
-                                <span className="precioIndiv">
-                                  ${prodPorNom(producto)}
-                                </span>
-                              </p>
-                              {itemsArray[index][i] && (
-                                <ul className="itemsExtra">
-                                  {itemsArray[index][i].map((item, j) => (
-                                    <li key={j} className="list-item">
-                                      <span className="list-item-circle"></span>
-                                      {item}
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </div>
-                          ))}
+                          {productos.map((producto, i) => {
+                            const items = itemsArrayFunc(itemsExtra);
+                            return (
+                              <div key={i}>
+                                <p className="nombre">
+                                  {producto}
+                                  <span className="precioIndiv">
+                                    ${prodPrecio(producto)}
+                                  </span>
+                                </p>
+                                {prodPorNom(producto) && (
+                                  <ul className="itemsExtra">
+                                    {items[i].map((item, j) => (
+                                      <li key={j} className="list-item">
+                                        <span className="list-item-circle"></span>
+                                        {item}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                )}
+                              </div>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
@@ -413,18 +426,21 @@ export default function Pedidos() {
               {pedidos
                 .filter((pedido) => pedido.EstadoId === 1)
                 .map(
-                  ({
-                    productos,
-                    mesa,
-                    aclaraciones,
-                    precio,
-                    Estado,
-                    itemsExtra,
-                    creacionHora,
-                    Pago,
-                    id,
-                    estadoID,
-                  }) => (
+                  (
+                    {
+                      productos,
+                      mesa,
+                      aclaraciones,
+                      precio,
+                      Estado,
+                      itemsExtra,
+                      creacionHora,
+                      Pago,
+                      id,
+                      estadoID,
+                    },
+                    index
+                  ) => (
                     <div className="cardPedido" key={id}>
                       <div className="mainCard">
                         <div className="supBar">
@@ -484,27 +500,29 @@ export default function Pedidos() {
                         </div>
                         {openCardId === id && (
                           <div className="nombreItems">
-                            {productos.map((producto, i) => (
-                              <div key={i}>
-                                <p className="nombre">
-                                  {producto}{" "}
-                                  <span className="precioIndiv">
-                                    ${prodPorNom(producto)}
-                                  </span>
-                                </p>
-                                {/* {itemsExtra[id].length > 0 && (
-                            <ul className="itemsExtra">
-                              {itemsExtra[id][i] &&
-                                itemsExtra[id][i].map((item, j) => (
-                                  <li key={j} className="list-item">
-                                    <span className="list-item-circle"></span>
-                                    {item}
-                                  </li>
-                                ))}
-                            </ul>
-                          )} */}
-                              </div>
-                            ))}
+                            {productos.map((producto, i) => {
+                              const items = itemsArrayFunc(itemsExtra);
+                              return (
+                                <div key={i}>
+                                  <p className="nombre">
+                                    {producto}
+                                    <span className="precioIndiv">
+                                      ${prodPrecio(producto)}
+                                    </span>
+                                  </p>
+                                  {prodPorNom(producto) && (
+                                    <ul className="itemsExtra">
+                                      {items[i].map((item, j) => (
+                                        <li key={j} className="list-item">
+                                          <span className="list-item-circle"></span>
+                                          {item}
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </div>
                         )}
                       </div>
@@ -617,27 +635,29 @@ export default function Pedidos() {
                           </div>
                           {openCardId === id && (
                             <div className="nombreItems">
-                              {productos.map((producto, i) => (
-                                <div key={i}>
-                                  <p className="nombre">
-                                    {producto}{" "}
-                                    <span className="precioIndiv">
-                                      ${prodPorNom(producto)}
-                                    </span>
-                                  </p>
-                                  {/* {itemsExtra[id].length > 0 && (
-                            <ul className="itemsExtra">
-                              {itemsExtra[id][i] &&
-                                itemsExtra[id][i].map((item, j) => (
-                                  <li key={j} className="list-item">
-                                    <span className="list-item-circle"></span>
-                                    {item}
-                                  </li>
-                                ))}
-                            </ul>
-                          )} */}
-                                </div>
-                              ))}
+                              {productos.map((producto, i) => {
+                                const items = itemsArrayFunc(itemsExtra);
+                                return (
+                                  <div key={i}>
+                                    <p className="nombre">
+                                      {producto}
+                                      <span className="precioIndiv">
+                                        ${prodPrecio(producto)}
+                                      </span>
+                                    </p>
+                                    {prodPorNom(producto) && (
+                                      <ul className="itemsExtra">
+                                        {items[i].map((item, j) => (
+                                          <li key={j} className="list-item">
+                                            <span className="list-item-circle"></span>
+                                            {item}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
@@ -750,27 +770,29 @@ export default function Pedidos() {
                           </div>
                           {openCardId === id && (
                             <div className="nombreItems">
-                              {productos.map((producto, i) => (
-                                <div key={i}>
-                                  <p className="nombre">
-                                    {producto}{" "}
-                                    <span className="precioIndiv">
-                                      ${prodPorNom(producto)}
-                                    </span>
-                                  </p>
-                                  {/* {itemsExtra[id].length > 0 && (
-                            <ul className="itemsExtra">
-                              {itemsExtra[id][i] &&
-                                itemsExtra[id][i].map((item, j) => (
-                                  <li key={j} className="list-item">
-                                    <span className="list-item-circle"></span>
-                                    {item}
-                                  </li>
-                                ))}
-                            </ul>
-                          )} */}
-                                </div>
-                              ))}
+                              {productos.map((producto, i) => {
+                                const items = itemsArrayFunc(itemsExtra);
+                                return (
+                                  <div key={i}>
+                                    <p className="nombre">
+                                      {producto}
+                                      <span className="precioIndiv">
+                                        ${prodPrecio(producto)}
+                                      </span>
+                                    </p>
+                                    {prodPorNom(producto) && (
+                                      <ul className="itemsExtra">
+                                        {items[i].map((item, j) => (
+                                          <li key={j} className="list-item">
+                                            <span className="list-item-circle"></span>
+                                            {item}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
@@ -883,27 +905,29 @@ export default function Pedidos() {
                           </div>
                           {openCardId === id && (
                             <div className="nombreItems">
-                              {productos.map((producto, i) => (
-                                <div key={i}>
-                                  <p className="nombre">
-                                    {producto}{" "}
-                                    <span className="precioIndiv">
-                                      ${prodPorNom(producto)}
-                                    </span>
-                                  </p>
-                                  {/* {itemsExtra[id].length > 0 && (
-                            <ul className="itemsExtra">
-                              {itemsExtra[id][i] &&
-                                itemsExtra[id][i].map((item, j) => (
-                                  <li key={j} className="list-item">
-                                    <span className="list-item-circle"></span>
-                                    {item}
-                                  </li>
-                                ))}
-                            </ul>
-                          )} */}
-                                </div>
-                              ))}
+                              {productos.map((producto, i) => {
+                                const items = itemsArrayFunc(itemsExtra);
+                                return (
+                                  <div key={i}>
+                                    <p className="nombre">
+                                      {producto}
+                                      <span className="precioIndiv">
+                                        ${prodPrecio(producto)}
+                                      </span>
+                                    </p>
+                                    {prodPorNom(producto) && (
+                                      <ul className="itemsExtra">
+                                        {items[i].map((item, j) => (
+                                          <li key={j} className="list-item">
+                                            <span className="list-item-circle"></span>
+                                            {item}
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </div>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
