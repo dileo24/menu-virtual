@@ -24,8 +24,8 @@ const Carrusel = () => {
   let precioFinal = 0;
   const token = userActual && userActual.tokenSession;
   let productosState = useSelector((state) => state.home);
-  const [busqueda, setBusqueda] = useState(false);
   const [alertaError, setAlertaError] = useState(false);
+  const [busqueda, setBusqueda] = useState(false);
   const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   for (let i = 0; i < preciosArray.length; i++) {
@@ -107,16 +107,26 @@ const Carrusel = () => {
   }, [prevScrollPosition]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleWindowScroll);
+    !busqueda && window.addEventListener("scroll", handleWindowScroll);
+    if (busqueda && !userActual) {
+      const marca = document.getElementById("marca");
+      const subHeader = document.getElementById("subHeader");
+      const nav = document.getElementById("nav");
+      marca.style.marginBottom = "";
+      subHeader.style.position = "static";
+      subHeader.style.top = "";
+      nav.style.visibility = "visible";
+    }
 
     return () => {
       window.removeEventListener("scroll", handleWindowScroll);
     };
-  }, [handleWindowScroll]);
+  }, [handleWindowScroll, busqueda]);
 
   const handleSwipe = useCallback((index) => {
     setCurrentSlide(index);
     window.scrollTo({ top: 0 });
+    setBusqueda(false);
   }, []);
 
   const handleSearch = useCallback(() => {
@@ -156,6 +166,7 @@ const Carrusel = () => {
         setCurrentSlide={setCurrentSlide}
         handleSearch={handleSearch}
         setBusqueda={setBusqueda}
+        busqueda={busqueda}
         setCheckAlertaError={setCheckAlertaError}
       />
       <div className="carruselContainer">
@@ -231,7 +242,10 @@ const Carrusel = () => {
           texto={alertaError.texto}
           estado={alertaError}
           setEstado={setAlertaError}
-          callback={() => setCheckAlertaError(false)}
+          callback={() => {
+            setCheckAlertaError(false);
+            window.location.reload();
+          }}
         />
       )}
     </div>

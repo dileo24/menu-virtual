@@ -49,22 +49,7 @@ export default function Menu({
   return (
     productos && (
       <main className="menuContainer">
-        {categ === "todas" &&
-          busqueda &&
-          prodsBuscados.length !== productosState.length &&
-          prodsBuscados.length > 0 && (
-            <>
-              <h1 className="resultados">
-                Resultados de la búsqueda "{busqueda}":
-              </h1>
-              <button
-                className="limpiarBusq"
-                onClick={() => window.location.reload()}
-              >
-                Limpiar búsqueda
-              </button>
-            </>
-          )}
+        {busqueda && <h1 className="resultados">Resultados de búsqueda</h1>}
         {categorias.map((categoria) => {
           const productosPorCateg = filtrarProductosPorCategoria(
             categoria.nombre

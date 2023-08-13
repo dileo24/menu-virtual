@@ -169,6 +169,7 @@ header {
       padding: 5%;
       padding-top: 0;
       background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       h1 {
         font-weight: $titleWeight;
         font-size: $titleSize;
@@ -185,6 +186,7 @@ header {
       justify-content: space-between;
       padding: 0 6%;
       align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       .carritoIcon,
       .usuarioIcon {
         width: 10vw;
@@ -192,6 +194,9 @@ header {
       }
       .navbarCont {
         width: 55vw;
+      }
+      .navbarContBuscado {
+        width: 90vw;
       }
       .carrito {
         position: relative;

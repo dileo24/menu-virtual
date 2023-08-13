@@ -26,6 +26,7 @@ export default function Header({
   setCurrentSlide,
   handleSearch,
   setBusqueda,
+  busqueda,
   setCheckAlertaError,
 }) {
   const navigate = useNavigate();
@@ -399,25 +400,33 @@ export default function Header({
         {/* Clientes */}
         {!userActual && (
           <nav id="nav" className="nav headerClientes">
-            <Link to="/login" className="iniciarSesion">
-              <img src={login} alt="login" className="usuarioIcon" />
-            </Link>
-            <div className="navbarCont">
+            {!busqueda && (
+              <Link to="/login" className="iniciarSesion">
+                <img src={login} alt="login" className="usuarioIcon" />
+              </Link>
+            )}
+
+            <div className={!busqueda ? "navbarCont" : "navbarContBuscado"}>
               <Filtros
                 handleSearch={handleSearch}
                 searchWord={"productos"}
                 setBusqueda={setBusqueda}
                 setCheckAlertaError={setCheckAlertaError}
+                busqueda={busqueda}
               />
             </div>
-            <Link to="/historial" className="carrito">
-              <img src={bandeja} alt="bandeja" className="carritoIcon" />
-              {pedidosNoVacios.length ? (
-                <div className="cantidadPedidos">{pedidosNoVacios.length}</div>
-              ) : (
-                ""
-              )}
-            </Link>
+            {!busqueda && (
+              <Link to="/historial" className="carrito">
+                <img src={bandeja} alt="bandeja" className="carritoIcon" />
+                {pedidosNoVacios.length ? (
+                  <div className="cantidadPedidos">
+                    {pedidosNoVacios.length}
+                  </div>
+                ) : (
+                  ""
+                )}
+              </Link>
+            )}
           </nav>
         )}
 
@@ -435,65 +444,67 @@ export default function Header({
                 />
               </div>
             )}
-            <div id="categorias">
-              <div
-                className="categorias"
-                ref={scrollableRef}
-                style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-              >
-                <button
-                  className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
-                  id="0"
-                  onClick={() => {
-                    setCurrentSlide(0);
-                    window.scrollTo({ top: 0 });
-                  }}
+            {!busqueda && (
+              <div id="categorias">
+                <div
+                  className="categorias"
+                  ref={scrollableRef}
+                  style={{ overflowX: "auto", whiteSpace: "nowrap" }}
                 >
-                  Menú completo
-                </button>
-                {newCateg &&
-                  newCateg.map((categ, index) => (
-                    <React.Fragment key={categ.id}>
-                      <button
-                        className={`categoria ${
-                          currentSlide === index + 1 ? "active" : ""
-                        }`}
-                        id={categ.id}
-                        onClick={() => {
-                          setCurrentSlide(index + 1);
-                          window.scrollTo({ top: 0 });
-                        }}
-                      >
-                        {categ.nombre}
-                      </button>
-                    </React.Fragment>
-                  ))}
-              </div>
-
-              {newSubCategs.filter(
-                (subC) => subC.categoria.id === categActiveId
-              ).length >= 2 && (
-                <div className="subCategorias">
-                  {newSubCategs
-                    .filter((subC) => subC.categoria.id === categActiveId)
-                    .map((subC) => (
-                      <button
-                        /* className={`subCategoria ${
-                          subC === focusedSubcategory ? "focused" : ""
-                        }`} */
-                        className="subCategoria"
-                        key={subC.nombre}
-                        onClick={() => {
-                          // setFocusedSubcategory(subC);
-                          handleButtonClick(subC);
-                        }}
-                      >
-                        {subC.nombre}
-                      </button>
+                  <button
+                    className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
+                    id="0"
+                    onClick={() => {
+                      setCurrentSlide(0);
+                      window.scrollTo({ top: 0 });
+                    }}
+                  >
+                    Menú completo
+                  </button>
+                  {newCateg &&
+                    newCateg.map((categ, index) => (
+                      <React.Fragment key={categ.id}>
+                        <button
+                          className={`categoria ${
+                            currentSlide === index + 1 ? "active" : ""
+                          }`}
+                          id={categ.id}
+                          onClick={() => {
+                            setCurrentSlide(index + 1);
+                            window.scrollTo({ top: 0 });
+                          }}
+                        >
+                          {categ.nombre}
+                        </button>
+                      </React.Fragment>
                     ))}
                 </div>
-              )}
-            </div>
+
+                {newSubCategs.filter(
+                  (subC) => subC.categoria.id === categActiveId
+                ).length >= 2 && (
+                  <div className="subCategorias">
+                    {newSubCategs
+                      .filter((subC) => subC.categoria.id === categActiveId)
+                      .map((subC) => (
+                        <button
+                          /* className={`subCategoria ${
+                          subC === focusedSubcategory ? "focused" : ""
+                        }`} */
+                          className="subCategoria"
+                          key={subC.nombre}
+                          onClick={() => {
+                            // setFocusedSubcategory(subC);
+                            handleButtonClick(subC);
+                          }}
+                        >
+                          {subC.nombre}
+                        </button>
+                      ))}
+                  </div>
+                )}
+              </div>
+            )}
           </>
         )}
       </div>

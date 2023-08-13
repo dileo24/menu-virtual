@@ -29,8 +29,10 @@ export default function Pedidos() {
   const [diapoActual, setDiapoActual] = useState(0);
   const scrollableRef = useRef(null);
   const [estadoActiveId, setEstadoActiveId] = useState(0);
-  const [inputData, setInputData] = useState([]);
+  // const [inputData, setInputData] = useState([]);
   const [openCardId, setOpenCardId] = useState(null);
+  const [busqueda, setBusqueda] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   useEffect(() => {
     scrollToEstadoActive();
@@ -194,12 +196,21 @@ export default function Pedidos() {
     }
   };
 
-  const sortedPedidos = pedidos.sort((a, b) => {
+  /*   const sortedPedidos = pedidos.sort((a, b) => {
     const horaA = a.creacionHora;
     const horaB = b.creacionHora;
 
     return horaB.localeCompare(horaA);
-  });
+  }); */
+
+  /*   useEffect(() => {
+    checkAlertaError && homeBusqueda && homeBusqueda.length === 0
+      ? setAlertaError({
+          estadoActualizado: true,
+          texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
+        })
+      : setCheckAlertaError(false);
+  }, [checkAlertaError]); */
 
   return (
     pedidos && (
@@ -210,8 +221,8 @@ export default function Pedidos() {
           <Filtros
             searchType="pedidos"
             searchWord={"pedidos"}
-            setBusqueda={""}
-            setCheckAlertaError={""}
+            setBusqueda={setBusqueda}
+            setCheckAlertaError={setCheckAlertaError}
             className="navbar"
           />
         </div>

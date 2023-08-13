@@ -32,7 +32,6 @@
   }
   .diapositiva {
     height: auto;
-
     .diapoContainer {
       padding: 0 5vw 24vw 5vw;
       min-height: 70vh;
@@ -41,6 +40,9 @@
         font-weight: $titleWeight;
         margin-bottom: 8vw;
         line-height: 1;
+      }
+      .resultados {
+        font-weight: 500;
       }
       .diapoSubtitle {
         font-weight: $titleWeight;

@@ -143,26 +143,31 @@ export default function AdminCateg() {
           setBusqueda={setBusqueda}
           setCheckAlertaError={setCheckAlertaError}
         />
-        <form
-          onSubmit={(e) => {
-            setAlertaExito(true);
-            handleSubmit(e);
-          }}
-          className="formulario"
-        >
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nueva categoría..."
-            className="nombreInput"
-            value={input.nombre}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" className="agregarBtn">
-            Agregar
-          </button>
-        </form>
+        {!busqueda ? (
+          <form
+            onSubmit={(e) => {
+              setAlertaExito(true);
+              handleSubmit(e);
+            }}
+            className="formulario"
+          >
+            <input
+              type="text"
+              name="nombre"
+              placeholder="Nueva categoría..."
+              className="nombreInput"
+              value={input.nombre}
+              onChange={handleChange}
+              required
+            />
+            <button type="submit" className="agregarBtn">
+              Agregar
+            </button>
+          </form>
+        ) : (
+          <h1 className="categTitle resultados">Resultados de búsqueda</h1>
+        )}
+
         <div>
           {categs.map((categ) => (
             <div key={categ.id} className="cardCateg">
@@ -263,7 +268,10 @@ export default function AdminCateg() {
             texto={alertaError2.texto}
             estado={alertaError2}
             setEstado={setAlertaError2}
-            callback={() => setCheckAlertaError(false)}
+            callback={() => {
+              setCheckAlertaError(false);
+              window.location.reload();
+            }}
           />
         )}
         {alertaExito && (
