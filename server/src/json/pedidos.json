@@ -1,13 +1,7 @@
 [
   {
-    "productos": [
-      "Asado para 2 personas",
-      "Lomito Completo Premium"
-    ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "productos": ["Asado para 2 personas", "Lomito Completo Premium"],
+    "itemsExtra": [],
     "mesa": "2",
     "precio": "9200",
     "estadoID": "1",
@@ -22,10 +16,7 @@
       "Lomito Completo Premium",
       "Pizza Fugazzeta (8 porciones)"
     ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "itemsExtra": [],
     "mesa": "1",
     "precio": "9200",
     "estadoID": "2",
@@ -40,10 +31,7 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "itemsExtra": [],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "4",
@@ -53,14 +41,8 @@
     "creacionFecha": "03/06/2023"
   },
   {
-    "productos": [
-      "Asado para 2 personas",
-      "Lomito Completo Premium"
-    ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "productos": ["Asado para 2 personas", "Lomito Completo Premium"],
+    "itemsExtra": [],
     "mesa": "2",
     "precio": "9200",
     "estadoID": "4",
@@ -75,10 +57,7 @@
       "Lomito Completo Premium",
       "Pizza Fugazzeta (8 porciones)"
     ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "itemsExtra": [],
     "mesa": "1",
     "precio": "9200",
     "estadoID": "3",
@@ -93,10 +72,7 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "itemsExtra": [],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "2",
@@ -111,10 +87,7 @@
       "Papas a la Alemana (para 4)",
       "Pizza Especial (8 porciones)"
     ],
-    "itemsExtra": [
-      "Fanta 500ml",
-      "Aquarius de Manzana 500ml"
-    ],
+    "itemsExtra": [],
     "mesa": "4",
     "precio": "9200",
     "estadoID": "1",

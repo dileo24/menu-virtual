@@ -211,6 +211,9 @@ export default function Pedidos() {
         })
       : setCheckAlertaError(false);
   }, [checkAlertaError]); */
+  const itemsArray = pedidos.map(
+    (pedido) => pedido.itemsExtra.length && JSON.parse(pedido.itemsExtra)
+  );
 
   return (
     pedidos && (
@@ -276,18 +279,21 @@ export default function Pedidos() {
           <div className="diapositiva">
             <div className="diapoContainer">
               {pedidos.map(
-                ({
-                  productos,
-                  mesa,
-                  aclaraciones,
-                  precio,
-                  Estado,
-                  itemsExtra,
-                  creacionHora,
-                  Pago,
-                  id,
-                  estadoID,
-                }) => (
+                (
+                  {
+                    productos,
+                    mesa,
+                    aclaraciones,
+                    precio,
+                    Estado,
+                    itemsExtra,
+                    creacionHora,
+                    Pago,
+                    id,
+                    estadoID,
+                  },
+                  index
+                ) => (
                   <div className="cardPedido" key={id}>
                     <div className="mainCard">
                       <div className="supBar">
@@ -357,17 +363,16 @@ export default function Pedidos() {
                                   ${prodPorNom(producto)}
                                 </span>
                               </p>
-                              {/* {itemsExtra[id].length > 0 && (
-                            <ul className="itemsExtra">
-                              {itemsExtra[id][i] &&
-                                itemsExtra[id][i].map((item, j) => (
-                                  <li key={j} className="list-item">
-                                    <span className="list-item-circle"></span>
-                                    {item}
-                                  </li>
-                                ))}
-                            </ul>
-                          )} */}
+                              {itemsArray[index][i] && (
+                                <ul className="itemsExtra">
+                                  {itemsArray[index][i].map((item, j) => (
+                                    <li key={j} className="list-item">
+                                      <span className="list-item-circle"></span>
+                                      {item}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
                             </div>
                           ))}
                         </div>
