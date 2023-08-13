@@ -196,12 +196,12 @@ export default function Pedidos() {
     }
   };
 
-  /*   const sortedPedidos = pedidos.sort((a, b) => {
+  const sortedPedidos = pedidos.sort((a, b) => {
     const horaA = a.creacionHora;
     const horaB = b.creacionHora;
 
     return horaB.localeCompare(horaA);
-  }); */
+  });
 
   /*   useEffect(() => {
     checkAlertaError && homeBusqueda && homeBusqueda.length === 0
