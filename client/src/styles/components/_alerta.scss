@@ -10,7 +10,8 @@
   @include center;
   .pregunta,
   .exito,
-  .error {
+  .error,
+  .aviso {
     width: 90%;
     padding: 8vw;
     border-radius: 10px;
@@ -32,6 +33,7 @@
       @include center;
       .cancelar,
       .aceptar,
+      .aceptarAviso,
       .aceptarSolo {
         margin-top: 8vw;
         font-weight: $titleWeight;
@@ -55,12 +57,19 @@
         background-color: $error;
         border: 1px solid $error;
       }
+      .aceptarAviso {
+        background-color: $naranja;
+        border: 1px solid $naranja;
+      }
       .aceptarSolo {
         background-color: $naranja;
       }
     }
   }
   .pregunta {
+    background-color: white;
+  }
+  .aviso {
     background-color: white;
   }
   .exito {
