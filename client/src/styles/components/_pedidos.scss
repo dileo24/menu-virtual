@@ -89,13 +89,15 @@
         flex-direction: column;
         position: relative;
         .mainCard {
+          padding: 0 5vw;
+
           .supBar {
             @include centerRow;
             width: 100%;
             justify-content: space-between;
             font-weight: $titleWeight;
             font-size: 4vw;
-            padding: 0 5vw 5vw 5vw;
+            padding: 0 0 5vw 0;
             .mesaEstado {
               width: 70%;
               display: flex;
@@ -169,44 +171,43 @@
             flex-direction: column;
             width: 100%;
             margin-top: -4vw;
-            .prod {
-              .bordeBot {
-                margin: 2.5% 0 0 5%;
-                width: 90%;
-                border-bottom: 1px solid rgba(128, 128, 128, 0.37);
-              }
-              .nombre {
-                font-weight: $titleWeight;
-                font-size: 4vw;
-                @include centerRow;
-                justify-content: space-between;
-                padding: 4vw 0;
-                margin: 0 5vw -1vh 5vw;
+            padding-bottom: 2.5vw;
+            &:not(:last-child) {
+              margin-bottom: 2.5vw;
+              border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+            }
+            .nombre {
+              font-weight: $titleWeight;
+              font-size: 4vw;
+              @include centerRow;
+              justify-content: space-between;
+              padding: 4vw 0;
+              margin: 0 5vw -1vh 0;
+              color: $paragraph;
+              .precioIndiv {
                 color: $paragraph;
-                .precioIndiv {
-                  color: $paragraph;
-                }
               }
-              .itemsExtra {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                list-style: none;
-                padding: 0% 0 0 5%;
-                line-height: 1;
+            }
+            .itemsExtra {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              list-style: none;
+              padding-left: 3vw;
+              line-height: 1;
 
-                .list-item {
-                  display: flex;
-                  align-items: center;
-                  margin-bottom: 10px;
-                  .list-item-circle {
-                    display: inline-block;
-                    width: 5px;
-                    height: 5px;
-                    border-radius: 50%;
-                    background-color: black;
-                    margin-right: 8px;
-                  }
+              .list-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                .list-item-circle {
+                  display: inline-block;
+                  width: 5px;
+                  height: 5px;
+                  border-radius: 50%;
+                  background-color: black;
+                  margin-top: 2px;
+                  margin-right: 8px;
                 }
               }
             }
