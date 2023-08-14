@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategorias, searchXname } from "../../redux/actions";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function Filtros({
   handleSearch = () => {},
@@ -50,6 +51,7 @@ export default function Filtros({
         onKeyDown={handleKeyDown}
         value={state}
       />
+      <FaMagnifyingGlass className="lupa" />
     </div>
   );
 }

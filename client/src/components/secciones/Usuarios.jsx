@@ -107,16 +107,18 @@ export default function Usuarios() {
 
   return (
     <div className="usuariosContainer">
-      <Header />
-      <h1 className="usuariosTitle">Administrar Usuarios</h1>
-      <div className="navbar">
-        <Filtros
-          searchType="usuarios"
-          searchWord={"usuarios"}
-          setBusqueda={setBusqueda}
-          setCheckAlertaError={setCheckAlertaError}
-          busqueda={busqueda}
-        />
+      <div className="header">
+        <Header />
+        <h1 className="usuariosTitle">Administrar Usuarios</h1>
+        <div className="navbar">
+          <Filtros
+            searchType="usuarios"
+            searchWord={"usuarios"}
+            setBusqueda={setBusqueda}
+            setCheckAlertaError={setCheckAlertaError}
+            busqueda={busqueda}
+          />
+        </div>
       </div>
       {!busqueda && (
         <div className="circles">
@@ -390,7 +392,7 @@ export default function Usuarios() {
       ) : (
         <div className="diapositiva">
           <div className="diapoContainer">
-            <h1 className="diapoTitle resultados">Resultados de búsqueda</h1>
+            <h1 className="resultados">Resultados de búsqueda</h1>
 
             {usuariosBusq &&
               usuariosBusq
