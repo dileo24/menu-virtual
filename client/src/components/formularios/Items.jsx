@@ -113,63 +113,65 @@ export default function Items({
         ""
       )}
 
-      {itemsExtra.map((item, index) => (
-        <div className="labelInput " key={index}>
-          <label className="item" htmlFor={`item${index}`}>
-            ítem {index + 1}
-          </label>
-          <select
-            className="itemInput"
-            onChange={(e) => handleItemChange(e, index)}
-          >
-            <option hidden>
-              {itemsExtra[index] === ""
-                ? "Selecciona una categoría"
-                : itemsExtra[index]}
-            </option>
+      {itemsExtra &&
+        itemsExtra.map((item, index) => (
+          <div className="labelInput " key={index}>
+            <label className="item" htmlFor={`item${index}`}>
+              ítem {index + 1}
+            </label>
+            <select
+              className="itemInput"
+              onChange={(e) => handleItemChange(e, index)}
+              required
+            >
+              <option hidden>
+                {itemsExtra[index] === ""
+                  ? "Selecciona una categoría"
+                  : itemsExtra[index]}
+              </option>
 
-            {/* {categoriasUnicas.map((nombre, index) => (
+              {/* {categoriasUnicas.map((nombre, index) => (
               <option key={index} value={nombre}>
                 {nombre}
               </option>
             ))} */}
 
-            {/* Mapear las opciones de categorías */}
-            {categorias.map((categoria) => {
-              const categoriaEstaEnProductos = productosConItemTrue.some(
-                (producto) => producto.categoria.id === categoria.id
-              );
-
-              if (categoriaEstaEnProductos) {
-                return (
-                  <option key={categoria.id} value={categoria.nombre}>
-                    {categoria.nombre}
-                  </option>
+              {/* Mapear las opciones de categorías */}
+              {categorias.map((categoria) => {
+                const categoriaEstaEnProductos = productosConItemTrue.some(
+                  (producto) => producto.categoria.id === categoria.id
                 );
-              }
-              return null;
-            })}
 
-            {/* Mapear las opciones de subcategorías */}
-            {subcategorias.map((subcategoria) => {
-              const subcategoriaEstaEnProductos = productosConItemTrue.some(
-                (producto) =>
-                  producto.subcategoria &&
-                  producto.subcategoria.id === subcategoria.id
-              );
+                if (categoriaEstaEnProductos) {
+                  return (
+                    <option key={categoria.id} value={categoria.nombre}>
+                      {categoria.nombre}
+                    </option>
+                  );
+                }
+                return null;
+              })}
 
-              if (subcategoriaEstaEnProductos) {
-                return (
-                  <option key={subcategoria.id} value={subcategoria.nombre}>
-                    {subcategoria.nombre}
-                  </option>
+              {/* Mapear las opciones de subcategorías */}
+              {subcategorias.map((subcategoria) => {
+                const subcategoriaEstaEnProductos = productosConItemTrue.some(
+                  (producto) =>
+                    producto.subcategoria &&
+                    producto.subcategoria.id === subcategoria.id
                 );
-              }
-              return null;
-            })}
-          </select>
-        </div>
-      ))}
+
+                if (subcategoriaEstaEnProductos) {
+                  return (
+                    <option key={subcategoria.id} value={subcategoria.nombre}>
+                      {subcategoria.nombre}
+                    </option>
+                  );
+                }
+                return null;
+              })}
+            </select>
+          </div>
+        ))}
     </>
   );
 }

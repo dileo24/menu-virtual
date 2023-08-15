@@ -7,17 +7,17 @@ import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
 import Alerta from "../recursos/Alerta";
 
-export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
+export default function Menu({
+  categ,
+  prodsBuscados,
+  handleClickEliminar,
+  busqueda,
+}) {
   const userActual = useSelector((state) => state.userActual);
-  // const itemsNoListados = useSelector((state) => state.itemsNoListados);
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
-  // let subcategorias = useSelector((state) => state.subcategorias);
-  prodsBuscados && prodsBuscados.length > 0 && (productosState = prodsBuscados);
-
-  let productos = productosState.filter((prod) =>
-    categ !== "todas" ? prod.categoria.nombre === categ : prod
-  );
+  const categorias = useSelector((state) => state.categorias);
+  const subcategorias = useSelector((state) => state.subcategorias);
 
   useEffect(() => {
     dispatch(getProductos());
@@ -25,6 +25,7 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
   }, [dispatch]);
 
   let ultimaCategoria = "";
+  let ultimaSubCategoria = "";
 
   // Función para quitar tildes y espacios
   const removeAccentsAndSpaces = (str) => {
@@ -34,39 +35,246 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
       .replace(/\s/g, "");
   };
 
-  return (
-    productosState && (
-      <div>
-        <main className="menuContainer">
-          <div className="cardsVisibles">
-            {/********************* PRODUCTOS VISIBLES *********************/}
+  let productos = productosState.filter((prod) =>
+    categ !== "todas" ? prod.categoria.nombre === categ : prod
+  );
 
-            {productos
-              .filter(
-                (producto) =>
-                  producto.listado === true && producto.item === false
-              )
-              .map(
-                ({
-                  nombre,
-                  descripcion,
-                  precio,
-                  itemsExtra,
-                  id,
-                  cantidadPersonas,
-                  categoria,
-                  subcategoria,
-                }) => {
-                  const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
-                  if (esNuevaCategoria) {
-                    ultimaCategoria = categoria.nombre;
-                  }
-                  return (
-                    <div key={id}>
-                      {categ === "todas" && esNuevaCategoria && (
-                        <h1 className="nombreCateg">{categoria.nombre}</h1>
-                      )}
+  // Filtrar los productos por categoría
+  const filtrarProductosPorCategoria = (categoria) => {
+    return productos.filter((prod) => prod.categoria.nombre === categoria);
+  };
+
+  prodsBuscados && prodsBuscados.length > 0 && (productos = prodsBuscados);
+
+  return (
+    productos && (
+      <main className="menuContainer">
+        {busqueda && <h1 className="resultados">Resultados de búsqueda</h1>}
+        {categorias.map((categoria) => {
+          const productosPorCateg = filtrarProductosPorCategoria(
+            categoria.nombre
+          ).filter((producto) => producto.listado === true);
+
+          // Comprobar que haya productos en la categoría
+          const productosCategoria = productosPorCateg.filter(
+            (prod) => prod.categoria.nombre === categoria.nombre
+          );
+          if (productosCategoria.length === 0) {
+            // Si no hay prod en la categ, la saltea
+            return null;
+          }
+
+          const productosSinSubcateg = productosPorCateg.filter(
+            (prod) => prod.subcategoria === null
+          );
+
+          return (
+            <div key={categoria.id}>
+              {categ === "todas" &&
+                (prodsBuscados.length === 0 ||
+                  prodsBuscados.length === productosState.length) && (
+                  <h1 className="nombreCateg">{categoria.nombre}</h1>
+                )}
+
+              {/* Renderizar los productos sin subcategoria */}
+              <div className="cardsVisibles">
+                {productosSinSubcateg.map(
+                  ({
+                    nombre,
+                    descripcion,
+                    precio,
+                    itemsExtra,
+                    id,
+                    cantidadPersonas,
+                    subcategoria,
+                  }) => (
+                    <div
+                      key={id}
+                      id={
+                        subcategoria
+                          ? removeAccentsAndSpaces(subcategoria.nombre)
+                          : ""
+                      }
+                      className="cardProducto"
+                    >
+                      <p className="nombre">{nombre}</p>
+                      <p className="descripcion">{descripcion}</p>
+                      <div className="precioAcciones">
+                        <div className="acciones">
+                          {userActual ? (
+                            <>
+                              <Link
+                                to={`/editarProducto?id=${id}`}
+                                className="iconContainer1"
+                              >
+                                <HiOutlinePencil className="editarIcon" />
+                              </Link>
+
+                              <button
+                                onClick={() => handleClickEliminar(id)}
+                                className="iconContainer2"
+                              >
+                                <VscTrash className="eliminarIcon" />
+                              </button>
+                            </>
+                          ) : (
+                            <Contador
+                              id={id}
+                              nombre={nombre}
+                              descripcion={descripcion}
+                              precio={precio}
+                              itemsExtra={itemsExtra}
+                              cantidadPersonas={cantidadPersonas}
+                            />
+                          )}
+                        </div>
+                        <p className="precio">${precio}</p>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+
+              {/* Renderizar los productos con subcategoria */}
+              {subcategorias.map((subcategoria) => {
+                const productosPorSubCateg = productosPorCateg.filter(
+                  (prod) =>
+                    prod.subcategoria &&
+                    prod.subcategoria.nombre === subcategoria.nombre
+                );
+                return (
+                  <div className="cardsVisibles" key={subcategoria.id}>
+                    {/* Renderizar los productos con item === false */}
+                    {productosPorSubCateg.map(
+                      ({
+                        nombre,
+                        descripcion,
+                        precio,
+                        itemsExtra,
+                        id,
+                        cantidadPersonas,
+                        subcategoria,
+                      }) => {
+                        const esNuevaSubCategoria =
+                          subcategoria.nombre !== ultimaSubCategoria;
+                        if (esNuevaSubCategoria) {
+                          ultimaSubCategoria = subcategoria.nombre;
+                        }
+                        return (
+                          <div
+                            key={id}
+                            id={
+                              subcategoria
+                                ? removeAccentsAndSpaces(subcategoria.nombre)
+                                : ""
+                            }
+                          >
+                            {categ !== "todas" && esNuevaSubCategoria && (
+                              <h1 className="nombreCateg">
+                                {subcategoria.nombre}
+                              </h1>
+                            )}
+
+                            {categ === "todas" &&
+                              esNuevaSubCategoria &&
+                              (prodsBuscados.length === 0 ||
+                                prodsBuscados.length ===
+                                  productosState.length) && (
+                                <h1 className="nombreCateg">
+                                  {subcategoria.nombre}
+                                </h1>
+                              )}
+                            <div className="cardProducto">
+                              <p className="nombre">{nombre}</p>
+                              <p className="descripcion">{descripcion}</p>
+                              <div className="precioAcciones">
+                                <div className="acciones">
+                                  {userActual ? (
+                                    <>
+                                      <Link
+                                        to={`/editarProducto?id=${id}`}
+                                        className="iconContainer1"
+                                      >
+                                        <HiOutlinePencil className="editarIcon" />
+                                      </Link>
+
+                                      <button
+                                        onClick={() => handleClickEliminar(id)}
+                                        className="iconContainer2"
+                                      >
+                                        <VscTrash className="eliminarIcon" />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <Contador
+                                      id={id}
+                                      nombre={nombre}
+                                      descripcion={descripcion}
+                                      precio={precio}
+                                      itemsExtra={itemsExtra}
+                                      cantidadPersonas={cantidadPersonas}
+                                    />
+                                  )}
+                                </div>
+                                <p className="precio">${precio}</p>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      }
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+
+        {/********************* ITEMS NO VISIBLES *********************/}
+        {userActual &&
+          productos.some((producto) => producto.listado === false) && (
+            <h1 className="nombreCateg noVisibles">Items no visibles</h1>
+          )}
+        {userActual &&
+          categorias.map((categoria) => {
+            const productosPorCateg = filtrarProductosPorCategoria(
+              categoria.nombre
+            ).filter((producto) => producto.listado === false);
+
+            // Comprobar que haya productos en la categoría
+            const productosCategoria = productosPorCateg.filter(
+              (prod) => prod.categoria.nombre === categoria.nombre
+            );
+            if (productosCategoria.length === 0) {
+              // Si no hay prod en la categ, la saltea
+              return null;
+            }
+
+            const productosSinSubcateg = productosPorCateg.filter(
+              (prod) => prod.subcategoria === null
+            );
+
+            return (
+              <div key={categoria.id}>
+                {categ === "todas" &&
+                  prodsBuscados.length === productosState.length && (
+                    <h1 className="nombreCateg">{categoria.nombre}</h1>
+                  )}
+
+                {/* Renderizar los productos sin subcategoria */}
+                <div className="cardsVisibles">
+                  {productosSinSubcateg.map(
+                    ({
+                      nombre,
+                      descripcion,
+                      precio,
+                      itemsExtra,
+                      id,
+                      cantidadPersonas,
+                      subcategoria,
+                    }) => (
                       <div
+                        key={id}
                         id={
                           subcategoria
                             ? removeAccentsAndSpaces(subcategoria.nombre)
@@ -108,185 +316,58 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                           <p className="precio">${precio}</p>
                         </div>
                       </div>
-                    </div>
-                  );
-                }
-              )}
+                    )
+                  )}
+                </div>
 
-            {/********************* ITEMS VISIBLES *********************/}
-            {productos
-              .filter(
-                (producto) =>
-                  producto.listado === true && producto.item === true
-              )
-              .map(
-                ({
-                  nombre,
-                  descripcion,
-                  precio,
-                  itemsExtra,
-                  id,
-                  cantidadPersonas,
-                  categoria,
-                  subcategoria,
-                }) => {
-                  const esNuevaCategoria = categoria.nombre !== ultimaCategoria;
-                  if (esNuevaCategoria) {
-                    ultimaCategoria = categoria.nombre;
-                  }
-                  return (
-                    <div key={id}>
-                      {categ === "todas" && esNuevaCategoria && (
-                        <h1 className="nombreCateg">{categoria.nombre}</h1>
-                      )}
-                      <div
-                        id={
-                          subcategoria
-                            ? removeAccentsAndSpaces(subcategoria.nombre)
-                            : ""
-                        }
-                        className="cardItem"
-                      >
-                        <p className="nombre">{nombre}</p>
-                        <p className="descripcion">{descripcion}</p>
-                        <div className="precioAcciones">
-                          <div className="acciones">
-                            {userActual ? (
-                              <>
-                                <Link
-                                  to={`/editarProducto?idItem=${id}`}
-                                  className="iconContainer1"
-                                >
-                                  <HiOutlinePencil className="editarIcon" />
-                                </Link>
-                                <button
-                                  onClick={() => handleClickEliminar(id)}
-                                  className="iconContainer2"
-                                >
-                                  <VscTrash className="eliminarIcon" />
-                                </button>
-                              </>
-                            ) : (
-                              <Contador
-                                id={id}
-                                nombre={nombre}
-                                descripcion={descripcion}
-                                precio={precio}
-                                itemsExtra={itemsExtra}
-                                cantidadPersonas={cantidadPersonas}
-                              />
-                            )}
-                          </div>
-                          <p className="precio">${precio}</p>
-                        </div>
-                      </div>
-                    </div>
+                {/* Renderizar los productos con subcategoria */}
+                {subcategorias.map((subcategoria) => {
+                  const productosPorSubCateg = productosPorCateg.filter(
+                    (prod) =>
+                      prod.subcategoria &&
+                      prod.subcategoria.nombre === subcategoria.nombre
                   );
-                }
-              )}
-          </div>
-          {/********************* ITEMS NO VISIBLES *********************/}
-          <div>
-            {userActual && (
-              <div>
-                {productos
-                  .filter(
-                    (producto) =>
-                      producto.listado === false && producto.item === true
-                  )
-                  .some((productoFiltrado) => {
-                    return (
-                      <div key={productoFiltrado.id}>
-                        {categ === "todas" && (
-                          <h1 className="nombreCateg">
-                            {productoFiltrado.categoria.nombre}
-                          </h1>
-                        )}
-                        <div className="cardItemNoVisible">
-                          <p className="nombre">{productoFiltrado.nombre}</p>
-                          <p className="descripcion">
-                            {productoFiltrado.descripcion}
-                          </p>
-                          <div className="precioAcciones">
-                            <div className="acciones">
-                              {userActual ? (
-                                <>
-                                  <Link
-                                    to={`/editarProducto?idItem=${productoFiltrado.id}`}
-                                    className="iconContainer1"
-                                  >
-                                    <HiOutlinePencil className="editarIcon" />
-                                  </Link>
-                                  <button
-                                    onClick={() =>
-                                      handleClickEliminar(productoFiltrado.id)
-                                    }
-                                    className="iconContainer2"
-                                  >
-                                    <VscTrash className="eliminarIcon" />
-                                  </button>
-                                </>
-                              ) : (
-                                <Contador
-                                  id={productoFiltrado.id}
-                                  nombre={productoFiltrado.nombre}
-                                  descripcion={productoFiltrado.descripcion}
-                                  itemsExtra={productoFiltrado.itemsExtra}
-                                  cantidadPersonas={
-                                    productoFiltrado.cantidadPersonas
-                                  }
-                                />
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  }) ? (
-                  <div className="cardsNoVisibles">
-                    <p className="nombreCateg">Items no visibles</p>
-                    {productosState
-                      .filter(
-                        (producto) =>
-                          producto.listado === false && producto.item === true
-                      )
-                      .filter((prod) =>
-                        categ !== "todas"
-                          ? prod.categoria.nombre === categ
-                          : prod
-                      )
-                      .map(
+                  return (
+                    <div className="cardsVisibles" key={subcategoria.id}>
+                      {/* Renderizar los productos con item === false */}
+                      {productosPorSubCateg.map(
                         ({
                           nombre,
                           descripcion,
+                          precio,
                           itemsExtra,
                           id,
                           cantidadPersonas,
-                          categoria,
                           subcategoria,
                         }) => {
-                          const esNuevaCategoria =
-                            categoria.nombre !== ultimaCategoria;
-                          if (esNuevaCategoria) {
-                            ultimaCategoria = categoria.nombre;
+                          const esNuevaSubCategoria =
+                            subcategoria.nombre !== ultimaSubCategoria;
+                          if (esNuevaSubCategoria) {
+                            ultimaSubCategoria = subcategoria.nombre;
                           }
                           return (
-                            <div key={id}>
-                              {categ === "todas" && esNuevaCategoria && (
+                            <div
+                              key={id}
+                              id={
+                                subcategoria
+                                  ? removeAccentsAndSpaces(subcategoria.nombre)
+                                  : ""
+                              }
+                            >
+                              {categ !== "todas" && esNuevaSubCategoria && (
                                 <h1 className="nombreCateg">
-                                  {categoria.nombre}
+                                  {subcategoria.nombre}
                                 </h1>
                               )}
-                              <div
-                                id={
-                                  subcategoria
-                                    ? removeAccentsAndSpaces(
-                                        subcategoria.nombre
-                                      )
-                                    : ""
-                                }
-                                className="cardItemNoVisible"
-                              >
+                              {categ === "todas" &&
+                                esNuevaSubCategoria &&
+                                prodsBuscados.length ===
+                                  productosState.length && (
+                                  <h1 className="nombreSubCateg">
+                                    {subcategoria.nombre}
+                                  </h1>
+                                )}
+                              <div className="cardProducto">
                                 <p className="nombre">{nombre}</p>
                                 <p className="descripcion">{descripcion}</p>
                                 <div className="precioAcciones">
@@ -294,11 +375,12 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                                     {userActual ? (
                                       <>
                                         <Link
-                                          to={`/editarProducto?idItem=${id}`}
+                                          to={`/editarProducto?id=${id}`}
                                           className="iconContainer1"
                                         >
                                           <HiOutlinePencil className="editarIcon" />
                                         </Link>
+
                                         <button
                                           onClick={() =>
                                             handleClickEliminar(id)
@@ -313,24 +395,26 @@ export default function Menu({ categ, prodsBuscados, handleClickEliminar }) {
                                         id={id}
                                         nombre={nombre}
                                         descripcion={descripcion}
+                                        precio={precio}
                                         itemsExtra={itemsExtra}
                                         cantidadPersonas={cantidadPersonas}
                                       />
                                     )}
                                   </div>
+                                  <p className="precio">${precio}</p>
                                 </div>
                               </div>
                             </div>
                           );
                         }
                       )}
-                  </div>
-                ) : null}
+                    </div>
+                  );
+                })}
               </div>
-            )}
-          </div>
-        </main>
-      </div>
+            );
+          })}
+      </main>
     )
   );
 }

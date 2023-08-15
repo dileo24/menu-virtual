@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState /* , useCallback */ } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPedidos, getTipoPago, limpiarCarrito } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
@@ -31,14 +31,14 @@ export default function HacerPedido() {
   }/${currentDate.getFullYear()}`;
   const hours = currentDate.getHours();
   const minutes = currentDate.getMinutes();
-  const ampm = hours >= 12 ? "PM" : "AM";
-  const formattedHours = hours % 12 || 12;
-  const formattedTime = `${formattedHours}:${
+  const formattedTime = `${hours < 10 ? "0" + hours : hours}:${
     minutes < 10 ? "0" + minutes : minutes
-  } ${ampm}`;
+  }`;
+
   let id = pedidos.length + 1;
   const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? ["vacio"]);
   const [alertaExito, setAlertaExito] = useState(false);
+  const [alertaAviso, setAlertaAviso] = useState(false);
 
   const [input, setInput] = useState({
     id: id,
@@ -52,9 +52,15 @@ export default function HacerPedido() {
     creacionFecha: formattedDate,
     creacionHora: formattedTime,
   });
+
   useEffect(() => {
     dispatch(getTipoPago());
     dispatch(getPedidos());
+
+    setAlertaAviso({
+      estadoActualizado: true,
+      texto: `Para hacer un pedido, debes estar presencialmente en el local.`,
+    });
   }, [dispatch]);
 
   useEffect(() => {
@@ -63,7 +69,7 @@ export default function HacerPedido() {
     }
 
     // Local
-    //const socket = io("http://localhost:3001");
+    // const socket = io("http://localhost:3001");
 
     // Deploy
     const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
@@ -89,6 +95,19 @@ export default function HacerPedido() {
     }));
   }, [carrito]);
 
+  const compareProductos = (productoA, productoB) => {
+    // Si productoA tiene itemsExtra y productoB no, productoA va primero
+    if (productoA.itemsExtra && !productoB.itemsExtra) {
+      return -1;
+    }
+    // Si productoB tiene itemsExtra y productoA no, productoB va primero
+    if (!productoA.itemsExtra && productoB.itemsExtra) {
+      return 1;
+    }
+    // En cualquier otro caso, mantener el orden actual
+    return 0;
+  };
+
   //formulario
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -103,6 +122,16 @@ export default function HacerPedido() {
       });
     }
   };
+
+  // Ordenar los productos antes de hacer el pedido
+  const productosOrdenados = carrito.slice().sort(compareProductos);
+
+  // Agregar los productos ordenados a la entrada de formulario
+  input.productos = productosOrdenados.map((producto) => producto.nombre);
+  input.precio = productosOrdenados.reduce(
+    (total, producto) => total + parseInt(producto.precio),
+    0
+  );
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -125,6 +154,7 @@ export default function HacerPedido() {
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
+      /* console.log(input); */
       dispatch(createPedido(input));
       dispatch(limpiarCarrito());
       setInput({
@@ -278,6 +308,33 @@ export default function HacerPedido() {
               navigate("/historial");
             }}
           />
+        )}
+        {alertaAviso && (
+          <div className="fondoAlerta">
+            <div className="aviso">
+              <p className="titulo">¿Estás en el local?</p>
+              <p className="texto">
+                Para hacer un pedido debes estar presencialmente en el local
+              </p>
+              <div className="btnCont">
+                <button
+                  className="cancelar"
+                  onClick={() => {
+                    setAlertaAviso(false);
+                    navigate("/");
+                  }}
+                >
+                  No estoy en el local
+                </button>
+                <button
+                  className="aceptarAviso"
+                  onClick={() => setAlertaAviso(false)}
+                >
+                  Sí estoy en el local
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </>

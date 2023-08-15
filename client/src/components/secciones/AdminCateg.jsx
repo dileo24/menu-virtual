@@ -16,15 +16,19 @@ import Alerta from "../recursos/Alerta";
 
 export default function AdminCateg() {
   const dispatch = useDispatch();
+  const categorias = useSelector((state) => state.categorias);
+  let categs = categorias;
   const categsBusq = useSelector((state) => state.categsBusq);
   const token = useSelector((state) => state.userActual.tokenSession);
   let productosState = useSelector((state) => state.home);
   const [modal, setModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  // const navigate = useNavigate();
   const [alertaError, setAlertaError] = useState(false);
+  const [alertaError2, setAlertaError2] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const [alertaPregunta, setAlertaPregunta] = useState(false);
+  const [busqueda, setBusqueda] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   useEffect(() => {
     dispatch(getCategorias());
@@ -116,77 +120,111 @@ export default function AdminCateg() {
     });
   };
 
+  categsBusq && categsBusq.length > 0 && (categs = categsBusq);
+
+  useEffect(() => {
+    checkAlertaError && categsBusq && categsBusq.length === 0
+      ? setAlertaError2({
+          estadoActualizado: true,
+          texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
+        })
+      : setCheckAlertaError(false);
+  }, [checkAlertaError]);
+
   return (
     <>
-      <Header />
       <div className="categContainer">
-        <h1 className="categTitle">Administrar Categorías</h1>
-        <Filtros searchType="categorias" searchWord={"categorías"} />
-        <form
-          onSubmit={(e) => {
-            setAlertaExito(true);
-            handleSubmit(e);
-          }}
-          className="formulario"
-        >
-          <input
-            type="text"
-            name="nombre"
-            placeholder="Nueva categoría..."
-            className="nombreInput"
-            value={input.nombre}
-            onChange={handleChange}
-            required
-          />
-          <button type="submit" className="agregarBtn">
-            Agregar
-          </button>
-        </form>
-        <div>
-          {categsBusq.map((categ) => (
-            <div key={categ.id} className="cardCateg">
-              <p className="categName">{categ.nombre}</p>
-              {categ.subcategorias && (
-                <ul className="subCategs">
-                  {categ.subcategorias.map((subC, index) => (
-                    <li key={index} className="list-item">
-                      <span className="list-item-circle"></span> {subC.nombre}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <div className="administrarCateg">
-                <div className="editCrearSubcateg">
-                  <div className="iconContainer1">
-                    <Link to={`/editCateg/${categ.id}`} className="editarItems">
-                      <HiOutlinePencil className="editarIcon" />
-                    </Link>
-                  </div>
-                  <div className="btnContainer">
-                    <div
-                      onClick={() => {
-                        abrirModal(categ.id);
-                      }}
-                      className="crearSubcateg"
-                    >
-                      <div className="signoMas1">
-                        <div className="signoMas2"></div>
+        <div className="header">
+          <Header />
+          <div className="header2">
+            <h1 className="categTitle">Administrar Categorías</h1>
+            <Filtros
+              searchType="categorias"
+              searchWord={"categorías"}
+              setBusqueda={setBusqueda}
+              setCheckAlertaError={setCheckAlertaError}
+              busqueda={busqueda}
+            />
+          </div>
+        </div>
+        <div className="main">
+          {!busqueda ? (
+            <form
+              onSubmit={(e) => {
+                setAlertaExito(true);
+                handleSubmit(e);
+              }}
+              className="formulario"
+            >
+              <input
+                type="text"
+                name="nombre"
+                placeholder="Nueva categoría..."
+                className="nombreInput"
+                value={input.nombre}
+                onChange={handleChange}
+                required
+              />
+              <button type="submit" className="agregarBtn">
+                Agregar
+              </button>
+            </form>
+          ) : (
+            <h1 className="resultados">Resultados de búsqueda</h1>
+          )}
+
+          <div>
+            {categs.map((categ) => (
+              <div key={categ.id} className="cardCateg">
+                <p className="categName">{categ.nombre}</p>
+                {categ.subcategorias && (
+                  <ul className="subCategs">
+                    {categ.subcategorias
+                      .sort((a, b) => a.id - b.id) // Sort subcategories by ID
+                      .map((subC, index) => (
+                        <li key={index} className="list-item">
+                          <span className="list-item-circle"></span>{" "}
+                          {subC.nombre}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+                <div className="administrarCateg">
+                  <div className="editCrearSubcateg">
+                    <div className="iconContainer1">
+                      <Link
+                        to={`/editCateg/${categ.id}`}
+                        className="editarItems"
+                      >
+                        <HiOutlinePencil className="editarIcon" />
+                      </Link>
+                    </div>
+                    <div className="btnContainer">
+                      <div
+                        onClick={() => {
+                          abrirModal(categ.id);
+                        }}
+                        className="crearSubcateg"
+                      >
+                        <div className="signoMas1">
+                          <div className="signoMas2"></div>
+                        </div>
+                        Subcategoría
                       </div>
-                      Subcategoría
                     </div>
                   </div>
-                </div>
-                <div className="iconContainer2">
-                  <VscTrash
-                    className="eliminarIcon"
-                    onClick={() => {
-                      handleDelete(categ.id);
-                    }}
-                  />
+                  <div className="iconContainer2">
+                    <VscTrash
+                      className="eliminarIcon"
+                      onClick={() => {
+                        handleDelete(categ.id);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         {modal && (
           <div className="fondoModal" /* onClick={() => setModal(false)} */>
@@ -231,6 +269,19 @@ export default function AdminCateg() {
             estado={alertaError}
             setEstado={setAlertaError}
             callback={() => {}}
+          />
+        )}
+        {alertaError2 && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={alertaError2.texto}
+            estado={alertaError2}
+            setEstado={setAlertaError2}
+            callback={() => {
+              setCheckAlertaError(false);
+              window.location.reload();
+            }}
           />
         )}
         {alertaExito && (

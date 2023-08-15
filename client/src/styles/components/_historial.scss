@@ -1,8 +1,11 @@
-.historialContainer {
+.historialContainer,
+.historialContainer2 {
   background-color: rgb(247, 247, 247);
   height: 100vh;
   width: 100vw;
   position: relative;
+  padding-bottom: 20vw;
+
   .centro {
     position: absolute;
     top: 50%;
@@ -86,6 +89,7 @@
               height: 5px;
               border-radius: 50%;
               background-color: black;
+              margin-top: 2px;
               margin-right: 5px;
             }
           }
@@ -100,6 +104,10 @@
         font-size: 4vw;
         .estado {
           @include centerRow;
+          .linkIconPedidos {
+            width: 5vw;
+            height: 5vw;
+          }
         }
       }
     }
@@ -116,7 +124,11 @@
       font-weight: $titleWeight;
       font-size: 4vw;
       background-color: rgb(241, 241, 241);
-      border-end-end-radius: 10px;
+      border-radius: 0 0 10px 10px;
+      -webkit-border-radius: 0 0 10px 10px;
+      -moz-border-radius: 0 0 10px 10px;
+      -ms-border-radius: 0 0 10px 10px;
+      -o-border-radius: 0 0 10px 10px;
       .total {
         font-weight: 400;
         margin-right: -20vw;
@@ -137,11 +149,15 @@
     }
   }
 }
+.historialContainer {
+  min-height: 100vw;
+  height: 100%;
+}
 .estado-info {
   border-radius: 0.5rem;
   padding: 1%;
   color: $info;
-  background-color: lighten($info, 42%);
+  background-color: lighten($info, 40%);
 }
 
 .estado-naranja {
@@ -155,5 +171,12 @@
   border-radius: 0.5rem;
   padding: 1%;
   color: $success;
-  background-color: lighten($success, 52%);
+  background-color: lighten($success, 48%);
+}
+
+.estado-cancelado {
+  border-radius: 0.5rem;
+  padding: 1%;
+  color: $error;
+  background-color: lighten($error, 35%);
 }

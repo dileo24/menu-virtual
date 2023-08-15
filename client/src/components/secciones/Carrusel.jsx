@@ -24,6 +24,9 @@ const Carrusel = () => {
   let precioFinal = 0;
   const token = userActual && userActual.tokenSession;
   let productosState = useSelector((state) => state.home);
+  const [alertaError, setAlertaError] = useState(false);
+  const [busqueda, setBusqueda] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
@@ -104,17 +107,35 @@ const Carrusel = () => {
   }, [prevScrollPosition]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleWindowScroll);
+    !busqueda && window.addEventListener("scroll", handleWindowScroll);
+    if (busqueda && !userActual) {
+      const marca = document.getElementById("marca");
+      const subHeader = document.getElementById("subHeader");
+      const nav = document.getElementById("nav");
+      marca.style.marginBottom = "";
+      subHeader.style.position = "static";
+      subHeader.style.top = "";
+      nav.style.visibility = "visible";
+    }
 
     return () => {
       window.removeEventListener("scroll", handleWindowScroll);
     };
-  }, [handleWindowScroll]);
+  }, [handleWindowScroll, busqueda]);
 
   const handleSwipe = useCallback((index) => {
     setCurrentSlide(index);
     window.scrollTo({ top: 0 });
+
+    setBusqueda(false);
   }, []);
+
+  /* useEffect(() => {
+    if (busqueda) {
+      console.log(busqueda);
+      window.location.reload();
+    }
+  }, [currentSlide]); */
 
   const handleSearch = useCallback(() => {
     setCurrentSlide(0);
@@ -123,15 +144,6 @@ const Carrusel = () => {
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);
     setPreciosArray(precios);
-
-    // const nombres = carrito.map((carritoItem) => carritoItem.nombre);
-    // setNombresProdArray(nombres);
-
-    // setInput((prevInput) => ({
-    //   ...prevInput,
-    //   productos: nombres,
-    //   precio: precios.reduce((acc, curr) => acc + parseInt(curr), 0),
-    // }));
   }, [carrito]);
 
   useEffect(() => {
@@ -144,14 +156,26 @@ const Carrusel = () => {
       const swipe = document.querySelector(".swipe");
       swipe.style.maxHeight = `${menuContainerHeight}px`;
     }
-  }, [currentSlide]);
+  }, [currentSlide, checkAlertaError]);
+
+  useEffect(() => {
+    checkAlertaError && homeBusqueda && homeBusqueda.length === 0
+      ? setAlertaError({
+          estadoActualizado: true,
+          texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
+        })
+      : setCheckAlertaError(false);
+  }, [checkAlertaError]);
 
   return (
-    <div>
+    <div className="containerCarrusel">
       <Header
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
         handleSearch={handleSearch}
+        setBusqueda={setBusqueda}
+        busqueda={busqueda}
+        setCheckAlertaError={setCheckAlertaError}
       />
       <div className="carruselContainer">
         <div className="carrusel-wrapper" ref={carruselRef}>
@@ -171,6 +195,7 @@ const Carrusel = () => {
                   prodsBuscados={homeBusqueda}
                   currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
+                  busqueda={busqueda}
                 />
               </div>
               {categorias.map(
@@ -185,6 +210,7 @@ const Carrusel = () => {
                           categ={categ.nombre}
                           currentSlide={currentSlide}
                           handleClickEliminar={handleClickEliminar}
+                          busqueda={busqueda}
                         />
                       )}
                     </div>
@@ -215,6 +241,19 @@ const Carrusel = () => {
           setEstado={setAlertaPregunta}
           callback={() => handleEliminarProducto(alertaPregunta.id)}
           aceptar={"Eliminar"}
+        />
+      )}
+      {alertaError && (
+        <Alerta
+          tipo={"error"}
+          titulo={"Error"}
+          texto={alertaError.texto}
+          estado={alertaError}
+          setEstado={setAlertaError}
+          callback={() => {
+            setCheckAlertaError(false);
+            window.location.reload();
+          }}
         />
       )}
     </div>

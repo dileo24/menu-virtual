@@ -12,7 +12,9 @@
     "descripcion": "Descripcion del producto",
     "precio": "1500",
     "categoriaID": "2",
-    "itemsExtra": ["Bebidas con alcohol"],
+    "itemsExtra": [
+      "Bebidas con alcohol"
+    ],
     "cantidadPersonas": "2",
     "combo": true
   },
@@ -50,7 +52,12 @@
     "descripcion": "Una infusión, tres criollos o medialunas, queso crema, mermelada y jugo de naranja",
     "precio": "1200",
     "categoriaID": "1",
-    "itemsExtra": ["Infusiones", "Panadería", "Panadería", "Panadería"],
+    "itemsExtra": [
+      "Infusiones",
+      "Panadería",
+      "Panadería",
+      "Panadería"
+    ],
     "cantidadPersonas": "1",
     "combo": true
   },
@@ -60,7 +67,11 @@
     "descripcion": "2 Licuados, 4 criollos o medialunas y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": ["Licuados", "Panadería", "Panadería"],
+    "itemsExtra": [
+      "Licuados",
+      "Panadería",
+      "Panadería"
+    ],
     "cantidadPersonas": "2",
     "combo": true
   },
@@ -70,7 +81,11 @@
     "descripcion": "4 infusiones, 8 criollos o medialunas, queso crema, palta y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": ["Infusiones", "Panadería", "Panadería"],
+    "itemsExtra": [
+      "Infusiones",
+      "Panadería",
+      "Panadería"
+    ],
     "cantidadPersonas": "4",
     "combo": true
   },
@@ -80,7 +95,10 @@
     "descripcion": "4 infusiones, 4 criollos o medialunas y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": ["Licuados", "Postres"],
+    "itemsExtra": [
+      "Licuados",
+      "Postres"
+    ],
     "cantidadPersonas": "4",
     "combo": true
   },
@@ -90,7 +108,11 @@
     "descripcion": "Vacío y Costilla con bebidas de 500ml, papas y postre",
     "precio": "5300",
     "categoriaID": "2",
-    "itemsExtra": ["Bebidas sin alcohol", "Guarniciones", "Postres"],
+    "itemsExtra": [
+      "Bebidas sin alcohol",
+      "Guarniciones",
+      "Postres"
+    ],
     "cantidadPersonas": "2",
     "combo": true
   },
@@ -267,7 +289,7 @@
     "item": true,
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
-    "precio": "3200",
+    "precio": "500",
     "descripcion": "Descripcion del producto"
   },
   {

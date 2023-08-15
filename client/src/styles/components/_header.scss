@@ -22,7 +22,7 @@ header {
     z-index: 999;
 
     .headerUsuarios {
-      background-color: white;
+      background-color: transparent;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -35,7 +35,7 @@ header {
         height: 8vw;
         border: 1px solid $paragraph;
         border-radius: 8px;
-        background-color: rgb(255, 255, 255);
+        background-color: white;
         @include center;
         .burgerIcon {
           width: 1.2rem;
@@ -168,7 +168,8 @@ header {
       width: 100vw;
       padding: 5%;
       padding-top: 0;
-
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       h1 {
         font-weight: $titleWeight;
         font-size: $titleSize;
@@ -185,6 +186,7 @@ header {
       justify-content: space-between;
       padding: 0 6%;
       align-items: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       .carritoIcon,
       .usuarioIcon {
         width: 10vw;
@@ -192,6 +194,9 @@ header {
       }
       .navbarCont {
         width: 55vw;
+      }
+      .navbarContBuscado {
+        width: 90vw;
       }
       .carrito {
         position: relative;
@@ -229,18 +234,16 @@ header {
       height: 15vw;
       overflow-x: auto;
       white-space: nowrap;
-
       /* Ocultar la barra de desplazamiento */
       scrollbar-width: none;
       &::-webkit-scrollbar {
-        width: 0;
-        background-color: transparent;
+        display: none;
       }
       &::-webkit-scrollbar-thumb {
-        background-color: transparent;
+        display: none;
       }
       &::-webkit-scrollbar-track {
-        background-color: transparent;
+        display: none;
       }
       &::-ms-scrollbar {
         display: none;
@@ -290,14 +293,13 @@ header {
     /* Ocultar la barra de desplazamiento */
     scrollbar-width: none;
     &::-webkit-scrollbar {
-      width: 0;
-      background-color: transparent;
+      display: none;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: transparent;
+      display: none;
     }
     &::-webkit-scrollbar-track {
-      background-color: transparent;
+      display: none;
     }
     &::-ms-scrollbar {
       display: none;
@@ -328,9 +330,9 @@ header {
 
 // Clases funcionales
 
-.temp-class {
+/* .temp-class {
   border: 2.5px solid $naranja;
-}
+} */
 
 .animate-right {
   animation: animate-right 0.2s;

@@ -20,7 +20,7 @@ import EditarCateg from "./components/formularios/EditarCateg";
 import EditarUsuario from "./components/formularios/EditarUsuario";
 
 // Local
-//axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
 axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
@@ -55,7 +55,7 @@ function App() {
             <Route path="/editarProducto" element={<EditarProducto />} />
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
-            <Route path="/estadisticas" element={<Estadisticas />} />
+            {/* <Route path="/estadisticas" element={<Estadisticas />} /> */}
             <Route path="/adminCateg" element={<AdminCateg />} />
             <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/editCateg/:id" element={<EditarCateg />} />

@@ -4,18 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPedidos, getProductos } from "../../redux/actions";
 import io from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
-import {
-  BsCreditCardFill,
-  BsCashStack,
-  BsCashCoin,
-  BsCheckLg,
-  BsClock,
-} from "react-icons/bs";
+import { BsCashStack, BsCashCoin, BsCheckLg, BsClock } from "react-icons/bs";
 import { SiMercadopago } from "react-icons/si";
 import { TbBrandCashapp } from "react-icons/tb";
-import { GiCook } from "react-icons/gi";
 import bandeja from "../../multmedia/bandeja.svg";
 import { Link } from "react-router-dom";
+import { AiOutlineCreditCard } from "react-icons/ai";
 
 export default function Historial() {
   const pedidos = useSelector((state) => state.pedidos);
@@ -46,7 +40,7 @@ export default function Historial() {
 
   useEffect(() => {
     // Local
-    //const socket = io("http://localhost:3001");
+    // const socket = io("http://localhost:3001");
 
     // Deploy
     const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
@@ -73,7 +67,6 @@ export default function Historial() {
   const itemsArray = pedidosActuales.map((pedido) =>
     JSON.parse(pedido.itemsExtra)
   );
-
   const iconPago = (pagoId) => {
     switch (pagoId) {
       case 1:
@@ -81,7 +74,7 @@ export default function Historial() {
       case 2:
         return <BsCashStack />;
       case 3:
-        return <BsCreditCardFill />;
+        return <AiOutlineCreditCard />;
       case 4:
         return <SiMercadopago />;
       case 5:
@@ -95,9 +88,9 @@ export default function Historial() {
       case 1:
         return <BsClock />;
       case 2:
-        return <GiCook />;
-      case 3:
         return <BsCheckLg />;
+      case 3:
+        return <TbBrandCashapp />;
       default:
         return null;
     }
@@ -105,18 +98,22 @@ export default function Historial() {
   const clasePorEstado = (estadoId) => {
     switch (estadoId) {
       case 1:
-        return "estado-info";
-      case 2:
         return "estado-naranja";
+      case 2:
+        return "estado-info";
       case 3:
         return "estado-success";
       default:
-        return "estado-info";
+        return "estado-cancelado";
     }
+  };
+  const prodPrecio = (productName) => {
+    const product = productos.find((p) => p.nombre === productName);
+    return product ? product.precio : 0;
   };
   const prodPorNom = (productName) => {
     const product = productos.find((p) => p.nombre === productName);
-    return product ? product.precio : 0;
+    return product && product.combo;
   };
 
   return pedidos &&
@@ -153,21 +150,34 @@ export default function Historial() {
                     {pedido.productos.map((producto, i) => (
                       <div key={i}>
                         <p className="nombre">
-                          {producto}{" "}
+                          {producto}
                           <span className="precioIndiv">
-                            ${prodPorNom(producto)}
+                            ${prodPrecio(producto)}
                           </span>
                         </p>
-                        {itemsArray[index].length > 0 && (
+                        {prodPorNom(producto) &&
+                        itemsArray[index].length === 1 ? (
                           <ul className="itemsExtra">
-                            {itemsArray[index][i] &&
-                              itemsArray[index][i].map((item, j) => (
-                                <li key={j} className="list-item">
-                                  <span className="list-item-circle"></span>
-                                  {item}
-                                </li>
-                              ))}
+                            {itemsArray[index][0].map((item, j) => (
+                              <li key={j} className="list-item">
+                                <span className="list-item-circle"></span>
+                                {item}
+                              </li>
+                            ))}
                           </ul>
+                        ) : (
+                          itemsArray[index].length > 1 &&
+                          prodPorNom(producto) && (
+                            <ul className="itemsExtra">
+                              {itemsArray[index] &&
+                                itemsArray[index][i].map((item, j) => (
+                                  <li key={j} className="list-item">
+                                    <span className="list-item-circle"></span>
+                                    {item}
+                                  </li>
+                                ))}
+                            </ul>
+                          )
                         )}
                       </div>
                     ))}
@@ -188,7 +198,7 @@ export default function Historial() {
         )}
     </div>
   ) : (
-    <div className="historialContainer">
+    <div className="historialContainer2">
       <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
       <div className="centro">
         <img src={bandeja} alt="bandeja" className="icon" />

@@ -1,236 +1,170 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useCallback } from "react";
 import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
 import Filtros from "../recursos/Filtros";
-import {
-  getEstados,
-  getPedidos,
-  getTipoPago,
-  updatePedido,
-} from "../../redux/actions";
+import CardsPedidos from "../recursos/CardsPedidos";
+
 import io from "socket.io-client";
 
+import Swipe from "react-swipe";
+
 export default function Pedidos() {
-  const pedidos = useSelector((state) => state.pedidos);
-  const estados = useSelector((state) => state.estados);
-  const tipoPagos = useSelector((state) => state.tipoPagos);
-  const token = useSelector((state) => state.userActual.tokenSession);
-  const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
-  const [nuevosPedidos, setNuevosPedidos] = useState([]);
   /* let allPedidos = [...nuevosPedidos, ...pedidos]; */
+  const [currentSlide, setCurrentSlide] = useState(null);
+  const [diapoActual, setDiapoActual] = useState(0);
+  const scrollableRef = useRef(null);
+  const [estadoActiveId, setEstadoActiveId] = useState(0);
+  // const [inputData, setInputData] = useState([]);
+  const [busqueda, setBusqueda] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
+  const estados = useSelector((state) => state.estados);
+  const [nuevosPedidos, setNuevosPedidos] = useState([]);
+  const [openCardId, setOpenCardId] = useState(null);
 
   useEffect(() => {
-    // Local
-    //const socket = io("http://localhost:3001");
+    scrollToEstadoActive();
+    setEstadoActiveId(estados[currentSlide - 1]?.id);
+  }, [currentSlide, estadoActiveId]);
 
-    // Deploy
-    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+  useEffect(() => {
+    const diapo = document.querySelector(
+      `.diapositiva[data-index="${currentSlide}"]`
+    );
+    if (diapo) {
+      const diapoContainerHeight = diapo.offsetHeight;
+      const swipe = document.querySelector(".swipe");
+      swipe.style.maxHeight = `${diapoContainerHeight}px`;
+    }
+  }, [currentSlide, openCardId]);
 
-    setSocket(socket);
-    socket.on("nuevoPedidoRecibido", (pedido) => {
-      setNuevosPedidos((prevPedidos) => [pedido, ...prevPedidos]);
-    });
-    return () => {
-      socket.disconnect();
-    };
+  const handleSwipe = useCallback((index) => {
+    setCurrentSlide(index);
+    setDiapoActual(index);
+    window.scrollTo({ top: 0 });
   }, []);
 
-  useEffect(() => {
-    if (nuevosPedidos.length > 0) {
-      const pedidosActualizados = [...nuevosPedidos, ...pedidos];
-      dispatch(getPedidos(pedidosActualizados));
-      setNuevosPedidos([]);
-    }
-  }, [nuevosPedidos, pedidos, dispatch]);
+  const scrollToEstadoActive = () => {
+    if (scrollableRef.current) {
+      const activeCategory = scrollableRef.current.querySelector(".active");
+      if (activeCategory) {
+        const containerWidth = scrollableRef.current.offsetWidth;
+        const categoryWidth = activeCategory.offsetWidth;
+        const categoryLeft = activeCategory.offsetLeft;
+        const scrollLeft = categoryLeft - (containerWidth - categoryWidth) / 2;
 
-  useEffect(() => {
-    dispatch(getPedidos());
-    dispatch(getEstados());
-    dispatch(getTipoPago());
-  }, [dispatch]);
-
-  const handleSelectChange = (e, id, atributo) => {
-    console.log(id);
-    const value = e.target.value;
-    const data = { [atributo]: value };
-    let res = window.confirm("Está seguro de querer modificar este pedido?");
-    if (res === true) {
-      dispatch(updatePedido(id, data, token))
-        .then(() => {
-          if (socket) {
-            socket.emit("cambiarEstadoPedido", id, data.estadoID);
-          }
-        })
-        .catch((error) => {
-          console.log(error);
+        scrollableRef.current.scrollTo({
+          left: scrollLeft,
+          behavior: "smooth",
         });
-    }
-  };
-
-  const tipoPorID = (tipoPagoID) => {
-    if (tipoPagos && tipoPagoID) {
-      const tipo = tipoPagos.find((tipo) => tipo.id === tipoPagoID);
-      return tipo.tipo;
-    }
-    return null;
-  };
-
-  const itemsString = (itemsExtra) => {
-    if (typeof itemsExtra === "string") {
-      const parsedItems = JSON.parse(itemsExtra);
-
-      if (Array.isArray(parsedItems) && parsedItems.length > 0) {
-        const flattenedItems = parsedItems.flat();
-
-        const resultString = flattenedItems.join(", ");
-
-        return resultString;
       }
-    } else if (Array.isArray(itemsExtra)) {
-      const resultString = itemsExtra.join(", ");
-
-      return resultString;
     }
   };
 
   return (
-    pedidos.length > 0 && (
-      <div id="productos" className="min-h-100 bg-gray-200">
-        <div className="md:flex min-h-screen md:align-top">
-          <Header />
-          <main className="md:w-4/5 xl:w-4/5  py-10 bg-gray-200">
-            <h2 className="text-3xl font-light text-center">
-              Planilla de Pedidos
-            </h2>
-            <div className="px-5 flex flex-col mt-10">
-              <Filtros />
-              <div className="py-2 overflow-x-auto">
-                <div className="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-                  <table className="min-w-full">
-                    <thead className="bg-gray-100">
-                      <tr>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Productos
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Mesa
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Precio
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Estado
-                        </th>
-                        <th className="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                          Tipo de Pago
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white">
-                      {pedidos.map(
-                        ({
-                          productos,
-                          mesa,
-                          aclaraciones,
-                          precio,
-                          Estado,
-                          itemsExtra,
-                          creacionFecha,
-                          creacionHora,
-                          Pago,
-                          id,
-                          estadoID,
-                          tipoPagoID,
-                        }) => (
-                          <tr key={id}>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-sm leading-5 font-medium text-gray-700 text-lg font-bold">
-                                {productos.join(", ")}
-                              </p>
-                              {itemsExtra ? (
-                                <p className="text-gray-700 mt-2">
-                                  <b>Extra:</b> {/* {itemsExtra.join(", ")} */}
-                                  {itemsString(itemsExtra)}.
-                                </p>
-                              ) : (
-                                ""
-                              )}
-                              {aclaraciones ? (
-                                <p className="text-gray-700 mt-2">
-                                  <b> Aclaraciones:</b> {aclaraciones}.
-                                </p>
-                              ) : (
-                                ""
-                              )}
-                              <p className="text-gray-700 mt-2">
-                                <b> Realizado el:</b>{" "}
-                                {creacionFecha + " a las " + creacionHora}.
-                              </p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-gray-700">{mesa}</p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 leading-5 text-gray-700">
-                              <p className="text-gray-600">${precio}</p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Estado ? (
-                                <select
-                                  id=""
-                                  value={Estado.id}
-                                  onChange={(e) =>
-                                    handleSelectChange(e, id, "estadoID")
-                                  }
-                                >
-                                  {estados.map((est) => (
-                                    <option key={est.id} value={est.id}>
-                                      {est.tipo}
-                                    </option>
-                                  ))}
-                                </select>
-                              ) : (
-                                estadoID && (
-                                  <select
-                                    id=""
-                                    value={estadoID}
-                                    onChange={(e) =>
-                                      handleSelectChange(e, id, "estadoID")
-                                    }
-                                  >
-                                    {estados.map((est) => (
-                                      <option key={est.id} value={est.id}>
-                                        {est.tipo}
-                                      </option>
-                                    ))}
-                                  </select>
-                                )
-                              )}
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                              {Pago ? (
-                                <p className="text-gray-600" key={Pago.id}>
-                                  {Pago.tipo}
-                                </p>
-                              ) : (
-                                tipoPorID(tipoPagoID) && (
-                                  <p className="text-gray-600">
-                                    {tipoPorID(tipoPagoID)}
-                                  </p>
-                                )
-                              )}
-                            </td>
-                          </tr>
-                        )
-                      )}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </main>
-        </div>
+    <div id="productos" className="pedidosContainer">
+      <Header />
+      <h1 className="pedidosTitle">Pedidos</h1>
+      <div className="navbar">
+        <Filtros
+          searchType="pedidos"
+          searchWord={"pedidos"}
+          setBusqueda={setBusqueda}
+          setCheckAlertaError={setCheckAlertaError}
+          className="navbar"
+        />
       </div>
-    )
+      <div
+        className="estados"
+        ref={scrollableRef}
+        style={{ overflowX: "auto", whiteSpace: "nowrap" }}
+      >
+        <button
+          className={`menuBtn ${diapoActual === 0 ? "active" : ""}`}
+          id="0"
+          onClick={() => {
+            setCurrentSlide(0);
+            setDiapoActual(0);
+            window.scrollTo({ top: 0 });
+          }}
+        >
+          Todos
+        </button>
+        {estados &&
+          estados.map((estado, index) => (
+            <React.Fragment key={estado.id}>
+              <button
+                className={`estado ${
+                  currentSlide === index + 1 ? "active" : ""
+                }`}
+                id={estado.id}
+                onClick={() => {
+                  setCurrentSlide(index + 1);
+                  setDiapoActual(index + 1);
+
+                  window.scrollTo({ top: 0 });
+                }}
+              >
+                {estado.tipo}s
+              </button>
+            </React.Fragment>
+          ))}
+      </div>
+
+      <Swipe
+        className="swipe"
+        swipeOptions={{
+          startSlide: currentSlide,
+          speed: 300,
+          continuous: false,
+          callback: handleSwipe,
+        }}
+      >
+        {/* Todos */}
+        <div className="diapositiva">
+          <CardsPedidos
+            estado={false}
+            openCardId={openCardId}
+            setOpenCardId={setOpenCardId}
+          />
+        </div>
+
+        {/* Pendientes */}
+        <div className="diapositiva">
+          <CardsPedidos
+            estado={1}
+            openCardId={openCardId}
+            setOpenCardId={setOpenCardId}
+          />
+        </div>
+
+        {/* Entregados */}
+        <div className="diapositiva">
+          <CardsPedidos
+            estado={2}
+            openCardId={openCardId}
+            setOpenCardId={setOpenCardId}
+          />
+        </div>
+
+        {/* Pagados */}
+        <div className="diapositiva">
+          <CardsPedidos
+            estado={3}
+            openCardId={openCardId}
+            setOpenCardId={setOpenCardId}
+          />
+        </div>
+
+        {/* Cancelados */}
+        <div className="diapositiva">
+          <CardsPedidos
+            estado={4}
+            openCardId={openCardId}
+            setOpenCardId={setOpenCardId}
+          />
+        </div>
+      </Swipe>
+    </div>
   );
 }

@@ -1,21 +1,28 @@
 .usuariosContainer {
-  .usuariosTitle {
-    font-size: $titleSize;
-    font-weight: $titleWeight;
-    line-height: 1;
-    margin-left: 5vw;
+  .header {
+    background-color: white;
+    padding-bottom: 5vw;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .usuariosTitle {
+      font-size: $titleSize;
+      font-weight: $titleWeight;
+      line-height: 1;
+      margin-left: 5vw;
+    }
+    .navbar {
+      padding: 0 5vw;
+      margin-top: 5vw;
+    }
   }
-  .navbar {
-    padding: 0 5vw;
-    margin: 5vw 0 5vw 0;
-  }
+
   .circles {
     @include center;
-    margin-bottom: 8vw;
+    margin: 5vw 0;
 
     .circle0,
     .circle1,
     .circle2 {
+      background-color: white;
       width: 3vw;
       height: 3vw;
       border: 1px solid black;
@@ -31,7 +38,6 @@
   }
   .diapositiva {
     height: auto;
-
     .diapoContainer {
       padding: 0 5vw 24vw 5vw;
       min-height: 70vh;
@@ -40,6 +46,12 @@
         font-weight: $titleWeight;
         margin-bottom: 8vw;
         line-height: 1;
+      }
+      .resultados {
+        font-size: $titleSize;
+        line-height: 1;
+        font-weight: 500;
+        margin: 5vw 0;
       }
       .diapoSubtitle {
         font-weight: $titleWeight;
@@ -204,5 +216,5 @@
 }
 
 .circleActive {
-  background-color: black;
+  background-color: black !important;
 }

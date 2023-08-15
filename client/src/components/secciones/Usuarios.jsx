@@ -23,6 +23,9 @@ export default function Usuarios() {
   const [currentSlide, setCurrentSlide] = useState(null);
   const [diapoActual, setDiapoActual] = useState(0);
   const [alertaPregunta, setAlertaPregunta] = useState(false);
+  const [alertaError, setAlertaError] = useState(false);
+  const [busqueda, setBusqueda] = useState(false);
+  const [checkAlertaError, setCheckAlertaError] = useState(false);
 
   useEffect(() => {
     dispatch(getUsuarios());
@@ -93,34 +96,304 @@ export default function Usuarios() {
     }
   }, [diapoActual]);
 
+  useEffect(() => {
+    checkAlertaError && usuariosBusq && usuariosBusq.length === 0
+      ? setAlertaError({
+          estadoActualizado: true,
+          texto: `No se encontraron resultados para la búsqueda "${busqueda}"`,
+        })
+      : setCheckAlertaError(false);
+  }, [checkAlertaError]);
+
   return (
     <div className="usuariosContainer">
-      <Header />
-      <h1 className="usuariosTitle">Administrar Usuarios</h1>
-      <div className="navbar">
-        <Filtros searchType="usuarios" searchWord={"usuarios"} />
+      <div className="header">
+        <Header />
+        <h1 className="usuariosTitle">Administrar Usuarios</h1>
+        <div className="navbar">
+          <Filtros
+            searchType="usuarios"
+            searchWord={"usuarios"}
+            setBusqueda={setBusqueda}
+            setCheckAlertaError={setCheckAlertaError}
+            busqueda={busqueda}
+          />
+        </div>
       </div>
-      <div className="circles">
-        <div className="circle0"></div>
-        <div className="circle1"></div>
-        <div className="circle2"></div>
-      </div>
-      <Swipe
-        className="swipe"
-        swipeOptions={{
-          startSlide: currentSlide,
-          speed: 300,
-          continuous: false,
-          callback: handleSwipe,
-        }}
-      >
-        {/* Todos */}
+      {!busqueda && (
+        <div className="circles">
+          <div className="circle0"></div>
+          <div className="circle1"></div>
+          <div className="circle2"></div>
+        </div>
+      )}
+      {!busqueda ? (
+        <Swipe
+          className="swipe"
+          swipeOptions={{
+            startSlide: currentSlide,
+            speed: 300,
+            continuous: false,
+            callback: handleSwipe,
+          }}
+        >
+          {/* Todos */}
+          <div className="diapositiva">
+            <div className="diapoContainer">
+              <h1 className="diapoTitle">Todos</h1>
+
+              {/* Usuarios habilitados */}
+              <p className="diapoSubtitle ">Usuarios habilitados</p>
+              {usuariosBusq &&
+                usuariosBusq
+                  .filter((user) => user.id !== 1 && !user.bloqueo)
+                  .map((user) => (
+                    <div key={user.id} className="cardUsuario">
+                      <div className="userData">
+                        <div className="userNameRol">
+                          <p>
+                            {user.nombre} {user.apellido}
+                          </p>
+                          {user.Rol.id === 2 && (
+                            <div className="rol">• Admin</div>
+                          )}
+                          {user.Rol.id === 3 && (
+                            <div className="rol">• Empleado</div>
+                          )}
+                        </div>
+                        <p className="userEmail">{user.email}</p>
+                      </div>
+
+                      <p className="estado habilitado">Habilitado</p>
+
+                      <div className="acciones">
+                        <div className="editarEliminar">
+                          <Link
+                            to={`/editarUsuario/${user.id}`}
+                            className="iconContainer1"
+                          >
+                            <HiOutlinePencil className="editarIcon" />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              handleClickEliminar(
+                                user.id,
+                                user.nombre,
+                                user.apellido
+                              )
+                            }
+                            className="iconContainer2"
+                          >
+                            <VscTrash className="eliminarIcon" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => handleBloqueo(user.id)}
+                          className="cambiarEstado"
+                        >
+                          inhabilitar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              {usuariosBusq &&
+                usuariosBusq.filter((user) => !user.bloqueo).length === 1 && (
+                  <p className="noHayUsuarios">No hay usuarios habilitados</p>
+                )}
+
+              {/* Usuarios inhabilitados */}
+              <p className="diapoSubtitle inhab">Usuarios inhabilitados</p>
+              {usuariosBusq &&
+                usuariosBusq
+                  .filter((user) => user.id !== 1 && user.bloqueo)
+                  .map((user) => (
+                    <div key={user.id} className="cardUsuario">
+                      <div className="userData">
+                        <div className="userNameRol">
+                          <p>
+                            {user.nombre} {user.apellido}
+                          </p>
+                          {user.Rol.id === 2 && (
+                            <div className="rol">• Admin</div>
+                          )}
+                          {user.Rol.id === 3 && (
+                            <div className="rol">• Empleado</div>
+                          )}
+                        </div>
+                        <p className="userEmail">{user.email}</p>
+                      </div>
+
+                      <p className="estado inhabilitado">Inhabilitado</p>
+
+                      <div className="acciones">
+                        <div className="editarEliminar">
+                          <button
+                            /* onClick={() => handleBloqueo(user.id, user.nombre)} */
+                            className="iconContainer1"
+                          >
+                            <HiOutlinePencil className="editarIcon" />
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleClickEliminar(
+                                user.id,
+                                user.nombre,
+                                user.apellido
+                              )
+                            }
+                            className="iconContainer2"
+                          >
+                            <VscTrash className="eliminarIcon" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => handleDesbloqueo(user.id, user.nombre)}
+                          className="cambiarEstado"
+                        >
+                          habilitar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              {usuariosBusq &&
+                usuariosBusq.filter((user) => user.bloqueo).length === 0 && (
+                  <p className="noHayUsuarios">No hay usuarios inhabilitados</p>
+                )}
+            </div>
+          </div>
+
+          {/* Habilitados */}
+          <div className="diapositiva">
+            <div className="diapoContainer">
+              <h1 className="diapoTitle">Usuarios habilitados</h1>
+              {usuarios &&
+                usuarios
+                  .filter((user) => user.id !== 1 && !user.bloqueo)
+                  .map((user) => (
+                    <div key={user.id} className="cardUsuario">
+                      <div className="userData">
+                        <div className="userNameRol">
+                          <p>
+                            {user.nombre} {user.apellido}
+                          </p>
+                          {user.Rol.id === 2 && (
+                            <div className="rol">• Admin</div>
+                          )}
+                          {user.Rol.id === 3 && (
+                            <div className="rol">• Empleado</div>
+                          )}
+                        </div>
+                        <p className="userEmail">{user.email}</p>
+                      </div>
+
+                      <p className="estado habilitado">Habilitado</p>
+
+                      <div className="acciones">
+                        <div className="editarEliminar">
+                          <Link
+                            to={`/editarUsuario/${user.id}`}
+                            className="iconContainer1"
+                          >
+                            <HiOutlinePencil className="editarIcon" />
+                          </Link>
+                          <button
+                            onClick={() =>
+                              handleClickEliminar(
+                                user.id,
+                                user.nombre,
+                                user.apellido
+                              )
+                            }
+                            className="iconContainer2"
+                          >
+                            <VscTrash className="eliminarIcon" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => handleBloqueo(user.id, user.nombre)}
+                          className="cambiarEstado"
+                        >
+                          inhabilitar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              {usuarios &&
+                usuarios.filter((user) => !user.bloqueo).length === 1 && (
+                  <p className="noHayUsuarios">No hay usuarios habilitados</p>
+                )}
+            </div>
+          </div>
+
+          {/* Inhabilitados */}
+          <div className="diapositiva">
+            <div className="diapoContainer">
+              <h1 className="diapoTitle">Usuarios inhabilitados</h1>
+
+              {usuarios &&
+                usuarios
+                  .filter((user) => user.id !== 1 && user.bloqueo)
+                  .map((user) => (
+                    <div key={user.id} className="cardUsuario">
+                      <div className="userData">
+                        <div className="userNameRol">
+                          <p>
+                            {user.nombre} {user.apellido}
+                          </p>
+                          {user.Rol.id === 2 && (
+                            <div className="rol">• Admin</div>
+                          )}
+                          {user.Rol.id === 3 && (
+                            <div className="rol">• Empleado</div>
+                          )}
+                        </div>
+                        <p className="userEmail">{user.email}</p>
+                      </div>
+
+                      <p className="estado inhabilitado">Inhabilitado</p>
+
+                      <div className="acciones">
+                        <div className="editarEliminar">
+                          <button
+                            /* onClick={() => handleBloqueo(user.id, user.nombre)} */
+                            className="iconContainer1"
+                          >
+                            <HiOutlinePencil className="editarIcon" />
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleClickEliminar(
+                                user.id,
+                                user.nombre,
+                                user.apellido
+                              )
+                            }
+                            className="iconContainer2"
+                          >
+                            <VscTrash className="eliminarIcon" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={() => handleDesbloqueo(user.id, user.nombre)}
+                          className="cambiarEstado"
+                        >
+                          habilitar
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              {usuarios &&
+                usuarios.filter((user) => user.bloqueo).length === 0 && (
+                  <p className="noHayUsuarios">No hay usuarios inhabilitados</p>
+                )}
+            </div>
+          </div>
+        </Swipe>
+      ) : (
         <div className="diapositiva">
           <div className="diapoContainer">
-            <h1 className="diapoTitle">Todos</h1>
+            <h1 className="resultados">Resultados de búsqueda</h1>
 
-            {/* Usuarios habilitados */}
-            <p className="diapoSubtitle ">Usuarios habilitados</p>
             {usuariosBusq &&
               usuariosBusq
                 .filter((user) => user.id !== 1 && !user.bloqueo)
@@ -173,13 +446,7 @@ export default function Usuarios() {
                     </div>
                   </div>
                 ))}
-            {usuariosBusq &&
-              usuariosBusq.filter((user) => !user.bloqueo).length === 1 && (
-                <p className="noHayUsuarios">No hay usuarios habilitados</p>
-              )}
 
-            {/* Usuarios inhabilitados */}
-            <p className="diapoSubtitle inhab">Usuarios inhabilitados</p>
             {usuariosBusq &&
               usuariosBusq
                 .filter((user) => user.id !== 1 && user.bloqueo)
@@ -232,141 +499,9 @@ export default function Usuarios() {
                     </div>
                   </div>
                 ))}
-            {usuariosBusq &&
-              usuariosBusq.filter((user) => user.bloqueo).length === 0 && (
-                <p className="noHayUsuarios">No hay usuarios inhabilitados</p>
-              )}
           </div>
         </div>
-
-        {/* Habilitados */}
-        <div className="diapositiva">
-          <div className="diapoContainer">
-            <h1 className="diapoTitle">Usuarios habilitados</h1>
-            {usuarios &&
-              usuarios
-                .filter((user) => user.id !== 1 && !user.bloqueo)
-                .map((user) => (
-                  <div key={user.id} className="cardUsuario">
-                    <div className="userData">
-                      <div className="userNameRol">
-                        <p>
-                          {user.nombre} {user.apellido}
-                        </p>
-                        {user.Rol.id === 2 && (
-                          <div className="rol">• Admin</div>
-                        )}
-                        {user.Rol.id === 3 && (
-                          <div className="rol">• Empleado</div>
-                        )}
-                      </div>
-                      <p className="userEmail">{user.email}</p>
-                    </div>
-
-                    <p className="estado habilitado">Habilitado</p>
-
-                    <div className="acciones">
-                      <div className="editarEliminar">
-                        <Link
-                          to={`/editarUsuario/${user.id}`}
-                          className="iconContainer1"
-                        >
-                          <HiOutlinePencil className="editarIcon" />
-                        </Link>
-                        <button
-                          onClick={() =>
-                            handleClickEliminar(
-                              user.id,
-                              user.nombre,
-                              user.apellido
-                            )
-                          }
-                          className="iconContainer2"
-                        >
-                          <VscTrash className="eliminarIcon" />
-                        </button>
-                      </div>
-                      <button
-                        onClick={() => handleBloqueo(user.id, user.nombre)}
-                        className="cambiarEstado"
-                      >
-                        inhabilitar
-                      </button>
-                    </div>
-                  </div>
-                ))}
-            {usuarios &&
-              usuarios.filter((user) => !user.bloqueo).length === 1 && (
-                <p className="noHayUsuarios">No hay usuarios habilitados</p>
-              )}
-          </div>
-        </div>
-
-        {/* Inhabilitados */}
-        <div className="diapositiva">
-          <div className="diapoContainer">
-            <h1 className="diapoTitle">Usuarios inhabilitados</h1>
-
-            {usuarios &&
-              usuarios
-                .filter((user) => user.id !== 1 && user.bloqueo)
-                .map((user) => (
-                  <div key={user.id} className="cardUsuario">
-                    <div className="userData">
-                      <div className="userNameRol">
-                        <p>
-                          {user.nombre} {user.apellido}
-                        </p>
-                        {user.Rol.id === 2 && (
-                          <div className="rol">• Admin</div>
-                        )}
-                        {user.Rol.id === 3 && (
-                          <div className="rol">• Empleado</div>
-                        )}
-                      </div>
-                      <p className="userEmail">{user.email}</p>
-                    </div>
-
-                    <p className="estado inhabilitado">Inhabilitado</p>
-
-                    <div className="acciones">
-                      <div className="editarEliminar">
-                        <button
-                          /* onClick={() => handleBloqueo(user.id, user.nombre)} */
-                          className="iconContainer1"
-                        >
-                          <HiOutlinePencil className="editarIcon" />
-                        </button>
-                        <button
-                          onClick={() =>
-                            handleClickEliminar(
-                              user.id,
-                              user.nombre,
-                              user.apellido
-                            )
-                          }
-                          className="iconContainer2"
-                        >
-                          <VscTrash className="eliminarIcon" />
-                        </button>
-                      </div>
-                      <button
-                        onClick={() => handleDesbloqueo(user.id, user.nombre)}
-                        className="cambiarEstado"
-                      >
-                        habilitar
-                      </button>
-                    </div>
-                  </div>
-                ))}
-            {usuarios &&
-              usuarios.filter((user) => user.bloqueo).length === 0 && (
-                <p className="noHayUsuarios">No hay usuarios inhabilitados</p>
-              )}
-          </div>
-        </div>
-      </Swipe>
-
+      )}
       {alertaPregunta && (
         <Alerta
           tipo={"pregunta"}
@@ -376,6 +511,19 @@ export default function Usuarios() {
           setEstado={setAlertaPregunta}
           callback={() => handleEliminar(alertaPregunta.id)}
           aceptar={"Eliminar"}
+        />
+      )}
+      {alertaError && (
+        <Alerta
+          tipo={"error"}
+          titulo={"Error"}
+          texto={alertaError.texto}
+          estado={alertaError}
+          setEstado={setAlertaError}
+          callback={() => {
+            setCheckAlertaError(false);
+            window.location.reload();
+          }}
         />
       )}
 

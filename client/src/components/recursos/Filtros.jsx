@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getCategorias, searchXname } from "../../redux/actions";
+import { RxMagnifyingGlass } from "react-icons/rx";
 
 export default function Filtros({
   handleSearch = () => {},
   searchType,
   searchWord,
+  setBusqueda,
+  setCheckAlertaError,
+  busqueda,
 }) {
   const [state, setState] = useState("");
+  const [busq, setBusq] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,31 +23,35 @@ export default function Filtros({
     setState(e.target.value);
   };
 
-  const limpiarState = () => {
-    if (state !== "") {
-      dispatch(searchXname(state, searchType));
-      handleSearch();
-      setState("");
-    }
-  };
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      limpiarState();
+      if (state !== "") {
+        dispatch(searchXname(state, searchType));
+        handleSearch();
+        // if (window.location.pathname === "/") {
+        setBusqueda(state);
+        setCheckAlertaError(true);
+        // }
+      }
     }
   };
 
   return (
     <div className="filtro">
-      <div>
-        <input
-          className="searchBar"
-          type="text"
-          placeholder={`Buscar ${searchWord}`}
-          onChange={handleState}
-          onKeyDown={handleKeyDown}
-          value={state}
-        />
-      </div>
+      {busqueda && (
+        <div className="ocultarBtn" onClick={() => window.location.reload()}>
+          <span className="arrow-left"></span>
+        </div>
+      )}
+      <input
+        className={busqueda ? "search" : "searchBar"}
+        type="text"
+        placeholder={`Buscar ${searchWord}`}
+        onChange={handleState}
+        onKeyDown={handleKeyDown}
+        value={state}
+      />
+      <RxMagnifyingGlass className="lupa" />
     </div>
   );
 }

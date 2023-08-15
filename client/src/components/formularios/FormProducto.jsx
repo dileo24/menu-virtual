@@ -40,8 +40,6 @@ export default function FormProducto({
   setCrearProducto,
   combo,
   setCombo,
-  // checkListadoTrue,
-  // checkListadoFalse,
 }) {
   const dispatch = useDispatch();
 
@@ -115,10 +113,26 @@ export default function FormProducto({
         </h1>
       )}
 
-      <form className="formulario" id="formulario" method="POST">
+      <form
+        className="formulario"
+        id="formulario"
+        method="POST"
+        onSubmit={onSubmit}
+      >
         <div className="labelInput">
           <div className="checks">
-            <div className="checkContainer">
+            <div
+              className="checkContainer"
+              onClick={() => {
+                setCombo(false);
+                setCrearProducto(true);
+                setCantidadPersonas(1);
+                setNumItemsExtra(0);
+                setItemsExtra([]);
+                setMostrarPersonaItem(true);
+                setMostrarOtroCheckbox(false);
+              }}
+            >
               <input
                 className="check"
                 type="radio"
@@ -136,7 +150,16 @@ export default function FormProducto({
               />
               <p>Producto</p>
             </div>
-            <div className="checkContainer">
+            <div
+              className="checkContainer"
+              onClick={() => {
+                setCombo(true);
+                setCrearProducto(false);
+                setItem(false);
+                setMostrarOtroCheckbox(false);
+                setMostrarPersonaItem(true);
+              }}
+            >
               <input
                 className="check"
                 type="radio"
@@ -166,6 +189,7 @@ export default function FormProducto({
                 setPrecio("");
               }}
               value={categoriaID || ""}
+              required
             >
               <option value="" hidden>
                 Selecciona una categoría
@@ -218,6 +242,7 @@ export default function FormProducto({
               value={nombre}
               maxLength={150}
               onChange={(e) => setNombre(e.target.value)}
+              required
             />
           </div>
         )}
@@ -233,6 +258,7 @@ export default function FormProducto({
               value={descripcion}
               maxLength={150}
               onChange={(e) => setDescripcion(e.target.value)}
+              required
             />
           </div>
         )}
@@ -248,7 +274,17 @@ export default function FormProducto({
               </span>
             </label>
             <div className="checks">
-              <div className="checkContainer">
+              <div
+                className="checkContainer"
+                onClick={() => {
+                  setMostrarPersonaItem(true);
+                  setMostrarOtroCheckbox(false);
+                  setListado(true);
+                  setItem(false);
+                  setMostrarPrecio(true);
+                  setPrecio("");
+                }}
+              >
                 <input
                   className="check"
                   type="radio"
@@ -258,11 +294,22 @@ export default function FormProducto({
                     setMostrarOtroCheckbox(false);
                     setListado(true);
                     setItem(false);
+                    setMostrarPrecio(true);
+                    setPrecio("");
                   }}
                 />
                 <p>No</p>
               </div>
-              <div className="checkContainer">
+              <div
+                className="checkContainer"
+                onClick={() => {
+                  setMostrarOtroCheckbox(true);
+                  setCantidadPersonas(1);
+                  setNumItemsExtra(0);
+                  setItemsExtra([]);
+                  setItem(true);
+                }}
+              >
                 <input
                   className="check"
                   type="radio"
@@ -283,7 +330,14 @@ export default function FormProducto({
               <div className="labelInput">
                 <label htmlFor="nombre">Mostrar en el Menú</label>
                 <div className="checks">
-                  <div className="checkContainer">
+                  <div
+                    className="checkContainer"
+                    onClick={() => {
+                      setListado(false);
+                      setMostrarPrecio(false);
+                      setPrecio(0);
+                    }}
+                  >
                     <input
                       className="check"
                       type="radio"
@@ -296,7 +350,14 @@ export default function FormProducto({
                     />
                     <p>No</p>
                   </div>
-                  <div className="checkContainer">
+                  <div
+                    className="checkContainer"
+                    onClick={() => {
+                      setListado(true);
+                      setMostrarPrecio(true);
+                      setPrecio("");
+                    }}
+                  >
                     <input
                       className="check"
                       type="radio"
@@ -326,13 +387,14 @@ export default function FormProducto({
               placeholder="Precio del producto"
               value={precio}
               onChange={(e) => setPrecio(e.target.value)}
+              required
             />
           </div>
         )}
 
-        <input type="hidden" name="id" id="id" value="" />
+        {/* <input type="hidden" name="id" id="id" value="" /> */}
 
-        {/* cantidad de personas */}
+        {/* cantidad de personas e ítems extra*/}
         {combo && (
           <>
             <div className="labelInput">
@@ -346,6 +408,7 @@ export default function FormProducto({
                 placeholder="Para cuántas personas será el combo"
                 value={cantidadPersonas}
                 onChange={(e) => setCantidadPersonas(e.target.value)}
+                required
               />
             </div>
             <Items
@@ -359,26 +422,33 @@ export default function FormProducto({
           </>
         )}
 
-        {/* <input
-          type="submit"
-          value={
-            titulo === "Nuevo Producto" ? "Crear Producto" : "Guardar cambios"
-          }
-          onClick={onSubmit}
-        /> */}
-        <div className="footer">
-          <button
-            type="submit"
-            className="botonFooter btnCrearUsuario"
-            onClick={onSubmit}
-          >
-            {titulo === "Nuevo Producto"
-              ? crearProducto
-                ? "Crear Producto"
-                : "Crear Combo"
-              : "Guardar Cambios"}
-          </button>
-        </div>
+        {/* footer crear */}
+        {titulo === "Nuevo Producto" && crearProducto && (
+          <div className="footer">
+            <button type="submit" className="botonFooter btnCrearUsuario">
+              Crear Producto
+            </button>
+          </div>
+        )}
+        {titulo === "Nuevo Producto" && combo && (
+          <div className="footer">
+            <button type="submit" className="botonFooter btnCrearUsuario">
+              Crear Combo
+            </button>
+          </div>
+        )}
+
+        {/* footer editar */}
+        {titulo !== "Nuevo Producto" && (
+          <div className="footer">
+            <Link to={"/"} className="botonDescartar">
+              Descartar cambios
+            </Link>
+            <button type="submit" className="botonFooter">
+              Guardar cambios
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
