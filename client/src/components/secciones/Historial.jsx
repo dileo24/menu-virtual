@@ -40,10 +40,10 @@ export default function Historial() {
 
   useEffect(() => {
     // Local
-    // const socket = io("http://localhost:3001");
+    const socket = io("http://localhost:3001");
 
     // Deploy
-    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+    // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
 
@@ -146,9 +146,9 @@ export default function Historial() {
                       </span>
                     </p>
                   </div>
-                  <div className="nombreItems">
+                  <>
                     {pedido.productos.map((producto, i) => (
-                      <div key={i}>
+                      <div key={i} className="nombreItems">
                         <p className="nombre">
                           {producto}
                           <span className="precioIndiv">
@@ -181,7 +181,7 @@ export default function Historial() {
                         )}
                       </div>
                     ))}
-                  </div>
+                  </>
                 </div>
                 <div className="footerPed">
                   <p className="metodoDePago estado-success">

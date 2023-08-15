@@ -190,6 +190,7 @@ export default function Header({
                 onClick={() => setAlertaPregunta(true)}
                 className="cerrarSesion"
               >
+                <RxExit className="linkIcon" />
                 Cerrar sesión
               </button>
             )}

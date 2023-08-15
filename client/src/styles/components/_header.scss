@@ -27,7 +27,20 @@ header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      // position: fixed;
+      .cerrarSesion {
+        text-align: flex-start;
+        font-size: 4vw;
+        color: red;
+        display: flex;
+        align-items: center;
+        padding: 5vw;
+        &:focus {
+          outline: none;
+        }
+        .linkIcon {
+          margin-right: 2vw;
+        }
+      }
       .burgerBtn {
         margin: 5vw;
         // margin-bottom: 7vw;
