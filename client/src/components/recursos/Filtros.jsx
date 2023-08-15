@@ -12,7 +12,7 @@ export default function Filtros({
   busqueda,
 }) {
   const [state, setState] = useState("");
-  const [busq, setBusq] = useState(false);
+  // const [busq, setBusq] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {

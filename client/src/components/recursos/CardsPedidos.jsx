@@ -18,7 +18,7 @@ import io from "socket.io-client";
 export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
   const pedidos = useSelector((state) => state.pedidos);
   const estados = useSelector((state) => state.estados);
-  const tipoPagos = useSelector((state) => state.tipoPagos);
+  // const tipoPagos = useSelector((state) => state.tipoPagos);
   const dispatch = useDispatch();
   const [nuevosPedidos, setNuevosPedidos] = useState([]);
   const token = useSelector((state) => state.userActual.tokenSession);

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import ModalRegister from "./components/formularios/Register";
 import Usuarios from "./components/secciones/Usuarios";
 import Pedidos from "./components/secciones/Pedidos";
-import Estadisticas from "./components/secciones/Estadisticas";
+// import Estadisticas from "./components/secciones/Estadisticas";
 import Carrito from "./components/secciones/Carrito";
 import ItemsCliente from "./components/secciones/ItemsCliente";
 import UpdateItemsCliente from "./components/secciones/UpdateItemsCliente";
