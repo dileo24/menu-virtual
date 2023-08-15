@@ -107,7 +107,9 @@ const Carrusel = () => {
   }, [prevScrollPosition]);
 
   useEffect(() => {
-    !busqueda && window.addEventListener("scroll", handleWindowScroll);
+    !busqueda &&
+      window.innerWidth <= 600 &&
+      window.addEventListener("scroll", handleWindowScroll);
     if (busqueda && !userActual) {
       const marca = document.getElementById("marca");
       const subHeader = document.getElementById("subHeader");
@@ -219,7 +221,7 @@ const Carrusel = () => {
             </Swipe>
           )}
         </div>
-        {userActual ? null : (
+        {!userActual /* && window.innerWidth <= 600 */ && (
           <>
             <footer className={`footer ${marginTop}`}>
               <Link className="botonFooter" to={"/miPedido"}>

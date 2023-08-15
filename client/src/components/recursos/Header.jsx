@@ -44,6 +44,13 @@ export default function Header({
   const isHomePage = window.location.pathname === "/";
   const [alertaPregunta, setAlertaPregunta] = useState(false);
 
+  // Para boton de "ver mi pedido" en header
+  /* const [preciosArray, setPreciosArray] = useState([]);
+  let precioFinal = 0;
+  for (let i = 0; i < preciosArray.length; i++) {
+    precioFinal += parseInt(preciosArray[i]);
+  } */
+
   useEffect(() => {
     dispatch(getCategorias());
     dispatch(getPedidos());
@@ -428,6 +435,17 @@ export default function Header({
                 )}
               </Link>
             )}
+            {/* {!userActual && window.innerWidth >= 600 && (
+              <>
+                <div className={`footer `}>
+                  <Link className="botonFooter" to={"/miPedido"}>
+                    <div className="cantidad">{preciosArray.length}</div>
+                    <b className="verPedido">Mi Pedido</b>
+                    <div className="precio">${precioFinal}</div>
+                  </Link>
+                </div>
+              </>
+            )} */}
           </nav>
         )}
 
