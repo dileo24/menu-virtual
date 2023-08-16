@@ -46,9 +46,38 @@ export default function Menu({
 
   prodsBuscados && prodsBuscados.length > 0 && (productos = prodsBuscados);
 
+  // Controlar orientación de la pantalla
+  /* useEffect(() => {
+    const elemento = document.querySelector("#menuContainer");
+    if (window.innerHeight > window.innerWidth) {
+      elemento.classList.add("menuMobile");
+      elemento.classList.remove("menuPC");
+    } else {
+      elemento.classList.add("menuPC");
+      elemento.classList.remove("menuMobile");
+    }
+  }, []);
+  useEffect(() => {
+    const elemento = document.querySelector("#menuContainer");
+    const handleResize = () => {
+      if (window.innerHeight > window.innerWidth) {
+        elemento.classList.add("menuMobile");
+        elemento.classList.remove("menuPC");
+      } else {
+        elemento.classList.add("menuPC");
+        elemento.classList.remove("menuMobile");
+        console.log("hori");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); */
+
   return (
     productos && (
-      <main className="menuContainer">
+      <main id="menuContainer" className="menuContainer">
         {busqueda && <h1 className="resultados">Resultados de búsqueda</h1>}
         {categorias.map((categoria) => {
           const productosPorCateg = filtrarProductosPorCategoria(
@@ -77,7 +106,7 @@ export default function Menu({
                 )}
 
               {/* Renderizar los productos sin subcategoria */}
-              <div className="cardsVisibles">
+              <div className="cardsContainer">
                 {productosSinSubcateg.map(
                   ({
                     nombre,
@@ -143,7 +172,7 @@ export default function Menu({
                     prod.subcategoria.nombre === subcategoria.nombre
                 );
                 return (
-                  <div className="cardsVisibles" key={subcategoria.id}>
+                  <div className="cardsContainer" key={subcategoria.id}>
                     {/* Renderizar los productos con item === false */}
                     {productosPorSubCateg.map(
                       ({
@@ -168,9 +197,10 @@ export default function Menu({
                                 ? removeAccentsAndSpaces(subcategoria.nombre)
                                 : ""
                             }
+                            className="cardProduct"
                           >
                             {categ !== "todas" && esNuevaSubCategoria && (
-                              <h1 className="nombreCateg">
+                              <h1 className="nombreSubCateg">
                                 {subcategoria.nombre}
                               </h1>
                             )}
@@ -180,7 +210,7 @@ export default function Menu({
                               (prodsBuscados.length === 0 ||
                                 prodsBuscados.length ===
                                   productosState.length) && (
-                                <h1 className="nombreCateg">
+                                <h1 className="nombreSubCateg">
                                   {subcategoria.nombre}
                                 </h1>
                               )}
@@ -262,7 +292,7 @@ export default function Menu({
                   )}
 
                 {/* Renderizar los productos sin subcategoria */}
-                <div className="cardsVisibles">
+                <div className="cardsContainer">
                   {productosSinSubcateg.map(
                     ({
                       nombre,
@@ -328,7 +358,7 @@ export default function Menu({
                       prod.subcategoria.nombre === subcategoria.nombre
                   );
                   return (
-                    <div className="cardsVisibles" key={subcategoria.id}>
+                    <div className="cardsContainer" key={subcategoria.id}>
                       {/* Renderizar los productos con item === false */}
                       {productosPorSubCateg.map(
                         ({
@@ -353,9 +383,10 @@ export default function Menu({
                                   ? removeAccentsAndSpaces(subcategoria.nombre)
                                   : ""
                               }
+                              className="cardProduct"
                             >
                               {categ !== "todas" && esNuevaSubCategoria && (
-                                <h1 className="nombreCateg">
+                                <h1 className="nombreSubCateg">
                                   {subcategoria.nombre}
                                 </h1>
                               )}

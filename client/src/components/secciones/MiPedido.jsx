@@ -56,12 +56,15 @@ export default function HacerPedido1() {
     <div className="desplegables">
       <div className="desplegable1">
         <div className="scrollable-content">
-          <HeaderBack
-            url={"/"}
-            arrowType={"left"}
-            title={`Mi`}
-            span={"Pedido"}
-          />
+          <div className="headerAtras">
+            <HeaderBack
+              url={"/"}
+              arrowType={"left"}
+              title={`Mi`}
+              span={"Pedido"}
+            />
+          </div>
+
           {carrito.length > 0 && (
             <>
               {carrito.map((prod, index) => (

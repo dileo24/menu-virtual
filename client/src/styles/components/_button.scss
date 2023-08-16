@@ -30,3 +30,24 @@
     }
   }
 }
+
+@media (min-width: 600px) {
+  .contador {
+    height: 1.5vw;
+    width: 1.5vw;
+    font-size: 10vw;
+    .signoMenos {
+      width: 1.2vw;
+      height: 2px;
+    }
+    .signoMas1 {
+      width: 1.2vw;
+      height: 2px;
+      @include center;
+      .signoMas2 {
+        width: 2px;
+        height: 1.2vw;
+      }
+    }
+  }
+}

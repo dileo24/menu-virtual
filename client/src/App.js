@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+
 import { Routes, Route } from "react-router-dom";
 import Carrusel from "./components/secciones/Carrusel";
 import NuevoProducto from "./components/formularios/NuevoProducto";
@@ -18,6 +20,7 @@ import MiPedido from "./components/secciones/MiPedido";
 import HacerPedido from "./components/formularios/HacerPedido";
 import EditarCateg from "./components/formularios/EditarCateg";
 import EditarUsuario from "./components/formularios/EditarUsuario";
+import { useNavigate } from "react-router-dom";
 
 // Local
 axios.defaults.baseURL = "http://localhost:3001";
@@ -26,7 +29,26 @@ axios.defaults.baseURL = "http://localhost:3001";
 // axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
 
 function App() {
+  const navigate = useNavigate();
   const userActual = useSelector((state) => state.userActual);
+
+  useEffect(() => {
+    // Función que se ejecutará cuando cambie el tamaño del viewport
+    if (window.location.pathname === '/' || window.location.pathname === '/historial' || window.location.pathname === '/miPedido' || window.location.pathname === '/hacerPedido') {
+
+      // Función para manejar el cambio de orientación
+      const handleOrientationChange = () => {
+        // Recargar la página
+        window.location.pathname === '/' ? window.location.reload() : navigate('/');
+      };
+      // Agregar un controlador de eventos al evento orientationchange
+      window.addEventListener('orientationchange', handleOrientationChange);
+      // Limpieza: Eliminar el controlador de eventos cuando el componente se desmonta
+      return () => {
+        window.removeEventListener('orientationchange', handleOrientationChange);
+      };
+    }
+  }, []);
 
   return (
     <div className="App">

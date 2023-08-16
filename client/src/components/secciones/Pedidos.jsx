@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
-import Filtros from "../recursos/Filtros";
+// import Filtros from "../recursos/Filtros";
 import CardsPedidos from "../recursos/CardsPedidos";
 
 import io from "socket.io-client";
@@ -67,13 +67,13 @@ export default function Pedidos() {
         <Header />
         <h1 className="pedidosTitle">Pedidos</h1>
         <div className="navbar">
-          <Filtros
+          {/* <Filtros
             searchType="pedidos"
             searchWord={"pedidos"}
             setBusqueda={setBusqueda}
             setCheckAlertaError={setCheckAlertaError}
             className="navbar"
-          />
+          /> */}
         </div>
         <div
           className="estados"

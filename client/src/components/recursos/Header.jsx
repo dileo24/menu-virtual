@@ -44,13 +44,6 @@ export default function Header({
   const isHomePage = window.location.pathname === "/";
   const [alertaPregunta, setAlertaPregunta] = useState(false);
 
-  // Para boton de "ver mi pedido" en header
-  /* const [preciosArray, setPreciosArray] = useState([]);
-  let precioFinal = 0;
-  for (let i = 0; i < preciosArray.length; i++) {
-    precioFinal += parseInt(preciosArray[i]);
-  } */
-
   useEffect(() => {
     dispatch(getCategorias());
     dispatch(getPedidos());
@@ -58,8 +51,36 @@ export default function Header({
     dispatch(getProductos());
   }, [dispatch]);
 
+  // Controlar orientación de la pantalla
   useEffect(() => {
-    scrollToActiveCategory();
+    const header = document.querySelector("#containerHeader");
+    if (window.innerHeight > window.innerWidth) {
+      header.classList.add("headerMobile");
+      header.classList.remove("headerPC");
+    } else {
+      header.classList.add("headerPC");
+      header.classList.remove("headerMobile");
+    }
+  }, []);
+  useEffect(() => {
+    const header = document.querySelector("#containerHeader");
+    const handleResize = () => {
+      if (window.innerHeight > window.innerWidth) {
+        header.classList.add("headerMobile");
+        header.classList.remove("headerPC");
+      } else {
+        header.classList.add("headerPC");
+        header.classList.remove("headerMobile");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.innerWidth <= 600 && scrollToActiveCategory();
     setCategActiveId(newCateg[currentSlide - 1]?.id);
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -182,7 +203,7 @@ export default function Header({
   };
 
   return (
-    <header id="containerHeader " className="containerHeader">
+    <header id="containerHeader">
       {!userActual && (
         <button className="quickBites" onClick={reload}>
           <h1 id="marca">QuickBites</h1>
@@ -466,38 +487,40 @@ export default function Header({
             )}
             {!busqueda && (
               <div id="categorias">
-                <div
-                  className="categorias"
-                  ref={scrollableRef}
-                  style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-                >
-                  <button
-                    className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
-                    id="0"
-                    onClick={() => {
-                      setCurrentSlide(0);
-                      window.scrollTo({ top: 0 });
-                    }}
-                  >
-                    Menú completo
-                  </button>
-                  {newCateg &&
-                    newCateg.map((categ, index) => (
-                      <React.Fragment key={categ.id}>
-                        <button
-                          className={`categoria ${
-                            currentSlide === index + 1 ? "active" : ""
-                          }`}
-                          id={categ.id}
-                          onClick={() => {
-                            setCurrentSlide(index + 1);
-                            window.scrollTo({ top: 0 });
-                          }}
-                        >
-                          {categ.nombre}
-                        </button>
-                      </React.Fragment>
-                    ))}
+                <div className="categorias" ref={scrollableRef}>
+                  <div className="botonesCont">
+                    <div className="botones">
+                      <button
+                        className={`menuBtn ${
+                          currentSlide === 0 ? "active" : ""
+                        }`}
+                        id="0"
+                        onClick={() => {
+                          setCurrentSlide(0);
+                          window.scrollTo({ top: 0 });
+                        }}
+                      >
+                        Menú completo
+                      </button>
+                      {newCateg &&
+                        newCateg.map((categ, index) => (
+                          <React.Fragment key={categ.id}>
+                            <button
+                              className={`categoria ${
+                                currentSlide === index + 1 ? "active" : ""
+                              }`}
+                              id={categ.id}
+                              onClick={() => {
+                                setCurrentSlide(index + 1);
+                                window.scrollTo({ top: 0 });
+                              }}
+                            >
+                              {categ.nombre}
+                            </button>
+                          </React.Fragment>
+                        ))}
+                    </div>
+                  </div>
                 </div>
 
                 {newSubCategs.filter(

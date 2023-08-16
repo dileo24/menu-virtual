@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "../recursos/Header";
 import Menu from "./Menu";
 // import HacerPedido from "./HacerPedido1";
+import MiPedido from "./MiPedido";
 
 import { getProductos, deleteProducto } from "../../redux/actions";
 import Swipe from "react-swipe";
@@ -27,6 +28,7 @@ const Carrusel = () => {
   const [alertaError, setAlertaError] = useState(false);
   const [busqueda, setBusqueda] = useState(false);
   const [checkAlertaError, setCheckAlertaError] = useState(false);
+  const vertical = window.innerHeight > window.innerWidth;
 
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
@@ -108,7 +110,7 @@ const Carrusel = () => {
 
   useEffect(() => {
     !busqueda &&
-      window.innerWidth <= 600 &&
+      vertical &&
       window.addEventListener("scroll", handleWindowScroll);
     if (busqueda && !userActual) {
       const marca = document.getElementById("marca");
@@ -132,13 +134,6 @@ const Carrusel = () => {
     setBusqueda(false);
   }, []);
 
-  /* useEffect(() => {
-    if (busqueda) {
-      console.log(busqueda);
-      window.location.reload();
-    }
-  }, [currentSlide]); */
-
   const handleSearch = useCallback(() => {
     setCurrentSlide(0);
   }, []);
@@ -153,7 +148,7 @@ const Carrusel = () => {
       `.scrollable-content[data-index="${currentSlide}"]`
     );
     if (diapo) {
-      const menuContainer = diapo.querySelector(".menuContainer");
+      const menuContainer = diapo.querySelector("#menuContainer");
       const menuContainerHeight = menuContainer.offsetHeight;
       const swipe = document.querySelector(".swipe");
       swipe.style.maxHeight = `${menuContainerHeight}px`;
@@ -169,6 +164,34 @@ const Carrusel = () => {
       : setCheckAlertaError(false);
   }, [checkAlertaError]);
 
+  // Controlar orientación de la pantalla
+  useEffect(() => {
+    const elemento = document.querySelector("#carruselContainer");
+    if (window.innerHeight > window.innerWidth) {
+      elemento.classList.add("carruselMobile");
+      elemento.classList.remove("carruselPC");
+    } else {
+      elemento.classList.add("carruselPC");
+      elemento.classList.remove("carruselMobile");
+    }
+  }, []);
+  useEffect(() => {
+    const elemento = document.querySelector("#carruselContainer");
+    const handleResize = () => {
+      if (window.innerHeight > window.innerWidth) {
+        elemento.classList.add("carruselMobile");
+        elemento.classList.remove("carruselPC");
+      } else {
+        elemento.classList.add("carruselPC");
+        elemento.classList.remove("carruselMobile");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div className="containerCarrusel">
       <Header
@@ -179,7 +202,7 @@ const Carrusel = () => {
         busqueda={busqueda}
         setCheckAlertaError={setCheckAlertaError}
       />
-      <div className="carruselContainer">
+      <div id="carruselContainer" className="carruselMobile">
         <div className="carrusel-wrapper" ref={carruselRef}>
           {categorias.length && (
             <Swipe
@@ -220,8 +243,10 @@ const Carrusel = () => {
               )}
             </Swipe>
           )}
+          {!userActual && !vertical && <MiPedido />}
         </div>
-        {!userActual /* && window.innerWidth <= 600 */ && (
+
+        {!userActual && vertical && (
           <>
             <footer className={`footer ${marginTop}`}>
               <Link className="botonFooter" to={"/miPedido"}>

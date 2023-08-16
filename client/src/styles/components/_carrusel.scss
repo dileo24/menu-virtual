@@ -1,6 +1,6 @@
 .containerCarrusel {
   background-color: white;
-  .carruselContainer {
+  .carruselMobile {
     overflow: auto;
     .carrusel-wrapper {
       overflow-y: auto;
@@ -143,5 +143,45 @@
     -moz-transform: translateY(100%);
     -ms-transform: translateY(100%);
     -o-transform: translateY(100%);
+  }
+}
+
+// Media queries
+
+.containerCarrusel {
+  background-color: white;
+  .carruselPC {
+    overflow: hidden;
+    height: 88vh;
+    width: 53vw;
+    margin: 12vh 0 0 17vw;
+
+    // border: 10px solid red;
+    .carrusel-wrapper {
+      overflow-y: hidden;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      background-color: white;
+      #nav,
+      #categorias {
+        transition: transform 0.2s ease;
+        -webkit-transition: transform 0.2s ease;
+        -moz-transition: transform 0.2s ease;
+        -ms-transition: transform 0.2s ease;
+        -o-transition: transform 0.2s ease;
+      }
+      .nav-hidden {
+        transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+      }
+      .scrollable-content {
+      }
+    }
+    .footer {
+      display: none;
+    }
   }
 }
