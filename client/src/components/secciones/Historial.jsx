@@ -116,18 +116,17 @@ export default function Historial() {
     return product && product.combo;
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return pedidos &&
     pedidosActuales.length > 0 &&
     pedidosActuales.some(
       (pedido) => pedido && pedido.EstadoId !== 4 && pedido.EstadoId !== 5
     ) ? (
-    <div className="historialContainer">
-      <HeaderBack
-        url={"/"}
-        arrowType={"left"}
-        title={`Mis Pedidos `}
-        span={`Realizados`}
-      />
+    <div className={vertical ? "historialMobile" : "historialPC"}>
+      {vertical && (
+        <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+      )}
       {pedidosActuales
         .filter(
           (pedido) => pedido && pedido.Estado.id !== 4 && pedido.Estado.id !== 5
@@ -198,8 +197,11 @@ export default function Historial() {
         )}
     </div>
   ) : (
-    <div className="historialContainer2">
-      <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+    <div className={vertical ? "historialMobile2" : "historialPC2"}>
+      {vertical && (
+        <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+      )}
+
       <div className="centro">
         <img src={bandeja} alt="bandeja" className="icon" />
         <p className="alerta">¡Comienza a sumar productos a tu pedido!</p>

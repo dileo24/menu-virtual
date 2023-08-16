@@ -583,6 +583,7 @@
       align-items: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       position: fixed;
+      z-index: 999999;
       .carritoIcon,
       .usuarioIcon {
         width: 2.5rem;
@@ -624,7 +625,7 @@
       width: 17vw !important;
       align-items: start;
       background-color: white;
-      font-size: 1.3vw;
+      font-size: $titleSizePC;
 
       height: 88vh;
       margin-top: 12vh;

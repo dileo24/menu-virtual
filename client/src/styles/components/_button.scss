@@ -64,3 +64,22 @@
     }
   }
 }
+
+.contadorNumMobile {
+  text-align: center;
+  font-size: 5vw;
+  margin: 0 2vw;
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+.contadorNumPC {
+  text-align: center;
+  font-size: 1vw;
+  margin: 0 1vw;
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}

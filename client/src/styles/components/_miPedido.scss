@@ -1,4 +1,4 @@
-.desplegables {
+.miPedidoMobile {
   height: 100%;
   .desplegable1 {
     z-index: 999;
@@ -293,272 +293,270 @@
 
 // Media queries
 
-@media (min-width: 600px) {
-  .desplegables {
-    height: 100%;
-    .desplegable1 {
-      z-index: 999;
-      height: auto;
-      min-height: 100vh;
-      width: 30vw;
-      background-color: rgb(247, 247, 247);
-      position: fixed;
-      top: 0;
-      right: 0;
-      border: 1px solid red;
-      height: 88vh;
-      margin-top: 12vh;
-      overflow-y: auto;
-      .scrollable-content {
-        height: 100vh;
-        width: 100vw;
-        padding-bottom: 30%;
-        justify-content: flex-start;
-        overflow: auto;
-        .headerAtras {
-          display: none;
-        }
-        .cardProducto {
-          background-color: rgb(255, 255, 255);
-          width: 90vw;
-          margin-bottom: 5%;
-          margin-left: 5%;
-          border-radius: 10px;
-          -webkit-border-radius: 10px;
-          -moz-border-radius: 10px;
-          -ms-border-radius: 10px;
-          -o-border-radius: 10px;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-          padding: 5%;
-          height: auto;
-          display: flex;
-          .nombreItemsPrecio {
-            width: 80%;
-            .nombrePrecio {
-              display: flex;
-              justify-content: space-between;
-              .nombre {
-                font-weight: $titleWeight;
-                font-size: 4vw;
-                width: 60%;
-              }
-              .precio {
-                font-weight: $titleWeight;
-                color: $paragraph;
-                font-size: 4vw;
-              }
+.miPedidoPC {
+  height: 100%;
+  .desplegable1 {
+    z-index: 999;
+    height: auto;
+    width: 30vw;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 78vh;
+    margin-top: 22vh;
+    overflow-y: auto;
+    padding: 2vw 0 7vw 0;
+    .scrollable-content {
+      /* height: 78vh;
+      width: 100%;
+      padding-bottom: 30%;
+      justify-content: flex-start;
+      overflow: auto; */
+      .headerAtras {
+        display: none;
+      }
+      .cardProducto {
+        background-color: rgb(255, 255, 255);
+        width: 90%;
+        margin-bottom: 5%;
+        margin-left: 5%;
+        border-radius: 0.8vw;
+        -webkit-border-radius: 0.8vw;
+        -moz-border-radius: 0.8vw;
+        -ms-border-radius: 0.8vw;
+        -o-border-radius: 0.8vw;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 2.5%;
+        height: auto;
+        display: flex;
+        .nombreItemsPrecio {
+          width: 80%;
+          .nombrePrecio {
+            display: flex;
+            justify-content: space-between;
+            .nombre {
+              font-weight: $titleWeight;
+              font-size: $subtSizePC;
+              width: 60%;
             }
-            .itemsExtra {
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              list-style: none;
-              padding: 5% 0 0 5%;
-              line-height: 1;
-
-              .list-item {
-                display: flex;
-                align-items: center;
-                margin-bottom: 10px;
-                .list-item-circle {
-                  display: inline-block;
-                  width: 5px;
-                  height: 5px;
-                  border-radius: 50%;
-                  background-color: black;
-                  margin-right: 8px;
-                }
-              }
+            .precio {
+              font-weight: $titleWeight;
+              color: $paragraph;
+              font-size: $subtSizePC;
             }
           }
-
-          .accionesCont {
-            width: 50%;
-
-            .acciones {
-              min-width: 50%;
-              @include center;
-              justify-content: flex-end;
-              .iconContainer1 {
-                width: 8vw;
-                height: 8vw;
-                border: 1px solid $paragraph;
-                border-radius: 8px;
-                @include center;
-                margin-right: 4vw;
-                .editarIcon {
-                  width: 1.2rem;
-                  height: 1.2rem;
-                }
-              }
-              .iconContainer2 {
-                width: 8vw;
-                height: 8vw;
-                border: 1px solid $paragraph;
-                border-radius: 8px;
-                @include center;
-                .eliminarIcon {
-                  width: 1.2rem;
-                  height: 1.2rem;
-                }
-              }
-            }
-          }
-        }
-        .vaciarCont {
-          @include center;
-          margin: 10% 0;
-          .vaciarBtn {
-            font-weight: $titleWeight;
-            font-size: 4vw;
-            line-height: 1;
-            // text-decoration: underline;
-            border-bottom: 1px solid black;
-          }
-        }
-
-        .formulario {
-          .mesa,
-          .aclaraciones,
-          .pago {
+          .itemsExtra {
             display: flex;
             flex-direction: column;
-            margin: 0 0 5% 5%;
+            align-items: flex-start;
+            list-style: none;
+            padding: 5% 0 0 5%;
+            line-height: 1;
+            font-size: $subtSizePC;
 
-            .mesaTitle,
-            .aclaracionesTitle,
-            .pagoTitle {
-              font-weight: $titleWeight;
-              font-size: $subtSize;
-              margin-bottom: 3%;
-            }
-            .mesaInput {
-              border: 1px solid grey;
-              border-radius: 8px;
-              width: 3.2rem;
-              height: 2.6rem;
-              text-align: center;
-              background-color: white;
-              font-weight: $titleWeight;
-              font-size: 3.8vw;
-              &::placeholder {
-                color: grey;
-              }
-            }
-            .aclaracionesInput {
-              width: 90vw;
-              padding: 3%;
-              height: 12vh;
-              background-color: white;
-              border: 1px solid grey;
-              border-radius: 8px;
-              font-weight: $titleWeight;
-              font-size: 3.8vw;
-              &::placeholder {
-                color: grey;
-              }
-            }
-            .pagoInput {
-              font-weight: $titleWeight;
-              font-size: 3.8vw;
-              color: $paragraph;
-              background-color: white;
-              width: 90vw;
-              padding: 4%;
-              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-              border-radius: 8px;
+            .list-item {
               display: flex;
-              flex-direction: row-reverse;
-              justify-content: space-between;
-              /*  transition: all 0.1s ease;
+              align-items: center;
+              margin-bottom: 10px;
+              .list-item-circle {
+                display: inline-block;
+                width: 0.4vw;
+                height: 0.4vw;
+                border-radius: 50%;
+                background-color: black;
+                margin-right: 0.4vw;
+              }
+            }
+          }
+        }
+
+        .accionesCont {
+          width: 50%;
+
+          .acciones {
+            min-width: 50%;
+            @include center;
+            justify-content: flex-end;
+            .iconContainer1 {
+              width: 2vw;
+              height: 2vw;
+              border: 1px solid $paragraph;
+              border-radius: 6px;
+              @include center;
+              margin-right: 1vw;
+              .editarIcon {
+                width: 1.5vw;
+                height: 1.5vw;
+              }
+            }
+            .iconContainer2 {
+              width: 2vw;
+              height: 2vw;
+              border: 1px solid $paragraph;
+              border-radius: 6px;
+              @include center;
+              .eliminarIcon {
+                width: 1.5vw;
+                height: 1.5vw;
+              }
+            }
+          }
+        }
+      }
+      .vaciarCont {
+        @include center;
+        margin: 2vw 0;
+        .vaciarBtn {
+          font-weight: $titleWeight;
+          font-size: $subtSizePC;
+          line-height: 1;
+          // text-decoration: underline;
+          border-bottom: 1px solid black;
+        }
+      }
+
+      .formulario {
+        .mesa,
+        .aclaraciones,
+        .pago {
+          display: flex;
+          flex-direction: column;
+          margin: 0 0 5% 5%;
+
+          .mesaTitle,
+          .aclaracionesTitle,
+          .pagoTitle {
+            font-weight: $titleWeight;
+            font-size: $subtSize;
+            margin-bottom: 3%;
+          }
+          .mesaInput {
+            border: 1px solid grey;
+            border-radius: 8px;
+            width: 3.2rem;
+            height: 2.6rem;
+            text-align: center;
+            background-color: white;
+            font-weight: $titleWeight;
+            font-size: 3.8vw;
+            &::placeholder {
+              color: grey;
+            }
+          }
+          .aclaracionesInput {
+            width: 90vw;
+            padding: 3%;
+            height: 12vh;
+            background-color: white;
+            border: 1px solid grey;
+            border-radius: 8px;
+            font-weight: $titleWeight;
+            font-size: 3.8vw;
+            &::placeholder {
+              color: grey;
+            }
+          }
+          .pagoInput {
+            font-weight: $titleWeight;
+            font-size: 3.8vw;
+            color: $paragraph;
+            background-color: white;
+            width: 90vw;
+            padding: 4%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            /*  transition: all 0.1s ease;
                 -webkit-transition: all 0.1s ease;
                 -moz-transition: all 0.1s ease;
                 -ms-transition: all 0.1s ease;
                 -o-transition: all 0.1s ease; */
-              &:not(:last-child) {
-                margin-bottom: 5%;
+            &:not(:last-child) {
+              margin-bottom: 5%;
+            }
+            &.selected {
+              border: 1px solid black;
+              .nombrePago {
+                color: black;
               }
-              &.selected {
-                border: 1px solid black;
-                .nombrePago {
-                  color: black;
-                }
-              }
-              .iconCheck {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-direction: row-reverse;
-                // border: 1px solid red;
-                width: 18%;
+            }
+            .iconCheck {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              flex-direction: row-reverse;
+              // border: 1px solid red;
+              width: 18%;
 
-                .check {
-                  // display: none;
-                  width: 1.2rem;
-                  height: 1.2rem;
-                  padding: 20vw;
-                }
-                .icon {
-                  width: 1.5rem;
-                  height: 1.5rem;
-                }
+              .check {
+                // display: none;
+                width: 1.2rem;
+                height: 1.2rem;
+                padding: 20vw;
+              }
+              .icon {
+                width: 1.5rem;
+                height: 1.5rem;
               }
             }
           }
         }
       }
+    }
 
-      .footer1 {
+    .footer1 {
+      position: fixed;
+      bottom: 0;
+      width: 30vw;
+      // height: 14vh;
+      box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      padding: 1% 2% 5% 2%;
+      font-size: $subtSizePC;
+      font-weight: $titleWeight;
+      background-color: white;
+      .footer {
+        width: 30vw;
         position: fixed;
         bottom: 0;
-        width: 100vw;
-        // height: 14vh;
-        box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
         display: flex;
-        justify-content: space-between;
-        padding: 2.5% 5% 20% 5%;
-        font-size: 4.8vw;
-        font-weight: $titleWeight;
-        background-color: white;
-        .footer {
-          width: 100vw;
-          position: fixed;
-          bottom: 0;
-          display: flex;
-          align-items: center;
-          padding-bottom: 5%;
-          transition: all 0.3s ease;
-          z-index: 9999;
-          -webkit-transition: all 0.3s ease;
-          -moz-transition: all 0.3s ease;
-          -ms-transition: all 0.3s ease;
-          -o-transition: all 0.3s ease;
+        align-items: center;
+        padding-bottom: 1%;
+        transition: all 0.3s ease;
+        z-index: 9999;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
 
-          .botonFooter {
-            box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
-            @include center;
-            position: relative;
-            background-color: $naranja;
-            height: 12vw;
-            width: 90vw;
-            border-radius: 6px;
-            -webkit-border-radius: 6px;
-            -moz-border-radius: 6px;
-            -ms-border-radius: 6px;
-            -o-border-radius: 6px;
-            &:focus {
-              outline: none;
-            }
-            .siguiente {
-              font-size: $subtSize;
-              font-weight: $titleWeight;
-            }
+        .botonFooter {
+          box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+          @include center;
+          background-color: $naranja;
+          height: 3vw;
+          width: 86%;
+          border-radius: 6px;
+          -webkit-border-radius: 6px;
+          -moz-border-radius: 6px;
+          -ms-border-radius: 6px;
+          -o-border-radius: 6px;
+          &:focus {
+            outline: none;
+          }
+          .siguiente {
+            font-size: $subtSizePC;
+
+            font-weight: $titleWeight;
           }
         }
       }
     }
-    .desplegable2 {
-      z-index: 9999;
-    }
+  }
+  .desplegable2 {
+    z-index: 9999;
   }
 }

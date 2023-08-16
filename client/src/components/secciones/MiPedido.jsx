@@ -52,8 +52,10 @@ export default function HacerPedido1() {
     dispatch(limpiarCarrito());
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
-    <div className="desplegables">
+    <div className={vertical ? "miPedidoMobile" : "miPedidoPC"}>
       <div className="desplegable1">
         <div className="scrollable-content">
           <div className="headerAtras">

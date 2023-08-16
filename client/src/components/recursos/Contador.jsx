@@ -44,13 +44,15 @@ export default function Contador({
     navigate(`/items/${id}`);
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
     <div className="flex">
       {contadorNum.length ? (
         <>
           <Button signo="-" funcion={() => handleDecremento(id)} />
 
-          <p className="text-center w-8 focus:outline-none focus:border-none text-xl">
+          <p className={vertical ? "contadorNumMobile" : "contadorNumPC"}>
             {contadorNum.length}
           </p>
         </>

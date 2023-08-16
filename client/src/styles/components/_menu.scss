@@ -159,11 +159,11 @@
   .cardItem,
   .cardItemNoVisible {
     background-color: white;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 0.8vw;
+    -webkit-border-radius: 0.8vw;
+    -moz-border-radius: 0.8vw;
+    -ms-border-radius: 0.8vw;
+    -o-border-radius: 0.8vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     flex: 1;
     padding: 1vw;
@@ -173,7 +173,7 @@
     flex-direction: column;
     justify-content: space-between;
     min-width: 23vw;
-    // max-width: 50%;
+    //max-width: 50%;
     min-height: 10vw !important;
     .nombre {
       font-weight: $titleWeight;

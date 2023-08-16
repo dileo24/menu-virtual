@@ -4,6 +4,7 @@ import Header from "../recursos/Header";
 import Menu from "./Menu";
 // import HacerPedido from "./HacerPedido1";
 import MiPedido from "./MiPedido";
+import Historial from "./Historial";
 
 import { getProductos, deleteProducto } from "../../redux/actions";
 import Swipe from "react-swipe";
@@ -28,6 +29,8 @@ const Carrusel = () => {
   const [alertaError, setAlertaError] = useState(false);
   const [busqueda, setBusqueda] = useState(false);
   const [checkAlertaError, setCheckAlertaError] = useState(false);
+  const [miPedido, setMiPedido] = useState(false);
+  const [historial, setHistorial] = useState(true);
   const vertical = window.innerHeight > window.innerWidth;
 
   for (let i = 0; i < preciosArray.length; i++) {
@@ -164,6 +167,11 @@ const Carrusel = () => {
       : setCheckAlertaError(false);
   }, [checkAlertaError]);
 
+  useEffect(() => {
+    preciosArray.length && setMiPedido(true);
+    preciosArray.length && setHistorial(false);
+  }, [preciosArray]);
+
   return (
     <div className="containerCarrusel">
       <Header
@@ -218,7 +226,32 @@ const Carrusel = () => {
               )}
             </Swipe>
           )}
-          {!userActual && !vertical && <MiPedido />}
+          {!userActual && !vertical && (
+            <div className="asideHeader">
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    setMiPedido(true);
+                    setHistorial(false);
+                  }}
+                  className={miPedido ? "active" : ""}
+                >
+                  Mi Pedido
+                </button>
+                <button
+                  onClick={() => {
+                    setMiPedido(false);
+                    setHistorial(true);
+                  }}
+                  className={historial ? "active" : ""}
+                >
+                  Mis Pedidos Realizados
+                </button>
+              </div>
+            </div>
+          )}
+          {!userActual && !vertical && miPedido && <MiPedido />}
+          {!userActual && !vertical && historial && <Historial />}
         </div>
 
         {!userActual && vertical && (

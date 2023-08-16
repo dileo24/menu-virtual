@@ -1,5 +1,5 @@
-.historialContainer,
-.historialContainer2 {
+.historialMobile,
+.historialMobile2 {
   background-color: rgb(247, 247, 247);
   height: 100vh;
   width: 100vw;
@@ -152,7 +152,7 @@
     }
   }
 }
-.historialContainer {
+.historialMobile {
   min-height: 100vw;
   height: 100%;
   padding-bottom: 20vw;
@@ -183,4 +183,172 @@
   padding: 1%;
   color: $error;
   background-color: lighten($error, 35%);
+}
+
+// Responsive
+
+.historialPC,
+.historialPC2 {
+  z-index: 999;
+  height: auto;
+  width: 30vw;
+  background-color: white;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 78vh;
+  margin-top: 22vh;
+  overflow-y: auto;
+  .centro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    @include center;
+    flex-direction: column;
+    width: 20vw;
+    .icon {
+      width: 5vw;
+      filter: grayscale(1) brightness(0.5);
+      -webkit-filter: grayscale(1) brightness(0.8);
+    }
+    .alerta {
+      text-align: center;
+      font-size: $titleSizePC;
+      font-weight: $titleWeight;
+      line-height: 1;
+      color: $paragraph;
+      margin-top: 1vw;
+    }
+    .alerta2 {
+      text-align: center;
+      font-size: $subtSizePC;
+      color: $disable;
+      margin-top: 1vw;
+    }
+  }
+
+  .cardPedido {
+    background-color: rgb(255, 255, 255);
+    width: 90vw;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 5% 5% 20% 5%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    .nombreItemsPrecio {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      .nombreItems {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        &:not(:last-child) {
+          margin-bottom: 2.5vw;
+          padding-bottom: 2.5vw;
+          border-bottom: 1px solid rgba(128, 128, 128, 0.37);
+        }
+        .nombre {
+          font-weight: $titleWeight;
+          font-size: 4vw;
+          @include centerRow;
+          justify-content: space-between;
+          .precioIndiv {
+            color: $paragraph;
+          }
+        }
+        .itemsExtra {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          list-style: none;
+          padding: 2.5% 0 0 3vw;
+          line-height: 1;
+
+          .list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .list-item-circle {
+              display: inline-block;
+              width: 5px;
+              height: 5px;
+              border-radius: 50%;
+              background-color: black;
+              margin-top: 2px;
+              margin-right: 8px;
+            }
+          }
+        }
+      }
+      .supBar {
+        @include centerRow;
+        padding-bottom: 5%;
+        width: 100%;
+        justify-content: space-between;
+        font-weight: $titleWeight;
+        font-size: 4vw;
+        .estado {
+          @include centerRow;
+          .linkIconPedidos {
+            width: 5vw;
+            height: 5vw;
+          }
+        }
+      }
+    }
+    .footerPed {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      @include centerRow;
+      padding-top: 5%;
+      padding: 5% 5% 5% 5%;
+      width: 100%;
+      justify-content: space-between;
+      font-weight: $titleWeight;
+      font-size: 4vw;
+      background-color: rgb(241, 241, 241);
+      border-radius: 0 0 10px 10px;
+      -webkit-border-radius: 0 0 10px 10px;
+      -moz-border-radius: 0 0 10px 10px;
+      -ms-border-radius: 0 0 10px 10px;
+      -o-border-radius: 0 0 10px 10px;
+      .total {
+        font-weight: 400;
+        margin-right: -20vw;
+      }
+      .precio {
+        color: $success;
+      }
+      .metodoDePago {
+        @include centerRow;
+      }
+    }
+  }
+
+  .footer {
+    margin-left: 5vw !important;
+    .btnVerMenu {
+      width: 100% !important;
+    }
+  }
+}
+.historialPC {
+  min-height: 100vw;
+  height: 100%;
+  padding-bottom: 20vw;
 }
