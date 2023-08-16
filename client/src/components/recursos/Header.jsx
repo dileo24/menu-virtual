@@ -52,7 +52,7 @@ export default function Header({
   }, [dispatch]);
 
   // Controlar orientación de la pantalla
-  useEffect(() => {
+  /* useEffect(() => {
     const header = document.querySelector("#containerHeader");
     if (window.innerHeight > window.innerWidth) {
       header.classList.add("headerMobile");
@@ -77,7 +77,7 @@ export default function Header({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, []); */
 
   useEffect(() => {
     window.innerWidth <= 600 && scrollToActiveCategory();
@@ -202,8 +202,13 @@ export default function Header({
     }
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
-    <header id="containerHeader">
+    <header
+      id="containerHeader"
+      className={vertical ? "headerMobile" : "headerPC"}
+    >
       {!userActual && (
         <button className="quickBites" onClick={reload}>
           <h1 id="marca">QuickBites</h1>

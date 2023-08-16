@@ -46,38 +46,11 @@ export default function Menu({
 
   prodsBuscados && prodsBuscados.length > 0 && (productos = prodsBuscados);
 
-  // Controlar orientación de la pantalla
-  /* useEffect(() => {
-    const elemento = document.querySelector("#menuContainer");
-    if (window.innerHeight > window.innerWidth) {
-      elemento.classList.add("menuMobile");
-      elemento.classList.remove("menuPC");
-    } else {
-      elemento.classList.add("menuPC");
-      elemento.classList.remove("menuMobile");
-    }
-  }, []);
-  useEffect(() => {
-    const elemento = document.querySelector("#menuContainer");
-    const handleResize = () => {
-      if (window.innerHeight > window.innerWidth) {
-        elemento.classList.add("menuMobile");
-        elemento.classList.remove("menuPC");
-      } else {
-        elemento.classList.add("menuPC");
-        elemento.classList.remove("menuMobile");
-        console.log("hori");
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []); */
+  const vertical = window.innerHeight > window.innerWidth;
 
   return (
     productos && (
-      <main id="menuContainer" className="menuContainer">
+      <main id="menuContainer" className={vertical ? "menuMobile" : "menuPC"}>
         {busqueda && <h1 className="resultados">Resultados de búsqueda</h1>}
         {categorias.map((categoria) => {
           const productosPorCateg = filtrarProductosPorCategoria(

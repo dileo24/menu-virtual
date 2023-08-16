@@ -22,9 +22,6 @@
         -ms-transform: translateY(-100%);
         -o-transform: translateY(-100%);
       }
-      // .scrollable-content {
-      // background-color: rgb(247, 247, 247);
-      // }
     }
     .footer {
       width: 100vw;
@@ -79,7 +76,7 @@
           color: $paragraph;
           font-size: 4vw;
           border: 1px solid $paragraph;
-          height: 25px;
+          height: 6vw;
           aspect-ratio: 1; /* Agrega esta propiedad */
           @include center;
           border-radius: 100%;
@@ -176,8 +173,6 @@
         -moz-transform: translateY(-100%);
         -ms-transform: translateY(-100%);
         -o-transform: translateY(-100%);
-      }
-      .scrollable-content {
       }
     }
     .footer {

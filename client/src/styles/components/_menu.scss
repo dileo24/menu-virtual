@@ -1,4 +1,4 @@
-.menuContainer {
+.menuMobile {
   padding: 0 5% 28vw 5%;
   min-height: 90vh;
   .resultados {
@@ -104,116 +104,121 @@
 
 // Media queries
 
-@media (min-width: 600px) {
-  .menuContainer {
-    height: 0;
-    overflow-y: scroll !important;
-    width: 100%;
-    background-color: rgb(247, 247, 247);
-    padding: 2vw;
-    &::-webkit-scrollbar {
-      width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
-      height: auto; /* Cambia el ancho del scrollbar horizontal */
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #d5d5d5; /* Color del "pulgar" del scrollbar */
-      border-radius: 5px; /* Borde redondeado del pulgar */
-    }
+.menuPC {
+  height: 88vh;
+  overflow-y: scroll !important;
+  width: 100%;
+  background-color: rgb(247, 247, 247);
+  padding: 2vw;
+  &::-webkit-scrollbar {
+    width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
+    height: auto; /* Cambia el ancho del scrollbar horizontal */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d5d5d5; /* Color del "pulgar" del scrollbar */
+    border-radius: 5px; /* Borde redondeado del pulgar */
+  }
 
-    .cardsContainer {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2vw; /* Espacio entre las tarjetas */
+  .cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2vw; /* Espacio entre las tarjetas */
+  }
+  .resultados {
+    font-size: $titleSizePC;
+    font-weight: 500;
+    margin-top: 2.5vw;
+  }
+  .nombreCateg {
+    font-weight: $titleWeight;
+    font-size: $titleSizePC;
+    margin-bottom: 2.5%;
+    margin-top: 5%;
+  }
+
+  .nombreSubCateg {
+    display: flex;
+    font-weight: $titleWeight;
+    font-size: $titleSizePC;
+    margin-bottom: 2.5%;
+    margin-top: 5%;
+  }
+  .noVisibles {
+    border-top: 1px solid grey;
+    margin: 16vw 0 0 0;
+    padding-top: 8vw;
+  }
+  .cardProduct {
+    flex: 1;
+
+    &:nth-child(2) {
+      margin-top: 17.2%;
     }
-    .resultados {
-      font-size: $titleSizePC;
-      font-weight: 500;
-      margin-top: 2.5vw;
-    }
-    .nombreCateg {
+  }
+  .cardProducto,
+  .cardItem,
+  .cardItemNoVisible {
+    background-color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    padding: 1vw;
+    margin-top: 0;
+    max-height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 23vw;
+    // max-width: 50%;
+    min-height: 10vw !important;
+    .nombre {
       font-weight: $titleWeight;
-      font-size: $titleSizePC;
-      margin-bottom: 2.5%;
-      margin-top: 5%;
+      font-size: $subtSizePC;
+      line-height: 1;
     }
-
-    .nombreSubCateg {
+    .descripcion {
+      font-size: $descrSizePC;
+    }
+    .precioAcciones {
       display: flex;
-      font-weight: $titleWeight;
-      font-size: $titleSizePC;
-      margin-bottom: 2.5%;
-      margin-top: 5%;
-    }
-    .noVisibles {
-      border-top: 1px solid grey;
-      margin: 16vw 0 0 0;
-      padding-top: 8vw;
-    }
-    .cardProduct {
-      flex: 1;
-
-      &:nth-child(2) {
-        margin-top: 17.2%;
-      }
-    }
-    .cardProducto,
-    .cardItem,
-    .cardItemNoVisible {
-      flex: 1;
-      padding: 1vw;
-      margin-top: 0;
-      max-height: fit-content;
-      display: flex;
-      flex-direction: column;
       justify-content: space-between;
-      min-width: 23vw;
-      // max-width: 50%;
-      min-height: 10vw !important;
-      .nombre {
+      flex-direction: row-reverse;
+      margin-top: 4%;
+      .precio {
         font-weight: $titleWeight;
-        font-size: $subtSizePC;
-        line-height: 1;
+        font-size: $titleSizePC;
       }
-      .descripcion {
-        font-size: $descrSizePC;
-      }
-      .precioAcciones {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row-reverse;
-        margin-top: 4%;
-        .precio {
-          font-weight: $titleWeight;
-          font-size: $titleSizePC;
-        }
-        .acciones {
-          min-width: 50%;
+      .acciones {
+        min-width: 50%;
+        @include center;
+        justify-content: flex-end;
+        .iconContainer1 {
+          width: 8vw;
+          height: 8vw;
+          border-radius: 8px;
           @include center;
-          justify-content: flex-end;
-          .iconContainer1 {
-            width: 8vw;
-            height: 8vw;
-            border-radius: 8px;
-            @include center;
-            margin-right: 4vw;
-            border: 1px solid $naranja;
-            background-color: #fef5e6;
-            .editarIcon {
-              width: 1.2rem;
-              height: 1.2rem;
-            }
+          margin-right: 4vw;
+          border: 1px solid $naranja;
+          background-color: #fef5e6;
+          .editarIcon {
+            width: 1.2rem;
+            height: 1.2rem;
           }
-          .iconContainer2 {
-            width: 8vw;
-            height: 8vw;
-            border-radius: 8px;
-            @include center;
-            background-color: #ffe5e5;
-            border: 1px solid #ff3d3d;
-            .eliminarIcon {
-              width: 1.2rem;
-              height: 1.2rem;
-            }
+        }
+        .iconContainer2 {
+          width: 8vw;
+          height: 8vw;
+          border-radius: 8px;
+          @include center;
+          background-color: #ffe5e5;
+          border: 1px solid #ff3d3d;
+          .eliminarIcon {
+            width: 1.2rem;
+            height: 1.2rem;
           }
         }
       }

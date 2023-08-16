@@ -1,8 +1,14 @@
 import React from "react";
 
 function Button({ signo, funcion }) {
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
-    <button className="contador" type="button" onClick={funcion}>
+    <button
+      className={vertical ? "contadorMobile" : "contadorPC"}
+      type="button"
+      onClick={funcion}
+    >
       {signo === "-" && <div className="signoMenos"></div>}
       {signo === "+" && (
         <div className="signoMas1">

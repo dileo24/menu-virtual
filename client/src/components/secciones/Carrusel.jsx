@@ -164,34 +164,6 @@ const Carrusel = () => {
       : setCheckAlertaError(false);
   }, [checkAlertaError]);
 
-  // Controlar orientación de la pantalla
-  useEffect(() => {
-    const elemento = document.querySelector("#carruselContainer");
-    if (window.innerHeight > window.innerWidth) {
-      elemento.classList.add("carruselMobile");
-      elemento.classList.remove("carruselPC");
-    } else {
-      elemento.classList.add("carruselPC");
-      elemento.classList.remove("carruselMobile");
-    }
-  }, []);
-  useEffect(() => {
-    const elemento = document.querySelector("#carruselContainer");
-    const handleResize = () => {
-      if (window.innerHeight > window.innerWidth) {
-        elemento.classList.add("carruselMobile");
-        elemento.classList.remove("carruselPC");
-      } else {
-        elemento.classList.add("carruselPC");
-        elemento.classList.remove("carruselMobile");
-      }
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <div className="containerCarrusel">
       <Header
@@ -202,7 +174,10 @@ const Carrusel = () => {
         busqueda={busqueda}
         setCheckAlertaError={setCheckAlertaError}
       />
-      <div id="carruselContainer" className="carruselMobile">
+      <div
+        id="carruselContainer"
+        className={vertical ? "carruselMobile" : "carruselPC"}
+      >
         <div className="carrusel-wrapper" ref={carruselRef}>
           {categorias.length && (
             <Swipe
