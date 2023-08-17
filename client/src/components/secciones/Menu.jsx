@@ -46,6 +46,9 @@ export default function Menu({
 
   prodsBuscados && prodsBuscados.length > 0 && (productos = prodsBuscados);
 
+  const primerNombreCateg = document.querySelector(".nombreCateg");
+  primerNombreCateg && primerNombreCateg.classList.add("primerNombre");
+
   const vertical = window.innerHeight > window.innerWidth;
 
   return (

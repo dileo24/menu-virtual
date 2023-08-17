@@ -1,258 +1,146 @@
-.desplegables {
+.hacerPedidoMobile {
   height: 100%;
   .desplegable2 {
-    height: auto;
     min-height: 100vh;
     width: 100vw;
     background-color: rgb(247, 247, 247);
-    position: fixed;
-    top: 0;
-
-    .scrollable-content {
-      height: 100vh;
-      width: 100vw;
-      overflow-y: auto;
-      padding-bottom: 30%;
-      justify-content: flex-start;
-
-      .cardProducto {
-        background-color: rgb(255, 255, 255);
-        width: 90vw;
-        margin-bottom: 5%;
-        margin-left: 5%;
-        border-radius: 10px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -ms-border-radius: 10px;
-        -o-border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        padding: 5%;
-        height: auto;
+    padding-bottom: 30%;
+    justify-content: flex-start;
+    .formulario {
+      .mesa,
+      .aclaraciones,
+      .pago {
         display: flex;
-        .nombreItemsPrecio {
-          width: 80%;
-          .nombrePrecio {
-            display: flex;
-            justify-content: space-between;
-            .nombre {
-              font-weight: $titleWeight;
-              font-size: 4vw;
-              width: 60%;
-            }
-            .precio {
-              font-weight: $titleWeight;
-              color: $paragraph;
-              font-size: 4vw;
-            }
-          }
-          .itemsExtra {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            list-style: none;
-            padding: 5% 0 0 5%;
-            line-height: 1;
+        flex-direction: column;
+        margin: 0 0 5% 5%;
 
-            .list-item {
-              display: flex;
-              align-items: center;
-              margin-bottom: 10px;
-              .list-item-circle {
-                display: inline-block;
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background-color: black;
-                margin-right: 8px;
-              }
-            }
-          }
-        }
-
-        .accionesCont {
-          width: 50%;
-
-          .acciones {
-            min-width: 50%;
-            @include center;
-            justify-content: flex-end;
-            .iconContainer1 {
-              width: 8vw;
-              height: 8vw;
-              border: 1px solid $paragraph;
-              border-radius: 8px;
-              @include center;
-              margin-right: 4vw;
-              .editarIcon {
-                width: 1.2rem;
-                height: 1.2rem;
-              }
-            }
-            .iconContainer2 {
-              width: 8vw;
-              height: 8vw;
-              border: 1px solid $paragraph;
-              border-radius: 8px;
-              @include center;
-              .eliminarIcon {
-                width: 1.2rem;
-                height: 1.2rem;
-              }
-            }
-          }
-        }
-      }
-      .vaciarCont {
-        @include center;
-        margin: 10% 0;
-        .vaciarBtn {
+        .mesaTitle,
+        .aclaracionesTitle,
+        .pagoTitle {
           font-weight: $titleWeight;
-          font-size: 4vw;
-          line-height: 1;
-          // text-decoration: underline;
-          border-bottom: 1px solid black;
+          font-size: $subtSize;
+          margin-bottom: 3%;
+        }
+        .mesaInput {
+          border: 1px solid grey;
+          border-radius: 8px;
+          width: 3.2rem;
+          height: 2.6rem;
+          text-align: center;
+          background-color: white;
+          font-weight: $titleWeight;
+          font-size: 3.8vw;
+          &::placeholder {
+            color: grey;
+          }
+        }
+        .aclaracionesInput {
+          width: 90vw;
+          padding: 3%;
+          height: 12vh;
+          background-color: white;
+          border: 1px solid grey;
+          border-radius: 8px;
+          font-weight: $titleWeight;
+          font-size: 3.8vw;
+          &::placeholder {
+            color: grey;
+          }
+        }
+        .pagoInput {
+          font-weight: $titleWeight;
+          font-size: 3.8vw;
+          color: $paragraph;
+          background-color: white;
+          width: 90vw;
+          padding: 4%;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+          display: flex;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          &:not(:last-child) {
+            margin-bottom: 5%;
+          }
+          &.selected {
+            border: 1px solid black;
+            .nombrePago {
+              color: black;
+            }
+          }
+          .iconCheck {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row-reverse;
+            // border: 1px solid red;
+            width: 18%;
+
+            .check {
+              // display: none;
+              width: 1.2rem;
+              height: 1.2rem;
+              padding: 20vw;
+            }
+            .icon {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
         }
       }
-
-      .formulario {
-        .mesa,
-        .aclaraciones,
-        .pago {
-          display: flex;
-          flex-direction: column;
-          margin: 0 0 5% 5%;
-
-          .mesaTitle,
-          .aclaracionesTitle,
-          .pagoTitle {
-            font-weight: $titleWeight;
-            font-size: $subtSize;
-            margin-bottom: 3%;
-          }
-          .mesaInput {
-            border: 1px solid grey;
-            border-radius: 8px;
-            width: 3.2rem;
-            height: 2.6rem;
-            text-align: center;
-            background-color: white;
-            font-weight: $titleWeight;
-            font-size: 3.8vw;
-            &::placeholder {
-              color: grey;
-            }
-          }
-          .aclaracionesInput {
-            width: 90vw;
-            padding: 3%;
-            height: 12vh;
-            background-color: white;
-            border: 1px solid grey;
-            border-radius: 8px;
-            font-weight: $titleWeight;
-            font-size: 3.8vw;
-            &::placeholder {
-              color: grey;
-            }
-          }
-          .pagoInput {
-            font-weight: $titleWeight;
-            font-size: 3.8vw;
-            color: $paragraph;
-            background-color: white;
-            width: 90vw;
-            padding: 4%;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: row-reverse;
-            justify-content: space-between;
-            &:not(:last-child) {
-              margin-bottom: 5%;
-            }
-            &.selected {
-              border: 1px solid black;
-              .nombrePago {
-                color: black;
-              }
-            }
-            .iconCheck {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              flex-direction: row-reverse;
-              // border: 1px solid red;
-              width: 18%;
-
-              .check {
-                // display: none;
-                width: 1.2rem;
-                height: 1.2rem;
-                padding: 20vw;
-              }
-              .icon {
-                width: 1.5rem;
-                height: 1.5rem;
-              }
-            }
-          }
-        }
-        .footer1 {
+      .footer1 {
+        position: fixed;
+        bottom: 0;
+        width: 100vw;
+        // height: 14vh;
+        box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        padding: 2.5% 5% 20% 5%;
+        font-size: 4.8vw;
+        font-weight: $titleWeight;
+        background-color: white;
+        .footer {
+          width: 100vw;
           position: fixed;
           bottom: 0;
-          width: 100vw;
-          // height: 14vh;
-          box-shadow: 0 -1px 4px rgba(0, 0, 0, 0.1);
           display: flex;
-          justify-content: space-between;
-          padding: 2.5% 5% 20% 5%;
-          font-size: 4.8vw;
-          font-weight: $titleWeight;
-          background-color: white;
-          .footer {
-            width: 100vw;
-            position: fixed;
-            bottom: 0;
-            display: flex;
-            align-items: center;
-            padding-bottom: 5%;
-            transition: all 0.3s ease;
-            z-index: 9999;
-            -webkit-transition: all 0.3s ease;
-            -moz-transition: all 0.3s ease;
-            -ms-transition: all 0.3s ease;
-            -o-transition: all 0.3s ease;
+          align-items: center;
+          padding-bottom: 5%;
+          transition: all 0.3s ease;
+          z-index: 9999;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
 
-            .botonFooter {
-              box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
-              @include center;
-              position: relative;
-              background-color: $naranja;
+          .botonFooter {
+            box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+            @include center;
+            position: relative;
+            background-color: $naranja;
+            height: 12vw;
+            width: 90vw;
+            border-radius: 6px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            -ms-border-radius: 6px;
+            -o-border-radius: 6px;
+            &:focus {
+              outline: none;
+            }
+            .hacerPedido {
               height: 12vw;
               width: 90vw;
-              border-radius: 6px;
-              -webkit-border-radius: 6px;
-              -moz-border-radius: 6px;
-              -ms-border-radius: 6px;
-              -o-border-radius: 6px;
-              &:focus {
-                outline: none;
-              }
-              .hacerPedido {
-                height: 12vw;
-                width: 90vw;
-                font-size: $subtSize;
-                font-weight: $titleWeight;
-                background-color: transparent;
-              }
+              font-size: $subtSize;
+              font-weight: $titleWeight;
+              background-color: transparent;
             }
           }
         }
       }
     }
-  }
-  .desplegable2 {
-    z-index: 9999;
   }
 }
 
@@ -260,4 +148,170 @@
 
 .noScroll {
   overflow-y: hidden;
+}
+
+// Responsive
+
+.hacerPedidoPC {
+  height: 100%;
+  .desplegable2 {
+    z-index: 9999;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 85vh;
+    width: 30vw;
+    margin-top: 17vh;
+    overflow-y: auto;
+    padding-bottom: 10%;
+    justify-content: flex-start;
+    padding: 1.5%;
+    padding-bottom: 10%;
+    &::-webkit-scrollbar {
+      width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
+      height: auto; /* Cambia el ancho del scrollbar horizontal */
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d5d5d5; /* Color del "pulgar" del scrollbar */
+      border-radius: 5px; /* Borde redondeado del pulgar */
+    }
+    .formulario {
+      .mesa,
+      .aclaraciones,
+      .pago {
+        display: flex;
+        flex-direction: column;
+        // margin: 0 0 5% 5%;
+        max-width: 100%;
+        .mesaTitle,
+        .aclaracionesTitle,
+        .pagoTitle {
+          font-weight: $titleWeight;
+          font-size: $subtSizePC;
+          margin: 3% 0 2% 0;
+        }
+        .mesaInput {
+          border: 1px solid grey;
+          border-radius: 8px;
+          width: 3vw;
+          height: 3vw;
+          text-align: center;
+          background-color: white;
+          font-weight: $titleWeight;
+          font-size: $subtSizePC;
+          &::placeholder {
+            color: grey;
+            font-size: $descrSizePC;
+          }
+        }
+        .aclaracionesInput {
+          width: 100%;
+          padding: 3%;
+          height: 12vh;
+          background-color: white;
+          border: 1px solid grey;
+          border-radius: 8px;
+          font-weight: $titleWeight;
+          font-size: $subtSizePC;
+          &::placeholder {
+            color: grey;
+            font-size: $descrSizePC;
+          }
+        }
+        .pagoInput {
+          font-weight: $titleWeight;
+          font-size: $descrSizePC;
+          color: $paragraph;
+          background-color: white;
+          width: 100%;
+          padding: 4%;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          flex-direction: row-reverse;
+          justify-content: space-between;
+          cursor: pointer;
+
+          &:not(:last-child) {
+            margin-bottom: 5%;
+          }
+          &.selected {
+            border: 1px solid black;
+            .nombrePago {
+              color: black;
+            }
+          }
+          .iconCheck {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: row-reverse;
+            width: 18%;
+
+            .check {
+              width: 1.5vw;
+              height: 1.5vw;
+              cursor: pointer;
+            }
+            .icon {
+              width: 1.5vw;
+              height: 1.5vw;
+            }
+          }
+        }
+      }
+      .footer1 {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 30vw;
+        border-top: 2px solid rgba(171, 171, 171, 0.5);
+        display: flex;
+        justify-content: space-between;
+        padding: 1% 2% 5% 2%;
+        font-size: $titleSizePC;
+        font-weight: $titleWeight;
+        background-color: white;
+        .footer {
+          width: 30vw;
+          position: fixed;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          padding-bottom: 1%;
+          transition: all 0.3s ease;
+          z-index: 9999;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+          cursor: pointer;
+          .botonFooter {
+            box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+            @include center;
+            height: 3vw;
+            width: 86%;
+            border-radius: 6px;
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            -ms-border-radius: 6px;
+            -o-border-radius: 6px;
+            &:focus {
+              outline: none;
+            }
+            .hacerPedido {
+              font-size: $subtSizePC;
+              font-weight: $titleWeight;
+              background-color: transparent;
+              cursor: pointer;
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
 }

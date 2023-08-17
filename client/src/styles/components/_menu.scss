@@ -135,6 +135,9 @@
     margin-bottom: 2.5%;
     margin-top: 5%;
   }
+  .primerNombre {
+    margin-top: 0;
+  }
 
   .nombreSubCateg {
     display: flex;
@@ -152,7 +155,7 @@
     flex: 1;
 
     &:nth-child(2) {
-      margin-top: 17.2%;
+      margin-top: 14.5%;
     }
   }
   .cardProducto,

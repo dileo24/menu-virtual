@@ -50,17 +50,23 @@ function App() {
     }
   }, []);
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
     <div className="App">
       <Routes>
         {/* cualquiera */}
         <Route exact path="/" element={<Carrusel />} />
-        <Route exact path="/miPedido" element={<MiPedido />} />
-        <Route exact path="/hacerPedido" element={<HacerPedido />} />
         <Route path="/login" element={<ModalLogin />} />
-        <Route path="/historial" element={<Historial />} />
-        <Route path="/carrito" element={<Carrito />} />
-        <Route path="/items/:id" element={<ItemsCliente />} />
+        {vertical && <>
+          <Route exact path="/miPedido" element={<MiPedido />} />
+          <Route exact path="/hacerPedido" element={<HacerPedido />} />
+          <Route path="/historial" element={<Historial />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/items/:id" element={<ItemsCliente />} />
+        </>
+        }
+
         <Route
           path="/updateItems/:id/:index"
           element={<UpdateItemsCliente />}

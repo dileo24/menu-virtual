@@ -23,9 +23,11 @@ export default function Alerta({
     setEstado(false);
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
     estado && (
-      <div className="fondoAlerta">
+      <div className={vertical ? "fondoAlertaMobile" : "fondoAlertaPC"}>
         <div className={claseAlerta}>
           <p className="titulo">{titulo}</p>
           <p className="texto">{texto}</p>

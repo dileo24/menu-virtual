@@ -180,11 +180,11 @@
         position: absolute;
         top: 0;
         right: 0;
-        height: 10vh;
+        height: 5vh;
         margin-top: 12vh;
         font-size: $titleSizePC;
         display: flex;
-        align-items: center;
+        align-items: end;
         justify-content: space-around;
         padding: 0 2vw;
         .buttons {
@@ -192,13 +192,14 @@
           display: flex;
           align-items: center;
           justify-content: space-around;
-          .active {
-            font-weight: 700;
-            border-bottom: 3px solid $naranja;
-
+          button {
             &:focus {
               outline: none;
             }
+          }
+          .active {
+            font-weight: 700;
+            border-bottom: 3px solid $naranja;
           }
         }
       }

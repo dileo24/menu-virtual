@@ -192,22 +192,20 @@
   z-index: 999;
   height: auto;
   width: 30vw;
-  background-color: white;
-
   position: absolute;
   top: 0;
   right: 0;
-  height: 78vh;
-  margin-top: 22vh;
+  height: 80vh;
+  margin-top: 20vh;
   overflow-y: auto;
   .centro {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     @include center;
     flex-direction: column;
-    width: 20vw;
+    width: 15vw;
     .icon {
       width: 5vw;
       filter: grayscale(1) brightness(0.5);

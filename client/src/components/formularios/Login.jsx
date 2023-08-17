@@ -68,6 +68,7 @@ export default function ModalLogin({ onClose }) {
                   Correo electrónico
                 </label>
                 <input
+                  id="email"
                   className="emailInput"
                   type="email"
                   name="email"
@@ -85,6 +86,7 @@ export default function ModalLogin({ onClose }) {
                   className="claveInput"
                   type={showPassword ? "text" : "password"}
                   name="clave"
+                  id="clave"
                   placeholder="Escribe tu contraseña"
                   value={input.clave}
                   onChange={(e) => handleChange(e)}
@@ -102,7 +104,12 @@ export default function ModalLogin({ onClose }) {
                   />
                 )}
               </div>
-              <button type="submit" className="submitBtn">
+              <button
+                type="submit"
+                className="submitBtn"
+                name="submit"
+                id="submit"
+              >
                 Iniciar Sesión
               </button>
             </form>
