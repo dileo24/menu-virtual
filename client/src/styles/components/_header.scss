@@ -637,24 +637,32 @@
         margin-right: 5vw;
       }
     }
-
-    .categorias {
-      @include center;
-      flex-direction: column;
-      justify-content: start;
-      width: 17vw !important;
-      align-items: start;
-      background-color: white;
+  }
+  .categsYSubcategs {
+    position: fixed;
+    padding-top: 2vw;
+    background-color: white;
+    width: 17vw;
+    height: 88vh;
+    margin-top: 12vh;
+    overflow-y: auto;
+    white-space: nowrap;
+    scrollbar-width: auto !important;
+    font-size: $subtSizePC;
+    @include centerCol;
+    justify-content: start;
+    .categTitle,
+    .subCategTitle {
+      padding-bottom: 0.3vw;
+      margin-bottom: 0.8vw;
+      font-weight: 700;
       font-size: $titleSizePC;
-
-      height: 88vh;
-      margin-top: 12vh;
-      overflow-x: hidden;
-      overflow-y: auto;
-      white-space: nowrap;
-      scrollbar-width: auto !important;
-      position: fixed;
-      padding-top: 2vw;
+    }
+    .subCategTitle {
+      margin-top: 1vw;
+    }
+    .categorias {
+      width: 10.5vw;
       &::-webkit-scrollbar {
         display: block !important;
       }
@@ -668,8 +676,6 @@
         display: block !important;
       }
       .botonesCont {
-        @include center;
-        width: 100%;
         .botones {
           display: flex;
           flex-direction: column;
@@ -681,9 +687,9 @@
           }
           .categoria {
             font-weight: 400;
-            &:not(:last-child) {
-              margin-bottom: 0.8vw;
-            }
+            // &:not(:last-child) {
+            margin-bottom: 0.8vw;
+            // }
             outline: none;
             padding-bottom: 0.3vw;
             text-align: left !important;
@@ -699,54 +705,55 @@
         }
       }
     }
-  }
-  .subCategorias {
-    display: flex;
-    align-items: center;
-    display: none;
-
-    background-color: white;
-    width: 100vw;
-    font-size: $subtSize;
-    overflow-x: auto;
-    white-space: nowrap;
-    height: 12vw;
-    padding: 0 5%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-top: 1px solid rgba(0, 0, 0, 0.3);
-
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    &::-webkit-scrollbar-thumb {
-      display: none;
-    }
-    &::-webkit-scrollbar-track {
-      display: none;
-    }
-    &::-ms-scrollbar {
-      display: none;
-    }
-
-    .subCategoria {
-      &:focus {
-        outline: none;
+    .subCategorias {
+      width: 10.5vw;
+      &::-webkit-scrollbar {
+        display: none;
       }
-      &:not(:last-child) {
-        margin-right: 5%;
+      &::-webkit-scrollbar-thumb {
+        display: none;
       }
-      &.focused {
-        outline: none;
-        font-weight: 500;
-        border-bottom: 2.5px solid $naranja;
-        transition: all 0.1s ease;
-        color: black;
-        -webkit-transition: all 0.1s ease;
-        -moz-transition: all 0.1s ease;
-        -ms-transition: all 0.1s ease;
-        -o-transition: all 0.1s ease;
+      &::-webkit-scrollbar-track {
+        display: none;
+      }
+      &::-ms-scrollbar {
+        display: none;
+      }
+      .botonesCont {
+        // border: 1px solid red;
+        .botones {
+          display: flex;
+          flex-direction: column;
+          .subCategoria {
+            text-align: left !important;
+            padding-bottom: 0.3vw;
+            &:not(:last-child) {
+              margin-bottom: 0.8vw;
+            }
+            &:focus {
+              outline: none;
+            }
+            // &:not(:last-child) {
+            //   margin-right: 5%;
+            // }
+            &.focused {
+              outline: none;
+              font-weight: 500;
+              border-bottom: 2.5px solid $naranja;
+              transition: all 0.1s ease;
+              color: black;
+              -webkit-transition: all 0.1s ease;
+              -moz-transition: all 0.1s ease;
+              -ms-transition: all 0.1s ease;
+              -o-transition: all 0.1s ease;
+            }
+          }
+        }
       }
     }
   }
+}
+
+.temp-class {
+  border: 1px solid red;
 }

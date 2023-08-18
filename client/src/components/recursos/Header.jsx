@@ -171,8 +171,6 @@ export default function Header({
   };
 
   const handleButtonClick = (subC) => {
-    // setFocusedSubcategory(subC);
-
     // Obtener el elemento con el atributo "data-index" igual a "currentSlide"
     const currentSlideElement = document.querySelector(
       `[data-index='${currentSlide}']`
@@ -181,24 +179,28 @@ export default function Header({
     const elementos = currentSlideElement.querySelectorAll(
       `#${removeAccentsAndSpaces(subC.nombre)}`
     );
-    // console.log(currentSlideElement);
 
     // Verificar si se encontraron elementos y scrollear hasta el primer elemento
     if (elementos.length > 0) {
+      const diapo = document.querySelector('[data-index="1"]');
+      const menuComponent = diapo.querySelector(".menuPC");
+      // console.log(menuComponent);
       const firstElement = elementos[0];
       const elementRect = firstElement.getBoundingClientRect();
       const offsetTop =
         window.scrollY + elementRect.top - window.innerHeight * 0.2; // Desplazamiento de -20vh
 
-      // Agregar la clase temporalmente a todos los elementos encontrados
-      elementos.forEach((element) => {
-        element.classList.add("temp-class");
-      });
+      console.log(offsetTop);
 
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth",
-      });
+      vertical
+        ? window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          })
+        : menuComponent.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
     }
   };
 
@@ -484,9 +486,11 @@ export default function Header({
               </div>
             )}
             {!busqueda && (
-              <div id="categorias">
+              <div id="categorias" className="categsYSubcategs">
                 <div className="categorias" ref={scrollableRef}>
                   <div className="botonesCont">
+                    {!vertical && <p className="categTitle">Categorías</p>}
+
                     <div className="botones">
                       <button
                         className={`menuBtn ${
@@ -525,23 +529,31 @@ export default function Header({
                   (subC) => subC.categoria.id === categActiveId
                 ).length >= 2 && (
                   <div className="subCategorias">
-                    {newSubCategs
-                      .filter((subC) => subC.categoria.id === categActiveId)
-                      .map((subC) => (
-                        <button
-                          /* className={`subCategoria ${
-                          subC === focusedSubcategory ? "focused" : ""
-                        }`} */
-                          className="subCategoria"
-                          key={subC.nombre}
-                          onClick={() => {
-                            // setFocusedSubcategory(subC);
-                            handleButtonClick(subC);
-                          }}
-                        >
-                          {subC.nombre}
-                        </button>
-                      ))}
+                    <div className="botonesCont">
+                      {!vertical && (
+                        <p className="subCategTitle">SubCategorías</p>
+                      )}
+
+                      <div className="botones">
+                        {newSubCategs
+                          .filter((subC) => subC.categoria.id === categActiveId)
+                          .map((subC) => (
+                            <button
+                              /* className={`subCategoria ${
+                              subC === focusedSubcategory ? "focused" : ""
+                            }`} */
+                              className="subCategoria"
+                              key={subC.nombre}
+                              onClick={() => {
+                                // setFocusedSubcategory(subC);
+                                handleButtonClick(subC);
+                              }}
+                            >
+                              {subC.nombre}
+                            </button>
+                          ))}
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
