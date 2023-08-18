@@ -435,8 +435,11 @@ export default function Header({
         {!userActual && (
           <nav id="nav" className="nav headerClientes">
             {!busqueda && (
-              <Link to="/login" className="iniciarSesion">
-                <img src={login} alt="login" className="usuarioIcon" />
+              <Link to="/login" className="loginBtn">
+                <div className="iniciarSesion">
+                  <img src={login} alt="login" className="usuarioIcon" />
+                </div>
+                {!vertical && <p>Iniciar sesión</p>}
               </Link>
             )}
 
@@ -449,7 +452,7 @@ export default function Header({
                 busqueda={busqueda}
               />
             </div>
-            {!busqueda && (
+            {!busqueda && vertical && (
               <Link to="/historial" className="carrito">
                 <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
@@ -461,17 +464,7 @@ export default function Header({
                 )}
               </Link>
             )}
-            {/* {!userActual && window.innerWidth >= 600 && (
-              <>
-                <div className={`footer `}>
-                  <Link className="botonFooter" to={"/miPedido"}>
-                    <div className="cantidad">{preciosArray.length}</div>
-                    <b className="verPedido">Mi Pedido</b>
-                    <div className="precio">${precioFinal}</div>
-                  </Link>
-                </div>
-              </>
-            )} */}
+            {!vertical && <p className="marcaPC">QuickBites</p>}
           </nav>
         )}
 

@@ -36,8 +36,10 @@ export default function Filtros({
     }
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
-    <div className="filtro">
+    <div className={vertical ? "filtroMobile" : "filtroPC"}>
       {busqueda && (
         <div className="ocultarBtn" onClick={() => window.location.reload()}>
           <span className="arrow-left"></span>

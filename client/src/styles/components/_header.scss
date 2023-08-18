@@ -395,13 +395,12 @@
   @include centerCol;
   align-items: flex-start;
   position: static !important;
-
   .quickBites {
     display: none;
   }
 
   .subHeader {
-    z-index: 999;
+    z-index: 99999;
 
     .headerUsuarios {
       background-color: transparent;
@@ -578,19 +577,34 @@
       height: 12vh;
       width: 100vw;
       display: flex;
-      justify-content: space-between;
-      padding: 0 6%;
+      justify-content: start;
+
+      padding-left: 3.5%;
       align-items: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       position: fixed;
       z-index: 999999;
-      .carritoIcon,
-      .usuarioIcon {
-        width: 2.5rem;
-        height: 2.5rem;
+      flex-direction: row-reverse;
+      .loginBtn {
+        margin-left: 17.5vw;
+        @include center;
+        border: 1px solid $disable;
+        height: 3vw;
+        padding: 0 1vw;
+        border-radius: 8px;
+        .usuarioIcon {
+          width: 2vw;
+          height: 2vw;
+          margin-right: 1vw;
+        }
+        p {
+          font-size: $subtSizePC;
+          font-weight: $titleWeight;
+        }
       }
+
       .navbarCont {
-        width: 55vw;
+        width: 48.2vw;
       }
       .navbarContBuscado {
         width: 90vw;
@@ -616,6 +630,12 @@
           -o-border-radius: 100%;
         }
       }
+      .marcaPC {
+        font-weight: 900;
+        font-size: $titleSizeMaxPC;
+        color: $naranja;
+        margin-right: 5vw;
+      }
     }
 
     .categorias {
@@ -634,8 +654,7 @@
       white-space: nowrap;
       scrollbar-width: auto !important;
       position: fixed;
-      // padding: 1.5%;
-      padding: 1.5% 0 0 0;
+      padding-top: 2vw;
       &::-webkit-scrollbar {
         display: block !important;
       }
@@ -656,17 +675,17 @@
           flex-direction: column;
           .menuBtn {
             outline: none;
-            margin: 0;
             text-align: left !important;
-            padding: 4% 0;
+            padding-bottom: 0.3vw;
+            margin-bottom: 0.8vw;
           }
           .categoria {
             font-weight: 400;
             &:not(:last-child) {
-              margin: 0;
+              margin-bottom: 0.8vw;
             }
             outline: none;
-            padding: 8% 0;
+            padding-bottom: 0.3vw;
             text-align: left !important;
           }
           .active {
