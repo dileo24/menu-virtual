@@ -55,6 +55,8 @@ export default function ModalLogin({ onClose }) {
     setShowPassword(!showPassword);
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
     <div className="loginContainer">
       <HeaderBack url={"/"} arrowType={"left"} title={``} />

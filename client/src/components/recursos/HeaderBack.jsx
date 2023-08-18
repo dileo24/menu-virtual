@@ -8,18 +8,18 @@ function HeaderBack({ url, arrowType, title, span, setHacerPedido }) {
   const vertical = window.innerHeight > window.innerWidth;
   return (
     <header className={vertical ? "header1" : "headerBackPC"}>
-      {vertical ? (
-        <Link className="ocultarBtn" to={url}>
-          <span
-            className={`${arrowType === "left" ? "arrow-left" : "arrow-down"}`}
-          ></span>
-        </Link>
-      ) : (
+      {!vertical && window.location.pathname === "/" ? (
         <button className="ocultarBtn" onClick={() => setHacerPedido(false)}>
           <span
             className={`${arrowType === "left" ? "arrow-left" : "arrow-down"}`}
           ></span>
         </button>
+      ) : (
+        <Link className="ocultarBtn" to={url}>
+          <span
+            className={`${arrowType === "left" ? "arrow-left" : "arrow-down"}`}
+          ></span>
+        </Link>
       )}
 
       <div className="titulo">
