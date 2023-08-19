@@ -1,5 +1,4 @@
 # Backend
-Backend de la aplicación Eagle Solutions
 
 Primeros Pasos a realizar:
 
