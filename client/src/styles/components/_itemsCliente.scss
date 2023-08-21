@@ -1,4 +1,4 @@
-.elegirItemsCont {
+.elegirItemsMobile {
   min-height: 100vh;
   height: 100%;
   width: 100vw;
@@ -114,5 +114,200 @@
   .footer {
     width: 100vw;
     padding: 5vw;
+  }
+}
+
+// Responsive
+
+.elegirItemsPC {
+  .fondo {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99999;
+    .main {
+      position: fixed;
+      overflow-y: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-height: 80vh;
+      width: 50vw;
+      background-color: rgb(247, 247, 247);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      padding-bottom: 2%;
+      justify-content: flex-start;
+      z-index: 99999;
+      border-radius: 8px;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      -ms-border-radius: 8px;
+      -o-border-radius: 8px;
+      &::-webkit-scrollbar {
+        width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
+        height: auto; /* Cambia el ancho del scrollbar horizontal */
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #d5d5d5; /* Color del "pulgar" del scrollbar */
+        border-radius: 5px; /* Borde redondeado del pulgar */
+      }
+    }
+    .headerItems {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      height: auto;
+      width: auto;
+      padding: 5% 5% 0 5%;
+
+      .atrasBtn {
+        width: 2vw;
+        height: 2vw;
+        border: 1px solid $paragraph;
+        border-radius: 8px;
+        background-color: rgb(255, 255, 255);
+        @include center;
+        cursor: pointer;
+        .eliminarIcon {
+          width: 1.2rem;
+          height: 1.2rem;
+          @include center;
+        }
+        .arrow-left {
+          position: relative;
+          display: block;
+          width: 12px;
+          height: 12px;
+          margin-right: -5px;
+          border-right: 3px solid black;
+          border-bottom: 3px solid black;
+          transform: rotate(135deg);
+          -webkit-transform: rotate(135deg);
+          -moz-transform: rotate(135deg);
+          -ms-transform: rotate(135deg);
+          -o-transform: rotate(135deg);
+        }
+      }
+      .titleHeaderItems {
+        margin-top: 2%;
+        font-weight: $titleWeight;
+        font-size: $titleSizePC;
+        line-height: 1.2;
+      }
+    }
+    .formulario {
+      .precio {
+        margin-left: 5%;
+        color: $paragraph;
+        padding: 2% 0;
+        font-weight: $titleWeight;
+        font-size: $titleSizePC;
+      }
+      .descripcion {
+        margin-left: 5%;
+        padding-right: 5%;
+        color: $paragraph;
+        padding-bottom: 5%;
+        font-size: $descrSizePC;
+      }
+      .cardItemCont {
+        margin-left: 5%;
+        padding-bottom: 5%;
+        .persona {
+          font-weight: $titleWeight;
+          font-size: $titleSizePC;
+          padding-bottom: 2%;
+        }
+        .cardItem {
+          width: 95%;
+          padding: 4%;
+          border-radius: 10px;
+          -webkit-border-radius: 10px;
+          -moz-border-radius: 10px;
+          -ms-border-radius: 10px;
+          -o-border-radius: 10px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          font-size: $titleSizePC;
+          font-weight: $titleWeight;
+          background-color: white;
+          @include center;
+          justify-content: space-between;
+          position: relative;
+          cursor: pointer;
+
+          &:not(:last-child) {
+            margin-bottom: 5%;
+          }
+          .categItem {
+            width: 40% !important;
+          }
+          .select {
+            background-color: transparent;
+            color: $paragraph;
+            font-size: $titleSizePC;
+            text-align: right;
+            font-weight: $titleWeight;
+            width: 95% !important;
+            position: absolute;
+            padding-right: 2.5%;
+            right: 1.5vw;
+            padding: 4%;
+            cursor: pointer;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+      .footer {
+        width: 100%;
+        position: static;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding-bottom: 0;
+        transition: all 0.3s ease;
+        z-index: 9999;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+
+        .botonFooter,
+        .botonDescartar {
+          @include center;
+          width: 20vw;
+          height: 3vw;
+          border-radius: 6px;
+          -webkit-border-radius: 6px;
+          -moz-border-radius: 6px;
+          -ms-border-radius: 6px;
+          -o-border-radius: 6px;
+          font-weight: $titleWeight;
+          font-size: $titleSizePC;
+          box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
+          cursor: pointer;
+          &:focus {
+            outline: none;
+          }
+        }
+        .botonDescartar {
+          border: 1px solid black;
+          background-color: white;
+          .eliminarIcon {
+            width: 1.5rem;
+            height: 1.5rem;
+            margin-right: 1vw;
+          }
+        }
+        .botonFooter {
+          background-color: $naranja;
+        }
+      }
+    }
   }
 }

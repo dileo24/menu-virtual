@@ -41,9 +41,9 @@ export default function Filtros({
   return (
     <div className={vertical ? "filtroMobile" : "filtroPC"}>
       {busqueda && (
-        <div className="ocultarBtn" onClick={() => window.location.reload()}>
+        <button className="ocultarBtn" onClick={() => window.location.reload()}>
           <span className="arrow-left"></span>
-        </div>
+        </button>
       )}
       <input
         className={busqueda ? "search" : "searchBar"}

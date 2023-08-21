@@ -5,16 +5,16 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { VscTrash } from "react-icons/vsc";
 import Alerta from "../recursos/Alerta";
 
-export default function Items() {
+export default function Items({ setItemProd, prodID }) {
+  const vertical = window.innerHeight > window.innerWidth;
   const navigate = useNavigate();
   const productosArray = useSelector((state) => state.home);
   const itemsExtraState = useSelector((state) => state.itemsExtra);
-  // console.log(itemsExtraState);
   const dispatch = useDispatch();
   const { id } = useParams();
   let prod =
-    productosArray && productosArray.filter((p) => p.id === Number(id));
-
+    productosArray &&
+    productosArray.filter((p) => p.id === Number(vertical ? id : prodID));
   const [itemsExtraArray, setItemsExtraArray] = useState([]);
   const [alertaError, setAlertaError] = useState(false);
 
@@ -48,7 +48,7 @@ export default function Items() {
       });
     }
     handleIncremento(prod && prod, itemsExtraArray);
-    navigate("/");
+    vertical ? navigate("/") : setItemProd(false);
   };
 
   const handleSelectItemExtra = (item, personaIndex, categoriaIndex) => {
@@ -59,110 +59,125 @@ export default function Items() {
   };
 
   return (
-    <div className="elegirItemsCont">
-      <div className="headerItems">
-        <Link to="/" className="atrasBtn">
-          <span className="arrow-left"></span>
-        </Link>
+    <div className={vertical ? "elegirItemsMobile" : "elegirItemsPC"}>
+      <div className="fondo">
+        <div className="main">
+          <div className="headerItems">
+            {vertical ? (
+              <Link to="/" className="atrasBtn">
+                <span className="arrow-left"></span>
+              </Link>
+            ) : (
+              <button className="atrasBtn" onClick={() => setItemProd(false)}>
+                <span className="arrow-left"></span>
+              </button>
+            )}
 
-        <div className="titleHeaderItems">
-          {`Selecciona los ítems extra para
-            "${prod.length && prod[0].nombre}"`}
-        </div>
-      </div>
+            <div className="titleHeaderItems">
+              {`Selecciona los ítems extra para
+                  "${prod.length && prod[0].nombre}"`}
+            </div>
+          </div>
 
-      <form
-        id="formulario"
-        className="formulario"
-        onSubmit={(e) => handleSubmitForm(e)}
-      >
-        {/* ****** ITEMS ****** */}
-        <div className="">
-          <div className="">
-            {prod.length && (
-              <div key={prod[0].id}>
-                <div className="precio">${prod[0].precio}</div>
-                <div className="descripcion">{prod[0].descripcion}</div>
-                {Array.from(
-                  { length: prod[0].cantidadPersonas },
-                  (_, personaIndex) => (
-                    <div key={personaIndex} className="cardItemCont">
-                      <p className="persona">Persona {personaIndex + 1}</p>
-                      {prod[0].itemsExtra.map((categoria, categoriaIndex) => {
-                        const itemsFiltrados = itemsExtraState.filter(
-                          (item) => {
-                            if (item.categoria.nombre === categoria) {
-                              return true;
+          <form
+            id="formulario"
+            className="formulario"
+            onSubmit={(e) => handleSubmitForm(e)}
+          >
+            {/* ****** ITEMS ****** */}
+            <div className="">
+              <div className="">
+                {prod.length && (
+                  <div key={prod[0].id}>
+                    <div className="precio">${prod[0].precio}</div>
+                    <div className="descripcion">{prod[0].descripcion}</div>
+                    {Array.from(
+                      { length: prod[0].cantidadPersonas },
+                      (_, personaIndex) => (
+                        <div key={personaIndex} className="cardItemCont">
+                          <p className="persona">Persona {personaIndex + 1}</p>
+                          {prod[0].itemsExtra.map(
+                            (categoria, categoriaIndex) => {
+                              const itemsFiltrados = itemsExtraState.filter(
+                                (item) => {
+                                  if (item.categoria.nombre === categoria) {
+                                    return true;
+                                  }
+                                  // Si el producto tiene subcategoría y coincide con la categoría actual, también se incluirá en el filtro.
+                                  return (
+                                    item.subcategoria &&
+                                    item.subcategoria.nombre === categoria
+                                  );
+                                }
+                              );
+                              return (
+                                <div
+                                  className="cardItem"
+                                  key={`${personaIndex}-${categoriaIndex}`}
+                                >
+                                  {" "}
+                                  {/* Agregar key */}
+                                  <p className="categItem">{categoria}</p>
+                                  <select
+                                    className="select"
+                                    name={`itemsExtra-${personaIndex}-${categoriaIndex}`}
+                                    onChange={(e) =>
+                                      handleSelectItemExtra(
+                                        e.target.value,
+                                        personaIndex,
+                                        categoriaIndex
+                                      )
+                                    }
+                                    required
+                                  >
+                                    <option hidden>Seleccionar</option>
+                                    {itemsFiltrados.map((item, itemIndex) => (
+                                      <option
+                                        key={itemIndex}
+                                        value={item.nombre}
+                                      >
+                                        {item.nombre}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              );
                             }
-                            // Si el producto tiene subcategoría y coincide con la categoría actual, también se incluirá en el filtro.
-                            return (
-                              item.subcategoria &&
-                              item.subcategoria.nombre === categoria
-                            );
-                          }
-                        );
-                        return (
-                          <div
-                            className="cardItem"
-                            key={`${personaIndex}-${categoriaIndex}`}
-                          >
-                            {" "}
-                            {/* Agregar key */}
-                            <p className="categItem">{categoria}</p>
-                            <select
-                              className="select"
-                              name={`itemsExtra-${personaIndex}-${categoriaIndex}`}
-                              onChange={(e) =>
-                                handleSelectItemExtra(
-                                  e.target.value,
-                                  personaIndex,
-                                  categoriaIndex
-                                )
-                              }
-                              required
-                            >
-                              <option hidden>Seleccionar</option>
-                              {itemsFiltrados.map((item, itemIndex) => (
-                                <option key={itemIndex} value={item.nombre}>
-                                  {item.nombre}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )
+                          )}
+                        </div>
+                      )
+                    )}
+                  </div>
                 )}
               </div>
-            )}
-          </div>
-        </div>
+            </div>
 
-        <div className="footer">
-          <div
-            to={"/adminCateg"}
-            className="botonDescartar"
-            onClick={() => navigate("/")}
-          >
-            <VscTrash className="eliminarIcon" /> Cancelar
-          </div>
+            <div className="footer">
+              <div
+                to={"/adminCateg"}
+                className="botonDescartar"
+                onClick={() => (vertical ? navigate("/") : setItemProd(false))}
+              >
+                <VscTrash className="eliminarIcon" /> Cancelar
+              </div>
 
-          <button type="submit" className="botonFooter">
-            Aceptar
-          </button>
+              <button type="submit" className="botonFooter">
+                Aceptar
+              </button>
+            </div>
+          </form>
         </div>
-      </form>
-      {alertaError && (
-        <Alerta
-          tipo={"error"}
-          titulo={"Error"}
-          texto={alertaError.texto}
-          estado={alertaError}
-          setEstado={setAlertaError}
-          callback={() => {}}
-        />
-      )}
+        {alertaError && (
+          <Alerta
+            tipo={"error"}
+            titulo={"Error"}
+            texto={alertaError.texto}
+            estado={alertaError}
+            setEstado={setAlertaError}
+            callback={() => {}}
+          />
+        )}
+      </div>
     </div>
   );
 }

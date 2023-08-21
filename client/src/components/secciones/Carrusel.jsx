@@ -5,6 +5,8 @@ import Menu from "./Menu";
 // import HacerPedido from "./HacerPedido1";
 import MiPedido from "./MiPedido";
 import Historial from "./Historial";
+import ItemsCliente from "./ItemsCliente";
+import UpdateItemsCliente from "./UpdateItemsCliente";
 
 import { getProductos, deleteProducto } from "../../redux/actions";
 import Swipe from "react-swipe";
@@ -31,6 +33,10 @@ const Carrusel = () => {
   const [checkAlertaError, setCheckAlertaError] = useState(false);
   const [miPedido, setMiPedido] = useState(false);
   const [historial, setHistorial] = useState(true);
+  const [itemProd, setItemProd] = useState(false);
+  const [editarItemProd, setEditarItemProd] = useState(false);
+  const [prodID, setProdID] = useState(null);
+  const [indexProd, setIndexProd] = useState(null);
   const vertical = window.innerHeight > window.innerWidth;
 
   for (let i = 0; i < preciosArray.length; i++) {
@@ -204,6 +210,8 @@ const Carrusel = () => {
                   currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
                   busqueda={busqueda}
+                  setItemProd={setItemProd}
+                  setProdID={setProdID}
                 />
               </div>
               {categorias.map(
@@ -219,6 +227,8 @@ const Carrusel = () => {
                           currentSlide={currentSlide}
                           handleClickEliminar={handleClickEliminar}
                           busqueda={busqueda}
+                          setItemProd={setItemProd}
+                          setProdID={setProdID}
                         />
                       )}
                     </div>
@@ -250,8 +260,28 @@ const Carrusel = () => {
               </div>
             </div>
           )}
-          {!userActual && !vertical && miPedido && <MiPedido />}
+          {!userActual && !vertical && miPedido && (
+            <MiPedido
+              setEditarItemProd={setEditarItemProd}
+              setIndexProd={setIndexProd}
+              setProdID={setProdID}
+            />
+          )}
           {!userActual && !vertical && historial && <Historial />}
+          {!userActual && !vertical && itemProd && prodID && (
+            <ItemsCliente setItemProd={setItemProd} prodID={prodID} />
+          )}
+          {!userActual &&
+            !vertical &&
+            editarItemProd &&
+            prodID &&
+            indexProd && (
+              <UpdateItemsCliente
+                setEditarItemProd={setEditarItemProd}
+                prodID={prodID}
+                indexProd={indexProd}
+              />
+            )}
         </div>
 
         {!userActual && vertical && (

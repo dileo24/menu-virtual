@@ -389,7 +389,7 @@
   }
 }
 
-// Media queries
+// Responsive
 .headerPC {
   width: 100vw;
   @include centerCol;
@@ -607,7 +607,7 @@
         width: 48.2vw;
       }
       .navbarContBuscado {
-        width: 90vw;
+        width: 48.2vw;
       }
       .carrito {
         position: relative;
@@ -647,7 +647,6 @@
     margin-top: 12vh;
     overflow-y: auto;
     white-space: nowrap;
-    scrollbar-width: auto !important;
     font-size: $subtSizePC;
     @include centerCol;
     justify-content: start;
@@ -663,18 +662,6 @@
     }
     .categorias {
       width: 10.5vw;
-      &::-webkit-scrollbar {
-        display: block !important;
-      }
-      &::-webkit-scrollbar-thumb {
-        display: block !important;
-      }
-      &::-webkit-scrollbar-track {
-        display: block !important;
-      }
-      &::-ms-scrollbar {
-        display: block !important;
-      }
       .botonesCont {
         .botones {
           display: flex;
@@ -707,24 +694,13 @@
     }
     .subCategorias {
       width: 10.5vw;
-      &::-webkit-scrollbar {
-        display: none;
-      }
-      &::-webkit-scrollbar-thumb {
-        display: none;
-      }
-      &::-webkit-scrollbar-track {
-        display: none;
-      }
-      &::-ms-scrollbar {
-        display: none;
-      }
       .botonesCont {
         // border: 1px solid red;
         .botones {
           display: flex;
           flex-direction: column;
           .subCategoria {
+            cursor: default;
             text-align: left !important;
             padding-bottom: 0.3vw;
             &:not(:last-child) {

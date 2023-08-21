@@ -85,10 +85,9 @@
 
 // Responsive
 
-.fondoAlertaPC {
+.fondoAlertaPC,
+.fondoAlertaPedidoPC {
   overflow: hidden !important;
-  height: 90vh;
-  width: 30vw;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   bottom: 0;
@@ -96,11 +95,19 @@
   // transform: translate(-50%, -50%);
   z-index: 9999999999;
   @include center;
+  &.fondoAlertaPedidoPC {
+    height: 90vh;
+    width: 30vw;
+  }
+  &.fondoAlertaPC {
+    height: 100vh;
+    width: 100vw;
+  }
   .pregunta,
   .exito,
   .error,
   .aviso {
-    width: 70%;
+    width: 20vw;
     padding: 1.5vw;
     border-radius: 10px;
     -webkit-border-radius: 10px;

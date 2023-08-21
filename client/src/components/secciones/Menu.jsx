@@ -12,6 +12,8 @@ export default function Menu({
   prodsBuscados,
   handleClickEliminar,
   busqueda,
+  setItemProd,
+  setProdID,
 }) {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
@@ -130,6 +132,8 @@ export default function Menu({
                               precio={precio}
                               itemsExtra={itemsExtra}
                               cantidadPersonas={cantidadPersonas}
+                              setProdID={setProdID}
+                              setItemProd={setItemProd}
                             />
                           )}
                         </div>
@@ -219,6 +223,8 @@ export default function Menu({
                                       precio={precio}
                                       itemsExtra={itemsExtra}
                                       cantidadPersonas={cantidadPersonas}
+                                      setProdID={setProdID}
+                                      setItemProd={setItemProd}
                                     />
                                   )}
                                 </div>

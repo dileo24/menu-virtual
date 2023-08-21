@@ -13,7 +13,11 @@ import HeaderBack from "../recursos/HeaderBack";
 import HacerPedido from "../formularios/HacerPedido";
 import Alerta from "../recursos/Alerta";
 
-export default function HacerPedido1() {
+export default function MiPedido({
+  setEditarItemProd,
+  setIndexProd,
+  setProdID,
+}) {
   const carrito = useSelector((state) => state.carrito);
   const [preciosArray, setPreciosArray] = useState([]);
   const [hacerPedido, setHacerPedido] = useState(false);
@@ -106,12 +110,25 @@ export default function HacerPedido1() {
                       <div className="acciones">
                         {prod.itemsExtra && (
                           <div className="iconContainer1">
-                            <Link
-                              to={`/updateItems/${prod.id}/${index}`}
-                              className="editarItems"
-                            >
-                              <HiOutlinePencil className="editarIcon" />
-                            </Link>
+                            {vertical ? (
+                              <Link
+                                to={`/updateItems/${prod.id}/${index}`}
+                                className="editarItems"
+                              >
+                                <HiOutlinePencil className="editarIcon" />
+                              </Link>
+                            ) : (
+                              <button
+                                className="editarItems"
+                                onClick={() => {
+                                  setEditarItemProd(true);
+                                  setIndexProd(index);
+                                  setProdID(prod.id);
+                                }}
+                              >
+                                <HiOutlinePencil className="editarIcon" />
+                              </button>
+                            )}
                           </div>
                         )}
                         <div className="iconContainer2">
@@ -167,7 +184,9 @@ export default function HacerPedido1() {
           </div>
         </div>
         {alertaAviso && (
-          <div className={vertical ? "fondoAlertaMobile" : "fondoAlertaPC"}>
+          <div
+            className={vertical ? "fondoAlertaMobile" : "fondoAlertaPedidoPC"}
+          >
             <div className="aviso">
               <p className="titulo">¿Estás en el local?</p>
               <p className="texto">

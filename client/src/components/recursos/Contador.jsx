@@ -11,6 +11,8 @@ export default function Contador({
   id,
   itemsExtra,
   cantidadPersonas,
+  setProdID,
+  setItemProd,
 }) {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
@@ -39,9 +41,16 @@ export default function Contador({
   const handleDecremento = (id) => {
     dispatch(eliminarItemCarrito(id));
   };
+
   const navigate = useNavigate();
+
   const handleRelocated = () => {
-    navigate(`/items/${id}`);
+    if (vertical) {
+      navigate(`/items/${id}`);
+    } else {
+      setProdID(id);
+      setItemProd(true);
+    }
   };
 
   const vertical = window.innerHeight > window.innerWidth;

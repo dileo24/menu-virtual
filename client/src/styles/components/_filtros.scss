@@ -65,21 +65,23 @@
 }
 
 .filtroPC {
-  display: flex;
   width: 100%;
   position: relative;
+  @include center;
   .ocultarBtn {
-    width: 8vw;
-    height: 8vw;
+    width: 2vw;
+    height: 2vw;
     @include center;
-
+    &:focus {
+      outline: none;
+    }
     .arrow-left {
       // position: relative;
       // display: block;
-      width: 15px;
-      height: 15px;
-      border-right: 3.5px solid black;
-      border-bottom: 3.5px solid black;
+      width: 1vw;
+      height: 1vw;
+      border-right: 0.2vw solid black;
+      border-bottom: 0.2vw solid black;
       transform: rotate(135deg);
       -webkit-transform: rotate(135deg);
       -moz-transform: rotate(135deg);
@@ -109,10 +111,11 @@
     }
   }
   .search {
-    margin-left: 2vw;
-    width: 90%;
+    // margin-left: 2vw;
+    width: 100%;
     background-color: white;
     border: 1px solid black;
+    font-size: $subtSizePC;
     &::placeholder {
       color: black;
       text-align: center;

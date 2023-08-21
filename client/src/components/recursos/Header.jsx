@@ -182,8 +182,8 @@ export default function Header({
 
     // Verificar si se encontraron elementos y scrollear hasta el primer elemento
     if (elementos.length > 0) {
-      const diapo = document.querySelector('[data-index="1"]');
-      const menuComponent = diapo.querySelector(".menuPC");
+      // const diapo = document.querySelector('[data-index="1"]');
+      // const menuComponent = diapo.querySelector(".menuPC");
       // console.log(menuComponent);
       const firstElement = elementos[0];
       const elementRect = firstElement.getBoundingClientRect();
@@ -192,15 +192,15 @@ export default function Header({
 
       console.log(offsetTop);
 
-      vertical
-        ? window.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          })
-        : menuComponent.scrollTo({
-            top: offsetTop,
-            behavior: "smooth",
-          });
+      /* vertical
+        ? */ window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
+      // : menuComponent.scrollTo({
+      //     top: offsetTop,
+      //     behavior: "smooth",
+      //   });
     }
   };
 
@@ -436,12 +436,19 @@ export default function Header({
         {/* Clientes */}
         {!userActual && (
           <nav id="nav" className="nav headerClientes">
-            {!busqueda && (
+            {vertical && !busqueda && (
               <Link to="/login" className="loginBtn">
                 <div className="iniciarSesion">
                   <img src={login} alt="login" className="usuarioIcon" />
                 </div>
-                {!vertical && <p>Iniciar sesión</p>}
+              </Link>
+            )}
+            {!vertical && (
+              <Link to="/login" className="loginBtn">
+                <div className="iniciarSesion">
+                  <img src={login} alt="login" className="usuarioIcon" />
+                </div>
+                <p>Iniciar sesión</p>
               </Link>
             )}
 
@@ -485,79 +492,78 @@ export default function Header({
                 />
               </div>
             )}
-            {!busqueda && (
-              <div id="categorias" className="categsYSubcategs">
-                <div className="categorias" ref={scrollableRef}>
+
+            <div id="categorias" className="categsYSubcategs">
+              <div className="categorias" ref={scrollableRef}>
+                <div className="botonesCont">
+                  {!vertical && <p className="categTitle">Categorías</p>}
+
+                  <div className="botones">
+                    <button
+                      className={`menuBtn ${
+                        currentSlide === 0 ? "active" : ""
+                      }`}
+                      id="0"
+                      onClick={() => {
+                        setCurrentSlide(0);
+                        window.scrollTo({ top: 0 });
+                      }}
+                    >
+                      Menú completo
+                    </button>
+                    {newCateg &&
+                      newCateg.map((categ, index) => (
+                        <React.Fragment key={categ.id}>
+                          <button
+                            className={`categoria ${
+                              currentSlide === index + 1 ? "active" : ""
+                            }`}
+                            id={categ.id}
+                            onClick={() => {
+                              setCurrentSlide(index + 1);
+                              window.scrollTo({ top: 0 });
+                            }}
+                          >
+                            {categ.nombre}
+                          </button>
+                        </React.Fragment>
+                      ))}
+                  </div>
+                </div>
+              </div>
+
+              {newSubCategs.filter(
+                (subC) => subC.categoria.id === categActiveId
+              ).length >= 2 && (
+                <div className="subCategorias">
                   <div className="botonesCont">
-                    {!vertical && <p className="categTitle">Categorías</p>}
+                    {!vertical && (
+                      <p className="subCategTitle">SubCategorías</p>
+                    )}
 
                     <div className="botones">
-                      <button
-                        className={`menuBtn ${
-                          currentSlide === 0 ? "active" : ""
-                        }`}
-                        id="0"
-                        onClick={() => {
-                          setCurrentSlide(0);
-                          window.scrollTo({ top: 0 });
-                        }}
-                      >
-                        Menú completo
-                      </button>
-                      {newCateg &&
-                        newCateg.map((categ, index) => (
-                          <React.Fragment key={categ.id}>
-                            <button
-                              className={`categoria ${
-                                currentSlide === index + 1 ? "active" : ""
-                              }`}
-                              id={categ.id}
-                              onClick={() => {
-                                setCurrentSlide(index + 1);
-                                window.scrollTo({ top: 0 });
-                              }}
-                            >
-                              {categ.nombre}
-                            </button>
-                          </React.Fragment>
+                      {newSubCategs
+                        .filter((subC) => subC.categoria.id === categActiveId)
+                        .map((subC) => (
+                          <button
+                            /* className={`subCategoria ${
+                              subC === focusedSubcategory ? "focused" : ""
+                            }`} */
+                            className="subCategoria"
+                            key={subC.nombre}
+                            onClick={() => {
+                              // setFocusedSubcategory(subC);
+                              vertical && handleButtonClick(subC);
+                            }}
+                          >
+                            {subC.nombre}
+                          </button>
                         ))}
                     </div>
                   </div>
                 </div>
-
-                {newSubCategs.filter(
-                  (subC) => subC.categoria.id === categActiveId
-                ).length >= 2 && (
-                  <div className="subCategorias">
-                    <div className="botonesCont">
-                      {!vertical && (
-                        <p className="subCategTitle">SubCategorías</p>
-                      )}
-
-                      <div className="botones">
-                        {newSubCategs
-                          .filter((subC) => subC.categoria.id === categActiveId)
-                          .map((subC) => (
-                            <button
-                              /* className={`subCategoria ${
-                              subC === focusedSubcategory ? "focused" : ""
-                            }`} */
-                              className="subCategoria"
-                              key={subC.nombre}
-                              onClick={() => {
-                                // setFocusedSubcategory(subC);
-                                handleButtonClick(subC);
-                              }}
-                            >
-                              {subC.nombre}
-                            </button>
-                          ))}
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+              )}
+            </div>
           </>
         )}
       </div>
