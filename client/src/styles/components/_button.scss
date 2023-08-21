@@ -1,7 +1,7 @@
-.contador {
+.contadorMobile {
   background-color: $naranja;
-  height: 30px;
-  width: 30px;
+  height: 7vw;
+  width: 7vw;
   @include center;
   font-size: 10vw;
   border-radius: 100%;
@@ -14,19 +14,72 @@
     outline: none;
   }
   .signoMenos {
-    width: 20px;
+    width: 5vw;
     height: 3px;
     background-color: white;
   }
   .signoMas1 {
-    width: 20px;
+    width: 5vw;
     height: 3px;
     background-color: white;
     @include center;
     .signoMas2 {
       width: 3px;
-      height: 20px;
+      height: 5vw;
       background-color: white;
     }
+  }
+}
+
+.contadorPC {
+  background-color: $naranja;
+  height: 1.5vw;
+  width: 1.5vw;
+  font-size: 10vw;
+  @include center;
+  font-size: 10vw;
+  border-radius: 100%;
+  outline: none;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  &:focus {
+    outline: none;
+  }
+  .signoMenos {
+    width: 1.1vw;
+    height: 0.15vw;
+    background-color: white;
+  }
+  .signoMas1 {
+    width: 1.1vw;
+    height: 0.15vw;
+    background-color: white;
+    @include center;
+    .signoMas2 {
+      width: 0.15vw;
+      height: 1.1vw;
+      background-color: white;
+    }
+  }
+}
+
+.contadorNumMobile {
+  text-align: center;
+  font-size: 5vw;
+  margin: 0 2vw;
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+.contadorNumPC {
+  text-align: center;
+  font-size: 1vw;
+  margin: 0 0.5vw;
+  &:focus {
+    outline: none;
+    border: none;
   }
 }

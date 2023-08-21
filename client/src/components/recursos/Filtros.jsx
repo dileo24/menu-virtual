@@ -12,7 +12,7 @@ export default function Filtros({
   busqueda,
 }) {
   const [state, setState] = useState("");
-  const [busq, setBusq] = useState(false);
+  // const [busq, setBusq] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,12 +36,14 @@ export default function Filtros({
     }
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
-    <div className="filtro">
+    <div className={vertical ? "filtroMobile" : "filtroPC"}>
       {busqueda && (
-        <div className="ocultarBtn" onClick={() => window.location.reload()}>
+        <button className="ocultarBtn" onClick={() => window.location.reload()}>
           <span className="arrow-left"></span>
-        </div>
+        </button>
       )}
       <input
         className={busqueda ? "search" : "searchBar"}

@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Header from "../recursos/Header";
 import Menu from "./Menu";
 // import HacerPedido from "./HacerPedido1";
+import MiPedido from "./MiPedido";
+import Historial from "./Historial";
+import ItemsCliente from "./ItemsCliente";
+import UpdateItemsCliente from "./UpdateItemsCliente";
 
 import { getProductos, deleteProducto } from "../../redux/actions";
 import Swipe from "react-swipe";
@@ -27,6 +31,13 @@ const Carrusel = () => {
   const [alertaError, setAlertaError] = useState(false);
   const [busqueda, setBusqueda] = useState(false);
   const [checkAlertaError, setCheckAlertaError] = useState(false);
+  const [miPedido, setMiPedido] = useState(false);
+  const [historial, setHistorial] = useState(true);
+  const [itemProd, setItemProd] = useState(false);
+  const [editarItemProd, setEditarItemProd] = useState(false);
+  const [prodID, setProdID] = useState(null);
+  const [indexProd, setIndexProd] = useState(null);
+  const vertical = window.innerHeight > window.innerWidth;
 
   for (let i = 0; i < preciosArray.length; i++) {
     precioFinal += parseInt(preciosArray[i]);
@@ -107,7 +118,9 @@ const Carrusel = () => {
   }, [prevScrollPosition]);
 
   useEffect(() => {
-    !busqueda && window.addEventListener("scroll", handleWindowScroll);
+    !busqueda &&
+      vertical &&
+      window.addEventListener("scroll", handleWindowScroll);
     if (busqueda && !userActual) {
       const marca = document.getElementById("marca");
       const subHeader = document.getElementById("subHeader");
@@ -130,13 +143,6 @@ const Carrusel = () => {
     setBusqueda(false);
   }, []);
 
-  /* useEffect(() => {
-    if (busqueda) {
-      console.log(busqueda);
-      window.location.reload();
-    }
-  }, [currentSlide]); */
-
   const handleSearch = useCallback(() => {
     setCurrentSlide(0);
   }, []);
@@ -151,7 +157,7 @@ const Carrusel = () => {
       `.scrollable-content[data-index="${currentSlide}"]`
     );
     if (diapo) {
-      const menuContainer = diapo.querySelector(".menuContainer");
+      const menuContainer = diapo.querySelector("#menuContainer");
       const menuContainerHeight = menuContainer.offsetHeight;
       const swipe = document.querySelector(".swipe");
       swipe.style.maxHeight = `${menuContainerHeight}px`;
@@ -167,6 +173,11 @@ const Carrusel = () => {
       : setCheckAlertaError(false);
   }, [checkAlertaError]);
 
+  useEffect(() => {
+    preciosArray.length && setMiPedido(true);
+    preciosArray.length && setHistorial(false);
+  }, [preciosArray]);
+
   return (
     <div className="containerCarrusel">
       <Header
@@ -177,7 +188,10 @@ const Carrusel = () => {
         busqueda={busqueda}
         setCheckAlertaError={setCheckAlertaError}
       />
-      <div className="carruselContainer">
+      <div
+        id="carruselContainer"
+        className={vertical ? "carruselMobile" : "carruselPC"}
+      >
         <div className="carrusel-wrapper" ref={carruselRef}>
           {categorias.length && (
             <Swipe
@@ -196,6 +210,8 @@ const Carrusel = () => {
                   currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
                   busqueda={busqueda}
+                  setItemProd={setItemProd}
+                  setProdID={setProdID}
                 />
               </div>
               {categorias.map(
@@ -211,6 +227,8 @@ const Carrusel = () => {
                           currentSlide={currentSlide}
                           handleClickEliminar={handleClickEliminar}
                           busqueda={busqueda}
+                          setItemProd={setItemProd}
+                          setProdID={setProdID}
                         />
                       )}
                     </div>
@@ -218,8 +236,55 @@ const Carrusel = () => {
               )}
             </Swipe>
           )}
+          {!userActual && !vertical && (
+            <div className="asideHeader">
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    setMiPedido(true);
+                    setHistorial(false);
+                  }}
+                  className={miPedido ? "active" : ""}
+                >
+                  Mi Pedido
+                </button>
+                <button
+                  onClick={() => {
+                    setMiPedido(false);
+                    setHistorial(true);
+                  }}
+                  className={historial ? "active" : ""}
+                >
+                  Mis Pedidos Realizados
+                </button>
+              </div>
+            </div>
+          )}
+          {!userActual && !vertical && miPedido && (
+            <MiPedido
+              setEditarItemProd={setEditarItemProd}
+              setIndexProd={setIndexProd}
+              setProdID={setProdID}
+            />
+          )}
+          {!userActual && !vertical && historial && <Historial />}
+          {!userActual && !vertical && itemProd && prodID && (
+            <ItemsCliente setItemProd={setItemProd} prodID={prodID} />
+          )}
+          {!userActual &&
+            !vertical &&
+            editarItemProd &&
+            prodID &&
+            indexProd && (
+              <UpdateItemsCliente
+                setEditarItemProd={setEditarItemProd}
+                prodID={prodID}
+                indexProd={indexProd}
+              />
+            )}
         </div>
-        {userActual ? null : (
+
+        {!userActual && vertical && (
           <>
             <footer className={`footer ${marginTop}`}>
               <Link className="botonFooter" to={"/miPedido"}>

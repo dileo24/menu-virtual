@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 import Header from "../recursos/Header";
 import { useDispatch, useSelector } from "react-redux";
-import Filtros from "../recursos/Filtros";
+// import Filtros from "../recursos/Filtros";
 import CardsPedidos from "../recursos/CardsPedidos";
 
 import io from "socket.io-client";
@@ -63,52 +63,54 @@ export default function Pedidos() {
 
   return (
     <div id="productos" className="pedidosContainer">
-      <Header />
-      <h1 className="pedidosTitle">Pedidos</h1>
-      <div className="navbar">
-        <Filtros
-          searchType="pedidos"
-          searchWord={"pedidos"}
-          setBusqueda={setBusqueda}
-          setCheckAlertaError={setCheckAlertaError}
-          className="navbar"
-        />
-      </div>
-      <div
-        className="estados"
-        ref={scrollableRef}
-        style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-      >
-        <button
-          className={`menuBtn ${diapoActual === 0 ? "active" : ""}`}
-          id="0"
-          onClick={() => {
-            setCurrentSlide(0);
-            setDiapoActual(0);
-            window.scrollTo({ top: 0 });
-          }}
+      <div className="header">
+        <Header />
+        <h1 className="pedidosTitle">Pedidos</h1>
+        <div className="navbar">
+          {/* <Filtros
+            searchType="pedidos"
+            searchWord={"pedidos"}
+            setBusqueda={setBusqueda}
+            setCheckAlertaError={setCheckAlertaError}
+            className="navbar"
+          /> */}
+        </div>
+        <div
+          className="estados"
+          ref={scrollableRef}
+          style={{ overflowX: "auto", whiteSpace: "nowrap" }}
         >
-          Todos
-        </button>
-        {estados &&
-          estados.map((estado, index) => (
-            <React.Fragment key={estado.id}>
-              <button
-                className={`estado ${
-                  currentSlide === index + 1 ? "active" : ""
-                }`}
-                id={estado.id}
-                onClick={() => {
-                  setCurrentSlide(index + 1);
-                  setDiapoActual(index + 1);
+          <button
+            className={`menuBtn ${diapoActual === 0 ? "active" : ""}`}
+            id="0"
+            onClick={() => {
+              setCurrentSlide(0);
+              setDiapoActual(0);
+              window.scrollTo({ top: 0 });
+            }}
+          >
+            Todos
+          </button>
+          {estados &&
+            estados.map((estado, index) => (
+              <React.Fragment key={estado.id}>
+                <button
+                  className={`estado ${
+                    currentSlide === index + 1 ? "active" : ""
+                  }`}
+                  id={estado.id}
+                  onClick={() => {
+                    setCurrentSlide(index + 1);
+                    setDiapoActual(index + 1);
 
-                  window.scrollTo({ top: 0 });
-                }}
-              >
-                {estado.tipo}s
-              </button>
-            </React.Fragment>
-          ))}
+                    window.scrollTo({ top: 0 });
+                  }}
+                >
+                  {estado.tipo}s
+                </button>
+              </React.Fragment>
+            ))}
+        </div>
       </div>
 
       <Swipe

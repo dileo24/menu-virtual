@@ -12,6 +12,8 @@ export default function Menu({
   prodsBuscados,
   handleClickEliminar,
   busqueda,
+  setItemProd,
+  setProdID,
 }) {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
@@ -46,9 +48,14 @@ export default function Menu({
 
   prodsBuscados && prodsBuscados.length > 0 && (productos = prodsBuscados);
 
+  const primerNombreCateg = document.querySelector(".nombreCateg");
+  primerNombreCateg && primerNombreCateg.classList.add("primerNombre");
+
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
     productos && (
-      <main className="menuContainer">
+      <main id="menuContainer" className={vertical ? "menuMobile" : "menuPC"}>
         {busqueda && <h1 className="resultados">Resultados de búsqueda</h1>}
         {categorias.map((categoria) => {
           const productosPorCateg = filtrarProductosPorCategoria(
@@ -77,7 +84,7 @@ export default function Menu({
                 )}
 
               {/* Renderizar los productos sin subcategoria */}
-              <div className="cardsVisibles">
+              <div className="cardsContainer">
                 {productosSinSubcateg.map(
                   ({
                     nombre,
@@ -125,6 +132,8 @@ export default function Menu({
                               precio={precio}
                               itemsExtra={itemsExtra}
                               cantidadPersonas={cantidadPersonas}
+                              setProdID={setProdID}
+                              setItemProd={setItemProd}
                             />
                           )}
                         </div>
@@ -143,7 +152,7 @@ export default function Menu({
                     prod.subcategoria.nombre === subcategoria.nombre
                 );
                 return (
-                  <div className="cardsVisibles" key={subcategoria.id}>
+                  <div className="cardsContainer" key={subcategoria.id}>
                     {/* Renderizar los productos con item === false */}
                     {productosPorSubCateg.map(
                       ({
@@ -168,9 +177,10 @@ export default function Menu({
                                 ? removeAccentsAndSpaces(subcategoria.nombre)
                                 : ""
                             }
+                            className="cardProduct"
                           >
                             {categ !== "todas" && esNuevaSubCategoria && (
-                              <h1 className="nombreCateg">
+                              <h1 className="nombreSubCateg">
                                 {subcategoria.nombre}
                               </h1>
                             )}
@@ -180,7 +190,7 @@ export default function Menu({
                               (prodsBuscados.length === 0 ||
                                 prodsBuscados.length ===
                                   productosState.length) && (
-                                <h1 className="nombreCateg">
+                                <h1 className="nombreSubCateg">
                                   {subcategoria.nombre}
                                 </h1>
                               )}
@@ -213,6 +223,8 @@ export default function Menu({
                                       precio={precio}
                                       itemsExtra={itemsExtra}
                                       cantidadPersonas={cantidadPersonas}
+                                      setProdID={setProdID}
+                                      setItemProd={setItemProd}
                                     />
                                   )}
                                 </div>
@@ -262,7 +274,7 @@ export default function Menu({
                   )}
 
                 {/* Renderizar los productos sin subcategoria */}
-                <div className="cardsVisibles">
+                <div className="cardsContainer">
                   {productosSinSubcateg.map(
                     ({
                       nombre,
@@ -328,7 +340,7 @@ export default function Menu({
                       prod.subcategoria.nombre === subcategoria.nombre
                   );
                   return (
-                    <div className="cardsVisibles" key={subcategoria.id}>
+                    <div className="cardsContainer" key={subcategoria.id}>
                       {/* Renderizar los productos con item === false */}
                       {productosPorSubCateg.map(
                         ({
@@ -353,9 +365,10 @@ export default function Menu({
                                   ? removeAccentsAndSpaces(subcategoria.nombre)
                                   : ""
                               }
+                              className="cardProduct"
                             >
                               {categ !== "todas" && esNuevaSubCategoria && (
-                                <h1 className="nombreCateg">
+                                <h1 className="nombreSubCateg">
                                   {subcategoria.nombre}
                                 </h1>
                               )}

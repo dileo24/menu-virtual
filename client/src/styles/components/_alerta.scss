@@ -1,4 +1,4 @@
-.fondoAlerta {
+.fondoAlertaMobile {
   overflow: hidden;
   height: 100vh;
   width: 100vw;
@@ -51,6 +51,103 @@
         background-color: white;
         border: 1px solid black;
         margin-right: 5vw;
+      }
+      .aceptar {
+        color: white;
+        background-color: $error;
+        border: 1px solid $error;
+      }
+      .aceptarAviso {
+        background-color: $naranja;
+        border: 1px solid $naranja;
+      }
+      .aceptarSolo {
+        background-color: $naranja;
+      }
+    }
+  }
+  .pregunta {
+    background-color: white;
+  }
+  .aviso {
+    background-color: white;
+  }
+  .exito {
+    background-color: white;
+    // border: 1px solid $success;
+  }
+  .error {
+    background-color: white;
+    /* background-color: #ffe5e5;
+    border: 1px solid #ff3d3d; */
+  }
+}
+
+// Responsive
+
+.fondoAlertaPC,
+.fondoAlertaPedidoPC {
+  overflow: hidden !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  // transform: translate(-50%, -50%);
+  z-index: 9999999999;
+  @include center;
+  &.fondoAlertaPedidoPC {
+    height: 90vh;
+    width: 30vw;
+  }
+  &.fondoAlertaPC {
+    height: 100vh;
+    width: 100vw;
+  }
+  .pregunta,
+  .exito,
+  .error,
+  .aviso {
+    width: 20vw;
+    padding: 1.5vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    .titulo {
+      font-weight: $titleWeight;
+      font-size: $titleSizePC;
+      margin-bottom: 1vw;
+      text-align: center;
+    }
+    .texto {
+      text-align: center;
+      font-size: $descrSizePC;
+      padding: 0 8%;
+    }
+    .btnCont {
+      @include center;
+      .cancelar,
+      .aceptar,
+      .aceptarAviso,
+      .aceptarSolo {
+        margin-top: 1vw;
+        font-weight: $titleWeight;
+        font-size: $descrSizePC;
+        line-height: 1;
+        padding: 0.8vw;
+        width: 40vw;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+      }
+      .cancelar {
+        background-color: white;
+        border: 1px solid black;
+        margin-right: 1vw;
       }
       .aceptar {
         color: white;

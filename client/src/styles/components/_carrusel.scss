@@ -1,6 +1,6 @@
 .containerCarrusel {
   background-color: white;
-  .carruselContainer {
+  .carruselMobile {
     overflow: auto;
     .carrusel-wrapper {
       overflow-y: auto;
@@ -22,9 +22,6 @@
         -ms-transform: translateY(-100%);
         -o-transform: translateY(-100%);
       }
-      // .scrollable-content {
-      // background-color: rgb(247, 247, 247);
-      // }
     }
     .footer {
       width: 100vw;
@@ -79,7 +76,7 @@
           color: $paragraph;
           font-size: 4vw;
           border: 1px solid $paragraph;
-          height: 25px;
+          height: 6vw;
           aspect-ratio: 1; /* Agrega esta propiedad */
           @include center;
           border-radius: 100%;
@@ -143,5 +140,77 @@
     -moz-transform: translateY(100%);
     -ms-transform: translateY(100%);
     -o-transform: translateY(100%);
+  }
+}
+
+// Media queries
+
+.containerCarrusel {
+  background-color: white;
+  .carruselPC {
+    overflow: hidden;
+    height: 88vh;
+    width: 53vw;
+    margin: 12vh 0 0 17vw;
+
+    // border: 10px solid red;
+    .carrusel-wrapper {
+      overflow-y: hidden;
+      touch-action: pan-y;
+      -webkit-overflow-scrolling: touch;
+      background-color: white;
+      #nav,
+      #categorias {
+        transition: transform 0.2s ease;
+        -webkit-transition: transform 0.2s ease;
+        -moz-transition: transform 0.2s ease;
+        -ms-transition: transform 0.2s ease;
+        -o-transition: transform 0.2s ease;
+      }
+      .nav-hidden {
+        transform: translateY(-100%);
+        -webkit-transform: translateY(-100%);
+        -moz-transform: translateY(-100%);
+        -ms-transform: translateY(-100%);
+        -o-transform: translateY(-100%);
+      }
+      .asideHeader {
+        z-index: 9999;
+        width: 30vw;
+        // height: 10vh;
+        background-color: white;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 12vh;
+        font-size: $titleSizePC;
+        display: flex;
+        align-items: end;
+        justify-content: space-around;
+        padding: 2vw;
+        padding-bottom: 0;
+        border-bottom: 1px solid rgba(160, 160, 160, 0.559);
+        .buttons {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          button {
+            padding-bottom: 0.3vw;
+
+            &:focus {
+              outline: none;
+            }
+          }
+          .active {
+            font-weight: 700;
+            border-bottom: 3px solid $naranja;
+          }
+        }
+      }
+    }
+    .footer {
+      display: none;
+    }
   }
 }

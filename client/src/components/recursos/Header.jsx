@@ -51,8 +51,36 @@ export default function Header({
     dispatch(getProductos());
   }, [dispatch]);
 
+  // Controlar orientación de la pantalla
+  /* useEffect(() => {
+    const header = document.querySelector("#containerHeader");
+    if (window.innerHeight > window.innerWidth) {
+      header.classList.add("headerMobile");
+      header.classList.remove("headerPC");
+    } else {
+      header.classList.add("headerPC");
+      header.classList.remove("headerMobile");
+    }
+  }, []);
   useEffect(() => {
-    scrollToActiveCategory();
+    const header = document.querySelector("#containerHeader");
+    const handleResize = () => {
+      if (window.innerHeight > window.innerWidth) {
+        header.classList.add("headerMobile");
+        header.classList.remove("headerPC");
+      } else {
+        header.classList.add("headerPC");
+        header.classList.remove("headerMobile");
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); */
+
+  useEffect(() => {
+    window.innerWidth <= 600 && scrollToActiveCategory();
     setCategActiveId(newCateg[currentSlide - 1]?.id);
     const handleStorageChange = () => {
       const savedInputs = localStorage.getItem("inputs");
@@ -143,8 +171,6 @@ export default function Header({
   };
 
   const handleButtonClick = (subC) => {
-    // setFocusedSubcategory(subC);
-
     // Obtener el elemento con el atributo "data-index" igual a "currentSlide"
     const currentSlideElement = document.querySelector(
       `[data-index='${currentSlide}']`
@@ -153,29 +179,38 @@ export default function Header({
     const elementos = currentSlideElement.querySelectorAll(
       `#${removeAccentsAndSpaces(subC.nombre)}`
     );
-    // console.log(currentSlideElement);
 
     // Verificar si se encontraron elementos y scrollear hasta el primer elemento
     if (elementos.length > 0) {
+      // const diapo = document.querySelector('[data-index="1"]');
+      // const menuComponent = diapo.querySelector(".menuPC");
+      // console.log(menuComponent);
       const firstElement = elementos[0];
       const elementRect = firstElement.getBoundingClientRect();
       const offsetTop =
         window.scrollY + elementRect.top - window.innerHeight * 0.2; // Desplazamiento de -20vh
 
-      // Agregar la clase temporalmente a todos los elementos encontrados
-      elementos.forEach((element) => {
-        element.classList.add("temp-class");
-      });
+      console.log(offsetTop);
 
-      window.scrollTo({
+      /* vertical
+        ? */ window.scrollTo({
         top: offsetTop,
         behavior: "smooth",
       });
+      // : menuComponent.scrollTo({
+      //     top: offsetTop,
+      //     behavior: "smooth",
+      //   });
     }
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return (
-    <header id="containerHeader " className="containerHeader">
+    <header
+      id="containerHeader"
+      className={vertical ? "headerMobile" : "headerPC"}
+    >
       {!userActual && (
         <button className="quickBites" onClick={reload}>
           <h1 id="marca">QuickBites</h1>
@@ -190,6 +225,7 @@ export default function Header({
                 onClick={() => setAlertaPregunta(true)}
                 className="cerrarSesion"
               >
+                <RxExit className="linkIcon" />
                 Cerrar sesión
               </button>
             )}
@@ -400,9 +436,19 @@ export default function Header({
         {/* Clientes */}
         {!userActual && (
           <nav id="nav" className="nav headerClientes">
-            {!busqueda && (
-              <Link to="/login" className="iniciarSesion">
-                <img src={login} alt="login" className="usuarioIcon" />
+            {vertical && !busqueda && (
+              <Link to="/login" className="loginBtn">
+                <div className="iniciarSesion">
+                  <img src={login} alt="login" className="usuarioIcon" />
+                </div>
+              </Link>
+            )}
+            {!vertical && (
+              <Link to="/login" className="loginBtn">
+                <div className="iniciarSesion">
+                  <img src={login} alt="login" className="usuarioIcon" />
+                </div>
+                <p>Iniciar sesión</p>
               </Link>
             )}
 
@@ -415,7 +461,7 @@ export default function Header({
                 busqueda={busqueda}
               />
             </div>
-            {!busqueda && (
+            {!busqueda && vertical && (
               <Link to="/historial" className="carrito">
                 <img src={bandeja} alt="bandeja" className="carritoIcon" />
                 {pedidosNoVacios.length ? (
@@ -427,6 +473,7 @@ export default function Header({
                 )}
               </Link>
             )}
+            {!vertical && <p className="marcaPC">QuickBites</p>}
           </nav>
         )}
 
@@ -445,67 +492,78 @@ export default function Header({
                 />
               </div>
             )}
-            {!busqueda && (
-              <div id="categorias">
-                <div
-                  className="categorias"
-                  ref={scrollableRef}
-                  style={{ overflowX: "auto", whiteSpace: "nowrap" }}
-                >
-                  <button
-                    className={`menuBtn ${currentSlide === 0 ? "active" : ""}`}
-                    id="0"
-                    onClick={() => {
-                      setCurrentSlide(0);
-                      window.scrollTo({ top: 0 });
-                    }}
-                  >
-                    Menú completo
-                  </button>
-                  {newCateg &&
-                    newCateg.map((categ, index) => (
-                      <React.Fragment key={categ.id}>
-                        <button
-                          className={`categoria ${
-                            currentSlide === index + 1 ? "active" : ""
-                          }`}
-                          id={categ.id}
-                          onClick={() => {
-                            setCurrentSlide(index + 1);
-                            window.scrollTo({ top: 0 });
-                          }}
-                        >
-                          {categ.nombre}
-                        </button>
-                      </React.Fragment>
-                    ))}
-                </div>
 
-                {newSubCategs.filter(
-                  (subC) => subC.categoria.id === categActiveId
-                ).length >= 2 && (
-                  <div className="subCategorias">
-                    {newSubCategs
-                      .filter((subC) => subC.categoria.id === categActiveId)
-                      .map((subC) => (
-                        <button
-                          /* className={`subCategoria ${
-                          subC === focusedSubcategory ? "focused" : ""
-                        }`} */
-                          className="subCategoria"
-                          key={subC.nombre}
-                          onClick={() => {
-                            // setFocusedSubcategory(subC);
-                            handleButtonClick(subC);
-                          }}
-                        >
-                          {subC.nombre}
-                        </button>
+            <div id="categorias" className="categsYSubcategs">
+              <div className="categorias" ref={scrollableRef}>
+                <div className="botonesCont">
+                  {!vertical && <p className="categTitle">Categorías</p>}
+
+                  <div className="botones">
+                    <button
+                      className={`menuBtn ${
+                        currentSlide === 0 ? "active" : ""
+                      }`}
+                      id="0"
+                      onClick={() => {
+                        setCurrentSlide(0);
+                        window.scrollTo({ top: 0 });
+                      }}
+                    >
+                      Menú completo
+                    </button>
+                    {newCateg &&
+                      newCateg.map((categ, index) => (
+                        <React.Fragment key={categ.id}>
+                          <button
+                            className={`categoria ${
+                              currentSlide === index + 1 ? "active" : ""
+                            }`}
+                            id={categ.id}
+                            onClick={() => {
+                              setCurrentSlide(index + 1);
+                              window.scrollTo({ top: 0 });
+                            }}
+                          >
+                            {categ.nombre}
+                          </button>
+                        </React.Fragment>
                       ))}
                   </div>
-                )}
+                </div>
               </div>
-            )}
+
+              {newSubCategs.filter(
+                (subC) => subC.categoria.id === categActiveId
+              ).length >= 2 && (
+                <div className="subCategorias">
+                  <div className="botonesCont">
+                    {!vertical && (
+                      <p className="subCategTitle">SubCategorías</p>
+                    )}
+
+                    <div className="botones">
+                      {newSubCategs
+                        .filter((subC) => subC.categoria.id === categActiveId)
+                        .map((subC) => (
+                          <button
+                            /* className={`subCategoria ${
+                              subC === focusedSubcategory ? "focused" : ""
+                            }`} */
+                            className="subCategoria"
+                            key={subC.nombre}
+                            onClick={() => {
+                              // setFocusedSubcategory(subC);
+                              vertical && handleButtonClick(subC);
+                            }}
+                          >
+                            {subC.nombre}
+                          </button>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </>
         )}
       </div>

@@ -10,10 +10,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
 import HeaderBack from "../recursos/HeaderBack";
+import HacerPedido from "../formularios/HacerPedido";
+import Alerta from "../recursos/Alerta";
 
-export default function HacerPedido1() {
+export default function MiPedido({
+  setEditarItemProd,
+  setIndexProd,
+  setProdID,
+}) {
   const carrito = useSelector((state) => state.carrito);
   const [preciosArray, setPreciosArray] = useState([]);
+  const [hacerPedido, setHacerPedido] = useState(false);
   const [nombresProdArray, setNombresProdArray] = useState([]);
   const [indiceItemEliminar, setIndiceItemEliminar] = useState(null);
   const navigate = useNavigate();
@@ -22,11 +29,16 @@ export default function HacerPedido1() {
     precioFinal += parseInt(preciosArray[i]);
   }
   const dispatch = useDispatch();
+  const [alertaAviso, setAlertaAviso] = useState(false);
 
   useEffect(() => {
     dispatch(getTipoPago());
     dispatch(getPedidos());
   }, [dispatch]);
+
+  useEffect(() => {
+    !preciosArray.length && setHacerPedido(false);
+  }, [preciosArray]);
 
   const handleEliminarItemCarrito = (id, index) => {
     setIndiceItemEliminar(index);
@@ -52,84 +64,161 @@ export default function HacerPedido1() {
     dispatch(limpiarCarrito());
   };
 
-  return (
-    <div className="desplegables">
-      <div className="desplegable1">
-        <div className="scrollable-content">
-          <HeaderBack
-            url={"/"}
-            arrowType={"left"}
-            title={`Mi`}
-            span={"Pedido"}
-          />
-          {carrito.length > 0 && (
-            <>
-              {carrito.map((prod, index) => (
-                <div
-                  key={index}
-                  className={`cardProducto ${
-                    index === indiceItemEliminar ? "animate-slide-right" : ""
-                  }`}
-                >
-                  <div className="nombreItemsPrecio">
-                    <div className="nombrePrecio">
-                      <p className="nombre">{prod.nombre}</p>
-                      <p className="precio">${prod.precio}</p>
-                    </div>
-                    {prod && prod.itemsExtra && (
-                      <ul className="itemsExtra">
-                        {prod.itemsExtra.map((item, index) => (
-                          <li key={index} className="list-item">
-                            <span className="list-item-circle"></span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
+  const vertical = window.innerHeight > window.innerWidth;
 
-                  <div className="accionesCont">
-                    <div className="acciones">
-                      {prod.itemsExtra && (
-                        <div className="iconContainer1">
-                          <Link
-                            to={`/updateItems/${prod.id}/${index}`}
-                            className="editarItems"
-                          >
-                            <HiOutlinePencil className="editarIcon" />
-                          </Link>
-                        </div>
+  return (
+    <>
+      <div className={vertical ? "miPedidoMobile" : "miPedidoPC"}>
+        <div className="desplegable1">
+          <div className="scrollable-content">
+            <div className="headerAtras">
+              <HeaderBack
+                url={"/"}
+                arrowType={"left"}
+                title={`Mi`}
+                span={"Pedido"}
+              />
+            </div>
+
+            {carrito.length > 0 && (
+              <>
+                {carrito.map((prod, index) => (
+                  <div
+                    key={index}
+                    className={`cardProducto ${
+                      index === indiceItemEliminar ? "animate-slide-right" : ""
+                    }`}
+                  >
+                    <div className="nombreItemsPrecio">
+                      <div className="nombrePrecio">
+                        <p className="nombre">{prod.nombre}</p>
+                        <p className="precio">${prod.precio}</p>
+                      </div>
+                      {prod && prod.itemsExtra && (
+                        <ul className="itemsExtra">
+                          {prod.itemsExtra.map((item, index) => (
+                            <li key={index} className="list-item">
+                              <span className="list-item-circle"></span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
                       )}
-                      <div className="iconContainer2">
-                        <VscTrash
-                          className="eliminarIcon"
-                          onClick={() => {
-                            handleEliminarItemCarrito(prod.id, index);
-                          }}
-                        />
+                    </div>
+
+                    <div className="accionesCont">
+                      <div className="acciones">
+                        {prod.itemsExtra && (
+                          <div className="iconContainer1">
+                            {vertical ? (
+                              <Link
+                                to={`/updateItems/${prod.id}/${index}`}
+                                className="editarItems"
+                              >
+                                <HiOutlinePencil className="editarIcon" />
+                              </Link>
+                            ) : (
+                              <button
+                                className="editarItems"
+                                onClick={() => {
+                                  setEditarItemProd(true);
+                                  setIndexProd(index);
+                                  setProdID(prod.id);
+                                }}
+                              >
+                                <HiOutlinePencil className="editarIcon" />
+                              </button>
+                            )}
+                          </div>
+                        )}
+                        <div className="iconContainer2">
+                          <VscTrash
+                            className="eliminarIcon"
+                            onClick={() => {
+                              handleEliminarItemCarrito(prod.id, index);
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
+                ))}
+                <div className="vaciarCont">
+                  <button className="vaciarBtn" onClick={handleVaciar}>
+                    Vaciar Pedido
+                  </button>
                 </div>
-              ))}
-              <div className="vaciarCont">
-                <button className="vaciarBtn" onClick={handleVaciar}>
-                  Vaciar Pedido
+              </>
+            )}
+          </div>
+          <div className="footer1">
+            <p>Total</p>
+            <p>${precioFinal}</p>
+            <div className="footer">
+              {vertical ? (
+                <Link
+                  className={`botonFooter ${
+                    preciosArray.length ? "btnNaranja" : "btnGris"
+                  }`}
+                  to={"/hacerPedido"}
+                >
+                  <b className="siguiente">Siguiente</b>
+                </Link>
+              ) : (
+                <button
+                  className={`botonFooter ${
+                    preciosArray.length ? "btnNaranja" : "btnGris"
+                  }`}
+                  onClick={() =>
+                    preciosArray.length &&
+                    setAlertaAviso({
+                      estadoActualizado: true,
+                      texto: `Para hacer un pedido, debes estar presencialmente en el local.`,
+                    })
+                  }
+                >
+                  <b className="siguiente">Siguiente</b>
                 </button>
-              </div>
-            </>
-          )}
-        </div>
-        <div className="footer1">
-          <p>Total</p>
-          <p>${precioFinal}</p>
-          <div className="footer">
-            <Link className="botonFooter" to={"/hacerPedido"}>
-              <b className="siguiente">Siguiente</b>
-            </Link>
+              )}
+            </div>
           </div>
         </div>
+        {alertaAviso && (
+          <div
+            className={vertical ? "fondoAlertaMobile" : "fondoAlertaPedidoPC"}
+          >
+            <div className="aviso">
+              <p className="titulo">¿Estás en el local?</p>
+              <p className="texto">
+                Para hacer un pedido debes estar presencialmente en el local
+              </p>
+              <div className="btnCont">
+                <button
+                  className="cancelar"
+                  onClick={() => {
+                    setAlertaAviso(false);
+                  }}
+                >
+                  No estoy en el local
+                </button>
+                <button
+                  className="aceptarAviso"
+                  onClick={() => {
+                    setAlertaAviso(false);
+                    setHacerPedido(true);
+                  }}
+                >
+                  Sí estoy en el local
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+
+      {hacerPedido && preciosArray.length && (
+        <HacerPedido setHacerPedido={setHacerPedido} />
+      )}
+    </>
   );
 }

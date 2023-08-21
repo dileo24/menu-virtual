@@ -116,18 +116,17 @@ export default function Historial() {
     return product && product.combo;
   };
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   return pedidos &&
     pedidosActuales.length > 0 &&
     pedidosActuales.some(
       (pedido) => pedido && pedido.EstadoId !== 4 && pedido.EstadoId !== 5
     ) ? (
-    <div className="historialContainer">
-      <HeaderBack
-        url={"/"}
-        arrowType={"left"}
-        title={`Mis Pedidos `}
-        span={`Realizados`}
-      />
+    <div className={vertical ? "historialMobile" : "historialPC"}>
+      {vertical && (
+        <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+      )}
       {pedidosActuales
         .filter(
           (pedido) => pedido && pedido.Estado.id !== 4 && pedido.Estado.id !== 5
@@ -146,9 +145,9 @@ export default function Historial() {
                       </span>
                     </p>
                   </div>
-                  <div className="nombreItems">
+                  <>
                     {pedido.productos.map((producto, i) => (
-                      <div key={i}>
+                      <div key={i} className="nombreItems">
                         <p className="nombre">
                           {producto}
                           <span className="precioIndiv">
@@ -181,7 +180,7 @@ export default function Historial() {
                         )}
                       </div>
                     ))}
-                  </div>
+                  </>
                 </div>
                 <div className="footerPed">
                   <p className="metodoDePago estado-success">
@@ -198,18 +197,24 @@ export default function Historial() {
         )}
     </div>
   ) : (
-    <div className="historialContainer2">
-      <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+    <div className={vertical ? "historialMobile2" : "historialPC2"}>
+      {vertical && (
+        <HeaderBack url={"/"} arrowType={"left"} title={``} span={``} />
+      )}
+
       <div className="centro">
         <img src={bandeja} alt="bandeja" className="icon" />
         <p className="alerta">¡Comienza a sumar productos a tu pedido!</p>
         <p className="alerta2">Aún no tienes pedidos hechos</p>
       </div>
-      <div className="footer">
-        <Link to={"/"} className="botonFooter btnVerMenu">
-          Ver Menú
-        </Link>
-      </div>
+
+      {vertical && (
+        <div className="footer">
+          <Link to={"/"} className="botonFooter btnVerMenu">
+            Ver Menú
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

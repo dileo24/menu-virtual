@@ -11,7 +11,7 @@ import { io } from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
 import Alerta from "../recursos/Alerta";
 
-export default function HacerPedido() {
+export default function HacerPedido({ setHacerPedido }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
   const pedidos = useSelector((state) => state.pedidos);
@@ -53,14 +53,16 @@ export default function HacerPedido() {
     creacionHora: formattedTime,
   });
 
+  const vertical = window.innerHeight > window.innerWidth;
+
   useEffect(() => {
     dispatch(getTipoPago());
     dispatch(getPedidos());
-
-    setAlertaAviso({
-      estadoActualizado: true,
-      texto: `Para hacer un pedido, debes estar presencialmente en el local.`,
-    });
+    vertical &&
+      setAlertaAviso({
+        estadoActualizado: true,
+        texto: `Para hacer un pedido, debes estar presencialmente en el local.`,
+      });
   }, [dispatch]);
 
   useEffect(() => {
@@ -168,6 +170,10 @@ export default function HacerPedido() {
         creacionFecha: "",
         creacionHora: "",
       });
+      if (!vertical) {
+        window.location.reload();
+      }
+      //   ;
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
@@ -175,125 +181,131 @@ export default function HacerPedido() {
 
   return (
     <>
-      <div className="desplegables">
+      <div className={vertical ? "hacerPedidoMobile" : "hacerPedidoPC"}>
         {/* Menu desplegable 2*/}
         <div className="desplegable2">
-          <div className="scrollable-content">
+          {vertical ? (
             <HeaderBack
               url={"/miPedido"}
               arrowType={"left"}
               title={`Completar mi `}
               span={"Pedido"}
             />
+          ) : (
+            <HeaderBack
+              url={""}
+              arrowType={"left"}
+              title={`Completar mi `}
+              span={"Pedido"}
+              setHacerPedido={setHacerPedido}
+            />
+          )}
 
-            <form
-              id="formulario"
-              className="formulario"
-              onSubmit={(e) => {
-                setAlertaExito(true);
-                handleSubmitForm(e);
-              }}
-            >
-              <div className="mesa">
-                <label className="mesaTitle" htmlFor="mesa">
-                  Número de mesa
-                </label>
-                <input
-                  className="mesaInput"
-                  id="nombre"
-                  name="mesa"
-                  type="number"
-                  placeholder="N°"
-                  value={input.mesa}
-                  min={1}
-                  max={20}
-                  required
-                  onChange={(e) => handleChange(e)}
-                />
+          <form
+            id="formulario"
+            className="formulario"
+            onSubmit={(e) => {
+              vertical && setAlertaExito(true);
+              handleSubmitForm(e);
+            }}
+          >
+            <div className="mesa">
+              <label className="mesaTitle" htmlFor="mesa">
+                Número de mesa
+              </label>
+              <input
+                className="mesaInput"
+                id="mesa"
+                name="mesa"
+                type="number"
+                placeholder="N°"
+                value={input.mesa}
+                min={1}
+                max={20}
+                required
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+
+            <div className="aclaraciones">
+              <label className="aclaracionesTitle" htmlFor="aclaraciones">
+                Aclaraciones
+              </label>
+              <textarea
+                className="aclaracionesInput"
+                id="aclaraciones"
+                name="aclaraciones"
+                type="text"
+                placeholder="Si necesitás algo, avisanos!"
+                min={0}
+                max={3}
+                value={input.aclaraciones}
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+
+            <div className="pago" id="pago">
+              <div className="pagoTitle" htmlFor="pago">
+                Método de pago
               </div>
-
-              <div className="aclaraciones">
-                <label className="aclaracionesTitle" htmlFor="aclaraciones">
-                  Aclaraciones
-                </label>
-                <textarea
-                  className="aclaracionesInput"
-                  id="aclaraciones"
-                  name="aclaraciones"
-                  type="text"
-                  placeholder="Si necesitás algo, avisanos!"
-                  min={0}
-                  max={3}
-                  value={input.aclaraciones}
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-
-              <div className="pago">
-                <label className="pagoTitle" htmlFor="precio">
-                  Método de pago
-                </label>
-                <div>
-                  {tipoPagos?.map((tipo) => (
-                    <div
-                      key={tipo.id}
-                      className={`pagoInput ${
-                        selectedPayment === Number(tipo.id) ? "selected" : ""
-                      }`}
-                      onClick={() =>
-                        handleSelectTipo({ target: { value: tipo.id } })
-                      }
-                    >
-                      <div className="iconCheck">
-                        <input
-                          type="radio"
-                          id={tipo.id}
-                          name="metodoPago"
-                          value={tipo.id}
-                          className="check"
-                          onChange={(e) => handleSelectTipo(e)}
-                          checked={selectedPayment === Number(tipo.id)}
-                          required
+              <div>
+                {tipoPagos?.map((tipo) => (
+                  <div
+                    key={tipo.id}
+                    className={`pagoInput ${
+                      selectedPayment === Number(tipo.id) ? "selected" : ""
+                    }`}
+                    onClick={() => {
+                      handleSelectTipo({ target: { value: tipo.id } });
+                    }}
+                  >
+                    <div className="iconCheck">
+                      <input
+                        type="radio"
+                        id={tipo.id}
+                        name="metodoPago"
+                        value={tipo.id}
+                        className="check"
+                        onChange={() => {}}
+                        checked={selectedPayment === Number(tipo.id)}
+                        required
+                      />
+                      {tipo.id === 1 && <HiOutlineBanknotes className="icon" />}
+                      {tipo.id === 2 && <AiOutlineBank className="icon" />}
+                      {tipo.id === 3 && (
+                        <AiOutlineCreditCard className="icon" />
+                      )}
+                      {tipo.id === 4 && (
+                        <img
+                          src={mercadoPago}
+                          className="icon"
+                          alt="mercadoPago"
                         />
-                        {tipo.id === 1 && (
-                          <HiOutlineBanknotes className="icon" />
-                        )}
-                        {tipo.id === 2 && <AiOutlineBank className="icon" />}
-                        {tipo.id === 3 && (
-                          <AiOutlineCreditCard className="icon" />
-                        )}
-                        {tipo.id === 4 && (
-                          <img
-                            src={mercadoPago}
-                            className="icon"
-                            alt="mercadoPago"
-                          />
-                        )}
-                      </div>
-
-                      <label htmlFor={tipo.id} className="nombrePago">
-                        {tipo.tipo}
-                      </label>
+                      )}
                     </div>
-                  ))}
-                </div>
-              </div>
 
-              <div className="footer1">
-                <p>Total</p>
-                <p>${precioFinal}</p>
-                <div className="footer">
-                  <div className="botonFooter">
-                    <input
-                      type="submit"
-                      className="hacerPedido"
-                      value="Hacer pedido"
-                    />
+                    <label htmlFor={tipo.id} className="nombrePago">
+                      {tipo.tipo}
+                    </label>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="footer1">
+              <p>Total</p>
+              <p>${precioFinal}</p>
+              <div className="footer">
+                <div className="botonFooter">
+                  <input
+                    type="submit"
+                    className="hacerPedido"
+                    value="Hacer pedido"
+                  />
                 </div>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
         {alertaExito && (
           <Alerta
@@ -305,12 +317,17 @@ export default function HacerPedido() {
             estado={alertaExito}
             setEstado={setAlertaExito}
             callback={() => {
+              // if (vertical) {
               navigate("/historial");
+              // } else {
+              //   setHistorial(true);
+              //   setHacerPedido(false);
+              // }
             }}
           />
         )}
-        {alertaAviso && (
-          <div className="fondoAlerta">
+        {vertical && alertaAviso && (
+          <div className="fondoAlertaMobile">
             <div className="aviso">
               <p className="titulo">¿Estás en el local?</p>
               <p className="texto">

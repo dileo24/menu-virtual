@@ -11,6 +11,8 @@ export default function Contador({
   id,
   itemsExtra,
   cantidadPersonas,
+  setProdID,
+  setItemProd,
 }) {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
@@ -39,10 +41,19 @@ export default function Contador({
   const handleDecremento = (id) => {
     dispatch(eliminarItemCarrito(id));
   };
+
   const navigate = useNavigate();
+
   const handleRelocated = () => {
-    navigate(`/items/${id}`);
+    if (vertical) {
+      navigate(`/items/${id}`);
+    } else {
+      setProdID(id);
+      setItemProd(true);
+    }
   };
+
+  const vertical = window.innerHeight > window.innerWidth;
 
   return (
     <div className="flex">
@@ -50,7 +61,7 @@ export default function Contador({
         <>
           <Button signo="-" funcion={() => handleDecremento(id)} />
 
-          <p className="text-center w-8 focus:outline-none focus:border-none text-xl">
+          <p className={vertical ? "contadorNumMobile" : "contadorNumPC"}>
             {contadorNum.length}
           </p>
         </>

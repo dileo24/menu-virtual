@@ -1,4 +1,4 @@
-.filtro {
+.filtroMobile {
   display: flex;
   width: 100%;
   position: relative;
@@ -25,7 +25,8 @@
   .search {
     display: flex;
     background-color: rgba(0, 0, 0, 0.079);
-    padding: 1.5% 2vw;
+    padding: 0 2vw;
+    height: 8vw;
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
@@ -56,6 +57,75 @@
     position: absolute;
     width: 5vw;
     height: 5vw;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: rgb(131, 131, 131);
+  }
+}
+
+.filtroPC {
+  width: 100%;
+  position: relative;
+  @include center;
+  .ocultarBtn {
+    width: 2vw;
+    height: 2vw;
+    @include center;
+    &:focus {
+      outline: none;
+    }
+    .arrow-left {
+      // position: relative;
+      // display: block;
+      width: 1vw;
+      height: 1vw;
+      border-right: 0.2vw solid black;
+      border-bottom: 0.2vw solid black;
+      transform: rotate(135deg);
+      -webkit-transform: rotate(135deg);
+      -moz-transform: rotate(135deg);
+      -ms-transform: rotate(135deg);
+      -o-transform: rotate(135deg);
+    }
+  }
+  .searchBar,
+  .search {
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.079);
+    padding: 0 1vw;
+    height: 3vw;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    text-align: start;
+  }
+  .searchBar {
+    width: 100%;
+    font-size: $subtSizePC;
+    &::placeholder {
+      color: gray;
+      font-size: $subtSizePC;
+    }
+  }
+  .search {
+    // margin-left: 2vw;
+    width: 100%;
+    background-color: white;
+    border: 1px solid black;
+    font-size: $subtSizePC;
+    &::placeholder {
+      color: black;
+      text-align: center;
+      font-size: $subtSizePC;
+    }
+  }
+  .lupa {
+    position: absolute;
+    width: 1.5vw;
+    height: 1.5vw;
     top: 50%;
     right: 10px;
     transform: translateY(-50%);
