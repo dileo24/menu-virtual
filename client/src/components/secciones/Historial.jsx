@@ -207,11 +207,14 @@ export default function Historial() {
         <p className="alerta">¡Comienza a sumar productos a tu pedido!</p>
         <p className="alerta2">Aún no tienes pedidos hechos</p>
       </div>
-      <div className="footer">
-        <Link to={"/"} className="botonFooter btnVerMenu">
-          Ver Menú
-        </Link>
-      </div>
+
+      {vertical && (
+        <div className="footer">
+          <Link to={"/"} className="botonFooter btnVerMenu">
+            Ver Menú
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

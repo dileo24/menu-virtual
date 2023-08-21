@@ -170,6 +170,10 @@ export default function HacerPedido({ setHacerPedido }) {
         creacionFecha: "",
         creacionHora: "",
       });
+      if (!vertical) {
+        window.location.reload();
+      }
+      //   ;
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
@@ -201,8 +205,7 @@ export default function HacerPedido({ setHacerPedido }) {
             id="formulario"
             className="formulario"
             onSubmit={(e) => {
-              console.log("hooola");
-              setAlertaExito(true);
+              vertical && setAlertaExito(true);
               handleSubmitForm(e);
             }}
           >
@@ -314,11 +317,16 @@ export default function HacerPedido({ setHacerPedido }) {
             estado={alertaExito}
             setEstado={setAlertaExito}
             callback={() => {
+              // if (vertical) {
               navigate("/historial");
+              // } else {
+              //   setHistorial(true);
+              //   setHacerPedido(false);
+              // }
             }}
           />
         )}
-        {alertaAviso && (
+        {vertical && alertaAviso && (
           <div className="fondoAlertaMobile">
             <div className="aviso">
               <p className="titulo">¿Estás en el local?</p>
