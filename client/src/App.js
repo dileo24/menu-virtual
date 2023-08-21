@@ -23,10 +23,10 @@ import EditarUsuario from "./components/formularios/EditarUsuario";
 import { useNavigate } from "react-router-dom";
 
 // Local
-axios.defaults.baseURL = "http://localhost:3001";
+// axios.defaults.baseURL = "http://localhost:3001";
 
 // Deploy
-// axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
+axios.defaults.baseURL = "https://menu-virtual-production-9dbc.up.railway.app";
 
 function App() {
   const navigate = useNavigate();
