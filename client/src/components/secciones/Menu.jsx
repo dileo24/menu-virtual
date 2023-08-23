@@ -53,6 +53,11 @@ export default function Menu({
 
   const vertical = window.innerHeight > window.innerWidth;
 
+  const menuPC = document.querySelector(".menuPC");
+  if (menuPC) {
+    menuPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+  }
+
   return (
     productos && (
       <main id="menuContainer" className={vertical ? "menuMobile" : "menuPC"}>

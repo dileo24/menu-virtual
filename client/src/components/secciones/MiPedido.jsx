@@ -65,6 +65,16 @@ export default function MiPedido({
   };
 
   const vertical = window.innerHeight > window.innerWidth;
+  const miPedidoPC = document.querySelector(".miPedidoPC");
+  if (miPedidoPC) {
+    miPedidoPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
+  }
+  useEffect(() => {
+    const fondoAlertaPedidoPC = document.querySelector(".fondoAlertaPedidoPC");
+    if (fondoAlertaPedidoPC) {
+      fondoAlertaPedidoPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
+    }
+  }, [alertaAviso]);
 
   return (
     <>

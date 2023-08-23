@@ -1,10 +1,12 @@
 .historialMobile,
 .historialMobile2 {
   background-color: rgb(247, 247, 247);
-  height: 100vh;
+  // height: 100%;
   width: 100vw;
   position: relative;
-
+  &.historialMobile2 {
+    overflow-y: hidden;
+  }
   .centro {
     position: absolute;
     top: 50%;
@@ -195,7 +197,7 @@
   position: fixed;
   top: 0;
   right: 0;
-  height: 80vh;
+  // height: 80vh;
   margin-top: 20vh;
   overflow-y: auto;
   padding: 2% 0 1% 0;

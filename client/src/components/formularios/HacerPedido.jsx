@@ -179,6 +179,11 @@ export default function HacerPedido({ setHacerPedido }) {
     }
   };
 
+  const hacerPedidoPC = document.querySelector(".hacerPedidoPC");
+  if (hacerPedidoPC) {
+    hacerPedidoPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
+  }
+
   return (
     <>
       <div className={vertical ? "hacerPedidoMobile" : "hacerPedidoPC"}>

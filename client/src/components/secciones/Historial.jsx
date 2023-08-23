@@ -118,6 +118,15 @@ export default function Historial() {
 
   const vertical = window.innerHeight > window.innerWidth;
 
+  const historialMobile2 = document.querySelector(".historialMobile2");
+  if (historialMobile2) {
+    historialMobile2.style.height = `${window.innerHeight}px`;
+  }
+  const historialPC2 = document.querySelector(".historialPC2");
+  if (historialPC2) {
+    historialPC2.style.height = `calc(${window.innerHeight}px - 20vh)`;
+  }
+
   return pedidos &&
     pedidosActuales.length > 0 &&
     pedidosActuales.some(
