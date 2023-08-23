@@ -56,6 +56,14 @@ export default function ModalLogin({ onClose }) {
   };
 
   const vertical = window.innerHeight > window.innerWidth;
+  const loginContainerMobile = document.querySelector(".loginContainerMobile");
+  if (loginContainerMobile) {
+    loginContainerMobile.style.height = `${window.innerHeight}px`;
+  }
+  const loginContainerPC = document.querySelector(".loginContainerPC");
+  if (loginContainerPC) {
+    loginContainerPC.style.height = `${window.innerHeight}px`;
+  }
 
   return (
     <div className={vertical ? "loginContainerMobile" : "loginContainerPC"}>
