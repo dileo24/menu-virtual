@@ -178,6 +178,10 @@ const Carrusel = () => {
     preciosArray.length && setHistorial(false);
   }, [preciosArray]);
 
+  useEffect(() => {
+    indexProd && console.log(indexProd);
+  }, [editarItemProd]);
+
   /*  useEffect(() => {
     if (!vertical && historial) {
       // Local
@@ -291,7 +295,7 @@ const Carrusel = () => {
             !vertical &&
             editarItemProd &&
             prodID &&
-            indexProd && (
+            (indexProd || indexProd === 0) && (
               <UpdateItemsCliente
                 setEditarItemProd={setEditarItemProd}
                 prodID={prodID}

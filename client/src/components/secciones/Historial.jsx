@@ -129,9 +129,9 @@ export default function Historial() {
     historialPC2.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
-  pedidos && pedidosActuales.length > 0
-    ? console.log(true)
-    : console.log(false);
+  // pedidos && pedidosActuales.length > 0
+  //   ? console.log(true)
+  //   : console.log(false);
 
   return pedidos &&
     pedidosActuales.length > 0 &&
