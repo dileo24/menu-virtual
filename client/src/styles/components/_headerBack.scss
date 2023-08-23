@@ -70,6 +70,7 @@
   justify-content: space-between;
   height: auto;
   width: 100%;
+  padding: 2%;
   //   padding-bottom: 0;
   .titulo {
     display: flex;
@@ -90,7 +91,7 @@
     width: 2vw;
     height: 2vw;
     border: 1px solid $paragraph;
-    border-radius: 8px;
+    border-radius: 0.5vw;
     background-color: rgb(255, 255, 255);
     @include center;
     .arrow-down {
@@ -113,8 +114,8 @@
       width: 0.8vw;
       height: 0.8vw;
       margin-right: -5px;
-      border-right: 3px solid black;
-      border-bottom: 3px solid black;
+      border-right: 0.2vw solid black;
+      border-bottom: 0.2vw solid black;
       transform: rotate(135deg);
       -webkit-transform: rotate(135deg);
       -moz-transform: rotate(135deg);

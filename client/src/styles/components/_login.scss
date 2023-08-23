@@ -1,4 +1,4 @@
-.loginContainer {
+.loginContainerMobile {
   position: relative;
   height: 100vh;
   width: 100vw;
@@ -86,6 +86,105 @@
           p {
             font-weight: $titleWeight;
             font-size: 3.8vw;
+          }
+        }
+      }
+    }
+  }
+}
+
+////////// Responsive horizontal /////////////
+
+.loginContainerPC {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(247, 247, 247);
+
+  .marcaCardCont {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    h1 {
+      font-size: 2vw;
+      color: $naranja;
+      font-weight: 800;
+      // @include center:;
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .cardContainer {
+      .cardLogin {
+        background-color: rgb(255, 255, 255);
+        width: 40vw;
+        margin-bottom: 0;
+        border-radius: 1vw;
+        -webkit-border-radius: 1vw;
+        -moz-border-radius: 1vw;
+        -ms-border-radius: 1vw;
+        -o-border-radius: 1vw;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        padding: 4%;
+        height: auto;
+        margin-bottom: -10%;
+        .formLogin {
+          .email,
+          .clave {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2.5%;
+            position: relative;
+            .emailLabel,
+            .claveLabel {
+              font-weight: 800;
+            }
+            .emailInput,
+            .claveInput {
+              border: 0.5px solid #99999999;
+              padding: 2.5%;
+              margin-top: 2.5%;
+              &::placeholder {
+                color: #999;
+              }
+            }
+            .ojoCerrado,
+            .ojoAbierto {
+              position: absolute;
+              top: 55%;
+              right: 3%;
+              color: #999;
+              width: 2vw;
+              height: 2vw;
+              cursor: pointer;
+            }
+          }
+          .submitBtn {
+            margin-top: 5%;
+            width: 100%;
+            padding: 3.5% 0;
+            font-weight: $titleWeight;
+            background-color: $naranja;
+            border-radius: 8px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            -ms-border-radius: 8px;
+            -o-border-radius: 8px;
+          }
+        }
+        .aviso {
+          @include center;
+          margin: 10% 0 5% 0;
+          .avisoIcon {
+            width: 2vw;
+            height: 2vw;
+            margin-right: 2.5%;
+          }
+          p {
+            font-weight: $titleWeight;
+            font-size: $titleSizePC;
           }
         }
       }
