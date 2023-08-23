@@ -58,7 +58,7 @@ export default function ModalLogin({ onClose }) {
   const vertical = window.innerHeight > window.innerWidth;
 
   return (
-    <div className="loginContainer">
+    <div className={vertical ? "loginContainerMobile" : "loginContainerPC"}>
       <HeaderBack url={"/"} arrowType={"left"} title={``} />
       <div className="marcaCardCont">
         <h1 className="">QuickBites</h1>

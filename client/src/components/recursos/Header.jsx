@@ -492,78 +492,80 @@ export default function Header({
                 />
               </div>
             )}
-
-            <div id="categorias" className="categsYSubcategs">
-              <div className="categorias" ref={scrollableRef}>
-                <div className="botonesCont">
-                  {!vertical && <p className="categTitle">Categorías</p>}
-
-                  <div className="botones">
-                    <button
-                      className={`menuBtn ${
-                        currentSlide === 0 ? "active" : ""
-                      }`}
-                      id="0"
-                      onClick={() => {
-                        setCurrentSlide(0);
-                        window.scrollTo({ top: 0 });
-                      }}
-                    >
-                      Menú completo
-                    </button>
-                    {newCateg &&
-                      newCateg.map((categ, index) => (
-                        <React.Fragment key={categ.id}>
-                          <button
-                            className={`categoria ${
-                              currentSlide === index + 1 ? "active" : ""
-                            }`}
-                            id={categ.id}
-                            onClick={() => {
-                              setCurrentSlide(index + 1);
-                              window.scrollTo({ top: 0 });
-                            }}
-                          >
-                            {categ.nombre}
-                          </button>
-                        </React.Fragment>
-                      ))}
-                  </div>
-                </div>
-              </div>
-
-              {newSubCategs.filter(
-                (subC) => subC.categoria.id === categActiveId
-              ).length >= 2 && (
-                <div className="subCategorias">
+            {(vertical && !busqueda) || !vertical ? (
+              <div id="categorias" className="categsYSubcategs">
+                <div className="categorias" ref={scrollableRef}>
                   <div className="botonesCont">
-                    {!vertical && (
-                      <p className="subCategTitle">SubCategorías</p>
-                    )}
+                    {!vertical && <p className="categTitle">Categorías</p>}
 
                     <div className="botones">
-                      {newSubCategs
-                        .filter((subC) => subC.categoria.id === categActiveId)
-                        .map((subC) => (
-                          <button
-                            /* className={`subCategoria ${
-                              subC === focusedSubcategory ? "focused" : ""
-                            }`} */
-                            className="subCategoria"
-                            key={subC.nombre}
-                            onClick={() => {
-                              // setFocusedSubcategory(subC);
-                              vertical && handleButtonClick(subC);
-                            }}
-                          >
-                            {subC.nombre}
-                          </button>
+                      <button
+                        className={`menuBtn ${
+                          currentSlide === 0 ? "active" : ""
+                        }`}
+                        id="0"
+                        onClick={() => {
+                          setCurrentSlide(0);
+                          window.scrollTo({ top: 0 });
+                        }}
+                      >
+                        Menú completo
+                      </button>
+                      {newCateg &&
+                        newCateg.map((categ, index) => (
+                          <React.Fragment key={categ.id}>
+                            <button
+                              className={`categoria ${
+                                currentSlide === index + 1 ? "active" : ""
+                              }`}
+                              id={categ.id}
+                              onClick={() => {
+                                setCurrentSlide(index + 1);
+                                window.scrollTo({ top: 0 });
+                                setBusqueda(false);
+                              }}
+                            >
+                              {categ.nombre}
+                            </button>
+                          </React.Fragment>
                         ))}
                     </div>
                   </div>
                 </div>
-              )}
-            </div>
+
+                {newSubCategs.filter(
+                  (subC) => subC.categoria.id === categActiveId
+                ).length >= 2 && (
+                  <div className="subCategorias">
+                    <div className="botonesCont">
+                      {!vertical && (
+                        <p className="subCategTitle">SubCategorías</p>
+                      )}
+
+                      <div className="botones">
+                        {newSubCategs
+                          .filter((subC) => subC.categoria.id === categActiveId)
+                          .map((subC) => (
+                            <button
+                              /* className={`subCategoria ${
+                              subC === focusedSubcategory ? "focused" : ""
+                            }`} */
+                              className="subCategoria"
+                              key={subC.nombre}
+                              onClick={() => {
+                                // setFocusedSubcategory(subC);
+                                vertical && handleButtonClick(subC);
+                              }}
+                            >
+                              {subC.nombre}
+                            </button>
+                          ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : null}
           </>
         )}
       </div>

@@ -141,11 +141,11 @@
       padding-bottom: 2%;
       justify-content: flex-start;
       z-index: 99999;
-      border-radius: 8px;
-      -webkit-border-radius: 8px;
-      -moz-border-radius: 8px;
-      -ms-border-radius: 8px;
-      -o-border-radius: 8px;
+      border-radius: 1vw;
+      -webkit-border-radius: 1vw;
+      -moz-border-radius: 1vw;
+      -ms-border-radius: 1vw;
+      -o-border-radius: 1vw;
       &::-webkit-scrollbar {
         width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
         height: auto; /* Cambia el ancho del scrollbar horizontal */
@@ -168,7 +168,7 @@
         width: 2vw;
         height: 2vw;
         border: 1px solid $paragraph;
-        border-radius: 8px;
+        border-radius: 0.5vw;
         background-color: rgb(255, 255, 255);
         @include center;
         cursor: pointer;
@@ -180,11 +180,11 @@
         .arrow-left {
           position: relative;
           display: block;
-          width: 12px;
-          height: 12px;
+          width: 0.8vw;
+          height: 0.8vw;
           margin-right: -5px;
-          border-right: 3px solid black;
-          border-bottom: 3px solid black;
+          border-right: 0.2vw solid black;
+          border-bottom: 0.2vw solid black;
           transform: rotate(135deg);
           -webkit-transform: rotate(135deg);
           -moz-transform: rotate(135deg);

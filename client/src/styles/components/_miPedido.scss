@@ -298,7 +298,7 @@
               width: 2vw;
               height: 2vw;
               border: 1px solid $paragraph;
-              border-radius: 6px;
+              border-radius: 0.5vw;
               @include center;
               margin-right: 1vw;
               cursor: pointer;
@@ -312,7 +312,7 @@
               width: 2vw;
               height: 2vw;
               border: 1px solid $paragraph;
-              border-radius: 6px;
+              border-radius: 0.5vw;
               @include center;
               .eliminarIcon {
                 width: 1.2vw;
