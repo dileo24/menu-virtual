@@ -153,29 +153,28 @@
 // Responsive
 
 .hacerPedidoPC {
-  height: 100%;
-  .desplegable2 {
-    z-index: 999;
-    background-color: white;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    height: 80vh;
-    width: 30vw;
+  z-index: 999;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  // height: 80vh;
+  width: 30vw;
 
-    overflow-y: auto;
-    padding-bottom: 10%;
-    justify-content: flex-start;
-    padding: 1.5%;
-    padding-bottom: 10%;
-    &::-webkit-scrollbar {
-      width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
-      height: auto; /* Cambia el ancho del scrollbar horizontal */
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #d5d5d5; /* Color del "pulgar" del scrollbar */
-      border-radius: 5px; /* Borde redondeado del pulgar */
-    }
+  overflow-y: auto;
+  padding-bottom: 10%;
+  justify-content: flex-start;
+  padding: 1.5%;
+  padding-bottom: 10%;
+  &::-webkit-scrollbar {
+    width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
+    height: auto; /* Cambia el ancho del scrollbar horizontal */
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #d5d5d5; /* Color del "pulgar" del scrollbar */
+    border-radius: 5px; /* Borde redondeado del pulgar */
+  }
+  .desplegable2 {
     .formulario {
       .mesa,
       .aclaraciones,
