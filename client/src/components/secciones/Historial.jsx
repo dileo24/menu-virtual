@@ -11,9 +11,9 @@ import bandeja from "../../multmedia/bandeja.svg";
 import { Link } from "react-router-dom";
 import { AiOutlineCreditCard } from "react-icons/ai";
 
-export default function Historial() {
-  const pedidos = useSelector((state) => state.pedidos);
+export default function Historial({ pedidos }) {
   const productos = useSelector((state) => state.productos);
+  const pedidosVertical = useSelector((state) => state.pedidos);
   const [inputData, setInputData] = useState([]);
   const dispatch = useDispatch();
   const [socket, setSocket] = useState(null);
@@ -61,7 +61,11 @@ export default function Historial() {
   }, [socket, dispatch]);
 
   let pedidosActuales = inputData
-    .map((idPed) => pedidos.filter((ped) => ped.id === idPed.id))
+    .map((idPed) =>
+      pedidos
+        ? pedidos.filter((ped) => ped.id === idPed.id)
+        : pedidosVertical.filter((ped) => ped.id === idPed.id)
+    )
     .flat();
 
   const itemsArray = pedidosActuales.map((pedido) =>
@@ -127,7 +131,7 @@ export default function Historial() {
     historialPC2.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
-  return pedidos &&
+  return (vertical ? pedidosVertical : pedidos) &&
     pedidosActuales.length > 0 &&
     pedidosActuales.some(
       (pedido) => pedido && pedido.EstadoId !== 4 && pedido.EstadoId !== 5
@@ -203,7 +207,8 @@ export default function Historial() {
                 </div>
               </div>
             )
-        )}
+        )
+        .reverse()}
     </div>
   ) : (
     <div className={vertical ? "historialMobile2" : "historialPC2"}>
