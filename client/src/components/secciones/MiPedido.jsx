@@ -109,7 +109,14 @@ export default function MiPedido({
                     <div className="accionesCont">
                       <div className="acciones">
                         {prod.itemsExtra && (
-                          <div className="iconContainer1">
+                          <div
+                            className="iconContainer1"
+                            onClick={() => {
+                              setEditarItemProd(true);
+                              setIndexProd(index);
+                              setProdID(prod.id);
+                            }}
+                          >
                             {vertical ? (
                               <Link
                                 to={`/updateItems/${prod.id}/${index}`}
@@ -118,26 +125,19 @@ export default function MiPedido({
                                 <HiOutlinePencil className="editarIcon" />
                               </Link>
                             ) : (
-                              <button
-                                className="editarItems"
-                                onClick={() => {
-                                  setEditarItemProd(true);
-                                  setIndexProd(index);
-                                  setProdID(prod.id);
-                                }}
-                              >
+                              <button className="editarItems">
                                 <HiOutlinePencil className="editarIcon" />
                               </button>
                             )}
                           </div>
                         )}
-                        <div className="iconContainer2">
-                          <VscTrash
-                            className="eliminarIcon"
-                            onClick={() => {
-                              handleEliminarItemCarrito(prod.id, index);
-                            }}
-                          />
+                        <div
+                          className="iconContainer2"
+                          onClick={() => {
+                            handleEliminarItemCarrito(prod.id, index);
+                          }}
+                        >
+                          <VscTrash className="eliminarIcon" />
                         </div>
                       </div>
                     </div>
