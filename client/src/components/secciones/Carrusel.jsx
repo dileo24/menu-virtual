@@ -178,6 +178,8 @@ const Carrusel = () => {
     preciosArray.length && setHistorial(false);
   }, [preciosArray]);
 
+  const pedidos = useSelector((state) => state.pedidos);
+
   return (
     <div className="containerCarrusel">
       <Header
@@ -267,7 +269,9 @@ const Carrusel = () => {
               setProdID={setProdID}
             />
           )}
-          {!userActual && !vertical && historial && <Historial />}
+          {!userActual && !vertical && historial && (
+            <Historial pedidos={pedidos} />
+          )}
           {!userActual && !vertical && itemProd && prodID && (
             <ItemsCliente setItemProd={setItemProd} prodID={prodID} />
           )}
