@@ -7,7 +7,6 @@ import MiPedido from "./MiPedido";
 import Historial from "./Historial";
 import ItemsCliente from "./ItemsCliente";
 import UpdateItemsCliente from "./UpdateItemsCliente";
-
 import { getProductos, deleteProducto } from "../../redux/actions";
 import Swipe from "react-swipe";
 import { Link } from "react-router-dom";
@@ -17,6 +16,7 @@ import Alerta from "../recursos/Alerta";
 const Carrusel = () => {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
   const [currentSlide, setCurrentSlide] = useState(0);
+  // const [socket, setSocket] = useState(null);
   // const [diapositiva, setDiapositiva] = useState(0);
   // const prevDiapositivaRef = useRef(diapositiva);
   const carruselRef = useRef(null); // Referencia al contenedor principal
@@ -178,7 +178,25 @@ const Carrusel = () => {
     preciosArray.length && setHistorial(false);
   }, [preciosArray]);
 
-  const pedidos = useSelector((state) => state.pedidos);
+  useEffect(() => {
+    indexProd && console.log(indexProd);
+  }, [editarItemProd]);
+
+  /*  useEffect(() => {
+    if (!vertical && historial) {
+      // Local
+      // const socket = io("http://localhost:3001");
+
+      // Deploy
+      const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+
+      setSocket(socket);
+
+      return () => {
+        socket.disconnect();
+      };
+    }
+  }, []); */
 
   return (
     <div className="containerCarrusel">
@@ -269,9 +287,7 @@ const Carrusel = () => {
               setProdID={setProdID}
             />
           )}
-          {!userActual && !vertical && historial && (
-            <Historial pedidos={pedidos} />
-          )}
+          {!userActual && !vertical && historial && <Historial />}
           {!userActual && !vertical && itemProd && prodID && (
             <ItemsCliente setItemProd={setItemProd} prodID={prodID} />
           )}
@@ -279,7 +295,7 @@ const Carrusel = () => {
             !vertical &&
             editarItemProd &&
             prodID &&
-            indexProd && (
+            (indexProd || indexProd === 0) && (
               <UpdateItemsCliente
                 setEditarItemProd={setEditarItemProd}
                 prodID={prodID}

@@ -76,6 +76,14 @@ export default function MiPedido({
     }
   }, [alertaAviso]);
 
+  const handleEdit = (index, prod) => {
+    if (!vertical) {
+      setEditarItemProd(true);
+      setIndexProd(index);
+      setProdID(prod.id);
+    }
+  };
+
   return (
     <>
       <div className={vertical ? "miPedidoMobile" : "miPedidoPC"}>
@@ -121,11 +129,7 @@ export default function MiPedido({
                         {prod.itemsExtra && (
                           <div
                             className="iconContainer1"
-                            onClick={() => {
-                              setEditarItemProd(true);
-                              setIndexProd(index);
-                              setProdID(prod.id);
-                            }}
+                            onClick={() => handleEdit(index, prod)}
                           >
                             {vertical ? (
                               <Link
@@ -135,7 +139,15 @@ export default function MiPedido({
                                 <HiOutlinePencil className="editarIcon" />
                               </Link>
                             ) : (
-                              <button className="editarItems">
+                              <button
+                                className="editarItems"
+                                /* onClick={() => {
+                                  setEditarItemProd(true);
+                                  setIndexProd(index);
+                                  console.log(index);
+                                  setProdID(prod.id);
+                                }} */
+                              >
                                 <HiOutlinePencil className="editarIcon" />
                               </button>
                             )}
