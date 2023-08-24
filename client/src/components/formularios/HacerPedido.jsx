@@ -13,8 +13,8 @@ import Alerta from "../recursos/Alerta";
 
 export default function HacerPedido({
   setHacerPedido,
-  setMiPedido,
-  setHistorial,
+  /* setMiPedido,
+  setHistorial, */
 }) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
@@ -43,6 +43,7 @@ export default function HacerPedido({
   const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? ["vacio"]);
   const [alertaExito, setAlertaExito] = useState(false);
   const [alertaAviso, setAlertaAviso] = useState(false);
+  const [recargar, setRecargar] = useState(false);
 
   const [input, setInput] = useState({
     id: id,
@@ -174,13 +175,18 @@ export default function HacerPedido({
         creacionFecha: "",
         creacionHora: "",
       });
-      setMiPedido(false);
-      setHacerPedido(false);
-      setHistorial(true);
+      // setMiPedido(false);
+      // setHacerPedido(false);
+      // setHistorial(true);
+      setRecargar(true);
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
+
+  useEffect(() => {
+    recargar && window.location.reload();
+  }, [recargar]);
 
   const hacerPedidoPC = document.querySelector(".hacerPedidoPC");
   if (hacerPedidoPC) {
@@ -315,7 +321,7 @@ export default function HacerPedido({
             </div>
           </form>
         </div>
-        {alertaExito && (
+        {vertical && alertaExito && (
           <Alerta
             tipo={"exito"}
             titulo={"Pedido exitoso"}
