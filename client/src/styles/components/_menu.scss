@@ -122,7 +122,7 @@
   .cardsContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 2vw; /* Espacio entre las tarjetas */
+    gap: 0 2vw; /* Espacio entre las tarjetas */
   }
   .resultados {
     font-size: $titleSizePC;
@@ -132,8 +132,8 @@
   .nombreCateg {
     font-weight: $titleWeight;
     font-size: $titleSizePC;
-    margin-bottom: 2.5%;
-    margin-top: 5%;
+    margin-bottom: 1vw;
+    margin-top: 2.5%;
   }
   .primerNombre {
     margin-top: 0;
@@ -142,9 +142,9 @@
   .nombreSubCateg {
     display: flex;
     font-weight: $titleWeight;
-    font-size: $titleSizePC;
-    margin-bottom: 2.5%;
-    margin-top: 5%;
+    font-size: $subtSizePC;
+    margin-bottom: 1vw;
+    // margin-top: 5%;
   }
   .noVisibles {
     border-top: 1px solid grey;
@@ -155,7 +155,7 @@
     flex: 1;
 
     &:nth-child(2) {
-      margin-top: 14.5%;
+      margin-top: 11%;
     }
   }
   .cardProducto,
@@ -170,7 +170,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     flex: 1;
     padding: 1vw;
-    margin-top: 0;
+    margin-bottom: 2vw;
     max-height: fit-content;
     display: flex;
     flex-direction: column;
