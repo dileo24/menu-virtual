@@ -71,10 +71,10 @@ export default function HacerPedido({ setHacerPedido }) {
     }
 
     // Local
-    // const socket = io("http://localhost:3001");
+    const socket = io("http://localhost:3001");
 
     // Deploy
-    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+    // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
 
