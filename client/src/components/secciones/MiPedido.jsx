@@ -17,8 +17,8 @@ export default function MiPedido({
   setEditarItemProd,
   setIndexProd,
   setProdID,
-  setMiPedido,
-  setHistorial,
+  /*  setMiPedido,
+  setHistorial, */
 }) {
   const carrito = useSelector((state) => state.carrito);
   const [preciosArray, setPreciosArray] = useState([]);
@@ -243,8 +243,8 @@ export default function MiPedido({
       {hacerPedido && preciosArray.length && (
         <HacerPedido
           setHacerPedido={setHacerPedido}
-          setMiPedido={setMiPedido}
-          setHistorial={setHistorial}
+          /* setMiPedido={setMiPedido}
+          setHistorial={setHistorial} */
         />
       )}
     </>
