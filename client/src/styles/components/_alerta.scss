@@ -109,22 +109,23 @@
   .aviso {
     width: 20vw;
     padding: 1.5vw;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    border-radius: 1vw;
+    -webkit-border-radius: 1vw;
+    -moz-border-radius: 1vw;
+    -ms-border-radius: 1vw;
+    -o-border-radius: 1vw;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     .titulo {
       font-weight: $titleWeight;
       font-size: $titleSizePC;
-      margin-bottom: 1vw;
+      // margin-bottom: 1vw;
       text-align: center;
+      line-height: 1;
     }
     .texto {
       text-align: center;
       font-size: $descrSizePC;
-      padding: 0 8%;
+      padding: 5% 8%;
     }
     .btnCont {
       @include center;
@@ -132,17 +133,17 @@
       .aceptar,
       .aceptarAviso,
       .aceptarSolo {
-        margin-top: 1vw;
+        // margin-top: 1vw;
         font-weight: $titleWeight;
         font-size: $descrSizePC;
         line-height: 1;
         padding: 0.8vw;
         width: 40vw;
-        border-radius: 10px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        -ms-border-radius: 10px;
-        -o-border-radius: 10px;
+        border-radius: 0.7vw;
+        -webkit-border-radius: 0.7vw;
+        -moz-border-radius: 0.7vw;
+        -ms-border-radius: 0.7vw;
+        -o-border-radius: 0.7vw;
       }
       .cancelar {
         background-color: white;
@@ -177,5 +178,15 @@
     background-color: white;
     /* background-color: #ffe5e5;
     border: 1px solid #ff3d3d; */
+  }
+}
+.fondoAlertaPedidoPC {
+  .aviso {
+    .btnCont {
+      .cancelar,
+      .aceptarAviso {
+        padding: 0.8vw 1.5vw;
+      }
+    }
   }
 }

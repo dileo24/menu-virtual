@@ -242,7 +242,7 @@
         -ms-border-radius: 0.8vw;
         -o-border-radius: 0.8vw;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        padding: 2.5%;
+        padding: 1vw;
         height: auto;
         display: flex;
         align-items: center;
@@ -277,8 +277,8 @@
               margin-bottom: 10px;
               .list-item-circle {
                 display: inline-block;
-                width: 0.4vw;
-                height: 0.4vw;
+                width: 0.3vw;
+                height: 0.3vw;
                 border-radius: 50%;
                 background-color: black;
                 margin-right: 0.4vw;
