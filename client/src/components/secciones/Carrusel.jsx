@@ -285,6 +285,8 @@ const Carrusel = () => {
               setEditarItemProd={setEditarItemProd}
               setIndexProd={setIndexProd}
               setProdID={setProdID}
+              setMiPedido={setMiPedido}
+              setHistorial={setHistorial}
             />
           )}
           {!userActual && !vertical && historial && <Historial />}

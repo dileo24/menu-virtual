@@ -11,7 +11,11 @@ import { io } from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
 import Alerta from "../recursos/Alerta";
 
-export default function HacerPedido({ setHacerPedido }) {
+export default function HacerPedido({
+  setHacerPedido,
+  setMiPedido,
+  setHistorial,
+}) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
   const pedidos = useSelector((state) => state.pedidos);
@@ -170,10 +174,9 @@ export default function HacerPedido({ setHacerPedido }) {
         creacionFecha: "",
         creacionHora: "",
       });
-      if (!vertical) {
-        window.location.reload();
-      }
-      //   ;
+      setMiPedido(false);
+      setHacerPedido(false);
+      setHistorial(true);
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
