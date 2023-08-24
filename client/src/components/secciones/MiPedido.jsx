@@ -11,12 +11,14 @@ import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
 import HeaderBack from "../recursos/HeaderBack";
 import HacerPedido from "../formularios/HacerPedido";
-import Alerta from "../recursos/Alerta";
+// import Alerta from "../recursos/Alerta";
 
 export default function MiPedido({
   setEditarItemProd,
   setIndexProd,
   setProdID,
+  setMiPedido,
+  setHistorial,
 }) {
   const carrito = useSelector((state) => state.carrito);
   const [preciosArray, setPreciosArray] = useState([]);
@@ -239,7 +241,11 @@ export default function MiPedido({
       </div>
 
       {hacerPedido && preciosArray.length && (
-        <HacerPedido setHacerPedido={setHacerPedido} />
+        <HacerPedido
+          setHacerPedido={setHacerPedido}
+          setMiPedido={setMiPedido}
+          setHistorial={setHistorial}
+        />
       )}
     </>
   );

@@ -11,7 +11,11 @@ import { io } from "socket.io-client";
 import HeaderBack from "../recursos/HeaderBack";
 import Alerta from "../recursos/Alerta";
 
-export default function HacerPedido({ setHacerPedido }) {
+export default function HacerPedido({
+  setHacerPedido,
+  setMiPedido,
+  setHistorial,
+}) {
   const [selectedPayment, setSelectedPayment] = useState(null);
   const carrito = useSelector((state) => state.carrito);
   const pedidos = useSelector((state) => state.pedidos);
@@ -71,10 +75,10 @@ export default function HacerPedido({ setHacerPedido }) {
     }
 
     // Local
-    const socket = io("http://localhost:3001");
+    // const socket = io("http://localhost:3001");
 
     // Deploy
-    // const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
+    const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
 
     setSocket(socket);
 
@@ -170,10 +174,9 @@ export default function HacerPedido({ setHacerPedido }) {
         creacionFecha: "",
         creacionHora: "",
       });
-      if (!vertical) {
-        window.location.reload();
-      }
-      //   ;
+      setMiPedido(false);
+      setHacerPedido(false);
+      setHistorial(true);
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }

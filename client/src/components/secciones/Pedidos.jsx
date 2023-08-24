@@ -16,10 +16,10 @@ export default function Pedidos() {
   const scrollableRef = useRef(null);
   const [estadoActiveId, setEstadoActiveId] = useState(0);
   // const [inputData, setInputData] = useState([]);
-  const [busqueda, setBusqueda] = useState(false);
-  const [checkAlertaError, setCheckAlertaError] = useState(false);
+  // const [busqueda, setBusqueda] = useState(false);
+  // const [checkAlertaError, setCheckAlertaError] = useState(false);
   const estados = useSelector((state) => state.estados);
-  const [nuevosPedidos, setNuevosPedidos] = useState([]);
+  // const [nuevosPedidos, setNuevosPedidos] = useState([]);
   const [openCardId, setOpenCardId] = useState(null);
 
   useEffect(() => {
@@ -60,6 +60,13 @@ export default function Pedidos() {
       }
     }
   };
+
+  useEffect(() => {
+    const pedidosContainer = document.querySelector(".pedidosContainer");
+    if (pedidosContainer) {
+      pedidosContainer.style.minHeight = `calc(${window.innerHeight}px)`;
+    }
+  }, [currentSlide, openCardId]);
 
   return (
     <div id="productos" className="pedidosContainer">
