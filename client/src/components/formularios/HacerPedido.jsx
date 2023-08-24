@@ -43,7 +43,7 @@ export default function HacerPedido({
   const itemsDelCarrito = carrito.map((prod) => prod.itemsExtra ?? ["vacio"]);
   const [alertaExito, setAlertaExito] = useState(false);
   const [alertaAviso, setAlertaAviso] = useState(false);
-  const [recargar, setRecargar] = useState(false);
+  // const [recargar, setRecargar] = useState(false);
 
   const [input, setInput] = useState({
     id: id,
@@ -140,30 +140,28 @@ export default function HacerPedido({
     0
   );
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
     e.preventDefault();
     if (carrito.length) {
-      // Obtener la lista de inputs previamente almacenados
       let storedInputs = localStorage.getItem("inputs");
       if (storedInputs) {
         storedInputs = JSON.parse(storedInputs);
       } else {
-        storedInputs = []; // Si no hay inputs previos, crear una lista vacía
+        storedInputs = [];
       }
 
-      // Agregar el nuevo input a la lista de inputs almacenados
       storedInputs.push({ id });
-
-      // Guardar la lista actualizada de inputs en el localStorage
       localStorage.setItem("inputs", JSON.stringify(storedInputs));
       console.log(input);
 
       if (socket) {
         socket.emit("nuevoPedido", input);
       }
-      /* console.log(input); */
-      dispatch(createPedido(input));
-      dispatch(limpiarCarrito());
+
+      // Await for the dispatches to complete
+      await dispatch(createPedido(input));
+      await dispatch(limpiarCarrito());
+
       setInput({
         productos: [],
         precio: "",
@@ -175,18 +173,13 @@ export default function HacerPedido({
         creacionFecha: "",
         creacionHora: "",
       });
-      // setMiPedido(false);
-      // setHacerPedido(false);
-      // setHistorial(true);
-      setRecargar(true);
+
+      // Reload the page after dispatches have completed
+      window.location.reload();
     } else {
       alert("Error: No elegiste ningún producto del Menú");
     }
   };
-
-  useEffect(() => {
-    recargar && window.location.reload();
-  }, [recargar]);
 
   const hacerPedidoPC = document.querySelector(".hacerPedidoPC");
   if (hacerPedidoPC) {
