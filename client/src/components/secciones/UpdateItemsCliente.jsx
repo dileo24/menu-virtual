@@ -38,6 +38,12 @@ export default function UpdateItemsCliente({
     arrayItems[index] = item;
     setItemsExtraArray(arrayItems);
   };
+
+  const elegirItemsMobile = document.querySelector(".elegirItemsMobile");
+  if (elegirItemsMobile) {
+    elegirItemsMobile.style.minHeight = `calc(${window.innerHeight}px)`;
+  }
+
   return (
     <div className={vertical ? "elegirItemsMobile" : "elegirItemsPC"}>
       <div className="fondo">
