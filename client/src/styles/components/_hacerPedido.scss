@@ -1,11 +1,10 @@
 .hacerPedidoMobile {
   height: 100%;
+  width: 100vw;
+  background-color: rgb(247, 247, 247);
+  padding-bottom: 30%;
+  justify-content: flex-start;
   .desplegable2 {
-    min-height: 100vh;
-    width: 100vw;
-    background-color: rgb(247, 247, 247);
-    padding-bottom: 30%;
-    justify-content: flex-start;
     .formulario {
       .mesa,
       .aclaraciones,

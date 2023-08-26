@@ -186,6 +186,10 @@ export default function HacerPedido({
     hacerPedidoPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
+  const hacerPedidoMobile = document.querySelector(".hacerPedidoMobile");
+  if (hacerPedidoMobile) {
+    hacerPedidoMobile.style.minHeight = `calc(${window.innerHeight}px)`;
+  }
   return (
     <>
       <div className={vertical ? "hacerPedidoMobile" : "hacerPedidoPC"}>
