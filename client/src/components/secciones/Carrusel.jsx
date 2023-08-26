@@ -227,7 +227,7 @@ const Carrusel = () => {
                 <Menu
                   categ={"todas"}
                   prodsBuscados={homeBusqueda}
-                  currentSlide={currentSlide}
+                  // currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
                   busqueda={busqueda}
                   setItemProd={setItemProd}
@@ -244,7 +244,7 @@ const Carrusel = () => {
                       {currentSlide !== 0 && (
                         <Menu
                           categ={categ.nombre}
-                          currentSlide={currentSlide}
+                          // currentSlide={currentSlide}
                           handleClickEliminar={handleClickEliminar}
                           busqueda={busqueda}
                           setItemProd={setItemProd}

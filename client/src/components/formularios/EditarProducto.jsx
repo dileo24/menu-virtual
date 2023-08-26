@@ -100,7 +100,7 @@ export default function EditarProductos() {
   function validarProducto(e) {
     e.preventDefault();
 
-    if (checkForEmptyElements(itemsExtra)) {
+    if (itemsExtra && checkForEmptyElements(itemsExtra)) {
       return setAlertaError({
         estadoActualizado: true,
         texto: `Falta seleccionar la categoría de algún ítem extra`,

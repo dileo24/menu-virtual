@@ -5,7 +5,7 @@ import { getCategorias, getSubcategorias } from "../../redux/actions";
 import { Link } from "react-router-dom";
 // import { func } from "prop-types";
 import Header from "../recursos/Header";
-import HeaderBack from "../recursos/HeaderBack";
+// import HeaderBack from "../recursos/HeaderBack";
 
 export default function FormProducto({
   titulo,
@@ -82,6 +82,11 @@ export default function FormProducto({
       setTipoElegido(false);
     }
   }, [combo, crearProducto]);
+
+  const prodContainer = document.querySelector(".prodContainer");
+  if (prodContainer) {
+    prodContainer.style.minHeight = `${window.innerHeight}px`;
+  }
 
   return (
     <div className="prodContainer">
