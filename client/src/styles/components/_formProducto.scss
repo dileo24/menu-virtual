@@ -21,13 +21,14 @@
         font-weight: $titleWeight;
         font-size: $subtSize;
         margin: 6vw 0 3% 0;
+        width: 100%;
         &.nombre {
           margin-top: 0;
         }
         span {
           color: grey;
           display: inline-block;
-          font-size: 4vw;
+          font-size: 3.5vw;
         }
       }
       .item {
