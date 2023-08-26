@@ -206,6 +206,14 @@ export default function Header({
 
   const vertical = window.innerHeight > window.innerWidth;
 
+  const headerPC = document.querySelector(".headerPC");
+  if (headerPC) {
+    const categsYSubcategs = headerPC.querySelector(".categsYSubcategs");
+    if (categsYSubcategs) {
+      categsYSubcategs.style.height = `calc(${window.innerHeight}px - 12vh)`;
+    }
+  }
+
   return (
     <header
       id="containerHeader"

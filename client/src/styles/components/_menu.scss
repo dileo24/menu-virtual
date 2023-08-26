@@ -151,13 +151,15 @@
     margin: 16vw 0 0 0;
     padding-top: 8vw;
   }
-  .cardProduct {
-    flex: 1;
-
+  // .cardProduct {
+  //   flex: 1;
+  // }
+  .cardMarginTop {
     &:nth-child(2) {
       margin-top: 11%;
     }
   }
+
   .cardProducto,
   .cardItem,
   .cardItemNoVisible {

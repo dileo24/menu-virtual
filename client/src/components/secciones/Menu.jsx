@@ -5,11 +5,12 @@ import { getProductos, getSubcategorias } from "../../redux/actions";
 import Contador from "../recursos/Contador";
 import { HiOutlinePencil } from "react-icons/hi2";
 import { VscTrash } from "react-icons/vsc";
-import Alerta from "../recursos/Alerta";
+// import Alerta from "../recursos/Alerta";
 
 export default function Menu({
   categ,
   prodsBuscados,
+  // currentSlide,
   handleClickEliminar,
   busqueda,
   setItemProd,
@@ -26,7 +27,7 @@ export default function Menu({
     dispatch(getSubcategorias());
   }, [dispatch]);
 
-  let ultimaCategoria = "";
+  // let ultimaCategoria = "";
   let ultimaSubCategoria = "";
 
   // Función para quitar tildes y espacios
@@ -53,10 +54,29 @@ export default function Menu({
 
   const vertical = window.innerHeight > window.innerWidth;
 
-  const menuPC = document.querySelector(".menuPC");
+  const menuPC = document.querySelectorAll(".menuPC");
   if (menuPC) {
-    menuPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+    menuPC.forEach((submenuPC) => {
+      submenuPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+    });
   }
+
+  useEffect(() => {
+    const cardsContainer = document.querySelectorAll(".cardsContainer");
+    if (busqueda) {
+      if (cardsContainer) {
+        cardsContainer.forEach((cardContainer) => {
+          cardContainer.style.display = "block"; // O el estilo que desees
+        });
+      }
+    } else {
+      if (cardsContainer) {
+        cardsContainer.forEach((cardContainer) => {
+          cardContainer.style.display = "grid"; // O el estilo que desees
+        });
+      }
+    }
+  }, [busqueda]);
 
   return (
     productos && (
@@ -182,7 +202,7 @@ export default function Menu({
                                 ? removeAccentsAndSpaces(subcategoria.nombre)
                                 : ""
                             }
-                            className="cardProduct"
+                            className={!busqueda && "cardMarginTop"}
                           >
                             {categ !== "todas" && esNuevaSubCategoria && (
                               <h1 className="nombreSubCateg">
