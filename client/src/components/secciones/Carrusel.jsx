@@ -175,6 +175,10 @@ const Carrusel = () => {
   }, [preciosArray]);
 
   useEffect(() => {
+    console.log(busqueda);
+  }, [busqueda]);
+
+  useEffect(() => {
     indexProd && console.log(indexProd);
   }, [editarItemProd]);
 
@@ -251,6 +255,7 @@ const Carrusel = () => {
                   onClick={() => {
                     setMiPedido(false);
                     setHistorial(true);
+                    !historial && setBusqueda(false);
                   }}
                   className={historial ? "active" : ""}
                 >
