@@ -12,6 +12,7 @@ import { VscTrash } from "react-icons/vsc";
 import HeaderBack from "../recursos/HeaderBack";
 import HacerPedido from "../formularios/HacerPedido";
 // import Alerta from "../recursos/Alerta";
+import bandeja from "../../multmedia/bandeja.svg";
 
 export default function MiPedido({
   setEditarItemProd,
@@ -70,7 +71,7 @@ export default function MiPedido({
 
   const miPedidoPC = document.querySelector(".miPedidoPC");
   if (miPedidoPC) {
-    miPedidoPC.style.minHeight = `calc(${window.innerHeight}px - 20vh)`;
+    miPedidoPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
   const miPedidoMobile = document.querySelector(".miPedidoMobile");
@@ -98,16 +99,18 @@ export default function MiPedido({
       <div className={vertical ? "miPedidoMobile" : "miPedidoPC"}>
         <div className="desplegable1">
           <div className="scrollable-content">
-            <div className="headerAtras">
-              <HeaderBack
-                url={"/"}
-                arrowType={"left"}
-                title={`Mi`}
-                span={"Pedido"}
-              />
-            </div>
+            {vertical && (
+              <div className="headerAtras">
+                <HeaderBack
+                  url={"/"}
+                  arrowType={"left"}
+                  title={`Mi`}
+                  span={"Pedido"}
+                />
+              </div>
+            )}
 
-            {carrito.length > 0 && (
+            {carrito.length > 0 ? (
               <>
                 {carrito.map((prod, index) => (
                   <div
@@ -179,39 +182,48 @@ export default function MiPedido({
                     Vaciar Pedido
                   </button>
                 </div>
+                <div className="footer1">
+                  <p>Total</p>
+                  <p>${precioFinal}</p>
+                  <div className="footer">
+                    {vertical ? (
+                      <Link
+                        className={`botonFooter ${
+                          preciosArray.length ? "btnNaranja" : "btnGris"
+                        }`}
+                        to={"/hacerPedido"}
+                      >
+                        <b className="siguiente">Siguiente</b>
+                      </Link>
+                    ) : (
+                      <button
+                        className={`botonFooter ${
+                          preciosArray.length ? "btnNaranja" : "btnGris"
+                        }`}
+                        onClick={() =>
+                          preciosArray.length &&
+                          setAlertaAviso({
+                            estadoActualizado: true,
+                            texto: `Para hacer un pedido, debes estar presencialmente en el local.`,
+                          })
+                        }
+                      >
+                        <b className="siguiente">Siguiente</b>
+                      </button>
+                    )}
+                  </div>
+                </div>
               </>
+            ) : (
+              // <div className={vertical ? "historialMobile2" : "historialPC2"}>
+              <div className="centro">
+                <img src={bandeja} alt="bandeja" className="icon" />
+                <p className="alerta">
+                  ¡Comienza a sumar productos a tu pedido!
+                </p>
+              </div>
+              // </div>
             )}
-          </div>
-          <div className="footer1">
-            <p>Total</p>
-            <p>${precioFinal}</p>
-            <div className="footer">
-              {vertical ? (
-                <Link
-                  className={`botonFooter ${
-                    preciosArray.length ? "btnNaranja" : "btnGris"
-                  }`}
-                  to={"/hacerPedido"}
-                >
-                  <b className="siguiente">Siguiente</b>
-                </Link>
-              ) : (
-                <button
-                  className={`botonFooter ${
-                    preciosArray.length ? "btnNaranja" : "btnGris"
-                  }`}
-                  onClick={() =>
-                    preciosArray.length &&
-                    setAlertaAviso({
-                      estadoActualizado: true,
-                      texto: `Para hacer un pedido, debes estar presencialmente en el local.`,
-                    })
-                  }
-                >
-                  <b className="siguiente">Siguiente</b>
-                </button>
-              )}
-            </div>
           </div>
         </div>
         {alertaAviso && (

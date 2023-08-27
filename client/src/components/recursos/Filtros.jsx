@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCategorias, searchXname } from "../../redux/actions";
 import { RxMagnifyingGlass } from "react-icons/rx";
 
 export default function Filtros({
-  handleSearch = () => {},
+  setCurrentSlide,
   searchType,
   searchWord,
   setBusqueda,
@@ -12,7 +12,6 @@ export default function Filtros({
   busqueda,
 }) {
   const [state, setState] = useState("");
-  // const [busq, setBusq] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,16 +22,18 @@ export default function Filtros({
     setState(e.target.value);
   };
 
+  const handleSearch = () => {
+    if (state !== "") {
+      dispatch(searchXname(state, searchType));
+      window.location.pathname === "/" && setCurrentSlide(0);
+      setBusqueda(state);
+      setCheckAlertaError(true);
+    }
+  };
+
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      if (state !== "") {
-        dispatch(searchXname(state, searchType));
-        handleSearch();
-        // if (window.location.pathname === "/") {
-        setBusqueda(state);
-        setCheckAlertaError(true);
-        // }
-      }
+      handleSearch();
     }
   };
 
@@ -53,7 +54,7 @@ export default function Filtros({
         onKeyDown={handleKeyDown}
         value={state}
       />
-      <RxMagnifyingGlass className="lupa" />
+      <RxMagnifyingGlass className="lupa" onClick={handleSearch} />
     </div>
   );
 }

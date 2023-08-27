@@ -217,13 +217,27 @@
   }
   .desplegable1 {
     .scrollable-content {
-      /* height: 78vh;
-      width: 100%;
-      padding-bottom: 30%;
-      justify-content: flex-start;
-      overflow: auto; */
-      .headerAtras {
-        display: none;
+      .centro {
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @include center;
+        flex-direction: column;
+        width: 15vw;
+        .icon {
+          width: 5vw;
+          filter: grayscale(1) brightness(0.5);
+          -webkit-filter: grayscale(1) brightness(0.8);
+        }
+        .alerta {
+          text-align: center;
+          font-size: $titleSizePC;
+          font-weight: $titleWeight;
+          line-height: 1;
+          color: $paragraph;
+          margin-top: 1vw;
+        }
       }
       .cardProducto {
         background-color: rgb(255, 255, 255);
