@@ -143,10 +143,6 @@ const Carrusel = () => {
     setBusqueda(false);
   }, []);
 
-  const handleSearch = useCallback(() => {
-    setCurrentSlide(0);
-  }, []);
-
   useEffect(() => {
     const precios = carrito.map((carritoItem) => carritoItem.precio);
     setPreciosArray(precios);
@@ -182,28 +178,11 @@ const Carrusel = () => {
     indexProd && console.log(indexProd);
   }, [editarItemProd]);
 
-  /*  useEffect(() => {
-    if (!vertical && historial) {
-      // Local
-      // const socket = io("http://localhost:3001");
-
-      // Deploy
-      const socket = io("https://menu-virtual-production-9dbc.up.railway.app");
-
-      setSocket(socket);
-
-      return () => {
-        socket.disconnect();
-      };
-    }
-  }, []); */
-
   return (
     <div className="containerCarrusel">
       <Header
         currentSlide={currentSlide}
         setCurrentSlide={setCurrentSlide}
-        handleSearch={handleSearch}
         setBusqueda={setBusqueda}
         busqueda={busqueda}
         setCheckAlertaError={setCheckAlertaError}

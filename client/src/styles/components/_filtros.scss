@@ -6,7 +6,9 @@
     width: 8vw;
     height: 8vw;
     @include center;
-
+    &:focus {
+      outline: none;
+    }
     .arrow-left {
       // position: relative;
       // display: block;
@@ -130,5 +132,6 @@
     right: 10px;
     transform: translateY(-50%);
     color: rgb(131, 131, 131);
+    cursor: pointer;
   }
 }

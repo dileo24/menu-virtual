@@ -18,13 +18,12 @@ import { BsTags } from "react-icons/bs";
 import { RxExit } from "react-icons/rx";
 import { BiFoodMenu } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
-import { IoIosStats } from "react-icons/io";
+// import { IoIosStats } from "react-icons/io";
 import Alerta from "../recursos/Alerta";
 
 export default function Header({
   currentSlide,
   setCurrentSlide,
-  handleSearch,
   setBusqueda,
   busqueda,
   setCheckAlertaError,
@@ -462,7 +461,7 @@ export default function Header({
 
             <div className={!busqueda ? "navbarCont" : "navbarContBuscado"}>
               <Filtros
-                handleSearch={handleSearch}
+                setCurrentSlide={setCurrentSlide}
                 searchWord={"productos"}
                 setBusqueda={setBusqueda}
                 setCheckAlertaError={setCheckAlertaError}
@@ -492,7 +491,7 @@ export default function Header({
                 <h1>Administrar Menú</h1>
 
                 <Filtros
-                  handleSearch={handleSearch}
+                  setCurrentSlide={setCurrentSlide}
                   searchWord={"productos"}
                   setBusqueda={setBusqueda}
                   busqueda={busqueda}
