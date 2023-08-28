@@ -12,6 +12,8 @@ import Swipe from "react-swipe";
 import { Link } from "react-router-dom";
 // import { io } from "socket.io-client";
 import Alerta from "../recursos/Alerta";
+import NuevoProducto from "../formularios/NuevoProducto";
+import EditarProducto from "../formularios/EditarProducto";
 
 const Carrusel = () => {
   const [prevScrollPosition, setPrevScrollPosition] = useState(0);
@@ -37,6 +39,9 @@ const Carrusel = () => {
   const [editarItemProd, setEditarItemProd] = useState(false);
   const [prodID, setProdID] = useState(null);
   const [indexProd, setIndexProd] = useState(null);
+  const [nuevoProducto, setNuevoProducto] = useState(true);
+  const [editarProducto, setEditarProducto] = useState(false);
+
   const vertical = window.innerHeight > window.innerWidth;
 
   for (let i = 0; i < preciosArray.length; i++) {
@@ -196,6 +201,7 @@ const Carrusel = () => {
         className={vertical ? "carruselMobile" : "carruselPC"}
       >
         <div className="carrusel-wrapper" ref={carruselRef}>
+          {/* Clientes y usuarios */}
           {categorias.length && (
             <Swipe
               className="swipe"
@@ -239,6 +245,7 @@ const Carrusel = () => {
               )}
             </Swipe>
           )}
+          {/* Clientes horizontal */}
           {!userActual && !vertical && (
             <div className="asideHeader">
               <div className="buttons">
@@ -288,6 +295,33 @@ const Carrusel = () => {
                 indexProd={indexProd}
               />
             )}
+          {/* Usuarios horizontal */}
+          {/* Clientes horizontal */}
+          {userActual && !vertical && (
+            <div className="asideHeader">
+              <div className="buttons">
+                <button
+                  onClick={() => {
+                    setNuevoProducto(true);
+                    setEditarProducto(false);
+                  }}
+                  className={nuevoProducto ? "active" : ""}
+                >
+                  Crear Producto o Combo
+                </button>
+                <button
+                  onClick={() => {
+                    setEditarProducto(true);
+                    setNuevoProducto(false);
+                  }}
+                  className={editarProducto ? "active" : ""}
+                >
+                  Editar
+                </button>
+              </div>
+            </div>
+          )}
+          {userActual && !vertical && nuevoProducto && <NuevoProducto />}
         </div>
 
         {!userActual && vertical && (

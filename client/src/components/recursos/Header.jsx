@@ -218,7 +218,7 @@ export default function Header({
       id="containerHeader"
       className={vertical ? "headerMobile" : "headerPC"}
     >
-      {!userActual && (
+      {!userActual && vertical && (
         <button className="quickBites" onClick={reload}>
           <h1 id="marca">QuickBites</h1>
         </button>
@@ -226,7 +226,7 @@ export default function Header({
       <div id="subHeader" className="subHeader">
         {userActual && (
           <div id="nav" className="headerUsuarios">
-            {/* Empleados: No tienen header, solo sección de pedidos */}
+            {/* Empleados: No tienen header, solo botón de cerrar sesión y sección de pedidos */}
             {userActual && userActual.data.RolId === 3 && (
               <button
                 onClick={() => setAlertaPregunta(true)}
@@ -239,203 +239,179 @@ export default function Header({
             {/* Admins y superAdmin */}
             {userActual && userActual.data.RolId <= 2 && (
               <>
-                <div
-                  className="burgerBtn"
-                  onClick={() =>
-                    !navSideOpen ? setNavSideOpen(true) : setNavSideOpen(false)
-                  }
-                >
-                  <RxHamburgerMenu className="burgerIcon" />
-                </div>
-              </>
-            )}
-            {navSideOpen && (
-              <div className="navSideCont">
-                <div className="navSide animate-right">
-                  <div className="navSideHeader">
-                    <div className="cerrarBtn" onClick={() => ocultarNavSide()}>
-                      <GrClose className="closeIcon" />
-                    </div>
+                {vertical && (
+                  <div
+                    className="burgerBtn"
+                    onClick={() =>
+                      !navSideOpen
+                        ? setNavSideOpen(true)
+                        : setNavSideOpen(false)
+                    }
+                  >
+                    <RxHamburgerMenu className="burgerIcon" />
                   </div>
-                  {/* superAdmin */}
-                  {userActual && userActual.data.RolId === 1 && (
-                    <div className="navSideContent">
-                      <div className="userData">
-                        <div className="userNameRol">
-                          <p>
-                            {userActual.data.nombre} {userActual.data.apellido}
-                          </p>
-                          <div className="rol">• Súper Admin</div>
+                )}
+
+                {(vertical && navSideOpen) || !vertical ? (
+                  <div className="navSideCont">
+                    <div className="navSide animate-right">
+                      {vertical && (
+                        <div className="navSideHeader">
+                          <div
+                            className="cerrarBtn"
+                            onClick={() => ocultarNavSide()}
+                          >
+                            <GrClose className="closeIcon" />
+                          </div>
                         </div>
-                        <p className="userEmail">{userActual.data.email}</p>
-                      </div>
+                      )}
 
-                      <p className="navSideTitles">Principal</p>
+                      <div className="navSideContent">
+                        {vertical && (
+                          <div className="userData">
+                            <div className="userNameRol">
+                              <p>
+                                {userActual.data.nombre}{" "}
+                                {userActual.data.apellido}
+                              </p>
+                              {userActual.data.RolId === 1 ? (
+                                <div className="rol">• Súper Admin</div>
+                              ) : (
+                                <div className="rol">• Admin</div>
+                              )}
+                            </div>
+                            <p className="userEmail">{userActual.data.email}</p>
+                          </div>
+                        )}
 
-                      <Link
-                        to="/pedidos"
-                        className={`pedidos links ${
-                          window.location.href.includes("pedidos")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <img
-                          src={bandeja}
-                          alt="bandeja"
-                          className="linkIconPedidos"
-                        />
-                        Pedidos
-                      </Link>
-
-                      <p className="navSideTitles">Administrar</p>
-                      <Link
-                        to="/"
-                        className={`links ${
-                          window.location.pathname === "/" ? "linkActual" : ""
-                        }`}
-                      >
-                        <BiFoodMenu className="linkIcon" />
-                        Menú
-                      </Link>
-                      <Link
-                        to="/nuevoProducto"
-                        className={`nuevoProducto links ${
-                          window.location.href.includes("nuevoProducto")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <CiForkAndKnife className="linkIcon" />
-                        Nuevo Producto
-                      </Link>
-                      <Link
-                        to="/adminCateg"
-                        className={`adminCateg links ${
-                          window.location.href.includes("adminCateg")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <BsTags className="linkIcon" />
-                        Categorias
-                      </Link>
-                      {/* <Link to="/register" className="registrar">
-                        Crear cuenta para empleado
-                      </Link> */}
-                      <Link
-                        to="/usuarios"
-                        className={`usuarios links ${
-                          window.location.href.includes("usuarios")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <FiUsers className="linkIcon" />
-                        Usuarios
-                      </Link>
-
-                      {/* <p className="navSideTitles">Reportes</p>
-
-                      <Link
-                        to="/estadisticas"
-                        className={`estadisticas links ${
-                          window.location.href.includes("estadisticas")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <IoIosStats className="linkIcon" />
-                        Estadisticas
-                      </Link> */}
-                      <button
-                        onClick={() => setAlertaPregunta(true)}
-                        className="cerrarSesion"
-                      >
-                        <RxExit className="linkIcon" />
-                        Cerrar sesión
-                      </button>
-                    </div>
-                  )}
-
-                  {/* Admin */}
-                  {userActual && userActual.data.RolId === 2 && (
-                    <div className="navSideContent">
-                      <div className="userData">
-                        <div className="userNameRol">
-                          <p>
-                            {userActual.data.nombre} {userActual.data.apellido}
-                          </p>
-                          <div className="rol">• Admin</div>
+                        <div className="btnsAdmins">
+                          {vertical && (
+                            <>
+                              <p className="navSideTitles">Principal</p>
+                              <Link
+                                to="/pedidos"
+                                className={`pedidos links ${
+                                  window.location.href.includes("pedidos")
+                                    ? "linkActual"
+                                    : ""
+                                }`}
+                              >
+                                <img
+                                  src={bandeja}
+                                  alt="bandeja"
+                                  className="linkIconPedidos"
+                                />
+                                Pedidos
+                              </Link>
+                              <p className="navSideTitles">Administrar</p>
+                            </>
+                          )}
+                          <Link
+                            to="/"
+                            className={`links ${
+                              window.location.pathname === "/"
+                                ? "linkActual"
+                                : ""
+                            }`}
+                          >
+                            <BiFoodMenu className="linkIcon" />
+                            Menú
+                          </Link>
+                          {!vertical ? (
+                            <Link
+                              to="/pedidos"
+                              className={`pedidos links ${
+                                window.location.href.includes("pedidos")
+                                  ? "linkActual"
+                                  : ""
+                              }`}
+                            >
+                              <img
+                                src={bandeja}
+                                alt="bandeja"
+                                className="linkIconPedidos"
+                              />
+                              Pedidos
+                            </Link>
+                          ) : (
+                            <Link
+                              to="/nuevoProducto"
+                              className={`nuevoProducto links ${
+                                window.location.href.includes("nuevoProducto")
+                                  ? "linkActual"
+                                  : ""
+                              }`}
+                            >
+                              <CiForkAndKnife className="linkIcon" />
+                              Nuevo Producto
+                            </Link>
+                          )}
+                          <Link
+                            to="/adminCateg"
+                            className={`adminCateg links ${
+                              window.location.href.includes("adminCateg")
+                                ? "linkActual"
+                                : ""
+                            }`}
+                          >
+                            <BsTags className="linkIcon" />
+                            Categorias
+                          </Link>
+                          {userActual.data.RolId === 1 && (
+                            <Link
+                              to="/usuarios"
+                              className={`usuarios links ${
+                                window.location.href.includes("usuarios")
+                                  ? "linkActual"
+                                  : ""
+                              }`}
+                            >
+                              <FiUsers className="linkIcon" />
+                              Usuarios
+                            </Link>
+                          )}
                         </div>
-                        <p className="userEmail">{userActual.data.email}</p>
+                        {!vertical ? (
+                          <div className="userCerrar">
+                            <div className="userData">
+                              <div className="userNameRol">
+                                <p>
+                                  {userActual.data.nombre}{" "}
+                                  {userActual.data.apellido}
+                                </p>
+                              </div>
+                              <div className="rol">• Súper Admin</div>
+
+                              <p className="userEmail">
+                                {userActual.data.email}
+                              </p>
+                            </div>
+                            <button
+                              onClick={() => setAlertaPregunta(true)}
+                              className="cerrarSesion"
+                            >
+                              <RxExit className="linkIcon" />
+                              Cerrar sesión
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => setAlertaPregunta(true)}
+                            className="cerrarSesion"
+                          >
+                            <RxExit className="linkIcon" />
+                            Cerrar sesión
+                          </button>
+                        )}
                       </div>
-
-                      <p className="navSideTitles">Principal</p>
-
-                      <Link
-                        to="/pedidos"
-                        className={`pedidos links ${
-                          window.location.href.includes("pedidos")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <img
-                          src={bandeja}
-                          alt="bandeja"
-                          className="linkIconPedidos"
-                        />
-                        Pedidos
-                      </Link>
-
-                      <p className="navSideTitles">Administrar</p>
-                      <Link
-                        to="/"
-                        className={`links ${
-                          window.location.pathname === "/" ? "linkActual" : ""
-                        }`}
-                      >
-                        <BiFoodMenu className="linkIcon" />
-                        Menú
-                      </Link>
-                      <Link
-                        to="/nuevoProducto"
-                        className={`nuevoProducto links ${
-                          window.location.href.includes("nuevoProducto")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <CiForkAndKnife className="linkIcon" />
-                        Nuevo Producto
-                      </Link>
-                      <Link
-                        to="/adminCateg"
-                        className={`adminCateg links ${
-                          window.location.href.includes("adminCateg")
-                            ? "linkActual"
-                            : ""
-                        }`}
-                      >
-                        <BsTags className="linkIcon" />
-                        Categorias
-                      </Link>
-                      <button
-                        onClick={() => setAlertaPregunta(true)}
-                        className="cerrarSesion"
-                      >
-                        <RxExit className="linkIcon" />
-                        Cerrar sesión
-                      </button>
                     </div>
-                  )}
-                </div>
-                <div
-                  className="navSideOut"
-                  onClick={() => ocultarNavSide()}
-                ></div>
-              </div>
+                    <div
+                      className="navSideOut"
+                      onClick={() => ocultarNavSide()}
+                    ></div>
+                  </div>
+                ) : null}
+              </>
             )}
           </div>
         )}
@@ -488,7 +464,7 @@ export default function Header({
           <>
             {userActual && userActual.data.RolId <= 2 && (
               <div className="headerHomeUsuarios">
-                <h1>Administrar Menú</h1>
+                {vertical && <h1>Administrar Menú</h1>}
 
                 <Filtros
                   setCurrentSlide={setCurrentSlide}

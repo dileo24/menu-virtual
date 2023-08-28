@@ -67,6 +67,23 @@ module.exports = (sequelize) => {
         allowNull: true,
         defaultValue: true,
       },
+      imagen: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+        validate: {
+          isUrl: true, //por si es un link
+          isImage(value) {
+            //por si es un archivo
+            if (value) {
+              const supportedFormats = ["png", "jpg", "jpeg"];
+              const extension = value.split(".").pop().toLowerCase();
+              if (!supportedFormats.includes(extension)) {
+                throw new Error("Formato de imagen no soportado");
+              }
+            }
+          },
+        },
+      },
     },
     {
       timestamps: false,

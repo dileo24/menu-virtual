@@ -102,7 +102,7 @@
   }
 }
 
-// Media queries
+//////// Responsive ////////
 
 .menuPC {
   // height: 88vh;
@@ -131,7 +131,7 @@
   }
   .nombreCateg {
     font-weight: $titleWeight;
-    font-size: $titleSizePC;
+    font-size: 1.3vw;
     margin-bottom: 1vw;
     margin-top: 2.5%;
   }
@@ -142,14 +142,14 @@
   .nombreSubCateg {
     display: flex;
     font-weight: $titleWeight;
-    font-size: $subtSizePC;
+    font-size: $titleSizePC;
     margin-bottom: 1vw;
     // margin-top: 5%;
   }
   .noVisibles {
     border-top: 1px solid grey;
-    margin: 16vw 0 0 0;
-    padding-top: 8vw;
+    margin: 4vw 0 0 0;
+    padding-top: 4vw;
   }
   // .cardProduct {
   //   flex: 1;
@@ -195,35 +195,36 @@
       margin-top: 4%;
       .precio {
         font-weight: $titleWeight;
-        font-size: $titleSizePC;
+        font-size: 1.4vw;
       }
       .acciones {
         min-width: 50%;
         @include center;
         justify-content: flex-end;
         .iconContainer1 {
-          width: 8vw;
-          height: 8vw;
-          border-radius: 8px;
+          width: 2vw;
+          height: 2vw;
+          border-radius: 0.5vw;
           @include center;
-          margin-right: 4vw;
+          margin-right: 2vw;
           border: 1px solid $naranja;
           background-color: #fef5e6;
           .editarIcon {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1.2vw;
+            height: 1.2vw;
           }
         }
         .iconContainer2 {
-          width: 8vw;
-          height: 8vw;
-          border-radius: 8px;
+          width: 2vw;
+          height: 2vw;
+          border-radius: 0.5vw;
+
           @include center;
           background-color: #ffe5e5;
           border: 1px solid #ff3d3d;
           .eliminarIcon {
-            width: 1.2rem;
-            height: 1.2rem;
+            width: 1.2vw;
+            height: 1.2vw;
           }
         }
       }

@@ -124,31 +124,33 @@
               color: $paragraph;
               margin-top: 6vw;
             }
-            .links {
-              font-size: 4vw;
-              font-weight: $titleWeight;
-              padding: 3vw;
-              width: 100%;
-              margin-top: 2vw;
-              border-radius: 8px;
-              -webkit-border-radius: 8px;
-              -moz-border-radius: 8px;
-              -ms-border-radius: 8px;
-              -o-border-radius: 8px;
-              display: flex;
-              align-items: center;
-              &.linkActual {
-                background-color: $naranja;
-              }
-              .linkIconPedidos {
-                filter: saturate(0);
-                filter: brightness(0);
-                width: 1.2rem;
-                height: 1.2rem;
-                margin-right: 2vw;
-              }
-              .linkIcon {
-                margin-right: 2vw;
+            .btnsAdmins {
+              .links {
+                font-size: 4vw;
+                font-weight: $titleWeight;
+                padding: 3vw;
+                width: 100%;
+                margin-top: 2vw;
+                border-radius: 8px;
+                -webkit-border-radius: 8px;
+                -moz-border-radius: 8px;
+                -ms-border-radius: 8px;
+                -o-border-radius: 8px;
+                display: flex;
+                align-items: center;
+                &.linkActual {
+                  background-color: $naranja;
+                }
+                .linkIconPedidos {
+                  filter: saturate(0);
+                  filter: brightness(0);
+                  width: 1.2rem;
+                  height: 1.2rem;
+                  margin-right: 2vw;
+                }
+                .linkIcon {
+                  margin-right: 2vw;
+                }
               }
             }
             .cerrarSesion {
@@ -395,181 +397,139 @@
   @include centerCol;
   align-items: flex-start;
   position: static !important;
-  .quickBites {
-    display: none;
-  }
-
   .subHeader {
     z-index: 99999;
 
     .headerUsuarios {
-      background-color: transparent;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 83vw;
+      height: 12vh;
+      background-color: white;
+      border-bottom: 1px solid rgb(187, 187, 187);
       .cerrarSesion {
         text-align: flex-start;
-        font-size: 4vw;
+        font-size: $descrSizePC;
+        border: 1px solid red;
         color: red;
         display: flex;
         align-items: center;
-        padding: 5vw;
+        padding: 0 1vw;
+        border-radius: 0.6vw;
+        height: 2.7vw;
+
         &:focus {
           outline: none;
         }
         .linkIcon {
-          margin-right: 2vw;
-        }
-      }
-      .burgerBtn {
-        margin: 5vw;
-        // margin-bottom: 7vw;
-        width: 8vw;
-        height: 8vw;
-        border: 1px solid $paragraph;
-        border-radius: 8px;
-        background-color: white;
-        @include center;
-        .burgerIcon {
-          width: 1.2rem;
-          height: 1.2rem;
+          margin-right: 0.5vw;
         }
       }
       .navSideCont {
-        background-color: rgba(0, 0, 0, 0.5);
-        position: fixed;
-        z-index: 99999;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100%;
-        display: flex;
+        height: 12vh;
+        @include center;
+
         .navSide {
-          background-color: white;
-          width: 70vw;
-          height: 100%;
-          .navSideHeader {
-            padding: 5%;
-            display: flex;
-            justify-content: flex-end;
-            .cerrarBtn {
-              width: 8vw;
-              height: 8vw;
-              border: 1px solid $paragraph;
-              border-radius: 8px;
-              background-color: rgb(255, 255, 255);
-              @include center;
-              .closeIcon {
-                width: 1.2rem;
-                height: 1.2rem;
-              }
-            }
-          }
+          display: flex;
+          align-items: center;
+          height: 12vh;
+          width: 100%;
           .navSideContent {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            padding: 5%;
-            padding-top: 0;
-            .userData {
-              padding-bottom: 8vw;
-              margin-bottom: 2vw;
-              border-bottom: 1px solid rgb(187, 187, 187);
-              .userNameRol {
-                width: 100%;
-                font-size: 4vw;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            .btnsAdmins {
+              display: flex;
+              width: 53vw;
+              padding-left: 2vw;
+              .links {
+                font-size: $descrSizePC;
                 font-weight: $titleWeight;
-                color: $paragraph;
+                padding: 1vw 0 1vw 1vw;
+                margin-right: 1vw;
                 display: flex;
-                line-height: 1.2;
-                flex-wrap: wrap;
-                p {
-                  margin-right: 1.5vw;
+                justify-content: start;
+                width: 8vw;
+                height: 2.7vw;
+                border-radius: 0.6vw;
+                -webkit-border-radius: 0.6vw;
+                -moz-border-radius: 0.6vw;
+                -ms-border-radius: 0.6vw;
+                -o-border-radius: 0.6vw;
+                display: flex;
+                align-items: center;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+                &.linkActual {
+                  background-color: $naranja;
+                }
+                .linkIconPedidos {
+                  filter: saturate(0);
+                  filter: brightness(0);
+                  width: 1vw;
+                  height: 1vw;
+                  margin-right: 0.5vw;
+                }
+                .linkIcon {
+                  margin-right: 0.5vw;
+                }
+              }
+            }
+
+            .userCerrar {
+              @include center;
+              justify-content: space-between;
+              padding: 0 2vw;
+              border-left: 1px solid rgb(187, 187, 187);
+              width: 30vw;
+              .userData {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 5% 0;
+                height: 12vh;
+                .userNameRol {
+                  width: 100%;
+                  font-size: $descrSizePC;
+                  font-weight: $titleWeight;
+                  color: $paragraph;
+                  display: flex;
+                  flex-direction: column;
+                  line-height: 1;
+                  flex-wrap: wrap;
                 }
                 .rol {
-                  line-height: 1.2;
+                  font-size: $descrSizePC;
+                  display: inline-block !important;
+                  line-height: 1;
                   color: rgb(170, 170, 170);
                   font-weight: 500;
                 }
-              }
-              .userEmail {
-                margin-top: 3vw;
-                line-height: 1;
-                font-size: 4vw;
-              }
-            }
-            .navSideTitles {
-              font-size: 4vw;
-              font-weight: $titleWeight;
-              color: $paragraph;
-              margin-top: 6vw;
-            }
-            .links {
-              font-size: 4vw;
-              font-weight: $titleWeight;
-              padding: 3vw;
-              width: 100%;
-              margin-top: 2vw;
-              border-radius: 8px;
-              -webkit-border-radius: 8px;
-              -moz-border-radius: 8px;
-              -ms-border-radius: 8px;
-              -o-border-radius: 8px;
-              display: flex;
-              align-items: center;
-              &.linkActual {
-                background-color: $naranja;
-              }
-              .linkIconPedidos {
-                filter: saturate(0);
-                filter: brightness(0);
-                width: 1.2rem;
-                height: 1.2rem;
-                margin-right: 2vw;
-              }
-              .linkIcon {
-                margin-right: 2vw;
-              }
-            }
-            .cerrarSesion {
-              position: absolute;
-              bottom: 5vw;
-              text-align: flex-start;
-              font-size: 4vw;
-              color: red;
-              display: flex;
-              align-items: center;
-              padding-left: 3vw;
-              &:focus {
-                outline: none;
-              }
-              .linkIcon {
-                margin-right: 2vw;
+                .userEmail {
+                  line-height: 1;
+                  font-size: $descrSizePC;
+                }
               }
             }
           }
-        }
-        .navSideOut {
-          right: 0;
-          width: 30vw;
-          height: 100%;
         }
       }
     }
 
     .headerHomeUsuarios {
-      width: 100vw;
-      padding: 5%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 17vw;
+      padding: 0 2%;
+      height: 12vh;
       padding-top: 0;
       background-color: white;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      h1 {
-        font-weight: $titleWeight;
-        font-size: $titleSize;
-        padding-bottom: 5%;
-        line-height: 1;
-      }
+      border-bottom: 1px solid rgb(187, 187, 187);
+      @include center;
     }
 
     .headerClientes {
@@ -589,12 +549,13 @@
         margin-left: 17.5vw;
         @include center;
         border: 1px solid $disable;
-        height: 3vw;
+        height: 2.7vw;
         padding: 0 1vw;
-        border-radius: 8px;
+        border-radius: 0.6vw;
+
         .usuarioIcon {
-          width: 2vw;
-          height: 2vw;
+          width: 1.5vw;
+          height: 1.5vw;
           margin-right: 1vw;
         }
         p {

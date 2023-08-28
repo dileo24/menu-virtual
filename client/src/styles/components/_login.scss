@@ -137,6 +137,7 @@
             flex-direction: column;
             margin-bottom: 2.5%;
             position: relative;
+            font-size: $titleSizePC;
             .emailLabel,
             .claveLabel {
               font-weight: 800;
@@ -172,6 +173,7 @@
             -moz-border-radius: 8px;
             -ms-border-radius: 8px;
             -o-border-radius: 8px;
+            font-size: $titleSizePC;
           }
         }
         .aviso {
