@@ -392,7 +392,9 @@ export default function Menu({
                                   ? removeAccentsAndSpaces(subcategoria.nombre)
                                   : ""
                               }
-                              className="cardProduct"
+                              className={
+                                !busqueda ? "cardMarginTop" : undefined
+                              }
                             >
                               {categ !== "todas" && esNuevaSubCategoria && (
                                 <h1 className="nombreSubCateg">

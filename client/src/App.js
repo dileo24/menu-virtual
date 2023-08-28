@@ -94,7 +94,6 @@ function App() {
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             {/* <Route path="/estadisticas" element={<Estadisticas />} /> */}
-            <Route path="/editCateg/:id" element={<EditarCateg />} />
             <Route path="/editarUsuario/:id" element={<EditarUsuario />} />
           </>
         )}
