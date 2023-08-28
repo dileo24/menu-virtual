@@ -10,11 +10,13 @@ import { VscTrash } from "react-icons/vsc";
 export default function Menu({
   categ,
   prodsBuscados,
-  // currentSlide,
+  currentSlide,
   handleClickEliminar,
   busqueda,
   setItemProd,
   setProdID,
+  setEditarProducto,
+  setNuevoProducto,
 }) {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
@@ -64,6 +66,15 @@ export default function Menu({
   }
 
   useEffect(() => {
+    const menuPC = document.querySelectorAll(".menuPC");
+    if (menuPC) {
+      menuPC.forEach((submenuPC) => {
+        submenuPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+      });
+    }
+  }, [currentSlide]);
+
+  useEffect(() => {
     const cardsContainer = document.querySelectorAll(".cardsContainer");
     if (busqueda) {
       if (cardsContainer) {
@@ -79,6 +90,12 @@ export default function Menu({
       }
     }
   }, [busqueda]);
+
+  const handleEdit = (id) => {
+    setEditarProducto(true);
+    setProdID(id);
+    setNuevoProducto(false);
+  };
 
   return (
     productos && (
@@ -137,12 +154,21 @@ export default function Menu({
                         <div className="acciones">
                           {userActual ? (
                             <>
-                              <Link
-                                to={`/editarProducto?id=${id}`}
-                                className="iconContainer1"
-                              >
-                                <HiOutlinePencil className="editarIcon" />
-                              </Link>
+                              {vertical ? (
+                                <Link
+                                  to={`/editarProducto?id=${id}`}
+                                  className="iconContainer1"
+                                >
+                                  <HiOutlinePencil className="editarIcon" />
+                                </Link>
+                              ) : (
+                                <button
+                                  className="iconContainer1"
+                                  onClick={() => handleEdit(id)}
+                                >
+                                  <HiOutlinePencil className="editarIcon" />
+                                </button>
+                              )}
 
                               <button
                                 onClick={() => handleClickEliminar(id)}
@@ -228,12 +254,21 @@ export default function Menu({
                                 <div className="acciones">
                                   {userActual ? (
                                     <>
-                                      <Link
-                                        to={`/editarProducto?id=${id}`}
-                                        className="iconContainer1"
-                                      >
-                                        <HiOutlinePencil className="editarIcon" />
-                                      </Link>
+                                      {vertical ? (
+                                        <Link
+                                          to={`/editarProducto?id=${id}`}
+                                          className="iconContainer1"
+                                        >
+                                          <HiOutlinePencil className="editarIcon" />
+                                        </Link>
+                                      ) : (
+                                        <button
+                                          className="iconContainer1"
+                                          onClick={() => handleEdit(id)}
+                                        >
+                                          <HiOutlinePencil className="editarIcon" />
+                                        </button>
+                                      )}
 
                                       <button
                                         onClick={() => handleClickEliminar(id)}
@@ -327,12 +362,21 @@ export default function Menu({
                           <div className="acciones">
                             {userActual ? (
                               <>
-                                <Link
-                                  to={`/editarProducto?id=${id}`}
-                                  className="iconContainer1"
-                                >
-                                  <HiOutlinePencil className="editarIcon" />
-                                </Link>
+                                {vertical ? (
+                                  <Link
+                                    to={`/editarProducto?id=${id}`}
+                                    className="iconContainer1"
+                                  >
+                                    <HiOutlinePencil className="editarIcon" />
+                                  </Link>
+                                ) : (
+                                  <button
+                                    className="iconContainer1"
+                                    onClick={() => handleEdit(id)}
+                                  >
+                                    <HiOutlinePencil className="editarIcon" />
+                                  </button>
+                                )}
 
                                 <button
                                   onClick={() => handleClickEliminar(id)}
@@ -416,12 +460,21 @@ export default function Menu({
                                   <div className="acciones">
                                     {userActual ? (
                                       <>
-                                        <Link
-                                          to={`/editarProducto?id=${id}`}
-                                          className="iconContainer1"
-                                        >
-                                          <HiOutlinePencil className="editarIcon" />
-                                        </Link>
+                                        {vertical ? (
+                                          <Link
+                                            to={`/editarProducto?id=${id}`}
+                                            className="iconContainer1"
+                                          >
+                                            <HiOutlinePencil className="editarIcon" />
+                                          </Link>
+                                        ) : (
+                                          <button
+                                            className="iconContainer1"
+                                            onClick={() => handleEdit(id)}
+                                          >
+                                            <HiOutlinePencil className="editarIcon" />
+                                          </button>
+                                        )}
 
                                         <button
                                           onClick={() =>

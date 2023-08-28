@@ -93,6 +93,8 @@ export default function FormProducto({
     prodContainerPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
+  console.log(vertical);
+
   return (
     <div className={vertical ? "prodContainerMobile" : "prodContainerPC"}>
       {vertical && (

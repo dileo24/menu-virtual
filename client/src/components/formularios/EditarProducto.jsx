@@ -4,7 +4,7 @@ import { obtenerProducto, obtenerItem, editarProducto } from "../../helpers";
 import { useSelector } from "react-redux";
 import Alerta from "../recursos/Alerta";
 
-export default function EditarProductos() {
+export default function EditarProductos({ prodID }) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -24,6 +24,7 @@ export default function EditarProductos() {
   const token = useSelector((state) => state.userActual.tokenSession);
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
+  const vertical = window.innerHeight > window.innerWidth;
 
   const checkForEmptyElements = (arr) => {
     for (let i = 0; i < arr.length; i++) {
@@ -37,10 +38,10 @@ export default function EditarProductos() {
   useEffect(() => {
     // Obtener el ID del producto de la URL cuando se carga la página
     const parametrosURL = new URLSearchParams(window.location.search);
-    const idProducto = parseInt(parametrosURL.get("id"));
-    const idItem = parseInt(parametrosURL.get("idItem"));
+    const idProducto = parseInt(parametrosURL.get("id")) || prodID;
+    // const idItem = parseInt(parametrosURL.get("idItem"));
 
-    if (idItem) {
+    /* if (idItem) {
       obtenerItem(idItem)
         .then((item) => {
           if (item.item === true) {
@@ -50,7 +51,7 @@ export default function EditarProductos() {
         .catch((error) => {
           console.log("error al obtener item" + error);
         });
-    } else if (idProducto) {
+    } else  */ if (idProducto) {
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
@@ -59,7 +60,7 @@ export default function EditarProductos() {
           console.log(error);
         });
     }
-  }, []);
+  }, [prodID]);
 
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
@@ -168,6 +169,7 @@ export default function EditarProductos() {
         setCrearProducto={setCrearProducto}
         combo={combo}
         setCombo={setCombo}
+        vertical={vertical}
       />
       {alertaError && (
         <Alerta

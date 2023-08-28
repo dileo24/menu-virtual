@@ -180,10 +180,6 @@ const Carrusel = () => {
   }, [preciosArray]);
 
   useEffect(() => {
-    console.log(busqueda);
-  }, [busqueda]);
-
-  useEffect(() => {
     indexProd && console.log(indexProd);
   }, [editarItemProd]);
 
@@ -216,11 +212,13 @@ const Carrusel = () => {
                 <Menu
                   categ={"todas"}
                   prodsBuscados={homeBusqueda}
-                  // currentSlide={currentSlide}
+                  currentSlide={currentSlide}
                   handleClickEliminar={handleClickEliminar}
                   busqueda={busqueda}
                   setItemProd={setItemProd}
                   setProdID={setProdID}
+                  setEditarProducto={setEditarProducto}
+                  setNuevoProducto={setNuevoProducto}
                 />
               </div>
               {categorias.map(
@@ -233,11 +231,13 @@ const Carrusel = () => {
                       {currentSlide !== 0 && (
                         <Menu
                           categ={categ.nombre}
-                          // currentSlide={currentSlide}
+                          currentSlide={currentSlide}
                           handleClickEliminar={handleClickEliminar}
                           busqueda={busqueda}
                           setItemProd={setItemProd}
                           setProdID={setProdID}
+                          setEditarProducto={setEditarProducto}
+                          setNuevoProducto={setNuevoProducto}
                         />
                       )}
                     </div>
@@ -276,8 +276,6 @@ const Carrusel = () => {
               setEditarItemProd={setEditarItemProd}
               setIndexProd={setIndexProd}
               setProdID={setProdID}
-              /* setMiPedido={setMiPedido}
-              setHistorial={setHistorial} */
             />
           )}
           {!userActual && !vertical && historial && <Historial />}
@@ -296,7 +294,6 @@ const Carrusel = () => {
               />
             )}
           {/* Usuarios horizontal */}
-          {/* Clientes horizontal */}
           {userActual && !vertical && (
             <div className="asideHeader">
               <div className="buttons">
@@ -322,8 +319,12 @@ const Carrusel = () => {
             </div>
           )}
           {userActual && !vertical && nuevoProducto && <NuevoProducto />}
+          {userActual && !vertical && editarProducto && (
+            <EditarProducto prodID={prodID} />
+          )}
         </div>
 
+        {/* Clientes horizontal */}
         {!userActual && vertical && (
           <>
             <footer className={`footer ${marginTop}`}>
