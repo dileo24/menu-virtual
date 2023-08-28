@@ -55,51 +55,50 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* cualquiera */}
-        <Route exact path="/" element={<Carrusel />} />
-        <Route path="/login" element={<ModalLogin />} />
-        {vertical && <>
-          <Route exact path="/miPedido" element={<MiPedido />} />
-          <Route exact path="/hacerPedido" element={<HacerPedido />} />
-          <Route path="/historial" element={<Historial />} />
-          <Route path="/carrito" element={<Carrito />} />
-          <Route path="/items/:id" element={<ItemsCliente />} />
-        </>
-        }
+        {/* clientes */}
+        {!userActual && (
+          <><Route exact path="/" element={<Carrusel />} />
+            <Route path="/login" element={<ModalLogin />} />
+            {vertical && <>
+              <Route exact path="/miPedido" element={<MiPedido />} />
+              <Route exact path="/hacerPedido" element={<HacerPedido />} />
+              <Route path="/historial" element={<Historial />} />
+              <Route path="/carrito" element={<Carrito />} />
+              <Route path="/items/:id" element={<ItemsCliente />} />
+            </>
+            }
+            <Route
+              path="/updateItems/:id/:index"
+              element={<UpdateItemsCliente />}
+            /></>
+        )}
 
-        <Route
-          path="/updateItems/:id/:index"
-          element={<UpdateItemsCliente />}
-        />
 
         {/* empleados */}
-        {userActual && userActual.data.RolId === 3 && (
+        {userActual && userActual.data.RolId <= 3 && (
           <Route path="/pedidos" element={<Pedidos />} />
+        )}
+        {/* admins */}
+        {userActual && userActual.data.RolId <= 2 && (
+          <>
+            <Route exact path="/" element={<Carrusel />} />
+            <Route path="/nuevoProducto" element={<NuevoProducto />} />
+            <Route path="/editarProducto" element={<EditarProducto />} />
+            <Route path="/adminCateg" element={<AdminCateg />} />
+            <Route path="/editCateg/:id" element={<EditarCateg />} />
+          </>
         )}
         {/* superAdmin */}
         {userActual && userActual.data.RolId === 1 && (
           <>
-            <Route path="/nuevoProducto" element={<NuevoProducto />} />
-            <Route path="/editarProducto" element={<EditarProducto />} />
             <Route path="/register" element={<ModalRegister />} />
             <Route path="/Usuarios" element={<Usuarios />} />
             {/* <Route path="/estadisticas" element={<Estadisticas />} /> */}
-            <Route path="/adminCateg" element={<AdminCateg />} />
-            <Route path="/pedidos" element={<Pedidos />} />
             <Route path="/editCateg/:id" element={<EditarCateg />} />
             <Route path="/editarUsuario/:id" element={<EditarUsuario />} />
           </>
         )}
-        {/* admins */}
-        {userActual && userActual.data.RolId === 2 && (
-          <>
-            <Route path="/nuevoProducto" element={<NuevoProducto />} />
-            <Route path="/editarProducto" element={<EditarProducto />} />
-            <Route path="/adminCateg" element={<AdminCateg />} />
-            <Route path="/editCateg/:id" element={<EditarCateg />} />
-            <Route path="/pedidos" element={<Pedidos />} />
-          </>
-        )}
+
       </Routes>
     </div>
   );
