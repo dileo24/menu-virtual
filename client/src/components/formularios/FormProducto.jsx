@@ -299,7 +299,8 @@ export default function FormProducto({
             </label>
             <p className="infoIMG">
               La imagen debe estar en internet. Si tienes una imagen local,
-              puedes subirla a Google Drive y copiar su URL.
+              puedes subirla a Google Drive y copiar su URL. Debe terminar en
+              .jpg, .jpeg o .png
             </p>
             <input
               type="text"
