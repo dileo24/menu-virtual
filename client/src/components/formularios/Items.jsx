@@ -68,15 +68,7 @@ export default function Items({
     }
   };
 
-  /* const categoriasUnicas = Array.from(
-    new Set(
-      productosConItemTrue.map((producto) => {
-        return producto.subcategoria
-          ? producto.subcategoria.nombre
-          : producto.categoria.nombre;
-      })
-    )
-  ); */
+  const vertical = window.innerHeight > window.innerWidth;
 
   return (
     <>
@@ -90,7 +82,7 @@ export default function Items({
             <>
               <Button signo="-" funcion={decrementNumItems} />
               <p
-                className="w-5 mx-3 text-center text-gray-700  font-medium leading-tight focus:outline-none focus:shadow-outline"
+                className={vertical ? "contadorNumMobile" : "contadorNumPC"}
                 onChange={handleNumItemsChange}
                 readOnly
               >

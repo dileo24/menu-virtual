@@ -2,6 +2,7 @@
   {
     "nombre": "Pizza Especial (8 porciones)",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://media-cdn.tripadvisor.com/media/photo-s/0e/0a/27/05/pizza-especial-salsa.jpg",
     "precio": "3500",
     "categoriaID": "2",
     "subcategoriaID": "1"
@@ -10,6 +11,7 @@
     "subcategoriaID": "6",
     "nombre": "Papas Bravas con 2 Pintas",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://www.goya.com/media/7699/spicy-potatoes.jpg",
     "precio": "1500",
     "categoriaID": "2",
     "itemsExtra": [
@@ -22,6 +24,7 @@
     "subcategoriaID": "4",
     "nombre": "Lomito Completo Premium",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://clarin.com/img//2021/07/19/hgA-CEG32_340x340__1.jpg",
     "precio": "2000",
     "categoriaID": "2"
   },
@@ -29,6 +32,7 @@
     "subcategoriaID": "1",
     "nombre": "Pizza Fugazzeta (8 porciones)",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://assets.unileversolutions.com/recipes-v2/210361.jpg",
     "precio": "2500",
     "categoriaID": "2"
   },
@@ -36,6 +40,7 @@
     "subcategoriaID": "6",
     "nombre": "Papas a la Alemana (para 4)",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://superpola.com//site/assets/files/27078/ensalada-alemana-de-papas-pepinillos-y-hierbas-frescas.jpg",
     "precio": "5300",
     "categoriaID": "2"
   },
@@ -43,6 +48,7 @@
     "subcategoriaID": "2",
     "nombre": "Hamburguesa Americana Doble",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://cdn-3.expansion.mx/dims4/default/9fc881f/2147483647/resize/1280x/quality/90/?url=https%3A%2F%2Fcdn-3.expansion.mx%2Fb7%2F07%2F047d352e4fdf984a0f7f08d2e1b0%2Fpromociones-dia-de-la-hamburguesa-2023.jpg",
     "precio": "1800",
     "categoriaID": "2"
   },
@@ -50,6 +56,7 @@
     "subcategoriaID": "",
     "nombre": "Desayuno completo",
     "descripcion": "Una infusión, tres criollos o medialunas, queso crema, mermelada y jugo de naranja",
+    "imagen": "https://i0.wp.com/depostalesurbanas.com/wp-content/uploads/2013/10/cafe-con-leche-y-medialunas.jpg",
     "precio": "1200",
     "categoriaID": "1",
     "itemsExtra": [
@@ -65,6 +72,7 @@
     "subcategoriaID": "",
     "nombre": "Licuados para 2 personas",
     "descripcion": "2 Licuados, 4 criollos o medialunas y jugo de naranja",
+    "imagen": "https://www.mexicoenmicocina.com/wp-content/uploads/2018/03/Licuado-de-Yogurt-con-fresas-y-platano-1.jpg",
     "precio": "3200",
     "categoriaID": "1",
     "itemsExtra": [
@@ -79,6 +87,7 @@
     "subcategoriaID": "",
     "nombre": "Desayuno completo para 4 personas",
     "descripcion": "4 infusiones, 8 criollos o medialunas, queso crema, palta y jugo de naranja",
+    "imagen": "https://www.apurate.com.ar/images/ofertas/1558/oferta%20ampliada.jpg",
     "precio": "1800",
     "categoriaID": "1",
     "itemsExtra": [
@@ -93,6 +102,7 @@
     "subcategoriaID": "",
     "nombre": "Desayuno simple para 4 personas",
     "descripcion": "4 infusiones, 4 criollos o medialunas y jugo de naranja",
+    "imagen": "https://s1.1zoom.me/big0/912/Coffee_Croissant_Cup_Breakfast_524501_1083x1024.jpg",
     "precio": "1800",
     "categoriaID": "1",
     "itemsExtra": [
@@ -114,7 +124,8 @@
       "Postres"
     ],
     "cantidadPersonas": "2",
-    "combo": true
+    "combo": true,
+    "imagen": "https://cdn2.cocinadelirante.com/sites/default/files/styles/gallerie/public/images/2021/08/15-platillos-de-papa-para-acompanar-recetas-con-cerdo.jpg"
   },
   {
     "subcategoriaID": "8",
@@ -125,7 +136,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://www.losreyunos.es/assets/img/PAN%20CRIOLLO%20.jpg"
   },
   {
     "subcategoriaID": "8",
@@ -136,7 +148,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://www.pandanes.com.ar/wp-content/uploads/2020/07/medialuna.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -147,7 +160,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://upload.wikimedia.org/wikipedia/commons/4/45/A_small_cup_of_coffee.JPG"
   },
   {
     "subcategoriaID": "9",
@@ -158,7 +172,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://i.blogs.es/421374/cafe-con-leche2/840_560.jpg"
   },
   {
     "subcategoriaID": "10",
@@ -169,7 +184,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "900",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://www.maricruzavalos.com/wp-content/uploads/2023/04/licuado-de-platano-recipe.jpg"
   },
   {
     "subcategoriaID": "10",
@@ -180,7 +196,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1100",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://images.aws.nestle.recipes/original/2020_05_11T08_54_16_mrs_ImageRecipes_138073lrg.jpg"
   },
   {
     "subcategoriaID": "10",
@@ -191,7 +208,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1200",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://clarin.com/img//2021/02/03/tkAusVAmT_340x340__1.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -202,7 +220,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://www.lavanguardia.com/files/article_gallery_microformat/uploads/2019/03/27/5e997db515902.jpeg"
   },
   {
     "subcategoriaID": "9",
@@ -213,7 +232,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://www.hacercafe.com/wp-content/uploads/2020/01/cafe-leche-2.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -235,7 +255,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://jumboargentina.vtexassets.com/arquivos/ids/782920/Gaseosa-Fanta-Naranja-500-Ml-2-10597.jpg"
   },
   {
     "subcategoriaID": "",
@@ -246,7 +267,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://media.f2h.shop/media/catalog/product/cache/ab45d104292f1bb63d093e6be8310c97/c/o/coca_sin_az_500.jpg"
   },
   {
     "subcategoriaID": "",
@@ -257,7 +279,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://hiperlibertad.vtexassets.com/arquivos/ids/173756/Agua-Mineral-San-Remo-Sin-Gas-500ml-1-14077.jpg"
   },
   {
     "subcategoriaID": "",
@@ -268,7 +291,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://www.mercadolaplata.com.ar/Articulo_Foto/foto1_628_0.jpeg"
   },
   {
     "subcategoriaID": "",
@@ -279,7 +303,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://acdn.mitiendanube.com/stores/001/160/839/products/005-004-014_fanta-x-500-ml1-80bf8c51673fcdfcc215884684351451-1024-1024.jpg"
   },
   {
     "subcategoriaID": "",
@@ -290,7 +315,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://d1on8qs0xdu5jz.cloudfront.net/webapp/images/productos/b/0000002000/2723.jpg"
   },
   {
     "subcategoriaID": "11",
@@ -323,7 +349,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1150",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://drcormillot.com.ar/wp-content/uploads/2019/01/NOTA-012-17-FOTO.jpg"
   },
   {
     "subcategoriaID": "",
@@ -334,7 +361,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1150",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://imag.bonviveur.com/presentacion-principal-del-flan-de-dulce-de-leche.jpg"
   },
   {
     "subcategoriaID": "",
@@ -345,7 +373,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://images.ecestaticos.com/iojMv03Y2nPSZr8MbujYPSDSRdg=/0x0:1000x750/1200x900/filters:fill(white):format(jpg)/f.elconfidencial.com%2Foriginal%2F020%2F0b4%2F1b4%2F0200b41b41eed16f2d671ebd0458553a.jpg"
   },
   {
     "subcategoriaID": "",
@@ -356,7 +385,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://maltosaa.com.mx/wp-content/uploads/diferenciacervezaalelager-3.jpg"
   },
   {
     "subcategoriaID": "",
@@ -367,7 +397,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://loopulo.com/wp-content/uploads/2020/11/Celebramos-el-International-Stout-Day-cerveza-loopulo-04.jpg"
   },
   {
     "subcategoriaID": "",
@@ -378,7 +409,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://periodicodigital.mx/wp-content/uploads/2023/06/que-es-la-cerveza-rubia.jpg"
   },
   {
     "subcategoriaID": "11",

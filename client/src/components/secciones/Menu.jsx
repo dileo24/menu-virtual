@@ -10,17 +10,30 @@ import { VscTrash } from "react-icons/vsc";
 export default function Menu({
   categ,
   prodsBuscados,
-  // currentSlide,
+  currentSlide,
   handleClickEliminar,
   busqueda,
   setItemProd,
   setProdID,
+  setEditarProducto,
+  setNuevoProducto,
+  setEditando,
 }) {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
   let productosState = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
   const subcategorias = useSelector((state) => state.subcategorias);
+  // Inside the component function
+  const [imageErrors, setImageErrors] = useState({});
+
+  // New function to handle image load errors for each image
+  const handleIndividualImageLoadError = (id) => {
+    setImageErrors((prevErrors) => ({
+      ...prevErrors,
+      [id]: "No se pudo cargar la imagen desde la URL proporcionada.",
+    }));
+  };
 
   useEffect(() => {
     dispatch(getProductos());
@@ -41,6 +54,8 @@ export default function Menu({
   let productos = productosState.filter((prod) =>
     categ !== "todas" ? prod.categoria.nombre === categ : prod
   );
+
+  console.log(productos);
 
   // Filtrar los productos por categoría
   const filtrarProductosPorCategoria = (categoria) => {
@@ -64,6 +79,15 @@ export default function Menu({
   }
 
   useEffect(() => {
+    const menuPC = document.querySelectorAll(".menuPC");
+    if (menuPC) {
+      menuPC.forEach((submenuPC) => {
+        submenuPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+      });
+    }
+  }, [currentSlide]);
+
+  useEffect(() => {
     const cardsContainer = document.querySelectorAll(".cardsContainer");
     if (busqueda) {
       if (cardsContainer) {
@@ -79,6 +103,13 @@ export default function Menu({
       }
     }
   }, [busqueda]);
+
+  const handleEdit = (id) => {
+    setEditarProducto(true);
+    setEditando(true);
+    setProdID(id);
+    setNuevoProducto(false);
+  };
 
   return (
     productos && (
@@ -121,6 +152,8 @@ export default function Menu({
                     id,
                     cantidadPersonas,
                     subcategoria,
+                    imagen,
+                    combo,
                   }) => (
                     <div
                       key={id}
@@ -131,18 +164,47 @@ export default function Menu({
                       }
                       className="cardProducto"
                     >
-                      <p className="nombre">{nombre}</p>
-                      <p className="descripcion">{descripcion}</p>
+                      {imagen && imageErrors[id] === undefined ? (
+                        <div className="nombreDescrImg">
+                          <div className="nombreDescr">
+                            <p className="nombre">{nombre}</p>
+                            <p className="descripcion">{descripcion}</p>
+                          </div>
+                          <div className="imagenContainer">
+                            <img
+                              src={imagen}
+                              alt="Imagen desde URL"
+                              onError={() => handleIndividualImageLoadError(id)}
+                              className="imagen"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <p className="nombre">{nombre}</p>
+                          <p className="descripcion">{descripcion}</p>
+                        </div>
+                      )}
+
                       <div className="precioAcciones">
                         <div className="acciones">
                           {userActual ? (
                             <>
-                              <Link
-                                to={`/editarProducto?id=${id}`}
-                                className="iconContainer1"
-                              >
-                                <HiOutlinePencil className="editarIcon" />
-                              </Link>
+                              {vertical ? (
+                                <Link
+                                  to={`/editarProducto?id=${id}`}
+                                  className="iconContainer1"
+                                >
+                                  <HiOutlinePencil className="editarIcon" />
+                                </Link>
+                              ) : (
+                                <button
+                                  className="iconContainer1"
+                                  onClick={() => handleEdit(id)}
+                                >
+                                  <HiOutlinePencil className="editarIcon" />
+                                </button>
+                              )}
 
                               <button
                                 onClick={() => handleClickEliminar(id)}
@@ -161,6 +223,7 @@ export default function Menu({
                               cantidadPersonas={cantidadPersonas}
                               setProdID={setProdID}
                               setItemProd={setItemProd}
+                              combo={combo}
                             />
                           )}
                         </div>
@@ -190,6 +253,8 @@ export default function Menu({
                         id,
                         cantidadPersonas,
                         subcategoria,
+                        imagen,
+                        combo,
                       }) => {
                         const esNuevaSubCategoria =
                           subcategoria.nombre !== ultimaSubCategoria;
@@ -222,18 +287,48 @@ export default function Menu({
                                 </h1>
                               )}
                             <div className="cardProducto">
-                              <p className="nombre">{nombre}</p>
-                              <p className="descripcion">{descripcion}</p>
+                              {imagen && imageErrors[id] === undefined ? (
+                                <div className="nombreDescrImg">
+                                  <div className="nombreDescr">
+                                    <p className="nombre">{nombre}</p>
+                                    <p className="descripcion">{descripcion}</p>
+                                  </div>
+                                  <div className="imagenContainer">
+                                    <img
+                                      src={imagen}
+                                      alt="Imagen desde URL"
+                                      onError={() =>
+                                        handleIndividualImageLoadError(id)
+                                      }
+                                      className="imagen"
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div>
+                                  <p className="nombre">{nombre}</p>
+                                  <p className="descripcion">{descripcion}</p>
+                                </div>
+                              )}
                               <div className="precioAcciones">
                                 <div className="acciones">
                                   {userActual ? (
                                     <>
-                                      <Link
-                                        to={`/editarProducto?id=${id}`}
-                                        className="iconContainer1"
-                                      >
-                                        <HiOutlinePencil className="editarIcon" />
-                                      </Link>
+                                      {vertical ? (
+                                        <Link
+                                          to={`/editarProducto?id=${id}`}
+                                          className="iconContainer1"
+                                        >
+                                          <HiOutlinePencil className="editarIcon" />
+                                        </Link>
+                                      ) : (
+                                        <button
+                                          className="iconContainer1"
+                                          onClick={() => handleEdit(id)}
+                                        >
+                                          <HiOutlinePencil className="editarIcon" />
+                                        </button>
+                                      )}
 
                                       <button
                                         onClick={() => handleClickEliminar(id)}
@@ -252,6 +347,7 @@ export default function Menu({
                                       cantidadPersonas={cantidadPersonas}
                                       setProdID={setProdID}
                                       setItemProd={setItemProd}
+                                      combo={combo}
                                     />
                                   )}
                                 </div>
@@ -269,7 +365,7 @@ export default function Menu({
           );
         })}
 
-        {/********************* ITEMS NO VISIBLES *********************/}
+        {/********* ITEMS NO VISIBLES *********/}
         {userActual &&
           productos.some((producto) => producto.listado === false) && (
             <h1 className="nombreCateg noVisibles">Items no visibles</h1>
@@ -311,6 +407,7 @@ export default function Menu({
                       id,
                       cantidadPersonas,
                       subcategoria,
+                      imagen,
                     }) => (
                       <div
                         key={id}
@@ -321,18 +418,48 @@ export default function Menu({
                         }
                         className="cardProducto"
                       >
-                        <p className="nombre">{nombre}</p>
-                        <p className="descripcion">{descripcion}</p>
+                        {imagen && imageErrors[id] === undefined ? (
+                          <div className="nombreDescrImg">
+                            <div className="nombreDescr">
+                              <p className="nombre">{nombre}</p>
+                              <p className="descripcion">{descripcion}</p>
+                            </div>
+                            <div className="imagenContainer">
+                              <img
+                                src={imagen}
+                                alt="Imagen desde URL"
+                                onError={() =>
+                                  handleIndividualImageLoadError(id)
+                                }
+                                className="imagen"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <p className="nombre">{nombre}</p>
+                            <p className="descripcion">{descripcion}</p>
+                          </div>
+                        )}
                         <div className="precioAcciones">
                           <div className="acciones">
-                            {userActual ? (
+                            {userActual && (
                               <>
-                                <Link
-                                  to={`/editarProducto?id=${id}`}
-                                  className="iconContainer1"
-                                >
-                                  <HiOutlinePencil className="editarIcon" />
-                                </Link>
+                                {vertical ? (
+                                  <Link
+                                    to={`/editarProducto?id=${id}`}
+                                    className="iconContainer1"
+                                  >
+                                    <HiOutlinePencil className="editarIcon" />
+                                  </Link>
+                                ) : (
+                                  <button
+                                    className="iconContainer1"
+                                    onClick={() => handleEdit(id)}
+                                  >
+                                    <HiOutlinePencil className="editarIcon" />
+                                  </button>
+                                )}
 
                                 <button
                                   onClick={() => handleClickEliminar(id)}
@@ -341,15 +468,6 @@ export default function Menu({
                                   <VscTrash className="eliminarIcon" />
                                 </button>
                               </>
-                            ) : (
-                              <Contador
-                                id={id}
-                                nombre={nombre}
-                                descripcion={descripcion}
-                                precio={precio}
-                                itemsExtra={itemsExtra}
-                                cantidadPersonas={cantidadPersonas}
-                              />
                             )}
                           </div>
                           <p className="precio">${precio}</p>
@@ -378,6 +496,7 @@ export default function Menu({
                           id,
                           cantidadPersonas,
                           subcategoria,
+                          imagen,
                         }) => {
                           const esNuevaSubCategoria =
                             subcategoria.nombre !== ultimaSubCategoria;
@@ -410,18 +529,50 @@ export default function Menu({
                                   </h1>
                                 )}
                               <div className="cardProducto">
-                                <p className="nombre">{nombre}</p>
-                                <p className="descripcion">{descripcion}</p>
+                                {imagen && imageErrors[id] === undefined ? (
+                                  <div className="nombreDescrImg">
+                                    <div className="nombreDescr">
+                                      <p className="nombre">{nombre}</p>
+                                      <p className="descripcion">
+                                        {descripcion}
+                                      </p>
+                                    </div>
+                                    <div className="imagenContainer">
+                                      <img
+                                        src={imagen}
+                                        alt="Imagen desde URL"
+                                        onError={() =>
+                                          handleIndividualImageLoadError(id)
+                                        }
+                                        className="imagen"
+                                      />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <div>
+                                    <p className="nombre">{nombre}</p>
+                                    <p className="descripcion">{descripcion}</p>
+                                  </div>
+                                )}
                                 <div className="precioAcciones">
                                   <div className="acciones">
-                                    {userActual ? (
+                                    {userActual && (
                                       <>
-                                        <Link
-                                          to={`/editarProducto?id=${id}`}
-                                          className="iconContainer1"
-                                        >
-                                          <HiOutlinePencil className="editarIcon" />
-                                        </Link>
+                                        {vertical ? (
+                                          <Link
+                                            to={`/editarProducto?id=${id}`}
+                                            className="iconContainer1"
+                                          >
+                                            <HiOutlinePencil className="editarIcon" />
+                                          </Link>
+                                        ) : (
+                                          <button
+                                            className="iconContainer1"
+                                            onClick={() => handleEdit(id)}
+                                          >
+                                            <HiOutlinePencil className="editarIcon" />
+                                          </button>
+                                        )}
 
                                         <button
                                           onClick={() =>
@@ -432,15 +583,6 @@ export default function Menu({
                                           <VscTrash className="eliminarIcon" />
                                         </button>
                                       </>
-                                    ) : (
-                                      <Contador
-                                        id={id}
-                                        nombre={nombre}
-                                        descripcion={descripcion}
-                                        precio={precio}
-                                        itemsExtra={itemsExtra}
-                                        cantidadPersonas={cantidadPersonas}
-                                      />
                                     )}
                                   </div>
                                   <p className="precio">${precio}</p>

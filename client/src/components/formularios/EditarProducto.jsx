@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import FormProducto from "./FormProducto";
-import { obtenerProducto, obtenerItem, editarProducto } from "../../helpers";
+import {
+  obtenerProducto,
+  /* obtenerItem, */ editarProducto,
+} from "../../helpers";
 import { useSelector } from "react-redux";
 import Alerta from "../recursos/Alerta";
 
-export default function EditarProductos() {
+export default function EditarProductos({
+  prodID,
+  setEditarProducto,
+  setNuevoProducto,
+  setEditando,
+}) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -24,7 +32,19 @@ export default function EditarProductos() {
   const token = useSelector((state) => state.userActual.tokenSession);
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
+  const vertical = window.innerHeight > window.innerWidth;
+  const [imagen, setImagen] = useState(null);
+  const [imageError, setImageError] = useState("");
 
+  const handleImageUrlChange = (event) => {
+    const url = event.target.value;
+    setImagen(url);
+    setImageError("");
+  };
+
+  const handleImageLoadError = () => {
+    setImageError("No se pudo cargar la imagen desde la URL proporcionada.");
+  };
   const checkForEmptyElements = (arr) => {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "") {
@@ -37,10 +57,10 @@ export default function EditarProductos() {
   useEffect(() => {
     // Obtener el ID del producto de la URL cuando se carga la página
     const parametrosURL = new URLSearchParams(window.location.search);
-    const idProducto = parseInt(parametrosURL.get("id"));
-    const idItem = parseInt(parametrosURL.get("idItem"));
+    const idProducto = parseInt(parametrosURL.get("id")) || prodID;
+    // const idItem = parseInt(parametrosURL.get("idItem"));
 
-    if (idItem) {
+    /* if (idItem) {
       obtenerItem(idItem)
         .then((item) => {
           if (item.item === true) {
@@ -50,7 +70,7 @@ export default function EditarProductos() {
         .catch((error) => {
           console.log("error al obtener item" + error);
         });
-    } else if (idProducto) {
+    } else  */ if (idProducto) {
       obtenerProducto(idProducto)
         .then((producto) => {
           mostrarProducto(producto);
@@ -59,7 +79,7 @@ export default function EditarProductos() {
           console.log(error);
         });
     }
-  }, []);
+  }, [prodID]);
 
   // Mostrar los datos del producto en el formulario
   function mostrarProducto(producto) {
@@ -77,6 +97,7 @@ export default function EditarProductos() {
     setListado(producto.listado);
     setCombo(producto.combo);
     setCrearProducto(producto.combo ? false : true);
+    setImagen(producto.imagen);
   }
 
   // Mostrar los datos del item en el formulario
@@ -121,6 +142,7 @@ export default function EditarProductos() {
       mostrarOtroCheckbox,
       item,
       combo,
+      imagen,
     };
 
     setAlertaExito({
@@ -168,6 +190,14 @@ export default function EditarProductos() {
         setCrearProducto={setCrearProducto}
         combo={combo}
         setCombo={setCombo}
+        vertical={vertical}
+        imagen={imagen}
+        handleImageUrlChange={handleImageUrlChange}
+        handleImageLoadError={handleImageLoadError}
+        imageError={imageError}
+        setEditarProducto={setEditarProducto}
+        setNuevoProducto={setNuevoProducto}
+        setEditando={setEditando}
       />
       {alertaError && (
         <Alerta
