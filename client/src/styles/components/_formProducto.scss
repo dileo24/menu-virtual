@@ -81,6 +81,16 @@
         display: flex;
         align-items: center;
       }
+      .labelIMG {
+        margin-bottom: 0;
+      }
+      .infoIMG {
+        font-weight: $titleWeight;
+        color: grey;
+        font-size: 3.8vw;
+        margin: 3vw 0;
+        margin-top: 0;
+      }
       .imagenContainer {
         width: 100%;
         display: flex;
@@ -119,7 +129,7 @@
   padding-bottom: 10%;
   justify-content: flex-start;
   padding: 1.5%;
-  padding-bottom: 10%;
+  padding-bottom: 6%;
   &::-webkit-scrollbar {
     width: 0.8vw; /* Cambia el ancho del scrollbar vertical */
     height: auto; /* Cambia el ancho del scrollbar horizontal */
@@ -162,7 +172,7 @@
         // line-height: 1;
       }
       .itemInput {
-        margin-bottom: 3vw;
+        margin-bottom: 1vw;
       }
       input,
       select,
@@ -214,6 +224,15 @@
         display: flex;
         align-items: center;
       }
+      .labelIMG {
+        margin-bottom: 0;
+      }
+      .infoIMG {
+        font-weight: $titleWeight;
+        color: grey;
+        font-size: $descrSizePC;
+        margin-bottom: 1vw;
+      }
       .imagenContainer {
         width: 100%;
         display: flex;
@@ -231,7 +250,7 @@
       font-weight: $titleWeight;
       color: grey;
       font-size: $descrSizePC;
-      margin: 3vw 0;
+      margin: 1vw 0;
     }
     .footer {
       width: 30vw;
@@ -241,16 +260,18 @@
       padding: 0 1.5%;
       z-index: 1;
       @include center;
+      justify-content: space-between;
       height: 0;
-      .botonFooter {
+      .botonFooter,
+      .botonDescartar,
+      .botonGuardar {
         box-shadow: 0px 0px 4px 0px rgba(77, 79, 102, 0.8);
         @include center;
         position: relative;
         background-color: $naranja;
         height: 0;
-        width: 100% !important;
-        padding: 5% 0;
-        margin-bottom: 5vw;
+        padding: 6% 0;
+        margin-bottom: 5.5vw;
         border-radius: 6px;
         -webkit-border-radius: 6px;
         -moz-border-radius: 6px;
@@ -258,6 +279,13 @@
         -o-border-radius: 6px;
         font-weight: $titleWeight;
         font-size: $titleSizePC;
+      }
+      .botonGuardar,
+      .botonDescartar {
+        width: 47% !important;
+      }
+      .botonDescartar {
+        background-color: white;
       }
     }
   }

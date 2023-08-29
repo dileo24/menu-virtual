@@ -55,9 +55,14 @@
     .nombreDescrImg {
       display: flex;
       justify-content: space-between;
-      // align-items: center;
       width: 100%;
-      // border: 1px solid red;
+      .nombre {
+        font-weight: $titleWeight;
+        font-size: $subtSize;
+      }
+      .descripcion {
+        font-size: 4.2vw;
+      }
       .nombreDescr {
         width: 60%;
         .nombre {
@@ -202,7 +207,13 @@
     min-width: 23vw;
     //max-width: 50%;
     min-height: 10vw !important;
-
+    .nombre {
+      font-weight: $titleWeight;
+      font-size: $subtSizePC;
+    }
+    .descripcion {
+      font-size: $descrSizePC;
+    }
     .nombreDescrImg {
       display: flex;
       justify-content: space-between;

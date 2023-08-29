@@ -4,7 +4,12 @@ import { obtenerProducto, obtenerItem, editarProducto } from "../../helpers";
 import { useSelector } from "react-redux";
 import Alerta from "../recursos/Alerta";
 
-export default function EditarProductos({ prodID }) {
+export default function EditarProductos({
+  prodID,
+  setEditarProducto,
+  setNuevoProducto,
+  setEditando,
+}) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -187,6 +192,9 @@ export default function EditarProductos({ prodID }) {
         handleImageUrlChange={handleImageUrlChange}
         handleImageLoadError={handleImageLoadError}
         imageError={imageError}
+        setEditarProducto={setEditarProducto}
+        setNuevoProducto={setNuevoProducto}
+        setEditando={setEditando}
       />
       {alertaError && (
         <Alerta

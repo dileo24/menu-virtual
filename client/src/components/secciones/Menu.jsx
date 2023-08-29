@@ -17,6 +17,7 @@ export default function Menu({
   setProdID,
   setEditarProducto,
   setNuevoProducto,
+  setEditando,
 }) {
   const userActual = useSelector((state) => state.userActual);
   const dispatch = useDispatch();
@@ -95,6 +96,7 @@ export default function Menu({
 
   const handleEdit = (id) => {
     setEditarProducto(true);
+    setEditando(true);
     setProdID(id);
     setNuevoProducto(false);
   };
@@ -152,19 +154,27 @@ export default function Menu({
                       }
                       className="cardProducto"
                     >
-                      <div className="nombreDescrImg">
-                        <div className="nombreDescr">
+                      {imagen ? (
+                        <div className="nombreDescrImg">
+                          <div className="nombreDescr">
+                            <p className="nombre">{nombre}</p>
+                            <p className="descripcion">{descripcion}</p>
+                          </div>
+                          <div className="imagenContainer">
+                            <img
+                              src={imagen}
+                              alt="Imagen desde URL"
+                              className="imagen"
+                            />
+                          </div>
+                        </div>
+                      ) : (
+                        <>
                           <p className="nombre">{nombre}</p>
                           <p className="descripcion">{descripcion}</p>
-                        </div>
-                        <div className="imagenContainer">
-                          <img
-                            src={imagen}
-                            alt="Imagen desde URL"
-                            className="imagen"
-                          />
-                        </div>
-                      </div>
+                        </>
+                      )}
+
                       <div className="precioAcciones">
                         <div className="acciones">
                           {userActual ? (
@@ -266,19 +276,26 @@ export default function Menu({
                                 </h1>
                               )}
                             <div className="cardProducto">
-                              <div className="nombreDescrImg">
-                                <div className="nombreDescr">
+                              {imagen ? (
+                                <div className="nombreDescrImg">
+                                  <div className="nombreDescr">
+                                    <p className="nombre">{nombre}</p>
+                                    <p className="descripcion">{descripcion}</p>
+                                  </div>
+                                  <div className="imagenContainer">
+                                    <img
+                                      src={imagen}
+                                      alt="Imagen desde URL"
+                                      className="imagen"
+                                    />
+                                  </div>
+                                </div>
+                              ) : (
+                                <>
                                   <p className="nombre">{nombre}</p>
                                   <p className="descripcion">{descripcion}</p>
-                                </div>
-                                <div className="imagenContainer">
-                                  <img
-                                    src={imagen}
-                                    alt="Imagen desde URL"
-                                    className="imagen"
-                                  />
-                                </div>
-                              </div>
+                                </>
+                              )}
                               <div className="precioAcciones">
                                 <div className="acciones">
                                   {userActual ? (
@@ -387,19 +404,26 @@ export default function Menu({
                         }
                         className="cardProducto"
                       >
-                        <div className="nombreDescrImg">
-                          <div className="nombreDescr">
+                        {imagen ? (
+                          <div className="nombreDescrImg">
+                            <div className="nombreDescr">
+                              <p className="nombre">{nombre}</p>
+                              <p className="descripcion">{descripcion}</p>
+                            </div>
+                            <div className="imagenContainer">
+                              <img
+                                src={imagen}
+                                alt="Imagen desde URL"
+                                className="imagen"
+                              />
+                            </div>
+                          </div>
+                        ) : (
+                          <>
                             <p className="nombre">{nombre}</p>
                             <p className="descripcion">{descripcion}</p>
-                          </div>
-                          <div className="imagenContainer">
-                            <img
-                              src={imagen}
-                              alt="Imagen desde URL"
-                              className="imagen"
-                            />
-                          </div>
-                        </div>
+                          </>
+                        )}
                         <div className="precioAcciones">
                           <div className="acciones">
                             {userActual && (
@@ -488,19 +512,28 @@ export default function Menu({
                                   </h1>
                                 )}
                               <div className="cardProducto">
-                                <div className="nombreDescrImg">
-                                  <div className="nombreDescr">
+                                {imagen ? (
+                                  <div className="nombreDescrImg">
+                                    <div className="nombreDescr">
+                                      <p className="nombre">{nombre}</p>
+                                      <p className="descripcion">
+                                        {descripcion}
+                                      </p>
+                                    </div>
+                                    <div className="imagenContainer">
+                                      <img
+                                        src={imagen}
+                                        alt="Imagen desde URL"
+                                        className="imagen"
+                                      />
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <>
                                     <p className="nombre">{nombre}</p>
                                     <p className="descripcion">{descripcion}</p>
-                                  </div>
-                                  <div className="imagenContainer">
-                                    <img
-                                      src={imagen}
-                                      alt="Imagen desde URL"
-                                      className="imagen"
-                                    />
-                                  </div>
-                                </div>
+                                  </>
+                                )}
                                 <div className="precioAcciones">
                                   <div className="acciones">
                                     {userActual && (

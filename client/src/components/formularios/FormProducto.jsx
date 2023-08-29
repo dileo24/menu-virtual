@@ -45,6 +45,9 @@ export default function FormProducto({
   handleImageUrlChange,
   handleImageLoadError,
   imageError,
+  setEditarProducto,
+  setNuevoProducto,
+  setEditando,
 }) {
   const dispatch = useDispatch();
 
@@ -96,6 +99,12 @@ export default function FormProducto({
   if (prodContainerPC) {
     prodContainerPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
+
+  const handleDescartar = () => {
+    setEditarProducto(false);
+    setNuevoProducto(true);
+    setEditando(false);
+  };
 
   return (
     <div className={vertical ? "prodContainerMobile" : "prodContainerPC"}>
@@ -284,13 +293,21 @@ export default function FormProducto({
         {/* Imagen */}
         {tipoElegido && (
           <div className="labelInput">
-            <label>Pega aquí el URL de una imagen</label>
+            <label className="labelIMG">
+              Pega aquí el URL de una imagen <span>(no obligatorio)</span>
+            </label>
+            <p className="infoIMG">
+              La imagen debe estar en internet. Si tienes una imagen local,
+              puedes subirla a Google Drive y copiar su URL.
+            </p>
             <input
               type="text"
               value={imagen ? imagen : ""}
               onChange={handleImageUrlChange}
-              placeholder="URL de la imagen del producto"
-              required
+              placeholder={`URL de la imagen del ${
+                combo ? "combo" : "producto"
+              }`}
+              // required
             />
             {imagen && (
               <div className="imagenContainer">
@@ -484,10 +501,20 @@ export default function FormProducto({
         {/* footer editar */}
         {titulo !== "Nuevo Producto" && (
           <div className="footer">
-            <Link to={"/"} className="botonDescartar">
-              Descartar cambios
-            </Link>
-            <button type="submit" className="botonFooter">
+            {vertical ? (
+              <Link to={"/"} className="botonDescartar">
+                Descartar cambios
+              </Link>
+            ) : (
+              <button
+                onClick={() => handleDescartar()}
+                className="botonDescartar"
+              >
+                Descartar cambios
+              </button>
+            )}
+
+            <button type="submit" className="botonGuardar">
               Guardar cambios
             </button>
           </div>

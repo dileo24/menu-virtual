@@ -41,6 +41,7 @@ const Carrusel = () => {
   const [indexProd, setIndexProd] = useState(null);
   const [nuevoProducto, setNuevoProducto] = useState(true);
   const [editarProducto, setEditarProducto] = useState(false);
+  const [editando, setEditando] = useState(false);
 
   const vertical = window.innerHeight > window.innerWidth;
 
@@ -183,6 +184,12 @@ const Carrusel = () => {
     indexProd && console.log(indexProd);
   }, [editarItemProd]);
 
+  const handleEditar = () => {
+    if (editando) {
+      setEditarProducto(true);
+      setNuevoProducto(false);
+    }
+  };
   return (
     <div className="containerCarrusel">
       <Header
@@ -219,6 +226,7 @@ const Carrusel = () => {
                   setProdID={setProdID}
                   setEditarProducto={setEditarProducto}
                   setNuevoProducto={setNuevoProducto}
+                  setEditando={setEditando}
                 />
               </div>
               {categorias.map(
@@ -238,6 +246,7 @@ const Carrusel = () => {
                           setProdID={setProdID}
                           setEditarProducto={setEditarProducto}
                           setNuevoProducto={setNuevoProducto}
+                          setEditando={setEditando}
                         />
                       )}
                     </div>
@@ -308,10 +317,11 @@ const Carrusel = () => {
                 </button>
                 <button
                   onClick={() => {
-                    setEditarProducto(true);
-                    setNuevoProducto(false);
+                    handleEditar();
                   }}
-                  className={editarProducto ? "active" : ""}
+                  className={`${editarProducto ? "active" : ""} ${
+                    editando ? "" : "editarFalse"
+                  }`}
                 >
                   Editar
                 </button>
@@ -320,7 +330,12 @@ const Carrusel = () => {
           )}
           {userActual && !vertical && nuevoProducto && <NuevoProducto />}
           {userActual && !vertical && editarProducto && (
-            <EditarProducto prodID={prodID} />
+            <EditarProducto
+              prodID={prodID}
+              setEditarProducto={setEditarProducto}
+              setNuevoProducto={setNuevoProducto}
+              setEditando={setEditando}
+            />
           )}
         </div>
 
