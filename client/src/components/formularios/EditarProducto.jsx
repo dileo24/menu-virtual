@@ -4,7 +4,12 @@ import { obtenerProducto, obtenerItem, editarProducto } from "../../helpers";
 import { useSelector } from "react-redux";
 import Alerta from "../recursos/Alerta";
 
-export default function EditarProductos({ prodID }) {
+export default function EditarProductos({
+  prodID,
+  setEditarProducto,
+  setNuevoProducto,
+  setEditando,
+}) {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [precio, setPrecio] = useState("");
@@ -25,7 +30,18 @@ export default function EditarProductos({ prodID }) {
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const vertical = window.innerHeight > window.innerWidth;
+  const [imagen, setImagen] = useState("");
+  const [imageError, setImageError] = useState("");
 
+  const handleImageUrlChange = (event) => {
+    const url = event.target.value;
+    setImagen(url);
+    setImageError("");
+  };
+
+  const handleImageLoadError = () => {
+    setImageError("No se pudo cargar la imagen desde la URL proporcionada.");
+  };
   const checkForEmptyElements = (arr) => {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "") {
@@ -78,6 +94,7 @@ export default function EditarProductos({ prodID }) {
     setListado(producto.listado);
     setCombo(producto.combo);
     setCrearProducto(producto.combo ? false : true);
+    setImagen(producto.imagen);
   }
 
   // Mostrar los datos del item en el formulario
@@ -122,6 +139,7 @@ export default function EditarProductos({ prodID }) {
       mostrarOtroCheckbox,
       item,
       combo,
+      imagen,
     };
 
     setAlertaExito({
@@ -170,6 +188,13 @@ export default function EditarProductos({ prodID }) {
         combo={combo}
         setCombo={setCombo}
         vertical={vertical}
+        imagen={imagen}
+        handleImageUrlChange={handleImageUrlChange}
+        handleImageLoadError={handleImageLoadError}
+        imageError={imageError}
+        setEditarProducto={setEditarProducto}
+        setNuevoProducto={setNuevoProducto}
+        setEditando={setEditando}
       />
       {alertaError && (
         <Alerta

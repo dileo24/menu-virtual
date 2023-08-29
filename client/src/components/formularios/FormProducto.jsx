@@ -41,6 +41,13 @@ export default function FormProducto({
   combo,
   setCombo,
   vertical,
+  imagen,
+  handleImageUrlChange,
+  handleImageLoadError,
+  imageError,
+  setEditarProducto,
+  setNuevoProducto,
+  setEditando,
 }) {
   const dispatch = useDispatch();
 
@@ -93,7 +100,11 @@ export default function FormProducto({
     prodContainerPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
-  console.log(vertical);
+  const handleDescartar = () => {
+    setEditarProducto(false);
+    setNuevoProducto(true);
+    setEditando(false);
+  };
 
   return (
     <div className={vertical ? "prodContainerMobile" : "prodContainerPC"}>
@@ -279,6 +290,55 @@ export default function FormProducto({
           </div>
         )}
 
+        {/* Imagen */}
+        {tipoElegido && (
+          <div className="labelInput">
+            <label className="labelIMG">
+              Pega aquí la URL de una imagen <span>(no obligatorio)</span>
+            </label>
+            <p className="infoIMG">
+              La imagen debe estar en internet. Si tienes una imagen local,
+              puedes subirla a Google Drive y copiar su URL.
+            </p>
+            <input
+              type="text"
+              value={imagen ? imagen : ""}
+              onChange={handleImageUrlChange}
+              placeholder={`URL de la imagen del ${
+                combo ? "combo" : "producto"
+              }`}
+              // required
+            />
+            {imagen && (
+              <div className="imagenContainer">
+                <img
+                  src={imagen}
+                  alt="Imagen desde URL"
+                  onError={handleImageLoadError}
+                  className="imagen"
+                />
+              </div>
+            )}
+            {imageError && <p style={{ color: "red" }}>{imageError}</p>}
+          </div>
+        )}
+
+        {/* precio */}
+        {mostrarPrecio && tipoElegido && listado && (
+          <div className="labelInput">
+            <label htmlFor="precio">Precio</label>
+            <input
+              id="precio"
+              name="precio"
+              type="number"
+              placeholder="Precio del producto"
+              value={precio}
+              onChange={(e) => setPrecio(e.target.value)}
+              required
+            />
+          </div>
+        )}
+
         {/* Guardar como ítem */}
         {crearProducto && (
           <div className="labelInput">
@@ -392,22 +452,6 @@ export default function FormProducto({
           </div>
         )}
 
-        {/* precio */}
-        {mostrarPrecio && tipoElegido && listado && (
-          <div className="labelInput">
-            <label htmlFor="precio">Precio</label>
-            <input
-              id="precio"
-              name="precio"
-              type="number"
-              placeholder="Precio del producto"
-              value={precio}
-              onChange={(e) => setPrecio(e.target.value)}
-              required
-            />
-          </div>
-        )}
-
         {/* <input type="hidden" name="id" id="id" value="" /> */}
 
         {/* cantidad de personas e ítems extra*/}
@@ -457,10 +501,20 @@ export default function FormProducto({
         {/* footer editar */}
         {titulo !== "Nuevo Producto" && (
           <div className="footer">
-            <Link to={"/"} className="botonDescartar">
-              Descartar cambios
-            </Link>
-            <button type="submit" className="botonFooter">
+            {vertical ? (
+              <Link to={"/"} className="botonDescartar">
+                Descartar cambios
+              </Link>
+            ) : (
+              <button
+                onClick={() => handleDescartar()}
+                className="botonDescartar"
+              >
+                Descartar cambios
+              </button>
+            )}
+
+            <button type="submit" className="botonGuardar">
               Guardar cambios
             </button>
           </div>
