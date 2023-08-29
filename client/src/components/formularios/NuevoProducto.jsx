@@ -27,7 +27,7 @@ export default function NuevoProducto() {
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const vertical = window.innerHeight > window.innerWidth;
-  const [imagen, setImagen] = useState("");
+  const [imagen, setImagen] = useState(null);
   const [imageError, setImageError] = useState("");
 
   const handleImageUrlChange = (event) => {
@@ -74,6 +74,8 @@ export default function NuevoProducto() {
       combo,
       imagen,
     };
+
+    console.log(producto);
 
     setAlertaExito({
       estado: true,

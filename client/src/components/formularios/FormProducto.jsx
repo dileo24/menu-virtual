@@ -122,7 +122,7 @@ export default function FormProducto({
         </>
       )}
 
-      {!crearProducto && !combo && (
+      {!crearProducto && !combo && vertical && (
         <h1 className="prodTitle">
           {titulo === "Nuevo Producto"
             ? "Crear Producto o Combo"
@@ -130,15 +130,16 @@ export default function FormProducto({
         </h1>
       )}
 
-      {titulo === "Nuevo Producto" ? (
-        <h1 className="prodTitle">
-          {crearProducto ? "Crear Producto" : combo ? "Crear Combo" : ""}
-        </h1>
-      ) : (
-        <h1 className="prodTitle">
-          {crearProducto ? "Editar Producto" : combo ? "Editar Combo" : ""}
-        </h1>
-      )}
+      {vertical &&
+        (titulo === "Nuevo Producto" ? (
+          <h1 className="prodTitle">
+            {crearProducto ? "Crear Producto" : combo ? "Crear Combo" : ""}
+          </h1>
+        ) : (
+          <h1 className="prodTitle">
+            {crearProducto ? "Editar Producto" : combo ? "Editar Combo" : ""}
+          </h1>
+        ))}
 
       <form
         className="formulario"
@@ -309,7 +310,7 @@ export default function FormProducto({
               }`}
               // required
             />
-            {imagen && (
+            {imagen && !imageError && (
               <div className="imagenContainer">
                 <img
                   src={imagen}

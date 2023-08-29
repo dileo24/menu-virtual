@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import FormProducto from "./FormProducto";
-import { obtenerProducto, obtenerItem, editarProducto } from "../../helpers";
+import {
+  obtenerProducto,
+  /* obtenerItem, */ editarProducto,
+} from "../../helpers";
 import { useSelector } from "react-redux";
 import Alerta from "../recursos/Alerta";
 
@@ -30,7 +33,7 @@ export default function EditarProductos({
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const vertical = window.innerHeight > window.innerWidth;
-  const [imagen, setImagen] = useState("");
+  const [imagen, setImagen] = useState(null);
   const [imageError, setImageError] = useState("");
 
   const handleImageUrlChange = (event) => {

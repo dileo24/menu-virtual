@@ -24,6 +24,16 @@ export default function Menu({
   let productosState = useSelector((state) => state.home);
   const categorias = useSelector((state) => state.categorias);
   const subcategorias = useSelector((state) => state.subcategorias);
+  // Inside the component function
+  const [imageErrors, setImageErrors] = useState({});
+
+  // New function to handle image load errors for each image
+  const handleIndividualImageLoadError = (id) => {
+    setImageErrors((prevErrors) => ({
+      ...prevErrors,
+      [id]: "No se pudo cargar la imagen desde la URL proporcionada.",
+    }));
+  };
 
   useEffect(() => {
     dispatch(getProductos());
@@ -154,7 +164,7 @@ export default function Menu({
                       }
                       className="cardProducto"
                     >
-                      {imagen ? (
+                      {imagen && imageErrors[id] === undefined ? (
                         <div className="nombreDescrImg">
                           <div className="nombreDescr">
                             <p className="nombre">{nombre}</p>
@@ -164,6 +174,7 @@ export default function Menu({
                             <img
                               src={imagen}
                               alt="Imagen desde URL"
+                              onError={() => handleIndividualImageLoadError(id)}
                               className="imagen"
                             />
                           </div>
@@ -276,7 +287,7 @@ export default function Menu({
                                 </h1>
                               )}
                             <div className="cardProducto">
-                              {imagen ? (
+                              {imagen && imageErrors[id] === undefined ? (
                                 <div className="nombreDescrImg">
                                   <div className="nombreDescr">
                                     <p className="nombre">{nombre}</p>
@@ -286,6 +297,9 @@ export default function Menu({
                                     <img
                                       src={imagen}
                                       alt="Imagen desde URL"
+                                      onError={() =>
+                                        handleIndividualImageLoadError(id)
+                                      }
                                       className="imagen"
                                     />
                                   </div>
@@ -404,7 +418,7 @@ export default function Menu({
                         }
                         className="cardProducto"
                       >
-                        {imagen ? (
+                        {imagen && imageErrors[id] === undefined ? (
                           <div className="nombreDescrImg">
                             <div className="nombreDescr">
                               <p className="nombre">{nombre}</p>
@@ -414,6 +428,9 @@ export default function Menu({
                               <img
                                 src={imagen}
                                 alt="Imagen desde URL"
+                                onError={() =>
+                                  handleIndividualImageLoadError(id)
+                                }
                                 className="imagen"
                               />
                             </div>
@@ -512,7 +529,7 @@ export default function Menu({
                                   </h1>
                                 )}
                               <div className="cardProducto">
-                                {imagen ? (
+                                {imagen && imageErrors[id] === undefined ? (
                                   <div className="nombreDescrImg">
                                     <div className="nombreDescr">
                                       <p className="nombre">{nombre}</p>
@@ -524,6 +541,9 @@ export default function Menu({
                                       <img
                                         src={imagen}
                                         alt="Imagen desde URL"
+                                        onError={() =>
+                                          handleIndividualImageLoadError(id)
+                                        }
                                         className="imagen"
                                       />
                                     </div>

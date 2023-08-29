@@ -221,7 +221,7 @@ export default function Historial() {
       <div className="centro">
         <img src={bandeja} alt="bandeja" className="icon" />
         <p className="alerta">¡Comienza a sumar productos a tu pedido!</p>
-        <p className="alerta2">Aún no tienes pedidos hechos</p>
+        <p className="alerta2">Aún no tienes pedidos pendientes</p>
       </div>
 
       {vertical && (

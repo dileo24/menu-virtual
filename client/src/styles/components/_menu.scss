@@ -52,6 +52,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .nombre {
+      font-weight: $titleWeight;
+      font-size: $subtSize;
+    }
+    .descripcion {
+      font-size: 4.2vw;
+    }
     .nombreDescrImg {
       display: flex;
       justify-content: space-between;
@@ -158,7 +165,7 @@
   }
   .nombreCateg {
     font-weight: $titleWeight;
-    font-size: 1.3vw;
+    font-size: $titleSizeBigPC;
     margin-bottom: 1vw;
     margin-top: 2.5%;
   }
