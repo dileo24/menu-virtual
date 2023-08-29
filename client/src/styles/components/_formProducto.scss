@@ -81,6 +81,18 @@
         display: flex;
         align-items: center;
       }
+      .imagenContainer {
+        width: 100%;
+        display: flex;
+        align-items: end;
+        height: 28vw;
+        .imagen {
+          width: 25vw;
+          height: 25vw;
+          object-fit: cover;
+          border-radius: 6vw;
+        }
+      }
     }
     .info {
       font-weight: $titleWeight;
@@ -201,6 +213,18 @@
       .numItems {
         display: flex;
         align-items: center;
+      }
+      .imagenContainer {
+        width: 100%;
+        display: flex;
+        align-items: end;
+        height: 6vw;
+        .imagen {
+          width: 5vw;
+          height: 5vw;
+          object-fit: cover;
+          border-radius: 1vw;
+        }
       }
     }
     .info {

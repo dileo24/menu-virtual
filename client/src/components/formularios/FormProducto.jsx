@@ -41,6 +41,10 @@ export default function FormProducto({
   combo,
   setCombo,
   vertical,
+  imagen,
+  handleImageUrlChange,
+  handleImageLoadError,
+  imageError,
 }) {
   const dispatch = useDispatch();
 
@@ -92,8 +96,6 @@ export default function FormProducto({
   if (prodContainerPC) {
     prodContainerPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
-
-  console.log(vertical);
 
   return (
     <div className={vertical ? "prodContainerMobile" : "prodContainerPC"}>
@@ -279,6 +281,47 @@ export default function FormProducto({
           </div>
         )}
 
+        {/* Imagen */}
+        {tipoElegido && (
+          <div className="labelInput">
+            <label>Pega aquí el URL de una imagen</label>
+            <input
+              type="text"
+              value={imagen ? imagen : ""}
+              onChange={handleImageUrlChange}
+              placeholder="URL de la imagen del producto"
+              required
+            />
+            {imagen && (
+              <div className="imagenContainer">
+                <img
+                  src={imagen}
+                  alt="Imagen desde URL"
+                  onError={handleImageLoadError}
+                  className="imagen"
+                />
+              </div>
+            )}
+            {imageError && <p style={{ color: "red" }}>{imageError}</p>}
+          </div>
+        )}
+
+        {/* precio */}
+        {mostrarPrecio && tipoElegido && listado && (
+          <div className="labelInput">
+            <label htmlFor="precio">Precio</label>
+            <input
+              id="precio"
+              name="precio"
+              type="number"
+              placeholder="Precio del producto"
+              value={precio}
+              onChange={(e) => setPrecio(e.target.value)}
+              required
+            />
+          </div>
+        )}
+
         {/* Guardar como ítem */}
         {crearProducto && (
           <div className="labelInput">
@@ -389,22 +432,6 @@ export default function FormProducto({
                 </div>
               </div>
             )}
-          </div>
-        )}
-
-        {/* precio */}
-        {mostrarPrecio && tipoElegido && listado && (
-          <div className="labelInput">
-            <label htmlFor="precio">Precio</label>
-            <input
-              id="precio"
-              name="precio"
-              type="number"
-              placeholder="Precio del producto"
-              value={precio}
-              onChange={(e) => setPrecio(e.target.value)}
-              required
-            />
           </div>
         )}
 

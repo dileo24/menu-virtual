@@ -27,6 +27,18 @@ export default function NuevoProducto() {
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
   const vertical = window.innerHeight > window.innerWidth;
+  const [imagen, setImagen] = useState("");
+  const [imageError, setImageError] = useState("");
+
+  const handleImageUrlChange = (event) => {
+    const url = event.target.value;
+    setImagen(url);
+    setImageError("");
+  };
+
+  const handleImageLoadError = () => {
+    setImageError("No se pudo cargar la imagen desde la URL proporcionada.");
+  };
 
   const checkForEmptyElements = (arr) => {
     for (let i = 0; i < arr.length; i++) {
@@ -60,6 +72,7 @@ export default function NuevoProducto() {
       mostrarPersonaItem,
       mostrarOtroCheckbox,
       combo,
+      imagen,
     };
 
     setAlertaExito({
@@ -113,7 +126,10 @@ export default function NuevoProducto() {
         combo={combo}
         setCombo={setCombo}
         vertical={vertical}
-        // checkForEmptyElements={checkForEmptyElements}
+        imagen={imagen}
+        handleImageUrlChange={handleImageUrlChange}
+        handleImageLoadError={handleImageLoadError}
+        imageError={imageError}
       />
       {alertaError && (
         <Alerta

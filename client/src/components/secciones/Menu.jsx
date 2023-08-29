@@ -44,6 +44,8 @@ export default function Menu({
     categ !== "todas" ? prod.categoria.nombre === categ : prod
   );
 
+  console.log(productos);
+
   // Filtrar los productos por categoría
   const filtrarProductosPorCategoria = (categoria) => {
     return productos.filter((prod) => prod.categoria.nombre === categoria);
@@ -138,6 +140,8 @@ export default function Menu({
                     id,
                     cantidadPersonas,
                     subcategoria,
+                    imagen,
+                    combo,
                   }) => (
                     <div
                       key={id}
@@ -148,8 +152,19 @@ export default function Menu({
                       }
                       className="cardProducto"
                     >
-                      <p className="nombre">{nombre}</p>
-                      <p className="descripcion">{descripcion}</p>
+                      <div className="nombreDescrImg">
+                        <div className="nombreDescr">
+                          <p className="nombre">{nombre}</p>
+                          <p className="descripcion">{descripcion}</p>
+                        </div>
+                        <div className="imagenContainer">
+                          <img
+                            src={imagen}
+                            alt="Imagen desde URL"
+                            className="imagen"
+                          />
+                        </div>
+                      </div>
                       <div className="precioAcciones">
                         <div className="acciones">
                           {userActual ? (
@@ -187,6 +202,7 @@ export default function Menu({
                               cantidadPersonas={cantidadPersonas}
                               setProdID={setProdID}
                               setItemProd={setItemProd}
+                              combo={combo}
                             />
                           )}
                         </div>
@@ -216,6 +232,8 @@ export default function Menu({
                         id,
                         cantidadPersonas,
                         subcategoria,
+                        imagen,
+                        combo,
                       }) => {
                         const esNuevaSubCategoria =
                           subcategoria.nombre !== ultimaSubCategoria;
@@ -248,8 +266,19 @@ export default function Menu({
                                 </h1>
                               )}
                             <div className="cardProducto">
-                              <p className="nombre">{nombre}</p>
-                              <p className="descripcion">{descripcion}</p>
+                              <div className="nombreDescrImg">
+                                <div className="nombreDescr">
+                                  <p className="nombre">{nombre}</p>
+                                  <p className="descripcion">{descripcion}</p>
+                                </div>
+                                <div className="imagenContainer">
+                                  <img
+                                    src={imagen}
+                                    alt="Imagen desde URL"
+                                    className="imagen"
+                                  />
+                                </div>
+                              </div>
                               <div className="precioAcciones">
                                 <div className="acciones">
                                   {userActual ? (
@@ -287,6 +316,7 @@ export default function Menu({
                                       cantidadPersonas={cantidadPersonas}
                                       setProdID={setProdID}
                                       setItemProd={setItemProd}
+                                      combo={combo}
                                     />
                                   )}
                                 </div>
@@ -304,7 +334,7 @@ export default function Menu({
           );
         })}
 
-        {/********************* ITEMS NO VISIBLES *********************/}
+        {/********* ITEMS NO VISIBLES *********/}
         {userActual &&
           productos.some((producto) => producto.listado === false) && (
             <h1 className="nombreCateg noVisibles">Items no visibles</h1>
@@ -346,6 +376,7 @@ export default function Menu({
                       id,
                       cantidadPersonas,
                       subcategoria,
+                      imagen,
                     }) => (
                       <div
                         key={id}
@@ -356,11 +387,22 @@ export default function Menu({
                         }
                         className="cardProducto"
                       >
-                        <p className="nombre">{nombre}</p>
-                        <p className="descripcion">{descripcion}</p>
+                        <div className="nombreDescrImg">
+                          <div className="nombreDescr">
+                            <p className="nombre">{nombre}</p>
+                            <p className="descripcion">{descripcion}</p>
+                          </div>
+                          <div className="imagenContainer">
+                            <img
+                              src={imagen}
+                              alt="Imagen desde URL"
+                              className="imagen"
+                            />
+                          </div>
+                        </div>
                         <div className="precioAcciones">
                           <div className="acciones">
-                            {userActual ? (
+                            {userActual && (
                               <>
                                 {vertical ? (
                                   <Link
@@ -385,15 +427,6 @@ export default function Menu({
                                   <VscTrash className="eliminarIcon" />
                                 </button>
                               </>
-                            ) : (
-                              <Contador
-                                id={id}
-                                nombre={nombre}
-                                descripcion={descripcion}
-                                precio={precio}
-                                itemsExtra={itemsExtra}
-                                cantidadPersonas={cantidadPersonas}
-                              />
                             )}
                           </div>
                           <p className="precio">${precio}</p>
@@ -422,6 +455,7 @@ export default function Menu({
                           id,
                           cantidadPersonas,
                           subcategoria,
+                          imagen,
                         }) => {
                           const esNuevaSubCategoria =
                             subcategoria.nombre !== ultimaSubCategoria;
@@ -454,11 +488,22 @@ export default function Menu({
                                   </h1>
                                 )}
                               <div className="cardProducto">
-                                <p className="nombre">{nombre}</p>
-                                <p className="descripcion">{descripcion}</p>
+                                <div className="nombreDescrImg">
+                                  <div className="nombreDescr">
+                                    <p className="nombre">{nombre}</p>
+                                    <p className="descripcion">{descripcion}</p>
+                                  </div>
+                                  <div className="imagenContainer">
+                                    <img
+                                      src={imagen}
+                                      alt="Imagen desde URL"
+                                      className="imagen"
+                                    />
+                                  </div>
+                                </div>
                                 <div className="precioAcciones">
                                   <div className="acciones">
-                                    {userActual ? (
+                                    {userActual && (
                                       <>
                                         {vertical ? (
                                           <Link
@@ -485,15 +530,6 @@ export default function Menu({
                                           <VscTrash className="eliminarIcon" />
                                         </button>
                                       </>
-                                    ) : (
-                                      <Contador
-                                        id={id}
-                                        nombre={nombre}
-                                        descripcion={descripcion}
-                                        precio={precio}
-                                        itemsExtra={itemsExtra}
-                                        cantidadPersonas={cantidadPersonas}
-                                      />
                                     )}
                                   </div>
                                   <p className="precio">${precio}</p>

@@ -13,6 +13,7 @@ export default function Contador({
   cantidadPersonas,
   setProdID,
   setItemProd,
+  combo,
 }) {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
@@ -72,7 +73,7 @@ export default function Contador({
       <Button
         signo="+"
         funcion={() =>
-          itemsExtra
+          combo
             ? handleRelocated()
             : handleIncremento({
                 nombre,
