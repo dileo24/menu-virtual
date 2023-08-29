@@ -2,6 +2,7 @@
   {
     "nombre": "Pizza Especial (8 porciones)",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg",
     "precio": "3500",
     "categoriaID": "2",
     "subcategoriaID": "1"
@@ -10,11 +11,10 @@
     "subcategoriaID": "6",
     "nombre": "Papas Bravas con 2 Pintas",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg",
     "precio": "1500",
     "categoriaID": "2",
-    "itemsExtra": [
-      "Bebidas con alcohol"
-    ],
+    "itemsExtra": ["Bebidas con alcohol"],
     "cantidadPersonas": "2",
     "combo": true
   },
@@ -22,6 +22,7 @@
     "subcategoriaID": "4",
     "nombre": "Lomito Completo Premium",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg",
     "precio": "2000",
     "categoriaID": "2"
   },
@@ -29,6 +30,7 @@
     "subcategoriaID": "1",
     "nombre": "Pizza Fugazzeta (8 porciones)",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg",
     "precio": "2500",
     "categoriaID": "2"
   },
@@ -36,6 +38,7 @@
     "subcategoriaID": "6",
     "nombre": "Papas a la Alemana (para 4)",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg",
     "precio": "5300",
     "categoriaID": "2"
   },
@@ -43,6 +46,7 @@
     "subcategoriaID": "2",
     "nombre": "Hamburguesa Americana Doble",
     "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg",
     "precio": "1800",
     "categoriaID": "2"
   },
@@ -52,12 +56,7 @@
     "descripcion": "Una infusión, tres criollos o medialunas, queso crema, mermelada y jugo de naranja",
     "precio": "1200",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Infusiones",
-      "Panadería",
-      "Panadería",
-      "Panadería"
-    ],
+    "itemsExtra": ["Infusiones", "Panadería", "Panadería", "Panadería"],
     "cantidadPersonas": "1",
     "combo": true
   },
@@ -67,11 +66,7 @@
     "descripcion": "2 Licuados, 4 criollos o medialunas y jugo de naranja",
     "precio": "3200",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Licuados",
-      "Panadería",
-      "Panadería"
-    ],
+    "itemsExtra": ["Licuados", "Panadería", "Panadería"],
     "cantidadPersonas": "2",
     "combo": true
   },
@@ -81,11 +76,7 @@
     "descripcion": "4 infusiones, 8 criollos o medialunas, queso crema, palta y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Infusiones",
-      "Panadería",
-      "Panadería"
-    ],
+    "itemsExtra": ["Infusiones", "Panadería", "Panadería"],
     "cantidadPersonas": "4",
     "combo": true
   },
@@ -95,10 +86,7 @@
     "descripcion": "4 infusiones, 4 criollos o medialunas y jugo de naranja",
     "precio": "1800",
     "categoriaID": "1",
-    "itemsExtra": [
-      "Licuados",
-      "Postres"
-    ],
+    "itemsExtra": ["Licuados", "Postres"],
     "cantidadPersonas": "4",
     "combo": true
   },
@@ -108,11 +96,7 @@
     "descripcion": "Vacío y Costilla con bebidas de 500ml, papas y postre",
     "precio": "5300",
     "categoriaID": "2",
-    "itemsExtra": [
-      "Bebidas sin alcohol",
-      "Guarniciones",
-      "Postres"
-    ],
+    "itemsExtra": ["Bebidas sin alcohol", "Guarniciones", "Postres"],
     "cantidadPersonas": "2",
     "combo": true
   },
@@ -125,7 +109,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "8",
@@ -136,7 +121,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -147,7 +133,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -158,7 +145,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "10",
@@ -169,7 +157,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "900",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "10",
@@ -180,7 +169,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1100",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "10",
@@ -191,7 +181,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1200",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -202,7 +193,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -213,7 +205,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "300",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "9",
@@ -224,7 +217,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -235,7 +229,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -246,7 +241,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -257,7 +253,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -268,7 +265,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -279,7 +277,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -290,7 +289,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "500",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "11",
@@ -301,7 +301,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "11",
@@ -312,7 +313,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -323,7 +325,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1150",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -334,7 +337,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "1150",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -345,7 +349,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -356,7 +361,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -367,7 +373,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "",
@@ -378,7 +385,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "700",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "11",
@@ -389,7 +397,8 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   },
   {
     "subcategoriaID": "11",
@@ -400,6 +409,7 @@
     "mostrarPersonaItem": false,
     "mostrarOtroCheckbox": true,
     "precio": "0",
-    "descripcion": "Descripcion del producto"
+    "descripcion": "Descripcion del producto",
+    "imagen": "https://2trendies.com/hero/2023/04/pizzapepperoni.jpg"
   }
 ]

@@ -81,6 +81,7 @@ async function fnProducto() {
       listado: p.listado,
       mostrarPersonaItem: p.mostrarPersonaItem,
       mostrarOtroCheckbox: p.mostrarOtroCheckbox,
+      imagen: p.imagen,
       combo: p.combo,
     });
     const categoria = await Categoria.findByPk(p.categoriaID);
