@@ -26,6 +26,7 @@ export default function NuevoProducto() {
   const token = useSelector((state) => state.userActual.tokenSession);
   const [alertaError, setAlertaError] = useState(false);
   const [alertaExito, setAlertaExito] = useState(false);
+  const vertical = window.innerHeight > window.innerWidth;
 
   const checkForEmptyElements = (arr) => {
     for (let i = 0; i < arr.length; i++) {
@@ -111,6 +112,7 @@ export default function NuevoProducto() {
         setCrearProducto={setCrearProducto}
         combo={combo}
         setCombo={setCombo}
+        vertical={vertical}
         // checkForEmptyElements={checkForEmptyElements}
       />
       {alertaError && (

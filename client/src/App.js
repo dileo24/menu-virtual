@@ -34,20 +34,20 @@ function App() {
 
   useEffect(() => {
     // Función que se ejecutará cuando cambie el tamaño del viewport
-    if (window.location.pathname === '/' || window.location.pathname === '/historial' || window.location.pathname === '/miPedido' || window.location.pathname === '/hacerPedido') {
+    /* if (window.location.pathname === '/' || window.location.pathname === '/historial' || window.location.pathname === '/miPedido' || window.location.pathname === '/hacerPedido' || window.location.pathname === '/nuevoProducto') { */
 
-      // Función para manejar el cambio de orientación
-      const handleOrientationChange = () => {
-        // Recargar la página
-        window.location.pathname === '/' ? window.location.reload() : navigate('/');
-      };
-      // Agregar un controlador de eventos al evento orientationchange
-      window.addEventListener('orientationchange', handleOrientationChange);
-      // Limpieza: Eliminar el controlador de eventos cuando el componente se desmonta
-      return () => {
-        window.removeEventListener('orientationchange', handleOrientationChange);
-      };
-    }
+    // Función para manejar el cambio de orientación
+    const handleOrientationChange = () => {
+      // Recargar la página
+      window.location.href = '/';
+    };
+    // Agregar un controlador de eventos al evento orientationchange
+    window.addEventListener('orientationchange', handleOrientationChange);
+    // Limpieza: Eliminar el controlador de eventos cuando el componente se desmonta
+    return () => {
+      window.removeEventListener('orientationchange', handleOrientationChange);
+    };
+    // }
   }, []);
 
   const vertical = window.innerHeight > window.innerWidth;

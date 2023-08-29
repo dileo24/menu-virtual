@@ -40,6 +40,7 @@ export default function FormProducto({
   setCrearProducto,
   combo,
   setCombo,
+  vertical,
 }) {
   const dispatch = useDispatch();
 
@@ -83,21 +84,31 @@ export default function FormProducto({
     }
   }, [combo, crearProducto]);
 
-  const prodContainer = document.querySelector(".prodContainer");
-  if (prodContainer) {
-    prodContainer.style.minHeight = `${window.innerHeight}px`;
+  const prodContainerMobile = document.querySelector(".prodContainerMobile");
+  if (prodContainerMobile) {
+    prodContainerMobile.style.minHeight = `${window.innerHeight}px`;
+  }
+  const prodContainerPC = document.querySelector(".prodContainerPC");
+  if (prodContainerPC) {
+    prodContainerPC.style.height = `calc(${window.innerHeight}px - 20vh)`;
   }
 
+  console.log(vertical);
+
   return (
-    <div className="prodContainer">
-      {titulo === "Nuevo Producto" ? (
-        <Header />
-      ) : (
-        <div className="header1">
-          <Link className="ocultarBtn" to={"/"}>
-            <span className="arrow-left"></span>
-          </Link>
-        </div>
+    <div className={vertical ? "prodContainerMobile" : "prodContainerPC"}>
+      {vertical && (
+        <>
+          {titulo === "Nuevo Producto" ? (
+            <Header />
+          ) : (
+            <div className="header1">
+              <Link className="ocultarBtn" to={"/"}>
+                <span className="arrow-left"></span>
+              </Link>
+            </div>
+          )}
+        </>
       )}
 
       {!crearProducto && !combo && (
