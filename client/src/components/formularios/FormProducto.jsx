@@ -294,7 +294,7 @@ export default function FormProducto({
         {tipoElegido && (
           <div className="labelInput">
             <label className="labelIMG">
-              Pega aquí el URL de una imagen <span>(no obligatorio)</span>
+              Pega aquí la URL de una imagen <span>(no obligatorio)</span>
             </label>
             <p className="infoIMG">
               La imagen debe estar en internet. Si tienes una imagen local,
