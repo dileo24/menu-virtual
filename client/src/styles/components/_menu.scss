@@ -43,52 +43,46 @@
     -o-border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     padding: 5%;
-    min-height: 12rem;
+    min-height: 45vw;
     margin-top: 5%;
-    @media only screen and (max-height: 700px) {
-      min-height: 25vh;
-    }
-    max-height: fit-content;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     .nombre {
       font-weight: $titleWeight;
       font-size: $subtSize;
+      line-height: 1.1;
     }
     .descripcion {
+      @include center;
+      justify-content: start;
       font-size: 4.2vw;
+      margin-top: 5vw;
+      padding-bottom: 5vw;
     }
     .nombreDescrImg {
+      position: relative;
       display: flex;
       justify-content: space-between;
       width: 100%;
-      .nombre {
-        font-weight: $titleWeight;
-        font-size: $subtSize;
-      }
-      .descripcion {
-        font-size: 4.2vw;
-      }
+      min-height: 25vw;
+      // border: 1px solid red;
       .nombreDescr {
-        width: 60%;
-        .nombre {
-          font-weight: $titleWeight;
-          font-size: $subtSize;
-        }
-        .descripcion {
-          font-size: 4.2vw;
-        }
+        width: 62%;
       }
       .imagenContainer {
+        position: absolute;
+        right: 0;
         height: 100%;
         display: flex;
-        align-items: end;
+        align-items: center;
+        // border: 1px solid blue;
         .imagen {
           width: 25vw;
           height: 25vw;
           object-fit: cover;
           border-radius: 5vw;
+          filter: brightness(0.97);
         }
       }
     }
@@ -97,7 +91,7 @@
       display: flex;
       justify-content: space-between;
       flex-direction: row-reverse;
-      margin-top: 10%;
+      // margin-top: 5vw;
       .precio {
         font-weight: $titleWeight;
         font-size: 5vw;
@@ -212,38 +206,46 @@
     flex-direction: column;
     justify-content: space-between;
     min-width: 23vw;
-    //max-width: 50%;
+    max-width: 50%;
     min-height: 10vw !important;
+
     .nombre {
       font-weight: $titleWeight;
       font-size: $subtSizePC;
+      line-height: 1.1;
     }
     .descripcion {
+      @include center;
+      justify-content: start;
       font-size: $descrSizePC;
+      margin-top: 0.8vw;
+      padding-bottom: 1vw;
+      // border: 1px solid green;
     }
     .nombreDescrImg {
+      position: relative;
       display: flex;
       justify-content: space-between;
       width: 100%;
+      min-height: 6vw;
+      // border: 1px solid red;
       .nombreDescr {
         width: 72%;
-        .nombre {
-          font-weight: $titleWeight;
-          font-size: $subtSizePC;
-        }
-        .descripcion {
-          font-size: $descrSizePC;
-        }
       }
       .imagenContainer {
+        position: absolute;
+        right: 0;
         height: 100%;
         display: flex;
-        align-items: end;
+        align-items: center;
+        // border: 1px solid blue;
+        min-height: 6vw;
         .imagen {
           width: 5vw;
           height: 5vw;
           object-fit: cover;
           border-radius: 1vw;
+          filter: brightness(0.97);
         }
       }
     }
@@ -252,7 +254,7 @@
       display: flex;
       justify-content: space-between;
       flex-direction: row-reverse;
-      margin-top: 4%;
+      // margin-top: 0.8vw;
       .precio {
         font-weight: $titleWeight;
         font-size: 1.4vw;

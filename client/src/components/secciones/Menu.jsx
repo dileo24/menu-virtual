@@ -180,10 +180,10 @@ export default function Menu({
                           </div>
                         </div>
                       ) : (
-                        <>
+                        <div>
                           <p className="nombre">{nombre}</p>
                           <p className="descripcion">{descripcion}</p>
-                        </>
+                        </div>
                       )}
 
                       <div className="precioAcciones">
@@ -305,10 +305,10 @@ export default function Menu({
                                   </div>
                                 </div>
                               ) : (
-                                <>
+                                <div>
                                   <p className="nombre">{nombre}</p>
                                   <p className="descripcion">{descripcion}</p>
-                                </>
+                                </div>
                               )}
                               <div className="precioAcciones">
                                 <div className="acciones">
@@ -436,10 +436,10 @@ export default function Menu({
                             </div>
                           </div>
                         ) : (
-                          <>
+                          <div>
                             <p className="nombre">{nombre}</p>
                             <p className="descripcion">{descripcion}</p>
-                          </>
+                          </div>
                         )}
                         <div className="precioAcciones">
                           <div className="acciones">
@@ -549,10 +549,10 @@ export default function Menu({
                                     </div>
                                   </div>
                                 ) : (
-                                  <>
+                                  <div>
                                     <p className="nombre">{nombre}</p>
                                     <p className="descripcion">{descripcion}</p>
-                                  </>
+                                  </div>
                                 )}
                                 <div className="precioAcciones">
                                   <div className="acciones">
