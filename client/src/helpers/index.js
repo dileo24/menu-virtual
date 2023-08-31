@@ -7,10 +7,10 @@
 const url = "https://menu-virtual-production-9dbc.up.railway.app/productos";
 
 // CREACION el nuevo producto en la BDD cuando se crea un nuevo producto:
-export const nuevoProducto = (producto, token) => {
+export const nuevoProducto = async (producto, token) => {
   // console.log(producto, token);
   try {
-    fetch(url, {
+    await fetch(url, {
       method: "POST",
       body: JSON.stringify(producto),
       headers: {
