@@ -100,7 +100,11 @@ export default function Items({ setItemProd, prodID }) {
                       { length: prod[0].cantidadPersonas },
                       (_, personaIndex) => (
                         <div key={personaIndex} className="cardItemCont">
-                          <p className="persona">Persona {personaIndex + 1}</p>
+                          {prod[0].cantidadPersonas > 1 && (
+                            <p className="persona">
+                              Persona {personaIndex + 1}
+                            </p>
+                          )}
                           {prod[0].itemsExtra.map(
                             (categoria, categoriaIndex) => {
                               const itemsFiltrados = itemsExtraState.filter(

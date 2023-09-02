@@ -55,7 +55,7 @@ export default function Menu({
     categ !== "todas" ? prod.categoria.nombre === categ : prod
   );
 
-  console.log(productos);
+  // console.log(productos);
 
   // Filtrar los productos por categoría
   const filtrarProductosPorCategoria = (categoria) => {

@@ -72,7 +72,7 @@
     "subcategoriaID": "",
     "nombre": "Licuados para 2 personas",
     "descripcion": "2 Licuados, 4 criollos o medialunas y jugo de naranja",
-    "imagen": "https://www.mexicoenmicocina.com/wp-content/uploads/2018/03/Licuado-de-Yogurt-con-fresas-y-platano-1-500x500.jpg",
+    "imagen": "https://assets.epicurious.com/photos/5cc8a46b8cd5d0f5fdc48efa/1:1/w_2560%2Cc_limit/Strawberry-Smoothie-recipe-04242019.jpg",
     "precio": "3200",
     "categoriaID": "1",
     "itemsExtra": [
@@ -107,7 +107,8 @@
     "categoriaID": "1",
     "itemsExtra": [
       "Licuados",
-      "Postres"
+      "Panadería",
+      "Panadería"
     ],
     "cantidadPersonas": "4",
     "combo": true
