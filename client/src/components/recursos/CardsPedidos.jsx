@@ -15,7 +15,12 @@ import { TbBrandCashapp } from "react-icons/tb";
 import { AiOutlineCreditCard } from "react-icons/ai";
 import io from "socket.io-client";
 
-export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
+export default function CardsPedidos({
+  estado,
+  openCardId,
+  setOpenCardId,
+  currentSlide,
+}) {
   const pedidos = useSelector((state) => state.pedidos);
   const estados = useSelector((state) => state.estados);
   // const tipoPagos = useSelector((state) => state.tipoPagos);
@@ -24,6 +29,7 @@ export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
   const token = useSelector((state) => state.userActual.tokenSession);
   const [socket, setSocket] = useState(null);
   const productos = useSelector((state) => state.productos);
+  const vertical = window.innerHeight > window.innerWidth;
 
   useEffect(() => {
     dispatch(getPedidos());
@@ -112,6 +118,12 @@ export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
     }
   };
 
+  const openCardOnly = (id) => {
+    if (openCardId !== id) {
+      setOpenCardId(id); // Abrir la tarjeta con el ID especificado
+    }
+  };
+
   const sortedPedidos = pedidos.sort((a, b) => {
     const horaA = a.creacionHora;
     const horaB = b.creacionHora;
@@ -129,8 +141,26 @@ export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
     return items;
   };
 
+  useEffect(() => {
+    setOpenCardId(null);
+  }, [currentSlide]);
+
+  const diapoContainerPC = document.querySelectorAll(".diapoContainerPC");
+  if (diapoContainerPC) {
+    diapoContainerPC.forEach((subdiapoContainerPC) => {
+      subdiapoContainerPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+    });
+  }
+
+  const asideHeaderPC = document.querySelectorAll(".asideHeaderPC");
+  if (asideHeaderPC) {
+    asideHeaderPC.forEach((subasideHeaderPC) => {
+      subasideHeaderPC.style.height = `calc(${window.innerHeight}px - 12vh)`;
+    });
+  }
+
   return (
-    <div className="diapoContainer">
+    <div className={vertical ? "diapoContainerMobile" : "diapoContainerPC"}>
       {pedidos &&
         pedidos
           .filter((pedido) => (estado ? pedido.EstadoId === estado : true))
@@ -147,7 +177,13 @@ export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
               id,
               estadoID,
             }) => (
-              <div className="cardPedido" key={id}>
+              <div
+                className="cardPedido"
+                key={id}
+                onClick={() => {
+                  !vertical && openCardOnly(id);
+                }}
+              >
                 <div className="mainCard">
                   <div className="supBar">
                     <div className="mesaEstado">
@@ -199,10 +235,14 @@ export default function CardsPedidos({ estado, openCardId, setOpenCardId }) {
                       </p>
                     </div>
                     <div className="hora">{creacionHora}</div>
-                    <div
-                      className={openCardId === id ? "arrow-up" : "arrow-down"}
-                      onClick={() => openCard(id)}
-                    ></div>
+                    {vertical && (
+                      <div
+                        className={
+                          openCardId === id ? "arrow-up" : "arrow-down"
+                        }
+                        onClick={() => openCard(id)}
+                      ></div>
+                    )}
                   </div>
                   {openCardId === id && (
                     <>

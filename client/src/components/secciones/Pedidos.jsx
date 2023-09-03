@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import Filtros from "../recursos/Filtros";
 import CardsPedidos from "../recursos/CardsPedidos";
 
-import io from "socket.io-client";
+// import io from "socket.io-client";
 
 import Swipe from "react-swipe";
 
@@ -21,6 +21,7 @@ export default function Pedidos() {
   const estados = useSelector((state) => state.estados);
   // const [nuevosPedidos, setNuevosPedidos] = useState([]);
   const [openCardId, setOpenCardId] = useState(null);
+  const vertical = window.innerHeight > window.innerWidth;
 
   useEffect(() => {
     scrollToEstadoActive();
@@ -35,6 +36,7 @@ export default function Pedidos() {
       const diapoContainerHeight = diapo.offsetHeight;
       const swipe = document.querySelector(".swipe");
       swipe.style.maxHeight = `${diapoContainerHeight}px`;
+      swipe.style.minHeight = `calc(${window.innerHeight}px - 12vh)`;
     }
   }, [currentSlide, openCardId]);
 
@@ -62,26 +64,38 @@ export default function Pedidos() {
   };
 
   useEffect(() => {
-    const pedidosContainer = document.querySelector(".pedidosContainer");
-    if (pedidosContainer) {
-      pedidosContainer.style.minHeight = `calc(${window.innerHeight}px)`;
+    const pedidosContainerMobile = document.querySelector(
+      ".pedidosContainerMobile"
+    );
+    if (pedidosContainerMobile) {
+      pedidosContainerMobile.style.minHeight = `calc(${window.innerHeight}px)`;
     }
   }, [currentSlide, openCardId]);
 
+  useEffect(() => {
+    const estados = document.querySelector(".estados");
+    if (estados && !vertical) {
+      estados.style.minHeight = `calc(${window.innerHeight}px - 12vh)`;
+    }
+  }, []);
+
   return (
-    <div id="productos" className="pedidosContainer">
+    <div
+      id="productos"
+      className={vertical ? "pedidosContainerMobile" : "pedidosContainerPC"}
+    >
       <div className="header">
         <Header />
-        <h1 className="pedidosTitle">Pedidos</h1>
-        <div className="navbar">
-          {/* <Filtros
+        {vertical && <h1 className="pedidosTitle">Pedidos</h1>}
+        {/* <div className="navbar">
+          <Filtros
             searchType="pedidos"
             searchWord={"pedidos"}
             setBusqueda={setBusqueda}
             setCheckAlertaError={setCheckAlertaError}
             className="navbar"
-          /> */}
-        </div>
+          />
+        </div> */}
         <div
           className="estados"
           ref={scrollableRef}
@@ -135,7 +149,9 @@ export default function Pedidos() {
             estado={false}
             openCardId={openCardId}
             setOpenCardId={setOpenCardId}
+            currentSlide={currentSlide}
           />
+          {!vertical && <div className="asideHeaderPC"></div>}
         </div>
 
         {/* Pendientes */}
@@ -144,7 +160,9 @@ export default function Pedidos() {
             estado={1}
             openCardId={openCardId}
             setOpenCardId={setOpenCardId}
+            currentSlide={currentSlide}
           />
+          {!vertical && <div className="asideHeaderPC"></div>}
         </div>
 
         {/* Entregados */}
@@ -153,7 +171,9 @@ export default function Pedidos() {
             estado={2}
             openCardId={openCardId}
             setOpenCardId={setOpenCardId}
+            currentSlide={currentSlide}
           />
+          {!vertical && <div className="asideHeaderPC"></div>}
         </div>
 
         {/* Pagados */}
@@ -162,7 +182,9 @@ export default function Pedidos() {
             estado={3}
             openCardId={openCardId}
             setOpenCardId={setOpenCardId}
+            currentSlide={currentSlide}
           />
+          {!vertical && <div className="asideHeaderPC"></div>}
         </div>
 
         {/* Cancelados */}
@@ -171,7 +193,9 @@ export default function Pedidos() {
             estado={4}
             openCardId={openCardId}
             setOpenCardId={setOpenCardId}
+            currentSlide={currentSlide}
           />
+          {!vertical && <div className="asideHeaderPC"></div>}
         </div>
       </Swipe>
     </div>

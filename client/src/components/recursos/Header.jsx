@@ -152,7 +152,7 @@ export default function Header({
 
   const ocultarNavSide = () => {
     const navSide = document.querySelector(".navSide");
-    if (navSide) {
+    if (navSide && vertical) {
       navSide.classList.add("animate-left");
       setTimeout(() => {
         navSide.classList.remove("animate-left");
@@ -254,7 +254,9 @@ export default function Header({
 
                 {(vertical && navSideOpen) || !vertical ? (
                   <div className="navSideCont">
-                    <div className="navSide animate-right">
+                    <div
+                      className={`navSide ${vertical ? "animate-right" : ""}`}
+                    >
                       {vertical && (
                         <div className="navSideHeader">
                           <div
